@@ -207,6 +207,8 @@ typedef struct mips_elf_abiflags_v0 {
 
 #define EF_AVR_MACH     0x7F       /* Mask for AVR e_flags to get core type */
 
+#define EM_KVX          0x100  /* Kalray KVX */
+
 /* This is the info that is needed to parse the dynamic section of the file */
 #define DT_NULL		0
 #define DT_NEEDED	1

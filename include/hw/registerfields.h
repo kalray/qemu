@@ -30,6 +30,10 @@
     enum { A_ ## reg = (addr) };                                          \
     enum { R_ ## reg = (addr) / 2 };
 
+#define REG64(reg, addr)                                                  \
+    enum { A_ ## reg = (addr) };                                          \
+    enum { R_ ## reg = (addr) / 8 };
+
 /* Define SHIFT, LENGTH and MASK constants for a field within a register */
 
 /* This macro will define R_FOO_BAR_MASK, R_FOO_BAR_SHIFT and R_FOO_BAR_LENGTH

@@ -42,7 +42,7 @@
 #include "hw/boards.h"
 #endif
 
-#define MAX_PACKET_LENGTH 4096
+#define MAX_PACKET_LENGTH 8192
 
 #include "qemu/sockets.h"
 #include "sysemu/hw_accel.h"
@@ -2179,6 +2179,9 @@ static void handle_query_supported(GArray *params, void *user_ctx)
     }
 
     g_string_append(gdbserver_state.str_buf, ";vContSupported+;multiprocess+");
+    g_string_append(gdbserver_state.str_buf, ";qXfer:threads:read+");
+    g_string_append(gdbserver_state.str_buf, ";qXfer:osdata:read+");
+
     put_strbuf();
 }
 
@@ -2280,6 +2283,105 @@ static void handle_query_xfer_auxv(GArray *params, void *user_ctx)
                       gdbserver_state.str_buf->len, true);
 }
 #endif
+
+static const char *get_threads_xml(GDBProcess *process)
+{
+    CPUState *cpu;
+    char *buf = process->target_xml;
+    const size_t buf_sz = sizeof(process->target_xml);
+    g_autoptr(GString) tid = g_string_new(NULL);
+
+    snprintf(buf, buf_sz, "<?xml version=\"1.0\"?><threads>");
+
+    cpu = get_first_cpu_in_process(process);
+    while (cpu) {
+        g_string_set_size(tid, 0);
+        gdb_append_thread_id(cpu, tid);
+        pstrcat(buf, buf_sz, "<thread id=\"");
+        pstrcat(buf, buf_sz, tid->str);
+        pstrcat(buf, buf_sz, "\" name=\"");
+        pstrcat(buf, buf_sz, tid->str);
+        pstrcat(buf, buf_sz, "\"></thread>");
+        cpu = gdb_next_cpu_in_process(cpu);
+    }
+
+    pstrcat(buf, buf_sz, "</threads>");
+    return buf;
+}
+
+static void handle_query_xfer_threads(GArray *params, void *user_ctx)
+{
+    GDBProcess *process;
+    unsigned long len, total_len, addr;
+    const char *xml;
+
+    if (params->len < 2) {
+        put_packet("E22");
+        return;
+    }
+
+    process = gdb_get_cpu_process(gdbserver_state.g_cpu);
+    addr = get_param(params, 0)->val_ul;
+    len = get_param(params, 1)->val_ul;
+    xml = get_threads_xml(process);
+    total_len = strlen(xml);
+    if (addr > total_len) {
+        put_packet("E00");
+        return;
+    }
+
+    if (len > (MAX_PACKET_LENGTH - 5) / 2) {
+        len = (MAX_PACKET_LENGTH - 5) / 2;
+    }
+
+    if (len < total_len - addr) {
+        g_string_assign(gdbserver_state.str_buf, "m");
+        memtox(gdbserver_state.str_buf, xml + addr, len);
+    } else {
+        g_string_assign(gdbserver_state.str_buf, "l");
+        memtox(gdbserver_state.str_buf, xml + addr, total_len - addr);
+    }
+
+    put_strbuf();
+}
+
+static void handle_query_xfer_osdata(GArray *params, void *user_ctx)
+{
+    unsigned long len, total_len, addr;
+    const char *xml;
+
+    if (params->len < 2) {
+        put_packet("E22");
+        return;
+    }
+
+    addr = get_param(params, 0)->val_ul;
+    len = get_param(params, 1)->val_ul;
+    xml = "<?xml version=\"1.0\"?>"
+          "<!DOCTYPE target SYSTEM \"osdata.dtd\">"
+          "<osdata type=\"processes\">"
+          "</osdata>";
+
+    total_len = strlen(xml);
+    if (addr > total_len) {
+        put_packet("E00");
+        return;
+    }
+
+    if (len > (MAX_PACKET_LENGTH - 5) / 2) {
+        len = (MAX_PACKET_LENGTH - 5) / 2;
+    }
+
+    if (len < total_len - addr) {
+        g_string_assign(gdbserver_state.str_buf, "m");
+        memtox(gdbserver_state.str_buf, xml + addr, len);
+    } else {
+        g_string_assign(gdbserver_state.str_buf, "l");
+        memtox(gdbserver_state.str_buf, xml + addr, total_len - addr);
+    }
+
+    put_strbuf();
+}
 
 static void handle_query_attached(GArray *params, void *user_ctx)
 {
@@ -2394,6 +2496,19 @@ static const GdbCmdParseEntry gdb_gen_query_table[] = {
         .schema = "l,l0"
     },
 #endif
+    {
+        .handler = handle_query_xfer_threads,
+        .cmd = "Xfer:threads:read::",
+        .cmd_startswith = 1,
+        .schema = "l,l0"
+    },
+    {
+        .handler = handle_query_xfer_osdata,
+        .cmd = "Xfer:osdata:read::",
+        .cmd_startswith = 1,
+        .schema = "l,l0"
+    },
+
     {
         .handler = handle_query_attached,
         .cmd = "Attached:",

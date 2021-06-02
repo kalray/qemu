@@ -253,6 +253,10 @@ enum bfd_architecture
 #define bfd_mach_rx            0x75
 #define bfd_mach_rx_v2         0x76
 #define bfd_mach_rx_v3         0x77
+  bfd_arch_kvx,        /* Kalray VLIW core of the MPPA processor family */
+#define bfd_mach_kv3_1                0
+#define bfd_mach_kv3_1_64             1
+#define bfd_mach_kv3_1_usr            2
   bfd_arch_last
   };
 #define bfd_mach_s390_31 31
@@ -462,6 +466,7 @@ int print_insn_riscv32          (bfd_vma, disassemble_info*);
 int print_insn_riscv64          (bfd_vma, disassemble_info*);
 int print_insn_rx(bfd_vma, disassemble_info *);
 int print_insn_hexagon(bfd_vma, disassemble_info *);
+int print_insn_kvx              (bfd_vma, disassemble_info*);
 
 #ifdef CONFIG_CAPSTONE
 bool cap_disas_target(disassemble_info *info, uint64_t pc, size_t size);

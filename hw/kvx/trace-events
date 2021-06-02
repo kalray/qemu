@@ -1,0 +1,24 @@
+# ipi-ctrl.c
+kvx_ipi_ctrl_send_irq(int to) "to cpu:%d"
+kvx_ipi_ctrl_write(uint64_t offset, uint64_t value) "offset:0x%" PRIx64 ", value:0x%" PRIx64
+kvx_ipi_ctrl_read(uint64_t offset, uint64_t value) "offset:0x%" PRIx64 ", value:0x%" PRIx64
+
+# pwr-ctrl.c
+kvx_pwr_ctrl_wakeup_cpu(int cpu, uint64_t pc) "cpu:%d, reset pc:0x%016" PRIx64
+kvx_pwr_ctrl_write(uint64_t offset, uint64_t value) "offset:0x%" PRIx64 ", value:0x%" PRIx64
+kvx_pwr_ctrl_read(uint64_t offset, uint64_t value) "offset:0x%" PRIx64 ", value:0x%" PRIx64
+
+# apic-gic.c
+kvx_apic_gic_write(size_t group, size_t line, uint64_t offset, uint64_t value, unsigned size) "group: %zu, line: %zu, offset: 0x%" PRIx64 ", value: 0x%" PRIx64 ", size: %u"
+kvx_apic_gic_read(size_t group, size_t line, uint64_t offset, uint64_t value, unsigned size) "group: %zu, line: %zu, offset: 0x%" PRIx64 ", value: 0x%" PRIx64 ", size: %u"
+kvx_apic_gic_irq_in_update(int irq_in, int level) "irq: %d, level: %d"
+
+# apic-mailbox.c
+kvx_apic_mailbox_write(size_t mb, uint64_t offset, uint64_t value) "mailbox: %zu, offset: 0x%" PRIx64 ", value: 0x%" PRIx64
+kvx_apic_mailbox_read(size_t mb, uint64_t offset, uint64_t value) "mailbox: %zu, offset: 0x%" PRIx64 ", value: 0x%" PRIx64
+kvx_apic_mailbox_irq(size_t mb) "mailbox: %zu"
+
+# itgen.c
+kvx_itgen_write(uint64_t offset, uint64_t value) "offset:0x%" PRIx64 ", value:0x%" PRIx64
+kvx_itgen_read(uint64_t offset, uint64_t value) "offset:0x%" PRIx64 ", value:0x%" PRIx64
+kvx_itgen_send_msi(uint64_t addr, uint32_t val) "mailbox addr:0x%" PRIx64 ", value:0x%" PRIx32
