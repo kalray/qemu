@@ -63,7 +63,7 @@ static inline uint64_t get_mmu_ps(CPUKVXState *env, bool ifetch)
 {
     uint64_t ps = kvx_register_read_u64(env, REG_kv3_PS);
 
-    if ((!ifetch) && FIELD_EX64(ps, kv3_PS, DAUS)) {
+    if ((!ifetch) && KVX_FIELD_EX64(ps, kv3_PS, DAUS)) {
         return kvx_register_read_aliased_u64(env, REG_kv3_SPS);
     }
 
@@ -75,12 +75,12 @@ static inline unsigned kvx_cpu_clock_period_ns(void)
     return icount_enabled() ? icount_to_ns(1) : KVX_CPU_DEFAULT_CLOCK_PERIOD_NS;
 }
 
-#define PACK_FIELD(packed_, total_, syndrome_, field_)             \
-    do {                                                           \
-        (packed_) |= (((syndrome_) & R_kv3_ES_ ## field_ ## _MASK) \
-                      >> (R_kv3_ES_ ## field_ ## _SHIFT))          \
-                      << (total_);                                 \
-        (total_) += R_kv3_ES_ ## field_ ## _LENGTH;                \
+#define PACK_FIELD(packed_, total_, syndrome_, field_)               \
+    do {                                                             \
+        (packed_) |= (((syndrome_) & KVX_FIELD_MASK(kv3_ES, field_)) \
+                      >> KVX_FIELD_SHIFT(kv3_ES, field_)             \
+                      << (total_));                                  \
+        (total_) += KVX_FIELD_LENGTH(kv3_ES, field_);                \
     } while (0)
 
 
@@ -95,7 +95,7 @@ static inline target_ulong insn_syndrome_pack(uint64_t syndrome)
     target_ulong ret = 0;
 
     /* This function should be used for memory access instructions only */
-    g_assert(FIELD_EX64(syndrome, kv3_ES, AS));
+    g_assert(KVX_FIELD_EX64(syndrome, kv3_ES, AS));
 
     PACK_FIELD(ret, total, syndrome, BS);
     PACK_FIELD(ret, total, syndrome, AS);
@@ -109,12 +109,13 @@ static inline target_ulong insn_syndrome_pack(uint64_t syndrome)
 
 #undef PACK_FIELD
 
-#define UNPACK_FIELD(packed_, field_)                                                 \
-    ({                                                                                \
-        uint64_t v = ((packed_) & MAKE_64BIT_MASK(0, R_kv3_ES_ ## field_ ## _LENGTH)) \
-            << R_kv3_ES_ ## field_ ## _SHIFT;                                         \
-        (packed_) >>= R_kv3_ES_ ## field_ ## _LENGTH;                                 \
-        v;                                                                            \
+#define UNPACK_FIELD(packed_, field_)                               \
+    ({                                                              \
+        uint64_t v = ((packed_)                                     \
+            & MAKE_64BIT_MASK(0, KVX_FIELD_LENGTH(kv3_ES, field_))) \
+            << KVX_FIELD_SHIFT(kv3_ES, field_);                     \
+        (packed_) >>= KVX_FIELD_LENGTH(kv3_ES, field_);             \
+        v;                                                          \
      })
 
 /*

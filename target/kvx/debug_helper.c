@@ -119,16 +119,16 @@ void kvx_reg_write_dc(KVXCPU *cpu, Register reg, uint64_t val)
     uint64_t old = kvx_register_read_u64(&cpu->env, REG_kv3_DC);
     kvx_register_write_u64(&cpu->env, REG_kv3_DC, val);
 
-    if ((old ^ val) & (R_kv3_DC_BE0_MASK | R_kv3_DC_BR0_MASK)) {
+    if ((old ^ val) & (KVX_FIELD_MASK(kv3_DC, BE0) | KVX_FIELD_MASK(kv3_DC, BR0))) {
         update_breakpoint(&cpu->env, 0);
     }
-    if ((old ^ val) & (R_kv3_DC_BE1_MASK | R_kv3_DC_BR1_MASK)) {
+    if ((old ^ val) & (KVX_FIELD_MASK(kv3_DC, BE1) | KVX_FIELD_MASK(kv3_DC, BR1))) {
         update_breakpoint(&cpu->env, 1);
     }
-    if ((old ^ val) & (R_kv3_DC_WE0_MASK | R_kv3_DC_WR0_MASK)) {
+    if ((old ^ val) & (KVX_FIELD_MASK(kv3_DC, WE0) | KVX_FIELD_MASK(kv3_DC, WR0))) {
         update_watchpoint(&cpu->env, 0);
     }
-    if ((old ^ val) & (R_kv3_DC_WE1_MASK | R_kv3_DC_WR1_MASK)) {
+    if ((old ^ val) & (KVX_FIELD_MASK(kv3_DC, WE1) | KVX_FIELD_MASK(kv3_DC, WR1))) {
         update_watchpoint(&cpu->env, 1);
     }
 }
@@ -189,24 +189,24 @@ static int check_dbg_bp(CPUKVXState *env, int n)
 
 static void QEMU_NORETURN raise_debug(CPUKVXState *env, unsigned cause, uint64_t syndrome)
 {
-    env->excp_syndrome = FIELD_DP64(syndrome, kv3_ES, DC, cause);
+    env->excp_syndrome = KVX_FIELD_DP64(syndrome, kv3_ES, DC, cause);
     HELPER(raise_exception)(env, KVX_EXCP_DEBUG);
 }
 
 void HELPER(raise_debug_step)(CPUKVXState *env)
 {
     uint64_t syndrome = env->excp_syndrome;
-    syndrome &= R_kv3_ES_SFRI_MASK |
-                R_kv3_ES_GPRP_MASK |
-                R_kv3_ES_SFRP_MASK |
-                R_kv3_ES_DHT_MASK |
-                R_kv3_ES_RWX_MASK |
-                R_kv3_ES_NTA_MASK |
-                R_kv3_ES_UCA_MASK |
-                R_kv3_ES_AS_MASK |
-                R_kv3_ES_BS_MASK |
-                R_kv3_ES_DRI_MASK |
-                R_kv3_ES_PIC_MASK;
+    syndrome &= KVX_FIELD_MASK(kv3_ES, SFRI) |
+                KVX_FIELD_MASK(kv3_ES, GPRP) |
+                KVX_FIELD_MASK(kv3_ES, SFRP) |
+                KVX_FIELD_MASK(kv3_ES, DHT) |
+                KVX_FIELD_MASK(kv3_ES, RWX) |
+                KVX_FIELD_MASK(kv3_ES, NTA) |
+                KVX_FIELD_MASK(kv3_ES, UCA) |
+                KVX_FIELD_MASK(kv3_ES, AS) |
+                KVX_FIELD_MASK(kv3_ES, BS) |
+                KVX_FIELD_MASK(kv3_ES, DRI) |
+                KVX_FIELD_MASK(kv3_ES, PIC);
     /*
      * EC, *PL and DC fields will be filled later by
      * the helper or exception function.
@@ -228,7 +228,7 @@ void HELPER(check_raise_debug_breakpoint)(CPUKVXState *env, uint64_t syndrome)
 
     if (bp_n >= 0) {
         /* we've hit a breakpoint */
-        uint64_t es = FIELD_DP64(syndrome, kv3_ES, BN, bp_n);
+        uint64_t es = KVX_FIELD_DP64(syndrome, kv3_ES, BN, bp_n);
         raise_debug(env, DEBUG_BREAKPOINT, es);
     }
 }
@@ -241,7 +241,7 @@ void HELPER(check_step_mode_ready)(CPUKVXState *env)
          * scall handler.
          * Clear SMR and setup a 4bytes bundle syndrome (like scall).
          */
-        uint64_t es = FIELD_DP64(0, kv3_ES, BS, 1);
+        uint64_t es = KVX_FIELD_DP64(0, kv3_ES, BS, 1);
         kvx_register_write_field(env, PS, SMR, 0);
         env->excp_address = 0;
         raise_debug(env, DEBUG_STEP, es);
@@ -269,7 +269,7 @@ void kvx_debug_excp_handler(CPUState *cs)
             cs->watchpoint_hit = NULL;
 
             es = env->excp_syndrome;
-            es = FIELD_DP64(es, kv3_ES, WN, wp_n);
+            es = KVX_FIELD_DP64(es, kv3_ES, WN, wp_n);
 
             env->excp_address = wp_hit->hitaddr;
             raise_debug(env, DEBUG_WATCHPOINT, es);

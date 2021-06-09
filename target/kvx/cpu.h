@@ -200,12 +200,30 @@ static inline uint64_t kvx_regfield_read(CPUArchState *env,
     return extract64(v, rfdescr->offset, rfdescr->width);
 }
 
-#define kvx_register_read_field(env_, reg_, field_) FIELD_EX64( \
+#define KVX_FIELD_MASK(reg_, field_) \
+    (R_ ## reg_ ## _ ## field_ ## _MASK)
+#define KVX_FIELD_LENGTH(reg_, field_) \
+    (R_ ## reg_ ## _ ## field_ ## _LENGTH)
+#define KVX_FIELD_SHIFT(reg_, field_) \
+    (R_ ## reg_ ## _ ## field_ ## _SHIFT)
+
+#define KVX_FIELD_EX64(val_, reg_, field_)    \
+    extract64((val_),                         \
+              KVX_FIELD_SHIFT(reg_, field_),  \
+              KVX_FIELD_LENGTH(reg_, field_))
+
+#define KVX_FIELD_DP64(sto_, reg_, field_, val_) \
+    deposit64((sto_),                            \
+              KVX_FIELD_SHIFT(reg_, field_),     \
+              KVX_FIELD_LENGTH(reg_, field_),    \
+              (val_))
+
+#define kvx_register_read_field(env_, reg_, field_) KVX_FIELD_EX64( \
             kvx_register_read_u64(env_, REG_kv3_##reg_), \
             kv3_##reg_, field_)
 
 #define kvx_register_write_field(env_, reg_, field_, val_) \
-            (*kvx_register_ptr_u64(env_, REG_kv3_##reg_) = FIELD_DP64( \
+            (*kvx_register_ptr_u64(env_, REG_kv3_##reg_) = KVX_FIELD_DP64( \
             kvx_register_read_u64(env_, REG_kv3_##reg_), \
             kv3_##reg_, field_, val_))
 
@@ -429,7 +447,7 @@ static inline bool kvx_arith_irq_enabled(CPUKVXState *env)
     uint64_t csit = kvx_register_read_u64(env, REG_kv3_CSIT);
 
     return (csit & KVX_CSIT_IRQ_MASK)
-        && !FIELD_EX64(csit, kv3_CSIT, AEIR);
+        && !KVX_FIELD_EX64(csit, kv3_CSIT, AEIR);
 }
 
 static inline int kvx_get_step_pl(CPUKVXState *env)

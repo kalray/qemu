@@ -42,14 +42,14 @@ void HELPER(raise_exception)(CPUKVXState *env, uint32_t exception)
 
 void HELPER(raise_trap)(CPUKVXState *env, uint32_t trap, uint64_t syndrome)
 {
-    env->excp_syndrome = FIELD_DP64(syndrome, kv3_ES, HTC, trap);
+    env->excp_syndrome = KVX_FIELD_DP64(syndrome, kv3_ES, HTC, trap);
 
     HELPER(raise_exception)(env, KVX_EXCP_HW_TRAP);
 }
 
 void HELPER(raise_syscall)(CPUKVXState *env, uint64_t scall_num)
 {
-    env->excp_syndrome = FIELD_DP64(0, kv3_ES, SN, scall_num);
+    env->excp_syndrome = KVX_FIELD_DP64(0, kv3_ES, SN, scall_num);
 
     HELPER(raise_exception)(env, KVX_EXCP_SYSCALL);
 }
@@ -112,14 +112,14 @@ void HELPER(check_arith_irq)(CPUKVXState *env, uint64_t cs_mask, uint64_t pc)
         i++;
     }
 
-    csit = FIELD_DP64(csit, kv3_CSIT, AEIR, 1);
-    csit = FIELD_DP64(csit, kv3_CSIT, AEC, aec);
+    csit = KVX_FIELD_DP64(csit, kv3_CSIT, AEIR, 1);
+    csit = KVX_FIELD_DP64(csit, kv3_CSIT, AEC, aec);
 
     /*
      * Always consider PC is saved into AESPC. This is not always true on real
      * hardware.
      */
-    csit = FIELD_DP64(csit, kv3_CSIT, SPCV, 1);
+    csit = KVX_FIELD_DP64(csit, kv3_CSIT, SPCV, 1);
 
     kvx_register_write_u64(env, REG_kv3_CSIT, csit);
     kvx_register_write_u64(env, REG_kv3_AESPC, pc);
@@ -174,14 +174,14 @@ void HELPER(rfe)(CPUKVXState *env, uint64_t syndrome)
     cur_ps = kvx_register_read_u64(env, REG_kv3_PS);
     cur_sps = kvx_register_read_u64(env, REG_kv3_SPS_PLx(cur_pl));
 
-    target_pl = cur_pl + FIELD_EX64(cur_sps, kv3_PS, PL);
+    target_pl = cur_pl + KVX_FIELD_EX64(cur_sps, kv3_PS, PL);
     if (target_pl > 3) {
         HELPER(raise_trap)(env, TRAP_PL_OVERFLOW, syndrome);
         return;
     }
 
     /* PS <- SPS_PL<i> */
-    new_ps = FIELD_DP64(cur_sps, kv3_PS, PL, target_pl);
+    new_ps = KVX_FIELD_DP64(cur_sps, kv3_PS, PL, target_pl);
     kvx_register_write_u64(env, REG_kv3_PS, new_ps);
 
     /*
@@ -190,8 +190,8 @@ void HELPER(rfe)(CPUKVXState *env, uint64_t syndrome)
      * state of PL<i>, atomic with the preceding step, this is really a swap).
      */
     if (cur_pl != target_pl) {
-        uint64_t mask = kv3_PS_FOE01_MASK | R_kv3_PS_IL_MASK |
-                        R_kv3_PS_PL_MASK;
+        uint64_t mask = kv3_PS_FOE01_MASK | KVX_FIELD_MASK(kv3_PS, IL) |
+                        KVX_FIELD_MASK(kv3_PS, PL);
         new_sps = cur_sps & mask;
         new_sps |= cur_ps & ~mask;
         kvx_register_write_u64(env, REG_kv3_SPS_PLx(cur_pl), new_sps);
@@ -756,7 +756,7 @@ uint64_t HELPER(iget_check_access)(CPUKVXState *env, uint32_t sfr,
     g_assert(sfr < REGFILE_MAPPING[REGFILE_kv3_SFR].size);
     reg = REGFILE_MAPPING[REGFILE_kv3_SFR].registers[sfr];
 
-    syndrome = FIELD_DP64(syndrome, kv3_ES, SFRP, sfr);
+    syndrome = KVX_FIELD_DP64(syndrome, kv3_ES, SFRP, sfr);
 
     /* first check if this kind of access is legal on the register */
     if (!kvx_register_support_access(reg, REG_ACCESS_GET)) {
@@ -774,7 +774,7 @@ uint64_t HELPER(iget_check_access)(CPUKVXState *env, uint32_t sfr,
     }
 
     /* also update excp_syndrome in case we are in step mode */
-    env->excp_syndrome = FIELD_DP64(env->excp_syndrome, kv3_ES, SFRP, sfr);
+    env->excp_syndrome = KVX_FIELD_DP64(env->excp_syndrome, kv3_ES, SFRP, sfr);
 
     return 1;
 }

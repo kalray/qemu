@@ -176,8 +176,8 @@ bool kvx_cpu_exec_interrupt(CPUState *cs, int interrupt_request)
 
             /* fill syndrome information */
             es = 0;
-            es = FIELD_DP64(es, kv3_ES, ITN, irq);
-            es = FIELD_DP64(es, kv3_ES, ITL, kvx_get_irq_ll(env, irq));
+            es = KVX_FIELD_DP64(es, kv3_ES, ITN, irq);
+            es = KVX_FIELD_DP64(es, kv3_ES, ITL, kvx_get_irq_ll(env, irq));
             /* TODO ES.ITI */
             env->excp_syndrome = es;
 
@@ -194,7 +194,7 @@ bool kvx_cpu_exec_interrupt(CPUState *cs, int interrupt_request)
 static inline int kvx_get_syscall_target_pl(CPUKVXState *env)
 {
     uint64_t syo = kvx_register_read_u64(env, REG_kv3_SYO);
-    uint64_t sn = FIELD_EX64(env->excp_syndrome, kv3_ES, SN);
+    uint64_t sn = KVX_FIELD_EX64(env->excp_syndrome, kv3_ES, SN);
 
     return (syo >> ((sn >> 10) << 1)) & 0x3;
 }
@@ -208,7 +208,7 @@ static inline int kvx_get_trap_target_pl(CPUKVXState *env,
         return kvx_get_current_pl(env);
     }
 
-    htc = FIELD_EX64(env->excp_syndrome, kv3_ES, HTC);
+    htc = KVX_FIELD_EX64(env->excp_syndrome, kv3_ES, HTC);
 
     switch (htc) {
         case TRAP_OPCODE:
@@ -251,17 +251,17 @@ static inline int kvx_get_debug_target_pl(CPUKVXState *env)
 {
     uint64_t dc;
 
-    dc = FIELD_EX64(env->excp_syndrome, kv3_ES, DC);
+    dc = KVX_FIELD_EX64(env->excp_syndrome, kv3_ES, DC);
 
     switch (dc) {
         uint64_t n;
 
     case DEBUG_BREAKPOINT:
-        n = FIELD_EX64(env->excp_syndrome, kv3_ES, BN);
+        n = KVX_FIELD_EX64(env->excp_syndrome, kv3_ES, BN);
         return kvx_get_bp_pl(env, n);
 
     case DEBUG_WATCHPOINT:
-        n = FIELD_EX64(env->excp_syndrome, kv3_ES, WN);
+        n = KVX_FIELD_EX64(env->excp_syndrome, kv3_ES, WN);
         return kvx_get_wp_pl(env, n);
 
     case DEBUG_STEP:
@@ -288,7 +288,7 @@ static int kvx_get_exception_target_pl(CPUKVXState *env, unsigned int excp,
         break;
 
     case KVX_EXCP_INT:
-        target_pl = kvx_get_irq_pl(env, FIELD_EX64(env->excp_syndrome, kv3_ES, ITN));
+        target_pl = kvx_get_irq_pl(env, KVX_FIELD_EX64(env->excp_syndrome, kv3_ES, ITN));
         break;
 
     case KVX_EXCP_HW_TRAP:
@@ -317,16 +317,16 @@ static inline uint64_t compute_exception_target_ps(CPUKVXState *env,
     int il = 0;
 
     if (excp == KVX_EXCP_INT || excp == KVX_EXCP_DOUBLE_INT) {
-        il = kvx_get_irq_ll(env, FIELD_EX64(env->excp_syndrome, kv3_ES, ITN));
+        il = kvx_get_irq_ll(env, KVX_FIELD_EX64(env->excp_syndrome, kv3_ES, ITN));
     }
 
-    cur_ps = FIELD_DP64(cur_ps, kv3_PS, PL, target_pl);
-    cur_ps = FIELD_DP64(cur_ps, kv3_PS, ET, 1);
-    cur_ps = FIELD_DP64(cur_ps, kv3_PS, IE, 0);
-    cur_ps = FIELD_DP64(cur_ps, kv3_PS, IL, il);
-    cur_ps = FIELD_DP64(cur_ps, kv3_PS, HLE, 0);
-    cur_ps = FIELD_DP64(cur_ps, kv3_PS, HTD, 0);
-    cur_ps = FIELD_DP64(cur_ps, kv3_PS, DAUS, 0);
+    cur_ps = KVX_FIELD_DP64(cur_ps, kv3_PS, PL, target_pl);
+    cur_ps = KVX_FIELD_DP64(cur_ps, kv3_PS, ET, 1);
+    cur_ps = KVX_FIELD_DP64(cur_ps, kv3_PS, IE, 0);
+    cur_ps = KVX_FIELD_DP64(cur_ps, kv3_PS, IL, il);
+    cur_ps = KVX_FIELD_DP64(cur_ps, kv3_PS, HLE, 0);
+    cur_ps = KVX_FIELD_DP64(cur_ps, kv3_PS, HTD, 0);
+    cur_ps = KVX_FIELD_DP64(cur_ps, kv3_PS, DAUS, 0);
 
     return cur_ps;
 }
@@ -336,7 +336,7 @@ static inline uint64_t compute_exception_target_sps(CPUKVXState *env,
                                                     uint64_t val,
                                                     int target_pl)
 {
-    val = FIELD_DP64(val, kv3_PS, PL, kvx_get_current_pl(env) - target_pl);
+    val = KVX_FIELD_DP64(val, kv3_PS, PL, kvx_get_current_pl(env) - target_pl);
 
     /*
      * Handle stepping over syscall case, we need to check that:
@@ -346,7 +346,7 @@ static inline uint64_t compute_exception_target_sps(CPUKVXState *env,
     if (kvx_step_mode_enabled(env) &&
         target_pl <= kvx_get_step_pl(env) &&
         excp == KVX_EXCP_SYSCALL) {
-        val = FIELD_DP64(val, kv3_PS, SMR, 1);
+        val = KVX_FIELD_DP64(val, kv3_PS, SMR, 1);
     }
 
     return val;
@@ -361,7 +361,7 @@ static inline uint64_t compute_exception_pc(CPUKVXState *env,
 
     if (hw_trap_disabled) {
         /* Skip the bundle that raised the exception */
-        uint64_t bundle_size = FIELD_EX64(env->excp_syndrome, kv3_ES_PL0, BS);
+        uint64_t bundle_size = KVX_FIELD_EX64(env->excp_syndrome, kv3_ES_PL0, BS);
         return kvx_register_read_u64(env, REG_kv3_PC) + bundle_size * 4;
     }
 
@@ -410,20 +410,20 @@ static inline uint64_t compute_exception_syndrome(CPUKVXState *env,
      */
     uint64_t ret = env->excp_syndrome;
 
-    ret |= (excp << R_kv3_ES_EC_SHIFT)
-        | (cur_pl << R_kv3_ES_OAPL_SHIFT)
-        | ((cur_pl - target_pl) << R_kv3_ES_ORPL_SHIFT)
-        | (prim_pl << R_kv3_ES_PTAPL_SHIFT)
-        | ((prim_pl - target_pl) << R_kv3_ES_PTRPL_SHIFT)
-        | ((uint64_t)hw_trap_disabled << R_kv3_ES_PL0_DHT_SHIFT);
+    ret |= (excp << KVX_FIELD_SHIFT(kv3_ES, EC))
+        | (cur_pl << KVX_FIELD_SHIFT(kv3_ES, OAPL))
+        | ((cur_pl - target_pl) << KVX_FIELD_SHIFT(kv3_ES, ORPL))
+        | (prim_pl << KVX_FIELD_SHIFT(kv3_ES, PTAPL))
+        | ((prim_pl - target_pl) << KVX_FIELD_SHIFT(kv3_ES, PTRPL))
+        | ((uint64_t)hw_trap_disabled << KVX_FIELD_SHIFT(kv3_ES, PL0_DHT));
 
     /* For watchpoints, handle the UCA flag here */
     if ((excp == KVX_EXCP_DEBUG) &&
-        (FIELD_EX64(ret, kv3_ES, DC) == DEBUG_WATCHPOINT)) {
+        (KVX_FIELD_EX64(ret, kv3_ES, DC) == DEBUG_WATCHPOINT)) {
         uint64_t ps = get_mmu_ps(env, false);
 
-        if (!FIELD_EX64(ps, kv3_PS, DCE)) {
-            ret = FIELD_DP64(ret, kv3_ES, UCA, 1);
+        if (!KVX_FIELD_EX64(ps, kv3_PS, DCE)) {
+            ret = KVX_FIELD_DP64(ret, kv3_ES, UCA, 1);
         }
     }
 
@@ -434,7 +434,7 @@ static inline uint64_t compute_exception_address(CPUKVXState *env,
                                                  unsigned int excp)
 {
     if (excp == KVX_EXCP_DEBUG) {
-        uint64_t dc = FIELD_EX64(env->excp_syndrome, kv3_ES, DC);
+        uint64_t dc = KVX_FIELD_EX64(env->excp_syndrome, kv3_ES, DC);
 
         switch (dc) {
         case DEBUG_WATCHPOINT:
@@ -442,7 +442,7 @@ static inline uint64_t compute_exception_address(CPUKVXState *env,
             return env->excp_address;
         }
     } else if ((excp & ~KVX_EXCP_DOUBLE) == KVX_EXCP_HW_TRAP) {
-        uint64_t ec = FIELD_EX64(env->excp_syndrome, kv3_ES, HTC);
+        uint64_t ec = KVX_FIELD_EX64(env->excp_syndrome, kv3_ES, HTC);
 
         switch (ec) {
         case TRAP_DMISALIGN:
@@ -477,7 +477,7 @@ void kvx_cpu_do_interrupt(CPUState *cs)
     cur_pl = kvx_get_current_pl(env);
     cur_ps = kvx_register_read_u64(env, REG_kv3_PS);
 
-    if (FIELD_EX64(cur_ps, kv3_PS, HTD) && (excp == KVX_EXCP_HW_TRAP)) {
+    if (KVX_FIELD_EX64(cur_ps, kv3_PS, HTD) && (excp == KVX_EXCP_HW_TRAP)) {
         hw_trap_disabled = true;
     }
 
@@ -488,7 +488,7 @@ retry_excp:
     /* Note: previous calls should guarantee this */
     g_assert(cur_pl >= target_pl);
 
-    if (FIELD_EX64(cur_ps, kv3_PS, ET) && cur_pl == target_pl) {
+    if (KVX_FIELD_EX64(cur_ps, kv3_PS, ET) && cur_pl == target_pl) {
         /* we must not trigger debug exception on the same pl */
         g_assert(excp != KVX_EXCP_DEBUG);
 
@@ -782,23 +782,23 @@ void kvx_update_cpu_state(CPUKVXState *env, uint64_t ps_mask, uint64_t sps_mask)
     cur_sps = kvx_register_read_aliased_u64(env, REG_kv3_SPS);
     prev_sps = cur_sps ^ cur_sps;
 
-    prev_mmu_ps = FIELD_EX64(prev_ps, kv3_PS, DAUS)
+    prev_mmu_ps = KVX_FIELD_EX64(prev_ps, kv3_PS, DAUS)
         ? prev_ps
         : prev_sps;
 
-    cur_mmu_ps = FIELD_EX64(cur_ps, kv3_PS, DAUS)
+    cur_mmu_ps = KVX_FIELD_EX64(cur_ps, kv3_PS, DAUS)
         ? cur_ps
         : cur_sps;
 
-    if ((prev_mmu_ps ^ cur_mmu_ps) & R_kv3_PS_MME_MASK) {
+    if ((prev_mmu_ps ^ cur_mmu_ps) & KVX_FIELD_MASK(kv3_PS, MME)) {
         tlb_flush(env_cpu(env));
     }
 
-    if (ps_mask & R_kv3_PS_HLE_MASK) {
+    if (ps_mask & KVX_FIELD_MASK(kv3_PS, HLE)) {
         update_hardware_loop(env);
     }
 
-    if (ps_mask & R_kv3_PS_PL_MASK) {
+    if (ps_mask & KVX_FIELD_MASK(kv3_PS, PL)) {
         kvx_update_breakpoints(env);
     }
 }
@@ -921,7 +921,7 @@ void kvx_reg_write_mmc(KVXCPU *cpu, Register reg, uint64_t val)
     cur = kvx_register_read_u64(env, REG_kv3_MMC);
     kvx_register_write_u64(env, REG_kv3_MMC, val);
 
-    if ((val ^ cur) & R_kv3_MMC_ASN_MASK) {
+    if ((val ^ cur) & KVX_FIELD_MASK(kv3_MMC, ASN)) {
         /* ASN changed, flush the QEMU TLB */
         tlb_flush(CPU(cpu));
     }
@@ -1001,16 +1001,16 @@ uint64_t kvx_reg_read_pmcnt(KVXCPU *cpu, Register reg)
     pmc = kvx_register_read_u64(&cpu->env, REG_kv3_PMC);
     switch (n) {
         case 0:
-            mode = FIELD_EX64(pmc, kv3_PMC, PM0C);
+            mode = KVX_FIELD_EX64(pmc, kv3_PMC, PM0C);
             break;
         case 1:
-            mode = FIELD_EX64(pmc, kv3_PMC, PM1C);
+            mode = KVX_FIELD_EX64(pmc, kv3_PMC, PM1C);
             break;
         case 2:
-            mode = FIELD_EX64(pmc, kv3_PMC, PM2C);
+            mode = KVX_FIELD_EX64(pmc, kv3_PMC, PM2C);
             break;
         case 3:
-            mode = FIELD_EX64(pmc, kv3_PMC, PM3C);
+            mode = KVX_FIELD_EX64(pmc, kv3_PMC, PM3C);
             break;
         default:
             g_assert_not_reached();
@@ -1057,23 +1057,23 @@ void kvx_reg_write_pmctl(KVXCPU *cpu, Register reg, uint64_t val)
         Register reg;
         switch (n) {
             case 0:
-                old = FIELD_EX64(pmc, kv3_PMC, PM0C);
-                new = FIELD_EX64(val, kv3_PMC, PM0C);
+                old = KVX_FIELD_EX64(pmc, kv3_PMC, PM0C);
+                new = KVX_FIELD_EX64(val, kv3_PMC, PM0C);
                 reg = REG_kv3_PM0;
                 break;
             case 1:
-                old = FIELD_EX64(pmc, kv3_PMC, PM1C);
-                new = FIELD_EX64(val, kv3_PMC, PM1C);
+                old = KVX_FIELD_EX64(pmc, kv3_PMC, PM1C);
+                new = KVX_FIELD_EX64(val, kv3_PMC, PM1C);
                 reg = REG_kv3_PM1;
                 break;
             case 2:
-                old = FIELD_EX64(pmc, kv3_PMC, PM2C);
-                new = FIELD_EX64(val, kv3_PMC, PM2C);
+                old = KVX_FIELD_EX64(pmc, kv3_PMC, PM2C);
+                new = KVX_FIELD_EX64(val, kv3_PMC, PM2C);
                 reg = REG_kv3_PM2;
                 break;
             case 3:
-                old = FIELD_EX64(pmc, kv3_PMC, PM3C);
-                new = FIELD_EX64(val, kv3_PMC, PM3C);
+                old = KVX_FIELD_EX64(pmc, kv3_PMC, PM3C);
+                new = KVX_FIELD_EX64(val, kv3_PMC, PM3C);
                 reg = REG_kv3_PM3;
                 break;
             default:

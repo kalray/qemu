@@ -229,7 +229,7 @@ static inline void gen_set_excp_address(DisasContext *ctx, TCGv_i64 address)
 
 static inline void gen_init_syndrome(DisasContext *ctx)
 {
-    ctx->bundle.syndrome = FIELD_DP64(0, kv3_ES, BS, ctx->bundle.len);
+    ctx->bundle.syndrome = KVX_FIELD_DP64(0, kv3_ES, BS, ctx->bundle.len);
     if (unlikely(ctx->step_mode_enabled)) {
         TCGv_i64 addr = tcg_const_i64(0);
         gen_update_excp_syndrome(ctx, -1ull);
@@ -238,11 +238,11 @@ static inline void gen_init_syndrome(DisasContext *ctx)
     }
 }
 
-#define FILL_SYNDROME(ctx_, synmask_, field_, val_)                    \
-    do {                                                               \
-        (ctx_)->bundle.syndrome =                                      \
-            FIELD_DP64((ctx_)->bundle.syndrome, kv3_ES, field_, val_); \
-        synmask_ |= R_kv3_ES_ ## field_ ## _MASK;                      \
+#define FILL_SYNDROME(ctx_, synmask_, field_, val_)                        \
+    do {                                                                   \
+        (ctx_)->bundle.syndrome =                                          \
+            KVX_FIELD_DP64((ctx_)->bundle.syndrome, kv3_ES, field_, val_); \
+        synmask_ |= KVX_FIELD_MASK(kv3_ES, field_);                        \
     } while (0)
 
 static inline void gen_fill_syndrome_sfr(DisasContext *ctx, uint32_t sfri,
@@ -354,7 +354,7 @@ static inline void gen_raise_trap(DisasContext *ctx, unsigned int trap_idx)
 
 static inline void gen_raise_trap_opcode(DisasContext *ctx)
 {
-    uint64_t syndrome = FIELD_DP64(0, kv3_ES, BS, ctx->bundle.len);
+    uint64_t syndrome = KVX_FIELD_DP64(0, kv3_ES, BS, ctx->bundle.len);
     gen_raise_trap_with_syndrome(ctx, TRAP_OPCODE, syndrome);
 }
 

@@ -169,7 +169,7 @@ static void pack_and_set_insn_syndrome(DisasContext *ctx)
 {
     uint64_t s = get_syndrome(ctx);
 
-    if (!FIELD_EX64(s, kv3_ES, AS)) {
+    if (!KVX_FIELD_EX64(s, kv3_ES, AS)) {
         /*
          * This is not a memory access. Packing is done for memory accesses
          * only.

@@ -36,16 +36,16 @@ int kvx_cpu_mmu_index(CPUKVXState *env, bool ifetch)
     bool mmup, v64;
     uint64_t ps = get_mmu_ps(env, ifetch);
 
-    v64 = FIELD_EX64(ps, kv3_PS, V64);
+    v64 = KVX_FIELD_EX64(ps, kv3_PS, V64);
     mmu_idx = FIELD_DP64(mmu_idx, TB_STATE, MMU_IDX_V64, v64);
 
-    if (!FIELD_EX64(ps, kv3_PS, MME)) {
+    if (!KVX_FIELD_EX64(ps, kv3_PS, MME)) {
         /* MMU disabled. Do not take into account MMU related flags. */
         return mmu_idx;
     }
 
-    mmup = FIELD_EX64(ps, kv3_PS, MMUP);
-    vs = FIELD_EX64(ps, kv3_PS, VS);
+    mmup = KVX_FIELD_EX64(ps, kv3_PS, MMUP);
+    vs = KVX_FIELD_EX64(ps, kv3_PS, VS);
 
     mmu_idx = FIELD_DP64(mmu_idx, TB_STATE, MMU_IDX_MMUP, mmup);
     mmu_idx = FIELD_DP64(mmu_idx, TB_STATE, MMU_IDX_VS, vs);
@@ -55,7 +55,7 @@ int kvx_cpu_mmu_index(CPUKVXState *env, bool ifetch)
 
 static inline bool tlb_entry_is_valid(const KVXTLBEntry *entry)
 {
-    return FIELD_EX64(entry->low, kv3_TEL, ES) != TLB_ES_INVALID;
+    return KVX_FIELD_EX64(entry->low, kv3_TEL, ES) != TLB_ES_INVALID;
 }
 
 static bool tlb_entry_match(CPUKVXState *env, const KVXTLBEntry *entry,
@@ -71,25 +71,25 @@ static bool tlb_entry_match(CPUKVXState *env, const KVXTLBEntry *entry,
         return false;
     }
 
-    entry_vaddr = sign_extend_vaddr(entry->high & R_kv3_TEH_PN_MASK);
+    entry_vaddr = sign_extend_vaddr(entry->high & KVX_FIELD_MASK(kv3_TEH, PN));
 
-    page_size = FIELD_EX64(entry->low, kv3_TEL, PS);
+    page_size = KVX_FIELD_EX64(entry->low, kv3_TEL, PS);
     page_mask = MMU_PAGE_SIZE_MASK[page_size];
 
     if (entry_vaddr != (vaddr & page_mask)) {
         return false;
     }
 
-    vs = FIELD_EX64(ps, kv3_PS, VS);
+    vs = KVX_FIELD_EX64(ps, kv3_PS, VS);
 
-    if (FIELD_EX64(entry->high, kv3_TEH, VS) != vs) {
+    if (KVX_FIELD_EX64(entry->high, kv3_TEH, VS) != vs) {
         return false;
     }
 
     cur_asn = kvx_register_read_field(env, MMC, ASN);
 
-    if ((!FIELD_EX64(entry->high, kv3_TEH, G))
-        && FIELD_EX64(entry->high, kv3_TEH, ASN) != cur_asn) {
+    if ((!KVX_FIELD_EX64(entry->high, kv3_TEH, G))
+        && KVX_FIELD_EX64(entry->high, kv3_TEH, ASN) != cur_asn) {
         return false;
     }
 
@@ -139,12 +139,12 @@ static inline KVXTLBEntry *find_jtlb_entry(CPUKVXState *env, target_ulong vaddr,
 
     if (ignore_pmj) {
         /* All page sizes enabled during lookup */
-        pmj = (1 << R_kv3_PS_PMJ_LENGTH) - 1;
+        pmj = (1 << KVX_FIELD_LENGTH(kv3_PS, PMJ)) - 1;
     } else {
-        pmj = FIELD_EX64(ps, kv3_PS, PMJ);
+        pmj = KVX_FIELD_EX64(ps, kv3_PS, PMJ);
     }
 
-    for (i = 0; i < (1 << R_kv3_TEL_PS_LENGTH); i++) {
+    for (i = 0; i < (1 << KVX_FIELD_LENGTH(kv3_TEL, PS)); i++) {
         if (!(pmj & (1 << i))) {
             /* This page size is disabled in PS.PMJ */
             continue;
@@ -201,14 +201,14 @@ TLBLookupStatus get_physical_addr(CPUKVXState *env, target_ulong vaddr,
 
     ifetch = (access_type == MMU_INST_FETCH);
     r_ps = get_mmu_ps(env, ifetch);
-    v64 = FIELD_EX64(r_ps, kv3_PS, V64);
+    v64 = KVX_FIELD_EX64(r_ps, kv3_PS, V64);
 
     if (!v64) {
         /* 32 bits mode, mask out virtual address MSBs */
         vaddr &= 0xffffffffull;
     }
 
-    if (!FIELD_EX64(r_ps, kv3_PS, MME)) {
+    if (!KVX_FIELD_EX64(r_ps, kv3_PS, MME)) {
         /* MMU disabled */
 
         if (vaddr >= 1 * TiB) {
@@ -237,12 +237,12 @@ TLBLookupStatus get_physical_addr(CPUKVXState *env, target_ulong vaddr,
         return TLB_LOOKUP_FAIL;
     }
 
-    ps = FIELD_EX64(entry->low, kv3_TEL, PS);
-    pa = FIELD_EX64(entry->low, kv3_TEL, PA);
-    cp = FIELD_EX64(entry->low, kv3_TEL, CP);
+    ps = KVX_FIELD_EX64(entry->low, kv3_TEL, PS);
+    pa = KVX_FIELD_EX64(entry->low, kv3_TEL, PA);
+    cp = KVX_FIELD_EX64(entry->low, kv3_TEL, CP);
     mmup = FIELD_EX64(mmu_idx, TB_STATE, MMU_IDX_MMUP);
 
-    info->paddr = (entry->low & R_kv3_TEL_FN_MASK)
+    info->paddr = (entry->low & KVX_FIELD_MASK(kv3_TEL, FN))
         | (vaddr & ~MMU_PAGE_SIZE_MASK[ps]);
 
     info->page_size = MMU_PAGE_SIZE[ps];
@@ -254,7 +254,7 @@ TLBLookupStatus get_physical_addr(CPUKVXState *env, target_ulong vaddr,
         return TLB_LOOKUP_FAIL;
     }
 
-    es = FIELD_EX64(entry->low, kv3_TEL, ES);
+    es = KVX_FIELD_EX64(entry->low, kv3_TEL, ES);
 
     if (es < TLB_ES_MODIFIED) {
         info->prot &= ~PAGE_WRITE;
@@ -284,10 +284,10 @@ TLBLookupStatus get_physical_addr(CPUKVXState *env, target_ulong vaddr,
 
 static void fill_tlb_excp_syndrome_fetch_side(CPUKVXState *env)
 {
-    env->excp_syndrome = FIELD_DP64(env->excp_syndrome, kv3_ES_PL0, RWX, ES_RWX_FETCH_SIDE);
+    env->excp_syndrome = KVX_FIELD_DP64(env->excp_syndrome, kv3_ES_PL0, RWX, ES_RWX_FETCH_SIDE);
 
     /* BS is unconditionally set to 1 on fetch side fault */
-    env->excp_syndrome = FIELD_DP64(env->excp_syndrome, kv3_ES_PL0, BS, 1);
+    env->excp_syndrome = KVX_FIELD_DP64(env->excp_syndrome, kv3_ES_PL0, BS, 1);
 }
 
 void fill_tlb_excp_syndrome(CPUKVXState *env, target_ulong fault_addr,
@@ -301,12 +301,12 @@ void fill_tlb_excp_syndrome(CPUKVXState *env, target_ulong fault_addr,
 
     uint64_t ps = get_mmu_ps(env, access_type == MMU_INST_FETCH);
 
-    if (!FIELD_EX64(ps, kv3_PS, V64)) {
+    if (!KVX_FIELD_EX64(ps, kv3_PS, V64)) {
         fault_addr &= 0xffffffffull;
     }
 
     env->excp_address = fault_addr;
-    env->excp_syndrome = FIELD_DP64(env->excp_syndrome, kv3_ES_PL0,
+    env->excp_syndrome = KVX_FIELD_DP64(env->excp_syndrome, kv3_ES_PL0,
                                     HTC, fault);
 
     if (access_type == MMU_INST_FETCH) {
@@ -324,7 +324,7 @@ void fill_tlb_excp_syndrome(CPUKVXState *env, target_ulong fault_addr,
 
     if (fault == TRAP_PROTECTION || fault == TRAP_NOMAPPING) {
         kvx_register_write_field(env, MMC, S,
-                                 FIELD_EX64(env->excp_syndrome, kv3_ES, NTA));
+                                 KVX_FIELD_EX64(env->excp_syndrome, kv3_ES, NTA));
     }
 }
 
@@ -398,7 +398,7 @@ static void check_unaligned_crossing_page(CPUState *cs, vaddr addr,
 
     cpu_restore_state(cs, retaddr, false);
 
-    access_size = FIELD_EX64(env->excp_syndrome, kv3_ES, AS);
+    access_size = KVX_FIELD_EX64(env->excp_syndrome, kv3_ES, AS);
     if (access_size == 0x3f) {
         /* dzerol special case */
         access_size = 64;
@@ -532,7 +532,7 @@ void kvx_cpu_do_unaligned_access(CPUState *cs, vaddr addr,
      * helper and do not reach this function.
      */
 
-    if (!FIELD_EX64(mmu_ps, kv3_PS, MME)) {
+    if (!KVX_FIELD_EX64(mmu_ps, kv3_PS, MME)) {
         return;
     }
 
@@ -548,7 +548,7 @@ void kvx_cpu_do_unaligned_access(CPUState *cs, vaddr addr,
 
 static inline void invalidate_entry(CPUState *cpu, const KVXTLBEntry *entry)
 {
-    target_ulong vaddr = entry->high & R_kv3_TEH_PN_MASK;
+    target_ulong vaddr = entry->high & KVX_FIELD_MASK(kv3_TEH, PN);
 
     tlb_flush_page(cpu, vaddr);
 }
@@ -559,10 +559,10 @@ static inline bool check_tlb_entry(uint64_t tel, uint64_t teh)
     uint8_t page_size;
     uint64_t pn, fn, n_page_mask;
 
-    page_size = FIELD_EX64(tel, kv3_TEL, PS);
+    page_size = KVX_FIELD_EX64(tel, kv3_TEL, PS);
     n_page_mask = ~MMU_PAGE_SIZE_MASK[page_size];
-    pn = teh & R_kv3_TEH_PN_MASK;
-    fn = tel & R_kv3_TEL_FN_MASK;
+    pn = teh & KVX_FIELD_MASK(kv3_TEH, PN);
+    fn = tel & KVX_FIELD_MASK(kv3_TEL, FN);
 
     return (!(pn & n_page_mask)) && (!(fn & n_page_mask));
 }
@@ -593,8 +593,8 @@ void HELPER(tlb_write)(CPUKVXState *env)
             return;
         }
 
-        TLBPageSize page_size = FIELD_EX64(tel, kv3_TEL, PS);
-        target_ulong vaddr = teh & R_kv3_TEH_PN_MASK;
+        TLBPageSize page_size = KVX_FIELD_EX64(tel, kv3_TEL, PS);
+        target_ulong vaddr = teh & KVX_FIELD_MASK(kv3_TEH, PN);
         set = vaddr_to_jtlb_set(vaddr, page_size);
 
         entry = &env->jtlb[set][way];
@@ -658,7 +658,7 @@ void HELPER(tlb_probe)(CPUKVXState *env)
     kvx_register_write_field(env, MMC, PAR, 0);
 
     ps = get_mmu_ps(env, false);
-    pn = kvx_register_read_u64(env, REG_kv3_TEH) & R_kv3_TEH_PN_MASK;
+    pn = kvx_register_read_u64(env, REG_kv3_TEH) & KVX_FIELD_MASK(kv3_TEH, PN);
     pn = sign_extend_vaddr(pn);
     entry = find_tlb_entry(env, pn, ps, true, &buffer, &set, &way);
 

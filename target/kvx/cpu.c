@@ -155,29 +155,29 @@ static void kvx_cpu_realize(DeviceState *dev, Error **errp)
                    qdev_get_gpio_in(dev, KVX_IRQ_TIMER0),
                    kvx_register_ptr_u64(env, REG_kv3_T0V),
                    kvx_register_ptr_u64(env, REG_kv3_T0R),
-                   FIELD_DP64(0, kv3_TCR, T0CE, 1),
-                   FIELD_DP64(0, kv3_TCR, T0ST, 1),
-                   FIELD_DP64(0, kv3_TCR, T0IE, 1),
-                   FIELD_DP64(0, kv3_TCR, T0SI, 1),
+                   KVX_FIELD_DP64(0, kv3_TCR, T0CE, 1),
+                   KVX_FIELD_DP64(0, kv3_TCR, T0ST, 1),
+                   KVX_FIELD_DP64(0, kv3_TCR, T0IE, 1),
+                   KVX_FIELD_DP64(0, kv3_TCR, T0SI, 1),
                    0x0 /* not a  watchdog */);
     kvx_timer_init(&cpu->timer[1], cpu,
                    qdev_get_gpio_in(dev, KVX_IRQ_TIMER1),
                    kvx_register_ptr_u64(env, REG_kv3_T1V),
                    kvx_register_ptr_u64(env, REG_kv3_T1R),
-                   FIELD_DP64(0, kv3_TCR, T1CE, 1),
-                   FIELD_DP64(0, kv3_TCR, T1ST, 1),
-                   FIELD_DP64(0, kv3_TCR, T1IE, 1),
-                   FIELD_DP64(0, kv3_TCR, T1SI, 1),
+                   KVX_FIELD_DP64(0, kv3_TCR, T1CE, 1),
+                   KVX_FIELD_DP64(0, kv3_TCR, T1ST, 1),
+                   KVX_FIELD_DP64(0, kv3_TCR, T1IE, 1),
+                   KVX_FIELD_DP64(0, kv3_TCR, T1SI, 1),
                    0x0 /* not a  watchdog */);
     kvx_timer_init(&cpu->watchdog, cpu,
                    qdev_get_gpio_in(dev, KVX_IRQ_WATCHDOG),
                    kvx_register_ptr_u64(env, REG_kv3_WDV),
                    kvx_register_ptr_u64(env, REG_kv3_WDR),
-                   FIELD_DP64(0, kv3_TCR, WCE, 1),
-                   FIELD_DP64(0, kv3_TCR, WUS, 1),
-                   FIELD_DP64(0, kv3_TCR, WIE, 1),
-                   FIELD_DP64(0, kv3_TCR, WSI, 1),
-                   FIELD_DP64(0, kv3_TCR, WUI, 1));
+                   KVX_FIELD_DP64(0, kv3_TCR, WCE, 1),
+                   KVX_FIELD_DP64(0, kv3_TCR, WUS, 1),
+                   KVX_FIELD_DP64(0, kv3_TCR, WIE, 1),
+                   KVX_FIELD_DP64(0, kv3_TCR, WSI, 1),
+                   KVX_FIELD_DP64(0, kv3_TCR, WUI, 1));
     cpu_reset(cs);
 
     mcc->parent_realize(dev, errp);

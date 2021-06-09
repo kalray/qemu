@@ -445,8 +445,8 @@ static inline Register kvx_register_alias_pl(Register reg, int pl)
 #define REG_kv3_SPS_PLx(pl) kvx_register_alias_pl(REG_kv3_SPS, pl)
 #define REG_kv3_SPC_PLx(pl) kvx_register_alias_pl(REG_kv3_SPC, pl)
 
-#define kv3_PS_FOE01_MASK (R_kv3_PS_ET_MASK | \
-                           R_kv3_PS_IE_MASK | \
-                           R_kv3_PS_HLE_MASK )
+#define kv3_PS_FOE01_MASK (KVX_FIELD_MASK(kv3_PS, ET) | \
+                           KVX_FIELD_MASK(kv3_PS, IE) | \
+                           KVX_FIELD_MASK(kv3_PS, HLE) )
 
 #endif
