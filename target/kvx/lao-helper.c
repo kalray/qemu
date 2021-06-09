@@ -62,9 +62,9 @@ uint64_t HELPER(fnarrow_64_32_x2)(uint64_t rm, uint64_t arg0_l, uint64_t arg0_h)
     return lao_fnarrow_64_32_x2(rm, arg0_l, arg0_h);
 }
 
-uint64_t HELPER(fsinv_64)(uint64_t arg0)
+uint64_t HELPER(fsrec_64)(uint64_t arg0)
 {
-    return lao_fsinv_64(arg0);
+    return lao_fsrec_64(arg0);
 }
 
 uint64_t HELPER(fdivbyzero)(void)
@@ -183,9 +183,9 @@ uint64_t HELPER(fnarrow_32_16_x4)(uint64_t arg0, uint64_t arg1, uint64_t arg2)
     return lao_fnarrow_32_16_x4(arg0, arg1, arg2);
 }
 
-uint64_t HELPER(fsisr_64)(uint64_t arg0)
+uint64_t HELPER(fsrsr_64)(uint64_t arg0)
 {
-    return lao_fsisr_64(arg0);
+    return lao_fsrsr_64(arg0);
 }
 
 uint64_t HELPER(fwiden_32_64)(uint64_t arg0)
@@ -198,24 +198,24 @@ uint64_t HELPER(fnarrow_64_32)(uint64_t arg0, uint64_t arg1)
     return lao_fnarrow_64_32(arg0, arg1);
 }
 
-uint64_t HELPER(finv_32)(uint64_t arg0, uint64_t arg1)
+uint64_t HELPER(frec_32)(uint64_t arg0, uint64_t arg1)
 {
-    return lao_finv_32(arg0, arg1);
+    return lao_frec_32(arg0, arg1);
 }
 
-uint64_t HELPER(fisr_32)(uint64_t arg0, uint64_t arg1)
+uint64_t HELPER(frsq_32)(uint64_t arg0, uint64_t arg1)
 {
-    return lao_fisr_32(arg0, arg1);
+    return lao_frsq_32(arg0, arg1);
 }
 
-uint64_t HELPER(fsinv_32)(uint64_t arg0)
+uint64_t HELPER(fsrec_32)(uint64_t arg0)
 {
-    return lao_fsinv_32(arg0);
+    return lao_fsrec_32(arg0);
 }
 
-uint64_t HELPER(fsisr_32)(uint64_t arg0)
+uint64_t HELPER(fsrsr_32)(uint64_t arg0)
 {
-    return lao_fsisr_32(arg0);
+    return lao_fsrsr_32(arg0);
 }
 
 uint64_t HELPER(fwiden_16_32)(uint64_t arg0)
@@ -228,14 +228,14 @@ uint64_t HELPER(fnarrow_32_16)(uint64_t arg0, uint64_t arg1)
     return lao_fnarrow_32_16(arg0, arg1);
 }
 
-uint64_t HELPER(fsinv_32_x2)(uint64_t arg0)
+uint64_t HELPER(fsrec_32_x2)(uint64_t arg0)
 {
-    return lao_fsinv_32_x2(arg0);
+    return lao_fsrec_32_x2(arg0);
 }
 
-uint64_t HELPER(fsisr_32_x2)(uint64_t arg0)
+uint64_t HELPER(fsrsr_32_x2)(uint64_t arg0)
 {
-    return lao_fsisr_32_x2(arg0);
+    return lao_fsrsr_32_x2(arg0);
 }
 
 uint64_t HELPER(fwiden_16_32_x2)(uint64_t arg0)
@@ -600,11 +600,25 @@ void HELPER(fnarrow_32_16_x8_part1)(CPUKVXState *env, uint64_t arg0,
                                arg0, arg1_0, arg1_1, arg1_2, arg1_3);
 }
 
+void HELPER(fmul_16_16_x8)(CPUKVXState *env, uint64_t arg0,
+                           uint64_t arg1_l, uint64_t arg1_h,
+                           uint64_t arg2_l, uint64_t arg2_h)
+{
+    lao_fmul_16_16_x8(&env->scratch[0], &env->scratch[1], arg0, arg1_l, arg1_h, arg2_l, arg2_h);
+}
+
 void HELPER(fmul_32_32_x4)(CPUKVXState *env, uint64_t arg0,
                            uint64_t arg1_l, uint64_t arg1_h,
                            uint64_t arg2_l, uint64_t arg2_h)
 {
     lao_fmul_32_32_x4(&env->scratch[0], &env->scratch[1], arg0, arg1_l, arg1_h, arg2_l, arg2_h);
+}
+
+void HELPER(fadd_16_16_x8)(CPUKVXState *env, uint64_t arg0,
+                           uint64_t arg1_l, uint64_t arg1_h,
+                           uint64_t arg2_l, uint64_t arg2_h)
+{
+    lao_fadd_64_64_x2(&env->scratch[0], &env->scratch[1], arg0, arg1_l, arg1_h, arg2_l, arg2_h);
 }
 
 void HELPER(fadd_64_64_x2)(CPUKVXState *env, uint64_t arg0,
@@ -633,6 +647,13 @@ void HELPER(faddcc_64_64)(CPUKVXState *env, uint64_t arg0,
                              uint64_t arg2_l, uint64_t arg2_h)
 {
     lao_faddcc_64_64(&env->scratch[0], &env->scratch[1], arg0, arg1_l, arg1_h, arg2_l, arg2_h);
+}
+
+void HELPER(fsbf_16_16_x8)(CPUKVXState *env, uint64_t arg0,
+                           uint64_t arg1_l, uint64_t arg1_h,
+                           uint64_t arg2_l, uint64_t arg2_h)
+{
+    lao_fsbf_16_16_x8(&env->scratch[0], &env->scratch[1], arg0, arg1_l, arg1_h, arg2_l, arg2_h);
 }
 
 void HELPER(fsbf_64_64_x2)(CPUKVXState *env, uint64_t arg0,
@@ -675,6 +696,46 @@ void HELPER(ffma_16_32_x4)(CPUKVXState *env, uint64_t arg0,
                            uint64_t arg2, uint64_t arg3)
 {
     lao_ffma_16_32_x4(&env->scratch[0], &env->scratch[1], arg0, arg1_l, arg1_h, arg2, arg3);
+}
+
+void HELPER(ffma_16_16_x8)(CPUKVXState *env, uint64_t arg0,
+                           uint64_t arg1_l, uint64_t arg1_h,
+                           uint64_t arg2, uint64_t arg3)
+{
+    uint64_t arg4 = env->scratch[0];
+    uint64_t arg5 = env->scratch[1];
+
+    lao_ffma_16_16_x8(&env->scratch[0], &env->scratch[1], arg0, arg1_l, arg1_h, arg2, arg3, arg4, arg5);
+}
+
+void HELPER(ffma_32_32_x4)(CPUKVXState *env, uint64_t arg0,
+                           uint64_t arg1_l, uint64_t arg1_h,
+                           uint64_t arg2, uint64_t arg3)
+{
+    uint64_t arg4 = env->scratch[0];
+    uint64_t arg5 = env->scratch[1];
+
+    lao_ffma_32_32_x4(&env->scratch[0], &env->scratch[1], arg0, arg1_l, arg1_h, arg2, arg3, arg4, arg5);
+}
+
+void HELPER(ffms_16_16_x8)(CPUKVXState *env, uint64_t arg0,
+                           uint64_t arg1_l, uint64_t arg1_h,
+                           uint64_t arg2, uint64_t arg3)
+{
+    uint64_t arg4 = env->scratch[0];
+    uint64_t arg5 = env->scratch[1];
+
+    lao_ffms_16_16_x8(&env->scratch[0], &env->scratch[1], arg0, arg1_l, arg1_h, arg2, arg3, arg4, arg5);
+}
+
+void HELPER(ffms_32_32_x4)(CPUKVXState *env, uint64_t arg0,
+                           uint64_t arg1_l, uint64_t arg1_h,
+                           uint64_t arg2, uint64_t arg3)
+{
+    uint64_t arg4 = env->scratch[0];
+    uint64_t arg5 = env->scratch[1];
+
+    lao_ffms_32_32_x4(&env->scratch[0], &env->scratch[1], arg0, arg1_l, arg1_h, arg2, arg3, arg4, arg5);
 }
 
 void HELPER(ffms_32_64_x2)(CPUKVXState *env, uint64_t arg0,

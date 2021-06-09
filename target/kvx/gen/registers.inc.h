@@ -7,639 +7,16 @@ enum Storage {
     STORAGE_kv3_SPS_PL0, STORAGE_kv3_SPS_PL1, STORAGE_kv3_SPS_PL2, STORAGE_kv3_SPS_PL3,
     STORAGE_kv3_CS, STORAGE_kv3_DBA0, STORAGE_kv3_DBA1, STORAGE_kv3_DWA0,
     STORAGE_kv3_DWA1, STORAGE_kv3_CSIT, STORAGE_kv3_ES, STORAGE_kv3_ES_PL0,
-    STORAGE_kv3_ES_PL1, STORAGE_kv3_ES_PL2, STORAGE_kv3_ES_PL3, STORAGE_kv3_TEL,
-    STORAGE_kv3_TEH, STORAGE_kv3_DC, STORAGE_kv3_SRS, STORAGE_kv3_GRS,
-    STORAGE_kv3_XRS, STORAGE_kv3_NPC, STORAGE_kv3_TCR, STORAGE_kv3_PMC,
-    STORAGE_kv3_PCR, STORAGE_kv3_SYO, STORAGE_kv3_HTO, STORAGE_kv3_ITO,
-    STORAGE_kv3_ILE, STORAGE_kv3_ILL, STORAGE_kv3_ILR, STORAGE_kv3_DO,
-    STORAGE_kv3_MO, STORAGE_kv3_PSO, STORAGE_kv3_MMC, STORAGE_kv3_MES,
-    STORAGE_kv3_WS, };
-
-typedef struct StorageDescr StorageDescr;
-struct StorageDescr {
-    size_t width;
-    size_t count;
-    size_t data_width;
-    size_t offset;
-};
-
-static const StorageDescr STORAGES[] = {
-    [STORAGE_kv3_AESPC] = {
-        .width = 64,
-        .count = 1,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_AESPC)
-    },
-    [STORAGE_kv3_PM0] = {
-        .width = 64,
-        .count = 1,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_PM0)
-    },
-    [STORAGE_kv3_PM1] = {
-        .width = 64,
-        .count = 1,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_PM1)
-    },
-    [STORAGE_kv3_PM2] = {
-        .width = 64,
-        .count = 1,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_PM2)
-    },
-    [STORAGE_kv3_PM3] = {
-        .width = 64,
-        .count = 1,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_PM3)
-    },
-    [STORAGE_kv3_PMSA] = {
-        .width = 64,
-        .count = 1,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_PMSA)
-    },
-    [STORAGE_kv3_T0V] = {
-        .width = 64,
-        .count = 1,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_T0V)
-    },
-    [STORAGE_kv3_T1V] = {
-        .width = 64,
-        .count = 1,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_T1V)
-    },
-    [STORAGE_kv3_T0R] = {
-        .width = 64,
-        .count = 1,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_T0R)
-    },
-    [STORAGE_kv3_T1R] = {
-        .width = 64,
-        .count = 1,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_T1R)
-    },
-    [STORAGE_kv3_WDV] = {
-        .width = 64,
-        .count = 1,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_WDV)
-    },
-    [STORAGE_kv3_WDR] = {
-        .width = 64,
-        .count = 1,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_WDR)
-    },
-    [STORAGE_kv3_MEN] = {
-        .width = 1,
-        .count = 16,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_MEN)
-    },
-    [STORAGE_kv3_PC] = {
-        .width = 64,
-        .count = 1,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_PC)
-    },
-    [STORAGE_kv3_PS] = {
-        .width = 1,
-        .count = 32,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_PS)
-    },
-    [STORAGE_kv3_SPS] = {
-        .width = 1,
-        .count = 32,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_SPS)
-    },
-    [STORAGE_kv3_SPS_PL0] = {
-        .width = 1,
-        .count = 32,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_SPS_PL0)
-    },
-    [STORAGE_kv3_SPS_PL1] = {
-        .width = 1,
-        .count = 32,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_SPS_PL1)
-    },
-    [STORAGE_kv3_SPS_PL2] = {
-        .width = 1,
-        .count = 32,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_SPS_PL2)
-    },
-    [STORAGE_kv3_SPS_PL3] = {
-        .width = 1,
-        .count = 32,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_SPS_PL3)
-    },
-    [STORAGE_kv3_CS] = {
-        .width = 1,
-        .count = 32,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_CS)
-    },
-    [STORAGE_kv3_DBA0] = {
-        .width = 64,
-        .count = 1,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_DBA0)
-    },
-    [STORAGE_kv3_DBA1] = {
-        .width = 64,
-        .count = 1,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_DBA1)
-    },
-    [STORAGE_kv3_DWA0] = {
-        .width = 64,
-        .count = 1,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_DWA0)
-    },
-    [STORAGE_kv3_DWA1] = {
-        .width = 64,
-        .count = 1,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_DWA1)
-    },
-    [STORAGE_kv3_CSIT] = {
-        .width = 1,
-        .count = 32,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_CSIT)
-    },
-    [STORAGE_kv3_ES] = {
-        .width = 1,
-        .count = 64,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_ES)
-    },
-    [STORAGE_kv3_ES_PL0] = {
-        .width = 1,
-        .count = 64,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_ES_PL0)
-    },
-    [STORAGE_kv3_ES_PL1] = {
-        .width = 1,
-        .count = 64,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_ES_PL1)
-    },
-    [STORAGE_kv3_ES_PL2] = {
-        .width = 1,
-        .count = 64,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_ES_PL2)
-    },
-    [STORAGE_kv3_ES_PL3] = {
-        .width = 1,
-        .count = 64,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_ES_PL3)
-    },
-    [STORAGE_kv3_TEL] = {
-        .width = 1,
-        .count = 64,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_TEL)
-    },
-    [STORAGE_kv3_TEH] = {
-        .width = 1,
-        .count = 64,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_TEH)
-    },
-    [STORAGE_kv3_DC] = {
-        .width = 1,
-        .count = 32,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_DC)
-    },
-    [STORAGE_kv3_SRS] = {
-        .width = 64,
-        .count = 512,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_SRS)
-    },
-    [STORAGE_kv3_GRS] = {
-        .width = 64,
-        .count = 64,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_GRS)
-    },
-    [STORAGE_kv3_XRS] = {
-        .width = 64,
-        .count = 256,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_XRS)
-    },
-    [STORAGE_kv3_NPC] = {
-        .width = 64,
-        .count = 1,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_NPC)
-    },
-    [STORAGE_kv3_TCR] = {
-        .width = 1,
-        .count = 32,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_TCR)
-    },
-    [STORAGE_kv3_PMC] = {
-        .width = 1,
-        .count = 64,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_PMC)
-    },
-    [STORAGE_kv3_PCR] = {
-        .width = 1,
-        .count = 64,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_PCR)
-    },
-    [STORAGE_kv3_SYO] = {
-        .width = 1,
-        .count = 32,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_SYO)
-    },
-    [STORAGE_kv3_HTO] = {
-        .width = 1,
-        .count = 32,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_HTO)
-    },
-    [STORAGE_kv3_ITO] = {
-        .width = 1,
-        .count = 64,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_ITO)
-    },
-    [STORAGE_kv3_ILE] = {
-        .width = 1,
-        .count = 32,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_ILE)
-    },
-    [STORAGE_kv3_ILL] = {
-        .width = 1,
-        .count = 64,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_ILL)
-    },
-    [STORAGE_kv3_ILR] = {
-        .width = 1,
-        .count = 32,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_ILR)
-    },
-    [STORAGE_kv3_DO] = {
-        .width = 1,
-        .count = 32,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_DO)
-    },
-    [STORAGE_kv3_MO] = {
-        .width = 1,
-        .count = 64,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_MO)
-    },
-    [STORAGE_kv3_PSO] = {
-        .width = 1,
-        .count = 64,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_PSO)
-    },
-    [STORAGE_kv3_MMC] = {
-        .width = 1,
-        .count = 32,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_MMC)
-    },
-    [STORAGE_kv3_MES] = {
-        .width = 1,
-        .count = 32,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_MES)
-    },
-    [STORAGE_kv3_WS] = {
-        .width = 1,
-        .count = 32,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_WS)
-    },
-};
-
-typedef enum Register Register;
-enum Register {
-    REG_kv3_PC, REG_kv3_PS, REG_kv3_PCR, REG_kv3_RA,
-    REG_kv3_CS, REG_kv3_CSIT, REG_kv3_AESPC, REG_kv3_LS,
-    REG_kv3_LE, REG_kv3_LC, REG_kv3_IPE, REG_kv3_MEN,
-    REG_kv3_PMC, REG_kv3_PM0, REG_kv3_PM1, REG_kv3_PM2,
-    REG_kv3_PM3, REG_kv3_PMSA, REG_kv3_TCR, REG_kv3_T0V,
-    REG_kv3_T1V, REG_kv3_T0R, REG_kv3_T1R, REG_kv3_WDV,
-    REG_kv3_WDR, REG_kv3_ILE, REG_kv3_ILL, REG_kv3_ILR,
-    REG_kv3_MMC, REG_kv3_TEL, REG_kv3_TEH, REG_kv3_RES31,
-    REG_kv3_SYO, REG_kv3_HTO, REG_kv3_ITO, REG_kv3_DO,
-    REG_kv3_MO, REG_kv3_PSO, REG_kv3_RES38, REG_kv3_RES39,
-    REG_kv3_DC, REG_kv3_DBA0, REG_kv3_DBA1, REG_kv3_DWA0,
-    REG_kv3_DWA1, REG_kv3_MES, REG_kv3_WS, REG_kv3_RES47,
-    REG_kv3_RES48, REG_kv3_RES49, REG_kv3_RES50, REG_kv3_RES51,
-    REG_kv3_RES52, REG_kv3_RES53, REG_kv3_RES54, REG_kv3_RES55,
-    REG_kv3_RES56, REG_kv3_RES57, REG_kv3_RES58, REG_kv3_RES59,
-    REG_kv3_RES60, REG_kv3_RES61, REG_kv3_RES62, REG_kv3_RES63,
-    REG_kv3_SPC_PL0, REG_kv3_SPC_PL1, REG_kv3_SPC_PL2, REG_kv3_SPC_PL3,
-    REG_kv3_SPS_PL0, REG_kv3_SPS_PL1, REG_kv3_SPS_PL2, REG_kv3_SPS_PL3,
-    REG_kv3_EA_PL0, REG_kv3_EA_PL1, REG_kv3_EA_PL2, REG_kv3_EA_PL3,
-    REG_kv3_EV_PL0, REG_kv3_EV_PL1, REG_kv3_EV_PL2, REG_kv3_EV_PL3,
-    REG_kv3_SR_PL0, REG_kv3_SR_PL1, REG_kv3_SR_PL2, REG_kv3_SR_PL3,
-    REG_kv3_ES_PL0, REG_kv3_ES_PL1, REG_kv3_ES_PL2, REG_kv3_ES_PL3,
-    REG_kv3_RES88, REG_kv3_RES89, REG_kv3_RES90, REG_kv3_RES91,
-    REG_kv3_RES92, REG_kv3_RES93, REG_kv3_RES94, REG_kv3_RES95,
-    REG_kv3_SYOW, REG_kv3_HTOW, REG_kv3_ITOW, REG_kv3_DOW,
-    REG_kv3_MOW, REG_kv3_PSOW, REG_kv3_RES102, REG_kv3_RES103,
-    REG_kv3_RES104, REG_kv3_RES105, REG_kv3_RES106, REG_kv3_RES107,
-    REG_kv3_RES108, REG_kv3_RES109, REG_kv3_RES110, REG_kv3_RES111,
-    REG_kv3_RES112, REG_kv3_RES113, REG_kv3_RES114, REG_kv3_RES115,
-    REG_kv3_RES116, REG_kv3_RES117, REG_kv3_RES118, REG_kv3_RES119,
-    REG_kv3_RES120, REG_kv3_RES121, REG_kv3_RES122, REG_kv3_RES123,
-    REG_kv3_RES124, REG_kv3_RES125, REG_kv3_RES126, REG_kv3_RES127,
-    REG_kv3_SPC, REG_kv3_RES129, REG_kv3_RES130, REG_kv3_RES131,
-    REG_kv3_SPS, REG_kv3_RES133, REG_kv3_RES134, REG_kv3_RES135,
-    REG_kv3_EA, REG_kv3_RES137, REG_kv3_RES138, REG_kv3_RES139,
-    REG_kv3_EV, REG_kv3_RES141, REG_kv3_RES142, REG_kv3_RES143,
-    REG_kv3_SR, REG_kv3_RES145, REG_kv3_RES146, REG_kv3_RES147,
-    REG_kv3_ES, REG_kv3_RES149, REG_kv3_RES150, REG_kv3_RES151,
-    REG_kv3_RES152, REG_kv3_RES153, REG_kv3_RES154, REG_kv3_RES155,
-    REG_kv3_RES156, REG_kv3_RES157, REG_kv3_RES158, REG_kv3_RES159,
-    REG_kv3_RES160, REG_kv3_RES161, REG_kv3_RES162, REG_kv3_RES163,
-    REG_kv3_RES164, REG_kv3_RES165, REG_kv3_RES166, REG_kv3_RES167,
-    REG_kv3_RES168, REG_kv3_RES169, REG_kv3_RES170, REG_kv3_RES171,
-    REG_kv3_RES172, REG_kv3_RES173, REG_kv3_RES174, REG_kv3_RES175,
-    REG_kv3_RES176, REG_kv3_RES177, REG_kv3_RES178, REG_kv3_RES179,
-    REG_kv3_RES180, REG_kv3_RES181, REG_kv3_RES182, REG_kv3_RES183,
-    REG_kv3_RES184, REG_kv3_RES185, REG_kv3_RES186, REG_kv3_RES187,
-    REG_kv3_RES188, REG_kv3_RES189, REG_kv3_RES190, REG_kv3_RES191,
-    REG_kv3_RES192, REG_kv3_RES193, REG_kv3_RES194, REG_kv3_RES195,
-    REG_kv3_RES196, REG_kv3_RES197, REG_kv3_RES198, REG_kv3_RES199,
-    REG_kv3_RES200, REG_kv3_RES201, REG_kv3_RES202, REG_kv3_RES203,
-    REG_kv3_RES204, REG_kv3_RES205, REG_kv3_RES206, REG_kv3_RES207,
-    REG_kv3_RES208, REG_kv3_RES209, REG_kv3_RES210, REG_kv3_RES211,
-    REG_kv3_RES212, REG_kv3_RES213, REG_kv3_RES214, REG_kv3_RES215,
-    REG_kv3_RES216, REG_kv3_RES217, REG_kv3_RES218, REG_kv3_RES219,
-    REG_kv3_RES220, REG_kv3_RES221, REG_kv3_RES222, REG_kv3_RES223,
-    REG_kv3_RES224, REG_kv3_RES225, REG_kv3_RES226, REG_kv3_RES227,
-    REG_kv3_RES228, REG_kv3_RES229, REG_kv3_RES230, REG_kv3_RES231,
-    REG_kv3_RES232, REG_kv3_RES233, REG_kv3_RES234, REG_kv3_RES235,
-    REG_kv3_RES236, REG_kv3_RES237, REG_kv3_RES238, REG_kv3_RES239,
-    REG_kv3_RES240, REG_kv3_RES241, REG_kv3_RES242, REG_kv3_RES243,
-    REG_kv3_RES244, REG_kv3_RES245, REG_kv3_RES246, REG_kv3_RES247,
-    REG_kv3_RES248, REG_kv3_RES249, REG_kv3_RES250, REG_kv3_RES251,
-    REG_kv3_RES252, REG_kv3_RES253, REG_kv3_RES254, REG_kv3_RES255,
-    REG_kv3_VSFR0, REG_kv3_VSFR1, REG_kv3_VSFR2, REG_kv3_VSFR3,
-    REG_kv3_VSFR4, REG_kv3_VSFR5, REG_kv3_VSFR6, REG_kv3_VSFR7,
-    REG_kv3_VSFR8, REG_kv3_VSFR9, REG_kv3_VSFR10, REG_kv3_VSFR11,
-    REG_kv3_VSFR12, REG_kv3_VSFR13, REG_kv3_VSFR14, REG_kv3_VSFR15,
-    REG_kv3_VSFR16, REG_kv3_VSFR17, REG_kv3_VSFR18, REG_kv3_VSFR19,
-    REG_kv3_VSFR20, REG_kv3_VSFR21, REG_kv3_VSFR22, REG_kv3_VSFR23,
-    REG_kv3_VSFR24, REG_kv3_VSFR25, REG_kv3_VSFR26, REG_kv3_VSFR27,
-    REG_kv3_VSFR28, REG_kv3_VSFR29, REG_kv3_VSFR30, REG_kv3_VSFR31,
-    REG_kv3_VSFR32, REG_kv3_VSFR33, REG_kv3_VSFR34, REG_kv3_VSFR35,
-    REG_kv3_VSFR36, REG_kv3_VSFR37, REG_kv3_VSFR38, REG_kv3_VSFR39,
-    REG_kv3_VSFR40, REG_kv3_VSFR41, REG_kv3_VSFR42, REG_kv3_VSFR43,
-    REG_kv3_VSFR44, REG_kv3_VSFR45, REG_kv3_VSFR46, REG_kv3_VSFR47,
-    REG_kv3_VSFR48, REG_kv3_VSFR49, REG_kv3_VSFR50, REG_kv3_VSFR51,
-    REG_kv3_VSFR52, REG_kv3_VSFR53, REG_kv3_VSFR54, REG_kv3_VSFR55,
-    REG_kv3_VSFR56, REG_kv3_VSFR57, REG_kv3_VSFR58, REG_kv3_VSFR59,
-    REG_kv3_VSFR60, REG_kv3_VSFR61, REG_kv3_VSFR62, REG_kv3_VSFR63,
-    REG_kv3_VSFR64, REG_kv3_VSFR65, REG_kv3_VSFR66, REG_kv3_VSFR67,
-    REG_kv3_VSFR68, REG_kv3_VSFR69, REG_kv3_VSFR70, REG_kv3_VSFR71,
-    REG_kv3_VSFR72, REG_kv3_VSFR73, REG_kv3_VSFR74, REG_kv3_VSFR75,
-    REG_kv3_VSFR76, REG_kv3_VSFR77, REG_kv3_VSFR78, REG_kv3_VSFR79,
-    REG_kv3_VSFR80, REG_kv3_VSFR81, REG_kv3_VSFR82, REG_kv3_VSFR83,
-    REG_kv3_VSFR84, REG_kv3_VSFR85, REG_kv3_VSFR86, REG_kv3_VSFR87,
-    REG_kv3_VSFR88, REG_kv3_VSFR89, REG_kv3_VSFR90, REG_kv3_VSFR91,
-    REG_kv3_VSFR92, REG_kv3_VSFR93, REG_kv3_VSFR94, REG_kv3_VSFR95,
-    REG_kv3_VSFR96, REG_kv3_VSFR97, REG_kv3_VSFR98, REG_kv3_VSFR99,
-    REG_kv3_VSFR100, REG_kv3_VSFR101, REG_kv3_VSFR102, REG_kv3_VSFR103,
-    REG_kv3_VSFR104, REG_kv3_VSFR105, REG_kv3_VSFR106, REG_kv3_VSFR107,
-    REG_kv3_VSFR108, REG_kv3_VSFR109, REG_kv3_VSFR110, REG_kv3_VSFR111,
-    REG_kv3_VSFR112, REG_kv3_VSFR113, REG_kv3_VSFR114, REG_kv3_VSFR115,
-    REG_kv3_VSFR116, REG_kv3_VSFR117, REG_kv3_VSFR118, REG_kv3_VSFR119,
-    REG_kv3_VSFR120, REG_kv3_VSFR121, REG_kv3_VSFR122, REG_kv3_VSFR123,
-    REG_kv3_VSFR124, REG_kv3_VSFR125, REG_kv3_VSFR126, REG_kv3_VSFR127,
-    REG_kv3_VSFR128, REG_kv3_VSFR129, REG_kv3_VSFR130, REG_kv3_VSFR131,
-    REG_kv3_VSFR132, REG_kv3_VSFR133, REG_kv3_VSFR134, REG_kv3_VSFR135,
-    REG_kv3_VSFR136, REG_kv3_VSFR137, REG_kv3_VSFR138, REG_kv3_VSFR139,
-    REG_kv3_VSFR140, REG_kv3_VSFR141, REG_kv3_VSFR142, REG_kv3_VSFR143,
-    REG_kv3_VSFR144, REG_kv3_VSFR145, REG_kv3_VSFR146, REG_kv3_VSFR147,
-    REG_kv3_VSFR148, REG_kv3_VSFR149, REG_kv3_VSFR150, REG_kv3_VSFR151,
-    REG_kv3_VSFR152, REG_kv3_VSFR153, REG_kv3_VSFR154, REG_kv3_VSFR155,
-    REG_kv3_VSFR156, REG_kv3_VSFR157, REG_kv3_VSFR158, REG_kv3_VSFR159,
-    REG_kv3_VSFR160, REG_kv3_VSFR161, REG_kv3_VSFR162, REG_kv3_VSFR163,
-    REG_kv3_VSFR164, REG_kv3_VSFR165, REG_kv3_VSFR166, REG_kv3_VSFR167,
-    REG_kv3_VSFR168, REG_kv3_VSFR169, REG_kv3_VSFR170, REG_kv3_VSFR171,
-    REG_kv3_VSFR172, REG_kv3_VSFR173, REG_kv3_VSFR174, REG_kv3_VSFR175,
-    REG_kv3_VSFR176, REG_kv3_VSFR177, REG_kv3_VSFR178, REG_kv3_VSFR179,
-    REG_kv3_VSFR180, REG_kv3_VSFR181, REG_kv3_VSFR182, REG_kv3_VSFR183,
-    REG_kv3_VSFR184, REG_kv3_VSFR185, REG_kv3_VSFR186, REG_kv3_VSFR187,
-    REG_kv3_VSFR188, REG_kv3_VSFR189, REG_kv3_VSFR190, REG_kv3_VSFR191,
-    REG_kv3_VSFR192, REG_kv3_VSFR193, REG_kv3_VSFR194, REG_kv3_VSFR195,
-    REG_kv3_VSFR196, REG_kv3_VSFR197, REG_kv3_VSFR198, REG_kv3_VSFR199,
-    REG_kv3_VSFR200, REG_kv3_VSFR201, REG_kv3_VSFR202, REG_kv3_VSFR203,
-    REG_kv3_VSFR204, REG_kv3_VSFR205, REG_kv3_VSFR206, REG_kv3_VSFR207,
-    REG_kv3_VSFR208, REG_kv3_VSFR209, REG_kv3_VSFR210, REG_kv3_VSFR211,
-    REG_kv3_VSFR212, REG_kv3_VSFR213, REG_kv3_VSFR214, REG_kv3_VSFR215,
-    REG_kv3_VSFR216, REG_kv3_VSFR217, REG_kv3_VSFR218, REG_kv3_VSFR219,
-    REG_kv3_VSFR220, REG_kv3_VSFR221, REG_kv3_VSFR222, REG_kv3_VSFR223,
-    REG_kv3_VSFR224, REG_kv3_VSFR225, REG_kv3_VSFR226, REG_kv3_VSFR227,
-    REG_kv3_VSFR228, REG_kv3_VSFR229, REG_kv3_VSFR230, REG_kv3_VSFR231,
-    REG_kv3_VSFR232, REG_kv3_VSFR233, REG_kv3_VSFR234, REG_kv3_VSFR235,
-    REG_kv3_VSFR236, REG_kv3_VSFR237, REG_kv3_VSFR238, REG_kv3_VSFR239,
-    REG_kv3_VSFR240, REG_kv3_VSFR241, REG_kv3_VSFR242, REG_kv3_VSFR243,
-    REG_kv3_VSFR244, REG_kv3_VSFR245, REG_kv3_VSFR246, REG_kv3_VSFR247,
-    REG_kv3_VSFR248, REG_kv3_VSFR249, REG_kv3_VSFR250, REG_kv3_VSFR251,
-    REG_kv3_VSFR252, REG_kv3_VSFR253, REG_kv3_VSFR254, REG_kv3_VSFR255,
-    REG_kv3_R0, REG_kv3_R1, REG_kv3_R2, REG_kv3_R3,
-    REG_kv3_R4, REG_kv3_R5, REG_kv3_R6, REG_kv3_R7,
-    REG_kv3_R8, REG_kv3_R9, REG_kv3_R10, REG_kv3_R11,
-    REG_kv3_R12, REG_kv3_R13, REG_kv3_R14, REG_kv3_R15,
-    REG_kv3_R16, REG_kv3_R17, REG_kv3_R18, REG_kv3_R19,
-    REG_kv3_R20, REG_kv3_R21, REG_kv3_R22, REG_kv3_R23,
-    REG_kv3_R24, REG_kv3_R25, REG_kv3_R26, REG_kv3_R27,
-    REG_kv3_R28, REG_kv3_R29, REG_kv3_R30, REG_kv3_R31,
-    REG_kv3_R32, REG_kv3_R33, REG_kv3_R34, REG_kv3_R35,
-    REG_kv3_R36, REG_kv3_R37, REG_kv3_R38, REG_kv3_R39,
-    REG_kv3_R40, REG_kv3_R41, REG_kv3_R42, REG_kv3_R43,
-    REG_kv3_R44, REG_kv3_R45, REG_kv3_R46, REG_kv3_R47,
-    REG_kv3_R48, REG_kv3_R49, REG_kv3_R50, REG_kv3_R51,
-    REG_kv3_R52, REG_kv3_R53, REG_kv3_R54, REG_kv3_R55,
-    REG_kv3_R56, REG_kv3_R57, REG_kv3_R58, REG_kv3_R59,
-    REG_kv3_R60, REG_kv3_R61, REG_kv3_R62, REG_kv3_R63,
-    REG_kv3_P0, REG_kv3_P2, REG_kv3_P4, REG_kv3_P6,
-    REG_kv3_P8, REG_kv3_P10, REG_kv3_P12, REG_kv3_P14,
-    REG_kv3_P16, REG_kv3_P18, REG_kv3_P20, REG_kv3_P22,
-    REG_kv3_P24, REG_kv3_P26, REG_kv3_P28, REG_kv3_P30,
-    REG_kv3_P32, REG_kv3_P34, REG_kv3_P36, REG_kv3_P38,
-    REG_kv3_P40, REG_kv3_P42, REG_kv3_P44, REG_kv3_P46,
-    REG_kv3_P48, REG_kv3_P50, REG_kv3_P52, REG_kv3_P54,
-    REG_kv3_P56, REG_kv3_P58, REG_kv3_P60, REG_kv3_P62,
-    REG_kv3_Q0, REG_kv3_Q4, REG_kv3_Q8, REG_kv3_Q12,
-    REG_kv3_Q16, REG_kv3_Q20, REG_kv3_Q24, REG_kv3_Q28,
-    REG_kv3_Q32, REG_kv3_Q36, REG_kv3_Q40, REG_kv3_Q44,
-    REG_kv3_Q48, REG_kv3_Q52, REG_kv3_Q56, REG_kv3_Q60,
-    REG_kv3_C0, REG_kv3_C1, REG_kv3_C2, REG_kv3_C3,
-    REG_kv3_C4, REG_kv3_C5, REG_kv3_C6, REG_kv3_C7,
-    REG_kv3_C8, REG_kv3_C9, REG_kv3_C10, REG_kv3_C11,
-    REG_kv3_C12, REG_kv3_C13, REG_kv3_C14, REG_kv3_C15,
-    REG_kv3_C16, REG_kv3_C17, REG_kv3_C18, REG_kv3_C19,
-    REG_kv3_C20, REG_kv3_C21, REG_kv3_C22, REG_kv3_C23,
-    REG_kv3_C24, REG_kv3_C25, REG_kv3_C26, REG_kv3_C27,
-    REG_kv3_C28, REG_kv3_C29, REG_kv3_C30, REG_kv3_C31,
-    REG_kv3_C32, REG_kv3_C33, REG_kv3_C34, REG_kv3_C35,
-    REG_kv3_C36, REG_kv3_C37, REG_kv3_C38, REG_kv3_C39,
-    REG_kv3_C40, REG_kv3_C41, REG_kv3_C42, REG_kv3_C43,
-    REG_kv3_C44, REG_kv3_C45, REG_kv3_C46, REG_kv3_C47,
-    REG_kv3_C48, REG_kv3_C49, REG_kv3_C50, REG_kv3_C51,
-    REG_kv3_C52, REG_kv3_C53, REG_kv3_C54, REG_kv3_C55,
-    REG_kv3_C56, REG_kv3_C57, REG_kv3_C58, REG_kv3_C59,
-    REG_kv3_C60, REG_kv3_C61, REG_kv3_C62, REG_kv3_C63,
-    REG_kv3_C64, REG_kv3_C65, REG_kv3_C66, REG_kv3_C67,
-    REG_kv3_C68, REG_kv3_C69, REG_kv3_C70, REG_kv3_C71,
-    REG_kv3_C72, REG_kv3_C73, REG_kv3_C74, REG_kv3_C75,
-    REG_kv3_C76, REG_kv3_C77, REG_kv3_C78, REG_kv3_C79,
-    REG_kv3_C80, REG_kv3_C81, REG_kv3_C82, REG_kv3_C83,
-    REG_kv3_C84, REG_kv3_C85, REG_kv3_C86, REG_kv3_C87,
-    REG_kv3_C88, REG_kv3_C89, REG_kv3_C90, REG_kv3_C91,
-    REG_kv3_C92, REG_kv3_C93, REG_kv3_C94, REG_kv3_C95,
-    REG_kv3_C96, REG_kv3_C97, REG_kv3_C98, REG_kv3_C99,
-    REG_kv3_C100, REG_kv3_C101, REG_kv3_C102, REG_kv3_C103,
-    REG_kv3_C104, REG_kv3_C105, REG_kv3_C106, REG_kv3_C107,
-    REG_kv3_C108, REG_kv3_C109, REG_kv3_C110, REG_kv3_C111,
-    REG_kv3_C112, REG_kv3_C113, REG_kv3_C114, REG_kv3_C115,
-    REG_kv3_C116, REG_kv3_C117, REG_kv3_C118, REG_kv3_C119,
-    REG_kv3_C120, REG_kv3_C121, REG_kv3_C122, REG_kv3_C123,
-    REG_kv3_C124, REG_kv3_C125, REG_kv3_C126, REG_kv3_C127,
-    REG_kv3_C128, REG_kv3_C129, REG_kv3_C130, REG_kv3_C131,
-    REG_kv3_C132, REG_kv3_C133, REG_kv3_C134, REG_kv3_C135,
-    REG_kv3_C136, REG_kv3_C137, REG_kv3_C138, REG_kv3_C139,
-    REG_kv3_C140, REG_kv3_C141, REG_kv3_C142, REG_kv3_C143,
-    REG_kv3_C144, REG_kv3_C145, REG_kv3_C146, REG_kv3_C147,
-    REG_kv3_C148, REG_kv3_C149, REG_kv3_C150, REG_kv3_C151,
-    REG_kv3_C152, REG_kv3_C153, REG_kv3_C154, REG_kv3_C155,
-    REG_kv3_C156, REG_kv3_C157, REG_kv3_C158, REG_kv3_C159,
-    REG_kv3_C160, REG_kv3_C161, REG_kv3_C162, REG_kv3_C163,
-    REG_kv3_C164, REG_kv3_C165, REG_kv3_C166, REG_kv3_C167,
-    REG_kv3_C168, REG_kv3_C169, REG_kv3_C170, REG_kv3_C171,
-    REG_kv3_C172, REG_kv3_C173, REG_kv3_C174, REG_kv3_C175,
-    REG_kv3_C176, REG_kv3_C177, REG_kv3_C178, REG_kv3_C179,
-    REG_kv3_C180, REG_kv3_C181, REG_kv3_C182, REG_kv3_C183,
-    REG_kv3_C184, REG_kv3_C185, REG_kv3_C186, REG_kv3_C187,
-    REG_kv3_C188, REG_kv3_C189, REG_kv3_C190, REG_kv3_C191,
-    REG_kv3_C192, REG_kv3_C193, REG_kv3_C194, REG_kv3_C195,
-    REG_kv3_C196, REG_kv3_C197, REG_kv3_C198, REG_kv3_C199,
-    REG_kv3_C200, REG_kv3_C201, REG_kv3_C202, REG_kv3_C203,
-    REG_kv3_C204, REG_kv3_C205, REG_kv3_C206, REG_kv3_C207,
-    REG_kv3_C208, REG_kv3_C209, REG_kv3_C210, REG_kv3_C211,
-    REG_kv3_C212, REG_kv3_C213, REG_kv3_C214, REG_kv3_C215,
-    REG_kv3_C216, REG_kv3_C217, REG_kv3_C218, REG_kv3_C219,
-    REG_kv3_C220, REG_kv3_C221, REG_kv3_C222, REG_kv3_C223,
-    REG_kv3_C224, REG_kv3_C225, REG_kv3_C226, REG_kv3_C227,
-    REG_kv3_C228, REG_kv3_C229, REG_kv3_C230, REG_kv3_C231,
-    REG_kv3_C232, REG_kv3_C233, REG_kv3_C234, REG_kv3_C235,
-    REG_kv3_C236, REG_kv3_C237, REG_kv3_C238, REG_kv3_C239,
-    REG_kv3_C240, REG_kv3_C241, REG_kv3_C242, REG_kv3_C243,
-    REG_kv3_C244, REG_kv3_C245, REG_kv3_C246, REG_kv3_C247,
-    REG_kv3_C248, REG_kv3_C249, REG_kv3_C250, REG_kv3_C251,
-    REG_kv3_C252, REG_kv3_C253, REG_kv3_C254, REG_kv3_C255,
-    REG_kv3_B0, REG_kv3_B1, REG_kv3_B2, REG_kv3_B3,
-    REG_kv3_B4, REG_kv3_B5, REG_kv3_B6, REG_kv3_B7,
-    REG_kv3_B8, REG_kv3_B9, REG_kv3_B10, REG_kv3_B11,
-    REG_kv3_B12, REG_kv3_B13, REG_kv3_B14, REG_kv3_B15,
-    REG_kv3_B16, REG_kv3_B17, REG_kv3_B18, REG_kv3_B19,
-    REG_kv3_B20, REG_kv3_B21, REG_kv3_B22, REG_kv3_B23,
-    REG_kv3_B24, REG_kv3_B25, REG_kv3_B26, REG_kv3_B27,
-    REG_kv3_B28, REG_kv3_B29, REG_kv3_B30, REG_kv3_B31,
-    REG_kv3_B32, REG_kv3_B33, REG_kv3_B34, REG_kv3_B35,
-    REG_kv3_B36, REG_kv3_B37, REG_kv3_B38, REG_kv3_B39,
-    REG_kv3_B40, REG_kv3_B41, REG_kv3_B42, REG_kv3_B43,
-    REG_kv3_B44, REG_kv3_B45, REG_kv3_B46, REG_kv3_B47,
-    REG_kv3_B48, REG_kv3_B49, REG_kv3_B50, REG_kv3_B51,
-    REG_kv3_B52, REG_kv3_B53, REG_kv3_B54, REG_kv3_B55,
-    REG_kv3_B56, REG_kv3_B57, REG_kv3_B58, REG_kv3_B59,
-    REG_kv3_B60, REG_kv3_B61, REG_kv3_B62, REG_kv3_B63,
-    REG_kv3_B64, REG_kv3_B65, REG_kv3_B66, REG_kv3_B67,
-    REG_kv3_B68, REG_kv3_B69, REG_kv3_B70, REG_kv3_B71,
-    REG_kv3_B72, REG_kv3_B73, REG_kv3_B74, REG_kv3_B75,
-    REG_kv3_B76, REG_kv3_B77, REG_kv3_B78, REG_kv3_B79,
-    REG_kv3_B80, REG_kv3_B81, REG_kv3_B82, REG_kv3_B83,
-    REG_kv3_B84, REG_kv3_B85, REG_kv3_B86, REG_kv3_B87,
-    REG_kv3_B88, REG_kv3_B89, REG_kv3_B90, REG_kv3_B91,
-    REG_kv3_B92, REG_kv3_B93, REG_kv3_B94, REG_kv3_B95,
-    REG_kv3_B96, REG_kv3_B97, REG_kv3_B98, REG_kv3_B99,
-    REG_kv3_B100, REG_kv3_B101, REG_kv3_B102, REG_kv3_B103,
-    REG_kv3_B104, REG_kv3_B105, REG_kv3_B106, REG_kv3_B107,
-    REG_kv3_B108, REG_kv3_B109, REG_kv3_B110, REG_kv3_B111,
-    REG_kv3_B112, REG_kv3_B113, REG_kv3_B114, REG_kv3_B115,
-    REG_kv3_B116, REG_kv3_B117, REG_kv3_B118, REG_kv3_B119,
-    REG_kv3_B120, REG_kv3_B121, REG_kv3_B122, REG_kv3_B123,
-    REG_kv3_B124, REG_kv3_B125, REG_kv3_B126, REG_kv3_B127,
-    REG_kv3_A0, REG_kv3_A1, REG_kv3_A2, REG_kv3_A3,
-    REG_kv3_A4, REG_kv3_A5, REG_kv3_A6, REG_kv3_A7,
-    REG_kv3_A8, REG_kv3_A9, REG_kv3_A10, REG_kv3_A11,
-    REG_kv3_A12, REG_kv3_A13, REG_kv3_A14, REG_kv3_A15,
-    REG_kv3_A16, REG_kv3_A17, REG_kv3_A18, REG_kv3_A19,
-    REG_kv3_A20, REG_kv3_A21, REG_kv3_A22, REG_kv3_A23,
-    REG_kv3_A24, REG_kv3_A25, REG_kv3_A26, REG_kv3_A27,
-    REG_kv3_A28, REG_kv3_A29, REG_kv3_A30, REG_kv3_A31,
-    REG_kv3_A32, REG_kv3_A33, REG_kv3_A34, REG_kv3_A35,
-    REG_kv3_A36, REG_kv3_A37, REG_kv3_A38, REG_kv3_A39,
-    REG_kv3_A40, REG_kv3_A41, REG_kv3_A42, REG_kv3_A43,
-    REG_kv3_A44, REG_kv3_A45, REG_kv3_A46, REG_kv3_A47,
-    REG_kv3_A48, REG_kv3_A49, REG_kv3_A50, REG_kv3_A51,
-    REG_kv3_A52, REG_kv3_A53, REG_kv3_A54, REG_kv3_A55,
-    REG_kv3_A56, REG_kv3_A57, REG_kv3_A58, REG_kv3_A59,
-    REG_kv3_A60, REG_kv3_A61, REG_kv3_A62, REG_kv3_A63,
-    REG_kv3_W0, REG_kv3_W1, REG_kv3_W2, REG_kv3_W3,
-    REG_kv3_W4, REG_kv3_W5, REG_kv3_W6, REG_kv3_W7,
-    REG_kv3_W8, REG_kv3_W9, REG_kv3_W10, REG_kv3_W11,
-    REG_kv3_W12, REG_kv3_W13, REG_kv3_W14, REG_kv3_W15,
-    REG_kv3_W16, REG_kv3_W17, REG_kv3_W18, REG_kv3_W19,
-    REG_kv3_W20, REG_kv3_W21, REG_kv3_W22, REG_kv3_W23,
-    REG_kv3_W24, REG_kv3_W25, REG_kv3_W26, REG_kv3_W27,
-    REG_kv3_W28, REG_kv3_W29, REG_kv3_W30, REG_kv3_W31,
-    REG_kv3_X0, REG_kv3_X1, REG_kv3_X2, REG_kv3_X3,
-    REG_kv3_X4, REG_kv3_X5, REG_kv3_X6, REG_kv3_X7,
-    REG_kv3_X8, REG_kv3_X9, REG_kv3_X10, REG_kv3_X11,
-    REG_kv3_X12, REG_kv3_X13, REG_kv3_X14, REG_kv3_X15,
-};
-
-typedef enum RegFile RegFile;
-enum RegFile {
-    REGFILE_kv3_SFR,
-    REGFILE_kv3_GPR,
-    REGFILE_kv3_PGR,
-    REGFILE_kv3_QGR,
-    REGFILE_kv3_XCR,
-    REGFILE_kv3_XBR,
-    REGFILE_kv3_XVR,
-    REGFILE_kv3_XWR,
-    REGFILE_kv3_XMR,
-};
+    STORAGE_kv3_ES_PL1, STORAGE_kv3_ES_PL2, STORAGE_kv3_ES_PL3, STORAGE_kv3_SID,
+    STORAGE_kv3_SID_PL0, STORAGE_kv3_SID_PL1, STORAGE_kv3_SID_PL2, STORAGE_kv3_SID_PL3,
+    STORAGE_kv3_IXC, STORAGE_kv3_TEL, STORAGE_kv3_TEH, STORAGE_kv3_DC,
+    STORAGE_kv3_SRS, STORAGE_kv3_GRS, STORAGE_kv3_XRS, STORAGE_kv3_NPC,
+    STORAGE_kv3_TCR, STORAGE_kv3_PMC, STORAGE_kv3_PCR, STORAGE_kv3_SYO,
+    STORAGE_kv3_HTO, STORAGE_kv3_ITO, STORAGE_kv3_ILE, STORAGE_kv3_ILL,
+    STORAGE_kv3_ILR, STORAGE_kv3_DO, STORAGE_kv3_MO, STORAGE_kv3_PSO,
+    STORAGE_kv3_MMC, STORAGE_kv3_MES, STORAGE_kv3_WS, STORAGE_v2_SID,
+    STORAGE_v2_SID_PL0, STORAGE_v2_SID_PL1, STORAGE_v2_SID_PL2, STORAGE_v2_SID_PL3,
+    STORAGE_v2_IXC, };
 
 typedef enum RegisterField RegisterField;
 enum RegisterField {
@@ -1300,665 +677,8085 @@ enum RegisterField {
     REGFIELD_kv3_IPE_BE,
     REGFIELD_kv3_IPE_FM,
     REGFIELD_kv3_IPE_BM,
+    REGFIELD_kv3_MO_COMM,
+    REGFIELD_kv3_MOW_COMM,
+    REGFIELD_kv3_ES_DRX,
+    REGFIELD_kv3_ES_DAF,
+    REGFIELD_kv3_ES_PL0_DRX,
+    REGFIELD_kv3_ES_PL0_DAF,
+    REGFIELD_kv3_ES_PL1_DRX,
+    REGFIELD_kv3_ES_PL1_DAF,
+    REGFIELD_kv3_ES_PL2_DRX,
+    REGFIELD_kv3_ES_PL2_DAF,
+    REGFIELD_kv3_ES_PL3_DRX,
+    REGFIELD_kv3_ES_PL3_DAF,
+    REGFIELD_kv3_SID_SID,
+    REGFIELD_kv3_SID_PL0_SID,
+    REGFIELD_kv3_SID_PL1_SID,
+    REGFIELD_kv3_SID_PL2_SID,
+    REGFIELD_kv3_SID_PL3_SID,
+    REGFIELD_kv3_PMC_SAF,
+    REGFIELD_v2_PCR_CAR,
+    REGFIELD_kv3_IXC_FCB,
+    REGFIELD_kv3_IXC_BCB,
 };
 
-/* These definitions use include/hw/registerfields.h */
-FIELD(kv3_MEN, MEN, 0, 16)
-FIELD(kv3_SYO, Q0, 0, 2)
-FIELD(kv3_SYO, Q1, 2, 2)
-FIELD(kv3_SYO, Q2, 4, 2)
-FIELD(kv3_SYO, Q3, 6, 2)
-FIELD(kv3_SYOW, Q0, 0, 2)
-FIELD(kv3_SYOW, Q1, 2, 2)
-FIELD(kv3_SYOW, Q2, 4, 2)
-FIELD(kv3_SYOW, Q3, 6, 2)
-FIELD(kv3_HTO, OPC, 0, 2)
-FIELD(kv3_HTO, DMIS, 2, 2)
-FIELD(kv3_HTO, PSYS, 4, 2)
-FIELD(kv3_HTO, DSYS, 6, 2)
-FIELD(kv3_HTO, DECCG, 8, 2)
-FIELD(kv3_HTO, SECCG, 10, 2)
-FIELD(kv3_HTO, NOMAP, 12, 2)
-FIELD(kv3_HTO, PROT, 14, 2)
-FIELD(kv3_HTO, W2CL, 16, 2)
-FIELD(kv3_HTO, A2CL, 18, 2)
-FIELD(kv3_HTO, DE, 20, 2)
-FIELD(kv3_HTO, VSFR, 22, 2)
-FIELD(kv3_HTO, PLO, 24, 2)
-FIELD(kv3_HTOW, OPC, 0, 2)
-FIELD(kv3_HTOW, DMIS, 2, 2)
-FIELD(kv3_HTOW, PSYS, 4, 2)
-FIELD(kv3_HTOW, DSYS, 6, 2)
-FIELD(kv3_HTOW, DECCG, 8, 2)
-FIELD(kv3_HTOW, SECCG, 10, 2)
-FIELD(kv3_HTOW, NOMAP, 12, 2)
-FIELD(kv3_HTOW, PROT, 14, 2)
-FIELD(kv3_HTOW, W2CL, 16, 2)
-FIELD(kv3_HTOW, A2CL, 18, 2)
-FIELD(kv3_HTOW, DE, 20, 2)
-FIELD(kv3_HTOW, VSFR, 22, 2)
-FIELD(kv3_HTOW, PLO, 24, 2)
-FIELD(kv3_ITO, IT0, 0, 2)
-FIELD(kv3_ITO, IT1, 2, 2)
-FIELD(kv3_ITO, IT2, 4, 2)
-FIELD(kv3_ITO, IT3, 6, 2)
-FIELD(kv3_ITO, IT4, 8, 2)
-FIELD(kv3_ITO, IT5, 10, 2)
-FIELD(kv3_ITO, IT6, 12, 2)
-FIELD(kv3_ITO, IT7, 14, 2)
-FIELD(kv3_ITO, IT8, 16, 2)
-FIELD(kv3_ITO, IT9, 18, 2)
-FIELD(kv3_ITO, IT10, 20, 2)
-FIELD(kv3_ITO, IT11, 22, 2)
-FIELD(kv3_ITO, IT12, 24, 2)
-FIELD(kv3_ITO, IT13, 26, 2)
-FIELD(kv3_ITO, IT14, 28, 2)
-FIELD(kv3_ITO, IT15, 30, 2)
-FIELD(kv3_ITO, IT16, 32, 2)
-FIELD(kv3_ITO, IT17, 34, 2)
-FIELD(kv3_ITO, IT18, 36, 2)
-FIELD(kv3_ITO, IT19, 38, 2)
-FIELD(kv3_ITO, IT20, 40, 2)
-FIELD(kv3_ITO, IT21, 42, 2)
-FIELD(kv3_ITO, IT22, 44, 2)
-FIELD(kv3_ITO, IT23, 46, 2)
-FIELD(kv3_ITO, IT24, 48, 2)
-FIELD(kv3_ITO, IT25, 50, 2)
-FIELD(kv3_ITO, IT26, 52, 2)
-FIELD(kv3_ITO, IT27, 54, 2)
-FIELD(kv3_ITO, IT28, 56, 2)
-FIELD(kv3_ITO, IT29, 58, 2)
-FIELD(kv3_ITO, IT30, 60, 2)
-FIELD(kv3_ITO, IT31, 62, 2)
-FIELD(kv3_ILE, IT0, 0, 1)
-FIELD(kv3_ILE, IT1, 1, 1)
-FIELD(kv3_ILE, IT2, 2, 1)
-FIELD(kv3_ILE, IT3, 3, 1)
-FIELD(kv3_ILE, IT4, 4, 1)
-FIELD(kv3_ILE, IT5, 5, 1)
-FIELD(kv3_ILE, IT6, 6, 1)
-FIELD(kv3_ILE, IT7, 7, 1)
-FIELD(kv3_ILE, IT8, 8, 1)
-FIELD(kv3_ILE, IT9, 9, 1)
-FIELD(kv3_ILE, IT10, 10, 1)
-FIELD(kv3_ILE, IT11, 11, 1)
-FIELD(kv3_ILE, IT12, 12, 1)
-FIELD(kv3_ILE, IT13, 13, 1)
-FIELD(kv3_ILE, IT14, 14, 1)
-FIELD(kv3_ILE, IT15, 15, 1)
-FIELD(kv3_ILE, IT16, 16, 1)
-FIELD(kv3_ILE, IT17, 17, 1)
-FIELD(kv3_ILE, IT18, 18, 1)
-FIELD(kv3_ILE, IT19, 19, 1)
-FIELD(kv3_ILE, IT20, 20, 1)
-FIELD(kv3_ILE, IT21, 21, 1)
-FIELD(kv3_ILE, IT22, 22, 1)
-FIELD(kv3_ILE, IT23, 23, 1)
-FIELD(kv3_ILE, IT24, 24, 1)
-FIELD(kv3_ILE, IT25, 25, 1)
-FIELD(kv3_ILE, IT26, 26, 1)
-FIELD(kv3_ILE, IT27, 27, 1)
-FIELD(kv3_ILE, IT28, 28, 1)
-FIELD(kv3_ILE, IT29, 29, 1)
-FIELD(kv3_ILE, IT30, 30, 1)
-FIELD(kv3_ILE, IT31, 31, 1)
-FIELD(kv3_ILL, IT0, 0, 2)
-FIELD(kv3_ILL, IT1, 2, 2)
-FIELD(kv3_ILL, IT2, 4, 2)
-FIELD(kv3_ILL, IT3, 6, 2)
-FIELD(kv3_ILL, IT4, 8, 2)
-FIELD(kv3_ILL, IT5, 10, 2)
-FIELD(kv3_ILL, IT6, 12, 2)
-FIELD(kv3_ILL, IT7, 14, 2)
-FIELD(kv3_ILL, IT8, 16, 2)
-FIELD(kv3_ILL, IT9, 18, 2)
-FIELD(kv3_ILL, IT10, 20, 2)
-FIELD(kv3_ILL, IT11, 22, 2)
-FIELD(kv3_ILL, IT12, 24, 2)
-FIELD(kv3_ILL, IT13, 26, 2)
-FIELD(kv3_ILL, IT14, 28, 2)
-FIELD(kv3_ILL, IT15, 30, 2)
-FIELD(kv3_ILL, IT16, 32, 2)
-FIELD(kv3_ILL, IT17, 34, 2)
-FIELD(kv3_ILL, IT18, 36, 2)
-FIELD(kv3_ILL, IT19, 38, 2)
-FIELD(kv3_ILL, IT20, 40, 2)
-FIELD(kv3_ILL, IT21, 42, 2)
-FIELD(kv3_ILL, IT22, 44, 2)
-FIELD(kv3_ILL, IT23, 46, 2)
-FIELD(kv3_ILL, IT24, 48, 2)
-FIELD(kv3_ILL, IT25, 50, 2)
-FIELD(kv3_ILL, IT26, 52, 2)
-FIELD(kv3_ILL, IT27, 54, 2)
-FIELD(kv3_ILL, IT28, 56, 2)
-FIELD(kv3_ILL, IT29, 58, 2)
-FIELD(kv3_ILL, IT30, 60, 2)
-FIELD(kv3_ILL, IT31, 62, 2)
-FIELD(kv3_ILR, IT0, 0, 1)
-FIELD(kv3_ILR, IT1, 1, 1)
-FIELD(kv3_ILR, IT2, 2, 1)
-FIELD(kv3_ILR, IT3, 3, 1)
-FIELD(kv3_ILR, IT4, 4, 1)
-FIELD(kv3_ILR, IT5, 5, 1)
-FIELD(kv3_ILR, IT6, 6, 1)
-FIELD(kv3_ILR, IT7, 7, 1)
-FIELD(kv3_ILR, IT8, 8, 1)
-FIELD(kv3_ILR, IT9, 9, 1)
-FIELD(kv3_ILR, IT10, 10, 1)
-FIELD(kv3_ILR, IT11, 11, 1)
-FIELD(kv3_ILR, IT12, 12, 1)
-FIELD(kv3_ILR, IT13, 13, 1)
-FIELD(kv3_ILR, IT14, 14, 1)
-FIELD(kv3_ILR, IT15, 15, 1)
-FIELD(kv3_ILR, IT16, 16, 1)
-FIELD(kv3_ILR, IT17, 17, 1)
-FIELD(kv3_ILR, IT18, 18, 1)
-FIELD(kv3_ILR, IT19, 19, 1)
-FIELD(kv3_ILR, IT20, 20, 1)
-FIELD(kv3_ILR, IT21, 21, 1)
-FIELD(kv3_ILR, IT22, 22, 1)
-FIELD(kv3_ILR, IT23, 23, 1)
-FIELD(kv3_ILR, IT24, 24, 1)
-FIELD(kv3_ILR, IT25, 25, 1)
-FIELD(kv3_ILR, IT26, 26, 1)
-FIELD(kv3_ILR, IT27, 27, 1)
-FIELD(kv3_ILR, IT28, 28, 1)
-FIELD(kv3_ILR, IT29, 29, 1)
-FIELD(kv3_ILR, IT30, 30, 1)
-FIELD(kv3_ILR, IT31, 31, 1)
-FIELD(kv3_ITOW, IT0, 0, 2)
-FIELD(kv3_ITOW, IT1, 2, 2)
-FIELD(kv3_ITOW, IT2, 4, 2)
-FIELD(kv3_ITOW, IT3, 6, 2)
-FIELD(kv3_ITOW, IT4, 8, 2)
-FIELD(kv3_ITOW, IT5, 10, 2)
-FIELD(kv3_ITOW, IT6, 12, 2)
-FIELD(kv3_ITOW, IT7, 14, 2)
-FIELD(kv3_ITOW, IT8, 16, 2)
-FIELD(kv3_ITOW, IT9, 18, 2)
-FIELD(kv3_ITOW, IT10, 20, 2)
-FIELD(kv3_ITOW, IT11, 22, 2)
-FIELD(kv3_ITOW, IT12, 24, 2)
-FIELD(kv3_ITOW, IT13, 26, 2)
-FIELD(kv3_ITOW, IT14, 28, 2)
-FIELD(kv3_ITOW, IT15, 30, 2)
-FIELD(kv3_ITOW, IT16, 32, 2)
-FIELD(kv3_ITOW, IT17, 34, 2)
-FIELD(kv3_ITOW, IT18, 36, 2)
-FIELD(kv3_ITOW, IT19, 38, 2)
-FIELD(kv3_ITOW, IT20, 40, 2)
-FIELD(kv3_ITOW, IT21, 42, 2)
-FIELD(kv3_ITOW, IT22, 44, 2)
-FIELD(kv3_ITOW, IT23, 46, 2)
-FIELD(kv3_ITOW, IT24, 48, 2)
-FIELD(kv3_ITOW, IT25, 50, 2)
-FIELD(kv3_ITOW, IT26, 52, 2)
-FIELD(kv3_ITOW, IT27, 54, 2)
-FIELD(kv3_ITOW, IT28, 56, 2)
-FIELD(kv3_ITOW, IT29, 58, 2)
-FIELD(kv3_ITOW, IT30, 60, 2)
-FIELD(kv3_ITOW, IT31, 62, 2)
-FIELD(kv3_DO, B0, 0, 2)
-FIELD(kv3_DO, B1, 2, 2)
-FIELD(kv3_DO, W0, 4, 2)
-FIELD(kv3_DO, W1, 6, 2)
-FIELD(kv3_DBA0, DBA0, 0, 64)
-FIELD(kv3_DBA1, DBA1, 0, 64)
-FIELD(kv3_DWA0, DWA0, 0, 64)
-FIELD(kv3_DWA1, DWA1, 0, 64)
-FIELD(kv3_DOW, B0, 0, 2)
-FIELD(kv3_DOW, B1, 2, 2)
-FIELD(kv3_DOW, W0, 4, 2)
-FIELD(kv3_DOW, W1, 6, 2)
-FIELD(kv3_MO, MMI, 0, 2)
-FIELD(kv3_MO, RFE, 2, 2)
-FIELD(kv3_MO, STOP, 4, 2)
-FIELD(kv3_MO, SYNC, 6, 2)
-FIELD(kv3_MO, PCR, 8, 2)
-FIELD(kv3_MO, MSG, 10, 2)
-FIELD(kv3_MO, MEN, 12, 2)
-FIELD(kv3_MO, MES, 14, 2)
-FIELD(kv3_MO, CSIT, 16, 2)
-FIELD(kv3_MO, T0, 18, 2)
-FIELD(kv3_MO, T1, 20, 2)
-FIELD(kv3_MO, WD, 22, 2)
-FIELD(kv3_MO, PM0, 24, 2)
-FIELD(kv3_MO, PM1, 26, 2)
-FIELD(kv3_MO, PM2, 28, 2)
-FIELD(kv3_MO, PM3, 30, 2)
-FIELD(kv3_MO, PMIT, 32, 2)
-FIELD(kv3_MOW, MMI, 0, 2)
-FIELD(kv3_MOW, RFE, 2, 2)
-FIELD(kv3_MOW, STOP, 4, 2)
-FIELD(kv3_MOW, SYNC, 6, 2)
-FIELD(kv3_MOW, PCR, 8, 2)
-FIELD(kv3_MOW, MSG, 10, 2)
-FIELD(kv3_MOW, MEN, 12, 2)
-FIELD(kv3_MOW, MES, 14, 2)
-FIELD(kv3_MOW, CSIT, 16, 2)
-FIELD(kv3_MOW, T0, 18, 2)
-FIELD(kv3_MOW, T1, 20, 2)
-FIELD(kv3_MOW, WD, 22, 2)
-FIELD(kv3_MOW, PM0, 24, 2)
-FIELD(kv3_MOW, PM1, 26, 2)
-FIELD(kv3_MOW, PM2, 28, 2)
-FIELD(kv3_MOW, PM3, 30, 2)
-FIELD(kv3_MOW, PMIT, 32, 2)
-FIELD(kv3_PS, PL, 0, 2)
-FIELD(kv3_PS, ET, 2, 1)
-FIELD(kv3_PS, HTD, 3, 1)
-FIELD(kv3_PS, IE, 4, 1)
-FIELD(kv3_PS, HLE, 5, 1)
-FIELD(kv3_PS, SRE, 6, 1)
-FIELD(kv3_PS, DAUS, 7, 1)
-FIELD(kv3_PS, ICE, 8, 1)
-FIELD(kv3_PS, USE, 9, 1)
-FIELD(kv3_PS, DCE, 10, 1)
-FIELD(kv3_PS, MME, 11, 1)
-FIELD(kv3_PS, IL, 12, 2)
-FIELD(kv3_PS, VS, 14, 2)
-FIELD(kv3_PS, V64, 16, 1)
-FIELD(kv3_PS, L2E, 17, 1)
-FIELD(kv3_PS, SME, 18, 1)
-FIELD(kv3_PS, SMR, 19, 1)
-FIELD(kv3_PS, PMJ, 20, 4)
-FIELD(kv3_PS, MMUP, 24, 1)
-FIELD(kv3_SPS, PL, 0, 2)
-FIELD(kv3_SPS, ET, 2, 1)
-FIELD(kv3_SPS, HTD, 3, 1)
-FIELD(kv3_SPS, IE, 4, 1)
-FIELD(kv3_SPS, HLE, 5, 1)
-FIELD(kv3_SPS, SRE, 6, 1)
-FIELD(kv3_SPS, DAUS, 7, 1)
-FIELD(kv3_SPS, ICE, 8, 1)
-FIELD(kv3_SPS, USE, 9, 1)
-FIELD(kv3_SPS, DCE, 10, 1)
-FIELD(kv3_SPS, MME, 11, 1)
-FIELD(kv3_SPS, IL, 12, 2)
-FIELD(kv3_SPS, VS, 14, 2)
-FIELD(kv3_SPS, V64, 16, 1)
-FIELD(kv3_SPS, L2E, 17, 1)
-FIELD(kv3_SPS, SME, 18, 1)
-FIELD(kv3_SPS, SMR, 19, 1)
-FIELD(kv3_SPS, PMJ, 20, 4)
-FIELD(kv3_SPS, MMUP, 24, 1)
-FIELD(kv3_SPS_PL0, PL, 0, 2)
-FIELD(kv3_SPS_PL0, ET, 2, 1)
-FIELD(kv3_SPS_PL0, HTD, 3, 1)
-FIELD(kv3_SPS_PL0, IE, 4, 1)
-FIELD(kv3_SPS_PL0, HLE, 5, 1)
-FIELD(kv3_SPS_PL0, SRE, 6, 1)
-FIELD(kv3_SPS_PL0, DAUS, 7, 1)
-FIELD(kv3_SPS_PL0, ICE, 8, 1)
-FIELD(kv3_SPS_PL0, USE, 9, 1)
-FIELD(kv3_SPS_PL0, DCE, 10, 1)
-FIELD(kv3_SPS_PL0, MME, 11, 1)
-FIELD(kv3_SPS_PL0, IL, 12, 2)
-FIELD(kv3_SPS_PL0, VS, 14, 2)
-FIELD(kv3_SPS_PL0, V64, 16, 1)
-FIELD(kv3_SPS_PL0, L2E, 17, 1)
-FIELD(kv3_SPS_PL0, SME, 18, 1)
-FIELD(kv3_SPS_PL0, SMR, 19, 1)
-FIELD(kv3_SPS_PL0, PMJ, 20, 4)
-FIELD(kv3_SPS_PL0, MMUP, 24, 1)
-FIELD(kv3_SPS_PL1, PL, 0, 2)
-FIELD(kv3_SPS_PL1, ET, 2, 1)
-FIELD(kv3_SPS_PL1, HTD, 3, 1)
-FIELD(kv3_SPS_PL1, IE, 4, 1)
-FIELD(kv3_SPS_PL1, HLE, 5, 1)
-FIELD(kv3_SPS_PL1, SRE, 6, 1)
-FIELD(kv3_SPS_PL1, DAUS, 7, 1)
-FIELD(kv3_SPS_PL1, ICE, 8, 1)
-FIELD(kv3_SPS_PL1, USE, 9, 1)
-FIELD(kv3_SPS_PL1, DCE, 10, 1)
-FIELD(kv3_SPS_PL1, MME, 11, 1)
-FIELD(kv3_SPS_PL1, IL, 12, 2)
-FIELD(kv3_SPS_PL1, VS, 14, 2)
-FIELD(kv3_SPS_PL1, V64, 16, 1)
-FIELD(kv3_SPS_PL1, L2E, 17, 1)
-FIELD(kv3_SPS_PL1, SME, 18, 1)
-FIELD(kv3_SPS_PL1, SMR, 19, 1)
-FIELD(kv3_SPS_PL1, PMJ, 20, 4)
-FIELD(kv3_SPS_PL1, MMUP, 24, 1)
-FIELD(kv3_SPS_PL2, PL, 0, 2)
-FIELD(kv3_SPS_PL2, ET, 2, 1)
-FIELD(kv3_SPS_PL2, HTD, 3, 1)
-FIELD(kv3_SPS_PL2, IE, 4, 1)
-FIELD(kv3_SPS_PL2, HLE, 5, 1)
-FIELD(kv3_SPS_PL2, SRE, 6, 1)
-FIELD(kv3_SPS_PL2, DAUS, 7, 1)
-FIELD(kv3_SPS_PL2, ICE, 8, 1)
-FIELD(kv3_SPS_PL2, USE, 9, 1)
-FIELD(kv3_SPS_PL2, DCE, 10, 1)
-FIELD(kv3_SPS_PL2, MME, 11, 1)
-FIELD(kv3_SPS_PL2, IL, 12, 2)
-FIELD(kv3_SPS_PL2, VS, 14, 2)
-FIELD(kv3_SPS_PL2, V64, 16, 1)
-FIELD(kv3_SPS_PL2, L2E, 17, 1)
-FIELD(kv3_SPS_PL2, SME, 18, 1)
-FIELD(kv3_SPS_PL2, SMR, 19, 1)
-FIELD(kv3_SPS_PL2, PMJ, 20, 4)
-FIELD(kv3_SPS_PL2, MMUP, 24, 1)
-FIELD(kv3_SPS_PL3, PL, 0, 2)
-FIELD(kv3_SPS_PL3, ET, 2, 1)
-FIELD(kv3_SPS_PL3, HTD, 3, 1)
-FIELD(kv3_SPS_PL3, IE, 4, 1)
-FIELD(kv3_SPS_PL3, HLE, 5, 1)
-FIELD(kv3_SPS_PL3, SRE, 6, 1)
-FIELD(kv3_SPS_PL3, DAUS, 7, 1)
-FIELD(kv3_SPS_PL3, ICE, 8, 1)
-FIELD(kv3_SPS_PL3, USE, 9, 1)
-FIELD(kv3_SPS_PL3, DCE, 10, 1)
-FIELD(kv3_SPS_PL3, MME, 11, 1)
-FIELD(kv3_SPS_PL3, IL, 12, 2)
-FIELD(kv3_SPS_PL3, VS, 14, 2)
-FIELD(kv3_SPS_PL3, V64, 16, 1)
-FIELD(kv3_SPS_PL3, L2E, 17, 1)
-FIELD(kv3_SPS_PL3, SME, 18, 1)
-FIELD(kv3_SPS_PL3, SMR, 19, 1)
-FIELD(kv3_SPS_PL3, PMJ, 20, 4)
-FIELD(kv3_SPS_PL3, MMUP, 24, 1)
-FIELD(kv3_PSO, PL0, 0, 2)
-FIELD(kv3_PSO, PL1, 2, 2)
-FIELD(kv3_PSO, ET, 4, 2)
-FIELD(kv3_PSO, HTD, 6, 2)
-FIELD(kv3_PSO, IE, 8, 2)
-FIELD(kv3_PSO, HLE, 10, 2)
-FIELD(kv3_PSO, SRE, 12, 2)
-FIELD(kv3_PSO, DAUS, 14, 2)
-FIELD(kv3_PSO, ICE, 16, 2)
-FIELD(kv3_PSO, USE, 18, 2)
-FIELD(kv3_PSO, DCE, 20, 2)
-FIELD(kv3_PSO, MME, 22, 2)
-FIELD(kv3_PSO, IL0, 24, 2)
-FIELD(kv3_PSO, IL1, 26, 2)
-FIELD(kv3_PSO, VS0, 28, 2)
-FIELD(kv3_PSO, VS1, 30, 2)
-FIELD(kv3_PSO, V64, 32, 2)
-FIELD(kv3_PSO, L2E, 34, 2)
-FIELD(kv3_PSO, SME, 36, 2)
-FIELD(kv3_PSO, SMR, 38, 2)
-FIELD(kv3_PSO, PMJ0, 40, 2)
-FIELD(kv3_PSO, PMJ1, 42, 2)
-FIELD(kv3_PSO, PMJ2, 44, 2)
-FIELD(kv3_PSO, PMJ3, 46, 2)
-FIELD(kv3_PSO, MMUP, 48, 2)
-FIELD(kv3_PSOW, PL0, 0, 2)
-FIELD(kv3_PSOW, PL1, 2, 2)
-FIELD(kv3_PSOW, ET, 4, 2)
-FIELD(kv3_PSOW, HTD, 6, 2)
-FIELD(kv3_PSOW, IE, 8, 2)
-FIELD(kv3_PSOW, HLE, 10, 2)
-FIELD(kv3_PSOW, SRE, 12, 2)
-FIELD(kv3_PSOW, DAUS, 14, 2)
-FIELD(kv3_PSOW, ICE, 16, 2)
-FIELD(kv3_PSOW, USE, 18, 2)
-FIELD(kv3_PSOW, DCE, 20, 2)
-FIELD(kv3_PSOW, MME, 22, 2)
-FIELD(kv3_PSOW, IL0, 24, 2)
-FIELD(kv3_PSOW, IL1, 26, 2)
-FIELD(kv3_PSOW, VS0, 28, 2)
-FIELD(kv3_PSOW, VS1, 30, 2)
-FIELD(kv3_PSOW, V64, 32, 2)
-FIELD(kv3_PSOW, L2E, 34, 2)
-FIELD(kv3_PSOW, SME, 36, 2)
-FIELD(kv3_PSOW, SMR, 38, 2)
-FIELD(kv3_PSOW, PMJ0, 40, 2)
-FIELD(kv3_PSOW, PMJ1, 42, 2)
-FIELD(kv3_PSOW, PMJ2, 44, 2)
-FIELD(kv3_PSOW, PMJ3, 46, 2)
-FIELD(kv3_PSOW, MMUP, 48, 2)
-FIELD(kv3_CS, IC, 0, 1)
-FIELD(kv3_CS, IO, 1, 1)
-FIELD(kv3_CS, DZ, 2, 1)
-FIELD(kv3_CS, OV, 3, 1)
-FIELD(kv3_CS, UN, 4, 1)
-FIELD(kv3_CS, IN, 5, 1)
-FIELD(kv3_CS, XIO, 9, 1)
-FIELD(kv3_CS, XDZ, 10, 1)
-FIELD(kv3_CS, XOV, 11, 1)
-FIELD(kv3_CS, XUN, 12, 1)
-FIELD(kv3_CS, XIN, 13, 1)
-FIELD(kv3_CS, RM, 16, 2)
-FIELD(kv3_CS, XRM, 20, 2)
-FIELD(kv3_CS, XMF, 24, 1)
-FIELD(kv3_CS, CC, 32, 16)
-FIELD(kv3_CS, XDROP, 48, 6)
-FIELD(kv3_CS, XPOW2, 54, 6)
-FIELD(kv3_AESPC, AESPC, 0, 64)
-FIELD(kv3_CSIT, ICIE, 0, 1)
-FIELD(kv3_CSIT, IOIE, 1, 1)
-FIELD(kv3_CSIT, DZIE, 2, 1)
-FIELD(kv3_CSIT, OVIE, 3, 1)
-FIELD(kv3_CSIT, UNIE, 4, 1)
-FIELD(kv3_CSIT, INIE, 5, 1)
-FIELD(kv3_CSIT, XIOIE, 9, 1)
-FIELD(kv3_CSIT, XDZIE, 10, 1)
-FIELD(kv3_CSIT, XOVIE, 11, 1)
-FIELD(kv3_CSIT, XUNIE, 12, 1)
-FIELD(kv3_CSIT, XINIE, 13, 1)
-FIELD(kv3_CSIT, AEIR, 16, 1)
-FIELD(kv3_CSIT, AEC, 17, 3)
-FIELD(kv3_CSIT, SPCV, 20, 1)
-FIELD(kv3_ES, EC, 0, 4)
-FIELD(kv3_ES, ED, 4, 60)
-FIELD(kv3_ES, OAPL, 4, 2)
-FIELD(kv3_ES, ORPL, 6, 2)
-FIELD(kv3_ES, PTAPL, 8, 2)
-FIELD(kv3_ES, PTRPL, 10, 2)
-FIELD(kv3_ES, ITN, 12, 5)
-FIELD(kv3_ES, ITL, 17, 2)
-FIELD(kv3_ES, ITI, 19, 10)
-FIELD(kv3_ES, SN, 12, 12)
-FIELD(kv3_ES, HTC, 12, 5)
-FIELD(kv3_ES, SFRT, 17, 1)
-FIELD(kv3_ES, SFRI, 18, 3)
-FIELD(kv3_ES, GPRP, 21, 6)
-FIELD(kv3_ES, SFRP, 27, 9)
-FIELD(kv3_ES, DHT, 36, 1)
-FIELD(kv3_ES, RWX, 39, 3)
-FIELD(kv3_ES, NTA, 42, 1)
-FIELD(kv3_ES, UCA, 43, 1)
-FIELD(kv3_ES, AS, 44, 6)
-FIELD(kv3_ES, BS, 50, 4)
-FIELD(kv3_ES, DRI, 54, 6)
-FIELD(kv3_ES, PIC, 60, 4)
-FIELD(kv3_ES, DC, 12, 2)
-FIELD(kv3_ES, BN, 14, 1)
-FIELD(kv3_ES, WN, 15, 1)
-FIELD(kv3_ES_PL0, EC, 0, 4)
-FIELD(kv3_ES_PL0, ED, 4, 60)
-FIELD(kv3_ES_PL0, OAPL, 4, 2)
-FIELD(kv3_ES_PL0, ORPL, 6, 2)
-FIELD(kv3_ES_PL0, PTAPL, 8, 2)
-FIELD(kv3_ES_PL0, PTRPL, 10, 2)
-FIELD(kv3_ES_PL0, ITN, 12, 5)
-FIELD(kv3_ES_PL0, ITL, 17, 2)
-FIELD(kv3_ES_PL0, ITI, 19, 10)
-FIELD(kv3_ES_PL0, SN, 12, 12)
-FIELD(kv3_ES_PL0, HTC, 12, 5)
-FIELD(kv3_ES_PL0, SFRT, 17, 1)
-FIELD(kv3_ES_PL0, SFRI, 18, 3)
-FIELD(kv3_ES_PL0, GPRP, 21, 6)
-FIELD(kv3_ES_PL0, SFRP, 27, 9)
-FIELD(kv3_ES_PL0, DHT, 36, 1)
-FIELD(kv3_ES_PL0, RWX, 39, 3)
-FIELD(kv3_ES_PL0, NTA, 42, 1)
-FIELD(kv3_ES_PL0, UCA, 43, 1)
-FIELD(kv3_ES_PL0, AS, 44, 6)
-FIELD(kv3_ES_PL0, BS, 50, 4)
-FIELD(kv3_ES_PL0, DRI, 54, 6)
-FIELD(kv3_ES_PL0, PIC, 60, 4)
-FIELD(kv3_ES_PL0, DC, 12, 2)
-FIELD(kv3_ES_PL0, BN, 14, 1)
-FIELD(kv3_ES_PL0, WN, 15, 1)
-FIELD(kv3_ES_PL1, EC, 0, 4)
-FIELD(kv3_ES_PL1, ED, 4, 60)
-FIELD(kv3_ES_PL1, OAPL, 4, 2)
-FIELD(kv3_ES_PL1, ORPL, 6, 2)
-FIELD(kv3_ES_PL1, PTAPL, 8, 2)
-FIELD(kv3_ES_PL1, PTRPL, 10, 2)
-FIELD(kv3_ES_PL1, ITN, 12, 5)
-FIELD(kv3_ES_PL1, ITL, 17, 2)
-FIELD(kv3_ES_PL1, ITI, 19, 10)
-FIELD(kv3_ES_PL1, SN, 12, 12)
-FIELD(kv3_ES_PL1, HTC, 12, 5)
-FIELD(kv3_ES_PL1, SFRT, 17, 1)
-FIELD(kv3_ES_PL1, SFRI, 18, 3)
-FIELD(kv3_ES_PL1, GPRP, 21, 6)
-FIELD(kv3_ES_PL1, SFRP, 27, 9)
-FIELD(kv3_ES_PL1, DHT, 36, 1)
-FIELD(kv3_ES_PL1, RWX, 39, 3)
-FIELD(kv3_ES_PL1, NTA, 42, 1)
-FIELD(kv3_ES_PL1, UCA, 43, 1)
-FIELD(kv3_ES_PL1, AS, 44, 6)
-FIELD(kv3_ES_PL1, BS, 50, 4)
-FIELD(kv3_ES_PL1, DRI, 54, 6)
-FIELD(kv3_ES_PL1, PIC, 60, 4)
-FIELD(kv3_ES_PL1, DC, 12, 2)
-FIELD(kv3_ES_PL1, BN, 14, 1)
-FIELD(kv3_ES_PL1, WN, 15, 1)
-FIELD(kv3_ES_PL2, EC, 0, 4)
-FIELD(kv3_ES_PL2, ED, 4, 60)
-FIELD(kv3_ES_PL2, OAPL, 4, 2)
-FIELD(kv3_ES_PL2, ORPL, 6, 2)
-FIELD(kv3_ES_PL2, PTAPL, 8, 2)
-FIELD(kv3_ES_PL2, PTRPL, 10, 2)
-FIELD(kv3_ES_PL2, ITN, 12, 5)
-FIELD(kv3_ES_PL2, ITL, 17, 2)
-FIELD(kv3_ES_PL2, ITI, 19, 10)
-FIELD(kv3_ES_PL2, SN, 12, 12)
-FIELD(kv3_ES_PL2, HTC, 12, 5)
-FIELD(kv3_ES_PL2, SFRT, 17, 1)
-FIELD(kv3_ES_PL2, SFRI, 18, 3)
-FIELD(kv3_ES_PL2, GPRP, 21, 6)
-FIELD(kv3_ES_PL2, SFRP, 27, 9)
-FIELD(kv3_ES_PL2, DHT, 36, 1)
-FIELD(kv3_ES_PL2, RWX, 39, 3)
-FIELD(kv3_ES_PL2, NTA, 42, 1)
-FIELD(kv3_ES_PL2, UCA, 43, 1)
-FIELD(kv3_ES_PL2, AS, 44, 6)
-FIELD(kv3_ES_PL2, BS, 50, 4)
-FIELD(kv3_ES_PL2, DRI, 54, 6)
-FIELD(kv3_ES_PL2, PIC, 60, 4)
-FIELD(kv3_ES_PL2, DC, 12, 2)
-FIELD(kv3_ES_PL2, BN, 14, 1)
-FIELD(kv3_ES_PL2, WN, 15, 1)
-FIELD(kv3_ES_PL3, EC, 0, 4)
-FIELD(kv3_ES_PL3, ED, 4, 60)
-FIELD(kv3_ES_PL3, OAPL, 4, 2)
-FIELD(kv3_ES_PL3, ORPL, 6, 2)
-FIELD(kv3_ES_PL3, PTAPL, 8, 2)
-FIELD(kv3_ES_PL3, PTRPL, 10, 2)
-FIELD(kv3_ES_PL3, ITN, 12, 5)
-FIELD(kv3_ES_PL3, ITL, 17, 2)
-FIELD(kv3_ES_PL3, ITI, 19, 10)
-FIELD(kv3_ES_PL3, SN, 12, 12)
-FIELD(kv3_ES_PL3, HTC, 12, 5)
-FIELD(kv3_ES_PL3, SFRT, 17, 1)
-FIELD(kv3_ES_PL3, SFRI, 18, 3)
-FIELD(kv3_ES_PL3, GPRP, 21, 6)
-FIELD(kv3_ES_PL3, SFRP, 27, 9)
-FIELD(kv3_ES_PL3, DHT, 36, 1)
-FIELD(kv3_ES_PL3, RWX, 39, 3)
-FIELD(kv3_ES_PL3, NTA, 42, 1)
-FIELD(kv3_ES_PL3, UCA, 43, 1)
-FIELD(kv3_ES_PL3, AS, 44, 6)
-FIELD(kv3_ES_PL3, BS, 50, 4)
-FIELD(kv3_ES_PL3, DRI, 54, 6)
-FIELD(kv3_ES_PL3, PIC, 60, 4)
-FIELD(kv3_ES_PL3, DC, 12, 2)
-FIELD(kv3_ES_PL3, BN, 14, 1)
-FIELD(kv3_ES_PL3, WN, 15, 1)
-FIELD(kv3_TCR, T0CE, 16, 1)
-FIELD(kv3_TCR, T1CE, 17, 1)
-FIELD(kv3_TCR, T0IE, 18, 1)
-FIELD(kv3_TCR, T1IE, 19, 1)
-FIELD(kv3_TCR, T0ST, 20, 1)
-FIELD(kv3_TCR, T1ST, 21, 1)
-FIELD(kv3_TCR, T0SI, 22, 1)
-FIELD(kv3_TCR, T1SI, 23, 1)
-FIELD(kv3_TCR, WCE, 24, 1)
-FIELD(kv3_TCR, WIE, 25, 1)
-FIELD(kv3_TCR, WUI, 26, 1)
-FIELD(kv3_TCR, WUS, 27, 1)
-FIELD(kv3_TCR, WSI, 28, 1)
-FIELD(kv3_PM0, PM0, 0, 64)
-FIELD(kv3_PM1, PM1, 0, 64)
-FIELD(kv3_PM2, PM2, 0, 64)
-FIELD(kv3_PM3, PM3, 0, 64)
-FIELD(kv3_PMSA, PMSA, 0, 64)
-FIELD(kv3_T0V, T0V, 0, 64)
-FIELD(kv3_T1V, T1V, 0, 64)
-FIELD(kv3_T0R, T0R, 0, 64)
-FIELD(kv3_T1R, T1R, 0, 64)
-FIELD(kv3_WDV, WDV, 0, 64)
-FIELD(kv3_WDR, WDR, 0, 64)
-FIELD(kv3_PMC, PM0C, 0, 6)
-FIELD(kv3_PMC, PM1C, 7, 6)
-FIELD(kv3_PMC, PM2C, 14, 6)
-FIELD(kv3_PMC, PM3C, 21, 6)
-FIELD(kv3_PMC, SAV, 30, 1)
-FIELD(kv3_PMC, PM0IE, 32, 1)
-FIELD(kv3_PMC, PM1IE, 33, 1)
-FIELD(kv3_PMC, PM2IE, 34, 1)
-FIELD(kv3_PMC, PM3IE, 35, 1)
-FIELD(kv3_PMC, SAT, 36, 2)
-FIELD(kv3_PCR, PID, 0, 8)
-FIELD(kv3_PCR, CID, 8, 8)
-FIELD(kv3_PCR, MID, 16, 8)
-FIELD(kv3_PCR, CAR, 24, 4)
-FIELD(kv3_PCR, CMA, 28, 4)
-FIELD(kv3_PCR, SV, 32, 8)
-FIELD(kv3_PCR, ST, 40, 4)
-FIELD(kv3_PCR, BM, 44, 8)
-FIELD(kv3_PCR, COE, 52, 1)
-FIELD(kv3_PCR, L1CE, 53, 1)
-FIELD(kv3_PCR, DSEM, 54, 1)
-FIELD(kv3_MMC, ASN, 0, 9)
-FIELD(kv3_MMC, S, 9, 1)
-FIELD(kv3_MMC, SNE, 14, 1)
-FIELD(kv3_MMC, SPE, 15, 1)
-FIELD(kv3_MMC, PTC, 16, 2)
-FIELD(kv3_MMC, SW, 18, 4)
-FIELD(kv3_MMC, SS, 22, 6)
-FIELD(kv3_MMC, SB, 28, 1)
-FIELD(kv3_MMC, PAR, 30, 1)
-FIELD(kv3_MMC, E, 31, 1)
-FIELD(kv3_TEL, ES, 0, 2)
-FIELD(kv3_TEL, CP, 2, 2)
-FIELD(kv3_TEL, PA, 4, 4)
-FIELD(kv3_TEL, PS, 10, 2)
-FIELD(kv3_TEL, FN, 12, 28)
-FIELD(kv3_TEH, ASN, 0, 9)
-FIELD(kv3_TEH, G, 9, 1)
-FIELD(kv3_TEH, VS, 10, 2)
-FIELD(kv3_TEH, PN, 12, 29)
-FIELD(kv3_DC, BE0, 0, 1)
-FIELD(kv3_DC, BR0, 1, 6)
-FIELD(kv3_DC, BE1, 7, 1)
-FIELD(kv3_DC, BR1, 8, 6)
-FIELD(kv3_DC, WE0, 14, 1)
-FIELD(kv3_DC, WR0, 15, 6)
-FIELD(kv3_DC, WE1, 21, 1)
-FIELD(kv3_DC, WR1, 22, 6)
-FIELD(kv3_MES, PSE, 0, 1)
-FIELD(kv3_MES, PILSY, 1, 1)
-FIELD(kv3_MES, PILDE, 2, 1)
-FIELD(kv3_MES, PILPA, 3, 1)
-FIELD(kv3_MES, DSE, 4, 1)
-FIELD(kv3_MES, DILSY, 5, 1)
-FIELD(kv3_MES, DILDE, 6, 1)
-FIELD(kv3_MES, DILPA, 7, 1)
-FIELD(kv3_MES, DDEE, 8, 1)
-FIELD(kv3_MES, DSYE, 9, 1)
-FIELD(kv3_WS, WU0, 0, 1)
-FIELD(kv3_WS, WU1, 1, 1)
-FIELD(kv3_WS, WU2, 2, 1)
-FIELD(kv3_IPE, FE, 0, 16)
-FIELD(kv3_IPE, BE, 16, 16)
-FIELD(kv3_IPE, FM, 32, 16)
-FIELD(kv3_IPE, BM, 48, 16)
+typedef enum Register Register;
+enum Register {
+    REG_kv3_PC, REG_kv3_PS, REG_kv3_PCR, REG_kv3_RA,
+    REG_kv3_CS, REG_kv3_CSIT, REG_kv3_AESPC, REG_kv3_LS,
+    REG_kv3_LE, REG_kv3_LC, REG_kv3_IPE, REG_kv3_MEN,
+    REG_kv3_PMC, REG_kv3_PM0, REG_kv3_PM1, REG_kv3_PM2,
+    REG_kv3_PM3, REG_kv3_PMSA, REG_kv3_TCR, REG_kv3_T0V,
+    REG_kv3_T1V, REG_kv3_T0R, REG_kv3_T1R, REG_kv3_WDV,
+    REG_kv3_WDR, REG_kv3_ILE, REG_kv3_ILL, REG_kv3_ILR,
+    REG_kv3_MMC, REG_kv3_TEL, REG_kv3_TEH, REG_kv3_IXC,
+    REG_kv3_SYO, REG_kv3_HTO, REG_kv3_ITO, REG_kv3_DO,
+    REG_kv3_MO, REG_kv3_PSO, REG_kv3_RES38, REG_kv3_RES39,
+    REG_kv3_DC, REG_kv3_DBA0, REG_kv3_DBA1, REG_kv3_DWA0,
+    REG_kv3_DWA1, REG_kv3_MES, REG_kv3_WS, REG_kv3_RES47,
+    REG_kv3_RES48, REG_kv3_RES49, REG_kv3_RES50, REG_kv3_RES51,
+    REG_kv3_RES52, REG_kv3_RES53, REG_kv3_RES54, REG_kv3_RES55,
+    REG_kv3_RES56, REG_kv3_RES57, REG_kv3_RES58, REG_kv3_RES59,
+    REG_kv3_RES60, REG_kv3_RES61, REG_kv3_RES62, REG_kv3_RES63,
+    REG_kv3_SPC_PL0, REG_kv3_SPC_PL1, REG_kv3_SPC_PL2, REG_kv3_SPC_PL3,
+    REG_kv3_SPS_PL0, REG_kv3_SPS_PL1, REG_kv3_SPS_PL2, REG_kv3_SPS_PL3,
+    REG_kv3_EA_PL0, REG_kv3_EA_PL1, REG_kv3_EA_PL2, REG_kv3_EA_PL3,
+    REG_kv3_EV_PL0, REG_kv3_EV_PL1, REG_kv3_EV_PL2, REG_kv3_EV_PL3,
+    REG_kv3_SR_PL0, REG_kv3_SR_PL1, REG_kv3_SR_PL2, REG_kv3_SR_PL3,
+    REG_kv3_ES_PL0, REG_kv3_ES_PL1, REG_kv3_ES_PL2, REG_kv3_ES_PL3,
+    REG_kv3_SID_PL0, REG_kv3_SID_PL1, REG_kv3_SID_PL2, REG_kv3_SID_PL3,
+    REG_kv3_RES92, REG_kv3_RES93, REG_kv3_RES94, REG_kv3_RES95,
+    REG_kv3_SYOW, REG_kv3_HTOW, REG_kv3_ITOW, REG_kv3_DOW,
+    REG_kv3_MOW, REG_kv3_PSOW, REG_kv3_RES102, REG_kv3_RES103,
+    REG_kv3_RES104, REG_kv3_RES105, REG_kv3_RES106, REG_kv3_RES107,
+    REG_kv3_RES108, REG_kv3_RES109, REG_kv3_RES110, REG_kv3_RES111,
+    REG_kv3_RES112, REG_kv3_RES113, REG_kv3_RES114, REG_kv3_RES115,
+    REG_kv3_RES116, REG_kv3_RES117, REG_kv3_RES118, REG_kv3_RES119,
+    REG_kv3_RES120, REG_kv3_RES121, REG_kv3_RES122, REG_kv3_RES123,
+    REG_kv3_RES124, REG_kv3_RES125, REG_kv3_RES126, REG_kv3_RES127,
+    REG_kv3_SPC, REG_kv3_RES129, REG_kv3_RES130, REG_kv3_RES131,
+    REG_kv3_SPS, REG_kv3_RES133, REG_kv3_RES134, REG_kv3_RES135,
+    REG_kv3_EA, REG_kv3_RES137, REG_kv3_RES138, REG_kv3_RES139,
+    REG_kv3_EV, REG_kv3_RES141, REG_kv3_RES142, REG_kv3_RES143,
+    REG_kv3_SR, REG_kv3_RES145, REG_kv3_RES146, REG_kv3_RES147,
+    REG_kv3_ES, REG_kv3_RES149, REG_kv3_RES150, REG_kv3_RES151,
+    REG_kv3_SID, REG_kv3_RES153, REG_kv3_RES154, REG_kv3_RES155,
+    REG_kv3_RES156, REG_kv3_RES157, REG_kv3_RES158, REG_kv3_RES159,
+    REG_kv3_RES160, REG_kv3_RES161, REG_kv3_RES162, REG_kv3_RES163,
+    REG_kv3_RES164, REG_kv3_RES165, REG_kv3_RES166, REG_kv3_RES167,
+    REG_kv3_RES168, REG_kv3_RES169, REG_kv3_RES170, REG_kv3_RES171,
+    REG_kv3_RES172, REG_kv3_RES173, REG_kv3_RES174, REG_kv3_RES175,
+    REG_kv3_RES176, REG_kv3_RES177, REG_kv3_RES178, REG_kv3_RES179,
+    REG_kv3_RES180, REG_kv3_RES181, REG_kv3_RES182, REG_kv3_RES183,
+    REG_kv3_RES184, REG_kv3_RES185, REG_kv3_RES186, REG_kv3_RES187,
+    REG_kv3_RES188, REG_kv3_RES189, REG_kv3_RES190, REG_kv3_RES191,
+    REG_kv3_RES192, REG_kv3_RES193, REG_kv3_RES194, REG_kv3_RES195,
+    REG_kv3_RES196, REG_kv3_RES197, REG_kv3_RES198, REG_kv3_RES199,
+    REG_kv3_RES200, REG_kv3_RES201, REG_kv3_RES202, REG_kv3_RES203,
+    REG_kv3_RES204, REG_kv3_RES205, REG_kv3_RES206, REG_kv3_RES207,
+    REG_kv3_RES208, REG_kv3_RES209, REG_kv3_RES210, REG_kv3_RES211,
+    REG_kv3_RES212, REG_kv3_RES213, REG_kv3_RES214, REG_kv3_RES215,
+    REG_kv3_RES216, REG_kv3_RES217, REG_kv3_RES218, REG_kv3_RES219,
+    REG_kv3_RES220, REG_kv3_RES221, REG_kv3_RES222, REG_kv3_RES223,
+    REG_kv3_RES224, REG_kv3_RES225, REG_kv3_RES226, REG_kv3_RES227,
+    REG_kv3_RES228, REG_kv3_RES229, REG_kv3_RES230, REG_kv3_RES231,
+    REG_kv3_RES232, REG_kv3_RES233, REG_kv3_RES234, REG_kv3_RES235,
+    REG_kv3_RES236, REG_kv3_RES237, REG_kv3_RES238, REG_kv3_RES239,
+    REG_kv3_RES240, REG_kv3_RES241, REG_kv3_RES242, REG_kv3_RES243,
+    REG_kv3_RES244, REG_kv3_RES245, REG_kv3_RES246, REG_kv3_RES247,
+    REG_kv3_RES248, REG_kv3_RES249, REG_kv3_RES250, REG_kv3_RES251,
+    REG_kv3_RES252, REG_kv3_RES253, REG_kv3_RES254, REG_kv3_RES255,
+    REG_kv3_VSFR0, REG_kv3_VSFR1, REG_kv3_VSFR2, REG_kv3_VSFR3,
+    REG_kv3_VSFR4, REG_kv3_VSFR5, REG_kv3_VSFR6, REG_kv3_VSFR7,
+    REG_kv3_VSFR8, REG_kv3_VSFR9, REG_kv3_VSFR10, REG_kv3_VSFR11,
+    REG_kv3_VSFR12, REG_kv3_VSFR13, REG_kv3_VSFR14, REG_kv3_VSFR15,
+    REG_kv3_VSFR16, REG_kv3_VSFR17, REG_kv3_VSFR18, REG_kv3_VSFR19,
+    REG_kv3_VSFR20, REG_kv3_VSFR21, REG_kv3_VSFR22, REG_kv3_VSFR23,
+    REG_kv3_VSFR24, REG_kv3_VSFR25, REG_kv3_VSFR26, REG_kv3_VSFR27,
+    REG_kv3_VSFR28, REG_kv3_VSFR29, REG_kv3_VSFR30, REG_kv3_VSFR31,
+    REG_kv3_VSFR32, REG_kv3_VSFR33, REG_kv3_VSFR34, REG_kv3_VSFR35,
+    REG_kv3_VSFR36, REG_kv3_VSFR37, REG_kv3_VSFR38, REG_kv3_VSFR39,
+    REG_kv3_VSFR40, REG_kv3_VSFR41, REG_kv3_VSFR42, REG_kv3_VSFR43,
+    REG_kv3_VSFR44, REG_kv3_VSFR45, REG_kv3_VSFR46, REG_kv3_VSFR47,
+    REG_kv3_VSFR48, REG_kv3_VSFR49, REG_kv3_VSFR50, REG_kv3_VSFR51,
+    REG_kv3_VSFR52, REG_kv3_VSFR53, REG_kv3_VSFR54, REG_kv3_VSFR55,
+    REG_kv3_VSFR56, REG_kv3_VSFR57, REG_kv3_VSFR58, REG_kv3_VSFR59,
+    REG_kv3_VSFR60, REG_kv3_VSFR61, REG_kv3_VSFR62, REG_kv3_VSFR63,
+    REG_kv3_VSFR64, REG_kv3_VSFR65, REG_kv3_VSFR66, REG_kv3_VSFR67,
+    REG_kv3_VSFR68, REG_kv3_VSFR69, REG_kv3_VSFR70, REG_kv3_VSFR71,
+    REG_kv3_VSFR72, REG_kv3_VSFR73, REG_kv3_VSFR74, REG_kv3_VSFR75,
+    REG_kv3_VSFR76, REG_kv3_VSFR77, REG_kv3_VSFR78, REG_kv3_VSFR79,
+    REG_kv3_VSFR80, REG_kv3_VSFR81, REG_kv3_VSFR82, REG_kv3_VSFR83,
+    REG_kv3_VSFR84, REG_kv3_VSFR85, REG_kv3_VSFR86, REG_kv3_VSFR87,
+    REG_kv3_VSFR88, REG_kv3_VSFR89, REG_kv3_VSFR90, REG_kv3_VSFR91,
+    REG_kv3_VSFR92, REG_kv3_VSFR93, REG_kv3_VSFR94, REG_kv3_VSFR95,
+    REG_kv3_VSFR96, REG_kv3_VSFR97, REG_kv3_VSFR98, REG_kv3_VSFR99,
+    REG_kv3_VSFR100, REG_kv3_VSFR101, REG_kv3_VSFR102, REG_kv3_VSFR103,
+    REG_kv3_VSFR104, REG_kv3_VSFR105, REG_kv3_VSFR106, REG_kv3_VSFR107,
+    REG_kv3_VSFR108, REG_kv3_VSFR109, REG_kv3_VSFR110, REG_kv3_VSFR111,
+    REG_kv3_VSFR112, REG_kv3_VSFR113, REG_kv3_VSFR114, REG_kv3_VSFR115,
+    REG_kv3_VSFR116, REG_kv3_VSFR117, REG_kv3_VSFR118, REG_kv3_VSFR119,
+    REG_kv3_VSFR120, REG_kv3_VSFR121, REG_kv3_VSFR122, REG_kv3_VSFR123,
+    REG_kv3_VSFR124, REG_kv3_VSFR125, REG_kv3_VSFR126, REG_kv3_VSFR127,
+    REG_kv3_VSFR128, REG_kv3_VSFR129, REG_kv3_VSFR130, REG_kv3_VSFR131,
+    REG_kv3_VSFR132, REG_kv3_VSFR133, REG_kv3_VSFR134, REG_kv3_VSFR135,
+    REG_kv3_VSFR136, REG_kv3_VSFR137, REG_kv3_VSFR138, REG_kv3_VSFR139,
+    REG_kv3_VSFR140, REG_kv3_VSFR141, REG_kv3_VSFR142, REG_kv3_VSFR143,
+    REG_kv3_VSFR144, REG_kv3_VSFR145, REG_kv3_VSFR146, REG_kv3_VSFR147,
+    REG_kv3_VSFR148, REG_kv3_VSFR149, REG_kv3_VSFR150, REG_kv3_VSFR151,
+    REG_kv3_VSFR152, REG_kv3_VSFR153, REG_kv3_VSFR154, REG_kv3_VSFR155,
+    REG_kv3_VSFR156, REG_kv3_VSFR157, REG_kv3_VSFR158, REG_kv3_VSFR159,
+    REG_kv3_VSFR160, REG_kv3_VSFR161, REG_kv3_VSFR162, REG_kv3_VSFR163,
+    REG_kv3_VSFR164, REG_kv3_VSFR165, REG_kv3_VSFR166, REG_kv3_VSFR167,
+    REG_kv3_VSFR168, REG_kv3_VSFR169, REG_kv3_VSFR170, REG_kv3_VSFR171,
+    REG_kv3_VSFR172, REG_kv3_VSFR173, REG_kv3_VSFR174, REG_kv3_VSFR175,
+    REG_kv3_VSFR176, REG_kv3_VSFR177, REG_kv3_VSFR178, REG_kv3_VSFR179,
+    REG_kv3_VSFR180, REG_kv3_VSFR181, REG_kv3_VSFR182, REG_kv3_VSFR183,
+    REG_kv3_VSFR184, REG_kv3_VSFR185, REG_kv3_VSFR186, REG_kv3_VSFR187,
+    REG_kv3_VSFR188, REG_kv3_VSFR189, REG_kv3_VSFR190, REG_kv3_VSFR191,
+    REG_kv3_VSFR192, REG_kv3_VSFR193, REG_kv3_VSFR194, REG_kv3_VSFR195,
+    REG_kv3_VSFR196, REG_kv3_VSFR197, REG_kv3_VSFR198, REG_kv3_VSFR199,
+    REG_kv3_VSFR200, REG_kv3_VSFR201, REG_kv3_VSFR202, REG_kv3_VSFR203,
+    REG_kv3_VSFR204, REG_kv3_VSFR205, REG_kv3_VSFR206, REG_kv3_VSFR207,
+    REG_kv3_VSFR208, REG_kv3_VSFR209, REG_kv3_VSFR210, REG_kv3_VSFR211,
+    REG_kv3_VSFR212, REG_kv3_VSFR213, REG_kv3_VSFR214, REG_kv3_VSFR215,
+    REG_kv3_VSFR216, REG_kv3_VSFR217, REG_kv3_VSFR218, REG_kv3_VSFR219,
+    REG_kv3_VSFR220, REG_kv3_VSFR221, REG_kv3_VSFR222, REG_kv3_VSFR223,
+    REG_kv3_VSFR224, REG_kv3_VSFR225, REG_kv3_VSFR226, REG_kv3_VSFR227,
+    REG_kv3_VSFR228, REG_kv3_VSFR229, REG_kv3_VSFR230, REG_kv3_VSFR231,
+    REG_kv3_VSFR232, REG_kv3_VSFR233, REG_kv3_VSFR234, REG_kv3_VSFR235,
+    REG_kv3_VSFR236, REG_kv3_VSFR237, REG_kv3_VSFR238, REG_kv3_VSFR239,
+    REG_kv3_VSFR240, REG_kv3_VSFR241, REG_kv3_VSFR242, REG_kv3_VSFR243,
+    REG_kv3_VSFR244, REG_kv3_VSFR245, REG_kv3_VSFR246, REG_kv3_VSFR247,
+    REG_kv3_VSFR248, REG_kv3_VSFR249, REG_kv3_VSFR250, REG_kv3_VSFR251,
+    REG_kv3_VSFR252, REG_kv3_VSFR253, REG_kv3_VSFR254, REG_kv3_VSFR255,
+    REG_kv3_R0, REG_kv3_R1, REG_kv3_R2, REG_kv3_R3,
+    REG_kv3_R4, REG_kv3_R5, REG_kv3_R6, REG_kv3_R7,
+    REG_kv3_R8, REG_kv3_R9, REG_kv3_R10, REG_kv3_R11,
+    REG_kv3_R12, REG_kv3_R13, REG_kv3_R14, REG_kv3_R15,
+    REG_kv3_R16, REG_kv3_R17, REG_kv3_R18, REG_kv3_R19,
+    REG_kv3_R20, REG_kv3_R21, REG_kv3_R22, REG_kv3_R23,
+    REG_kv3_R24, REG_kv3_R25, REG_kv3_R26, REG_kv3_R27,
+    REG_kv3_R28, REG_kv3_R29, REG_kv3_R30, REG_kv3_R31,
+    REG_kv3_R32, REG_kv3_R33, REG_kv3_R34, REG_kv3_R35,
+    REG_kv3_R36, REG_kv3_R37, REG_kv3_R38, REG_kv3_R39,
+    REG_kv3_R40, REG_kv3_R41, REG_kv3_R42, REG_kv3_R43,
+    REG_kv3_R44, REG_kv3_R45, REG_kv3_R46, REG_kv3_R47,
+    REG_kv3_R48, REG_kv3_R49, REG_kv3_R50, REG_kv3_R51,
+    REG_kv3_R52, REG_kv3_R53, REG_kv3_R54, REG_kv3_R55,
+    REG_kv3_R56, REG_kv3_R57, REG_kv3_R58, REG_kv3_R59,
+    REG_kv3_R60, REG_kv3_R61, REG_kv3_R62, REG_kv3_R63,
+    REG_kv3_P0, REG_kv3_P2, REG_kv3_P4, REG_kv3_P6,
+    REG_kv3_P8, REG_kv3_P10, REG_kv3_P12, REG_kv3_P14,
+    REG_kv3_P16, REG_kv3_P18, REG_kv3_P20, REG_kv3_P22,
+    REG_kv3_P24, REG_kv3_P26, REG_kv3_P28, REG_kv3_P30,
+    REG_kv3_P32, REG_kv3_P34, REG_kv3_P36, REG_kv3_P38,
+    REG_kv3_P40, REG_kv3_P42, REG_kv3_P44, REG_kv3_P46,
+    REG_kv3_P48, REG_kv3_P50, REG_kv3_P52, REG_kv3_P54,
+    REG_kv3_P56, REG_kv3_P58, REG_kv3_P60, REG_kv3_P62,
+    REG_kv3_Q0, REG_kv3_Q4, REG_kv3_Q8, REG_kv3_Q12,
+    REG_kv3_Q16, REG_kv3_Q20, REG_kv3_Q24, REG_kv3_Q28,
+    REG_kv3_Q32, REG_kv3_Q36, REG_kv3_Q40, REG_kv3_Q44,
+    REG_kv3_Q48, REG_kv3_Q52, REG_kv3_Q56, REG_kv3_Q60,
+    REG_kv3_C0, REG_kv3_C1, REG_kv3_C2, REG_kv3_C3,
+    REG_kv3_C4, REG_kv3_C5, REG_kv3_C6, REG_kv3_C7,
+    REG_kv3_C8, REG_kv3_C9, REG_kv3_C10, REG_kv3_C11,
+    REG_kv3_C12, REG_kv3_C13, REG_kv3_C14, REG_kv3_C15,
+    REG_kv3_C16, REG_kv3_C17, REG_kv3_C18, REG_kv3_C19,
+    REG_kv3_C20, REG_kv3_C21, REG_kv3_C22, REG_kv3_C23,
+    REG_kv3_C24, REG_kv3_C25, REG_kv3_C26, REG_kv3_C27,
+    REG_kv3_C28, REG_kv3_C29, REG_kv3_C30, REG_kv3_C31,
+    REG_kv3_C32, REG_kv3_C33, REG_kv3_C34, REG_kv3_C35,
+    REG_kv3_C36, REG_kv3_C37, REG_kv3_C38, REG_kv3_C39,
+    REG_kv3_C40, REG_kv3_C41, REG_kv3_C42, REG_kv3_C43,
+    REG_kv3_C44, REG_kv3_C45, REG_kv3_C46, REG_kv3_C47,
+    REG_kv3_C48, REG_kv3_C49, REG_kv3_C50, REG_kv3_C51,
+    REG_kv3_C52, REG_kv3_C53, REG_kv3_C54, REG_kv3_C55,
+    REG_kv3_C56, REG_kv3_C57, REG_kv3_C58, REG_kv3_C59,
+    REG_kv3_C60, REG_kv3_C61, REG_kv3_C62, REG_kv3_C63,
+    REG_kv3_C64, REG_kv3_C65, REG_kv3_C66, REG_kv3_C67,
+    REG_kv3_C68, REG_kv3_C69, REG_kv3_C70, REG_kv3_C71,
+    REG_kv3_C72, REG_kv3_C73, REG_kv3_C74, REG_kv3_C75,
+    REG_kv3_C76, REG_kv3_C77, REG_kv3_C78, REG_kv3_C79,
+    REG_kv3_C80, REG_kv3_C81, REG_kv3_C82, REG_kv3_C83,
+    REG_kv3_C84, REG_kv3_C85, REG_kv3_C86, REG_kv3_C87,
+    REG_kv3_C88, REG_kv3_C89, REG_kv3_C90, REG_kv3_C91,
+    REG_kv3_C92, REG_kv3_C93, REG_kv3_C94, REG_kv3_C95,
+    REG_kv3_C96, REG_kv3_C97, REG_kv3_C98, REG_kv3_C99,
+    REG_kv3_C100, REG_kv3_C101, REG_kv3_C102, REG_kv3_C103,
+    REG_kv3_C104, REG_kv3_C105, REG_kv3_C106, REG_kv3_C107,
+    REG_kv3_C108, REG_kv3_C109, REG_kv3_C110, REG_kv3_C111,
+    REG_kv3_C112, REG_kv3_C113, REG_kv3_C114, REG_kv3_C115,
+    REG_kv3_C116, REG_kv3_C117, REG_kv3_C118, REG_kv3_C119,
+    REG_kv3_C120, REG_kv3_C121, REG_kv3_C122, REG_kv3_C123,
+    REG_kv3_C124, REG_kv3_C125, REG_kv3_C126, REG_kv3_C127,
+    REG_kv3_C128, REG_kv3_C129, REG_kv3_C130, REG_kv3_C131,
+    REG_kv3_C132, REG_kv3_C133, REG_kv3_C134, REG_kv3_C135,
+    REG_kv3_C136, REG_kv3_C137, REG_kv3_C138, REG_kv3_C139,
+    REG_kv3_C140, REG_kv3_C141, REG_kv3_C142, REG_kv3_C143,
+    REG_kv3_C144, REG_kv3_C145, REG_kv3_C146, REG_kv3_C147,
+    REG_kv3_C148, REG_kv3_C149, REG_kv3_C150, REG_kv3_C151,
+    REG_kv3_C152, REG_kv3_C153, REG_kv3_C154, REG_kv3_C155,
+    REG_kv3_C156, REG_kv3_C157, REG_kv3_C158, REG_kv3_C159,
+    REG_kv3_C160, REG_kv3_C161, REG_kv3_C162, REG_kv3_C163,
+    REG_kv3_C164, REG_kv3_C165, REG_kv3_C166, REG_kv3_C167,
+    REG_kv3_C168, REG_kv3_C169, REG_kv3_C170, REG_kv3_C171,
+    REG_kv3_C172, REG_kv3_C173, REG_kv3_C174, REG_kv3_C175,
+    REG_kv3_C176, REG_kv3_C177, REG_kv3_C178, REG_kv3_C179,
+    REG_kv3_C180, REG_kv3_C181, REG_kv3_C182, REG_kv3_C183,
+    REG_kv3_C184, REG_kv3_C185, REG_kv3_C186, REG_kv3_C187,
+    REG_kv3_C188, REG_kv3_C189, REG_kv3_C190, REG_kv3_C191,
+    REG_kv3_C192, REG_kv3_C193, REG_kv3_C194, REG_kv3_C195,
+    REG_kv3_C196, REG_kv3_C197, REG_kv3_C198, REG_kv3_C199,
+    REG_kv3_C200, REG_kv3_C201, REG_kv3_C202, REG_kv3_C203,
+    REG_kv3_C204, REG_kv3_C205, REG_kv3_C206, REG_kv3_C207,
+    REG_kv3_C208, REG_kv3_C209, REG_kv3_C210, REG_kv3_C211,
+    REG_kv3_C212, REG_kv3_C213, REG_kv3_C214, REG_kv3_C215,
+    REG_kv3_C216, REG_kv3_C217, REG_kv3_C218, REG_kv3_C219,
+    REG_kv3_C220, REG_kv3_C221, REG_kv3_C222, REG_kv3_C223,
+    REG_kv3_C224, REG_kv3_C225, REG_kv3_C226, REG_kv3_C227,
+    REG_kv3_C228, REG_kv3_C229, REG_kv3_C230, REG_kv3_C231,
+    REG_kv3_C232, REG_kv3_C233, REG_kv3_C234, REG_kv3_C235,
+    REG_kv3_C236, REG_kv3_C237, REG_kv3_C238, REG_kv3_C239,
+    REG_kv3_C240, REG_kv3_C241, REG_kv3_C242, REG_kv3_C243,
+    REG_kv3_C244, REG_kv3_C245, REG_kv3_C246, REG_kv3_C247,
+    REG_kv3_C248, REG_kv3_C249, REG_kv3_C250, REG_kv3_C251,
+    REG_kv3_C252, REG_kv3_C253, REG_kv3_C254, REG_kv3_C255,
+    REG_kv3_B0, REG_kv3_B1, REG_kv3_B2, REG_kv3_B3,
+    REG_kv3_B4, REG_kv3_B5, REG_kv3_B6, REG_kv3_B7,
+    REG_kv3_B8, REG_kv3_B9, REG_kv3_B10, REG_kv3_B11,
+    REG_kv3_B12, REG_kv3_B13, REG_kv3_B14, REG_kv3_B15,
+    REG_kv3_B16, REG_kv3_B17, REG_kv3_B18, REG_kv3_B19,
+    REG_kv3_B20, REG_kv3_B21, REG_kv3_B22, REG_kv3_B23,
+    REG_kv3_B24, REG_kv3_B25, REG_kv3_B26, REG_kv3_B27,
+    REG_kv3_B28, REG_kv3_B29, REG_kv3_B30, REG_kv3_B31,
+    REG_kv3_B32, REG_kv3_B33, REG_kv3_B34, REG_kv3_B35,
+    REG_kv3_B36, REG_kv3_B37, REG_kv3_B38, REG_kv3_B39,
+    REG_kv3_B40, REG_kv3_B41, REG_kv3_B42, REG_kv3_B43,
+    REG_kv3_B44, REG_kv3_B45, REG_kv3_B46, REG_kv3_B47,
+    REG_kv3_B48, REG_kv3_B49, REG_kv3_B50, REG_kv3_B51,
+    REG_kv3_B52, REG_kv3_B53, REG_kv3_B54, REG_kv3_B55,
+    REG_kv3_B56, REG_kv3_B57, REG_kv3_B58, REG_kv3_B59,
+    REG_kv3_B60, REG_kv3_B61, REG_kv3_B62, REG_kv3_B63,
+    REG_kv3_B64, REG_kv3_B65, REG_kv3_B66, REG_kv3_B67,
+    REG_kv3_B68, REG_kv3_B69, REG_kv3_B70, REG_kv3_B71,
+    REG_kv3_B72, REG_kv3_B73, REG_kv3_B74, REG_kv3_B75,
+    REG_kv3_B76, REG_kv3_B77, REG_kv3_B78, REG_kv3_B79,
+    REG_kv3_B80, REG_kv3_B81, REG_kv3_B82, REG_kv3_B83,
+    REG_kv3_B84, REG_kv3_B85, REG_kv3_B86, REG_kv3_B87,
+    REG_kv3_B88, REG_kv3_B89, REG_kv3_B90, REG_kv3_B91,
+    REG_kv3_B92, REG_kv3_B93, REG_kv3_B94, REG_kv3_B95,
+    REG_kv3_B96, REG_kv3_B97, REG_kv3_B98, REG_kv3_B99,
+    REG_kv3_B100, REG_kv3_B101, REG_kv3_B102, REG_kv3_B103,
+    REG_kv3_B104, REG_kv3_B105, REG_kv3_B106, REG_kv3_B107,
+    REG_kv3_B108, REG_kv3_B109, REG_kv3_B110, REG_kv3_B111,
+    REG_kv3_B112, REG_kv3_B113, REG_kv3_B114, REG_kv3_B115,
+    REG_kv3_B116, REG_kv3_B117, REG_kv3_B118, REG_kv3_B119,
+    REG_kv3_B120, REG_kv3_B121, REG_kv3_B122, REG_kv3_B123,
+    REG_kv3_B124, REG_kv3_B125, REG_kv3_B126, REG_kv3_B127,
+    REG_kv3_A0, REG_kv3_A1, REG_kv3_A2, REG_kv3_A3,
+    REG_kv3_A4, REG_kv3_A5, REG_kv3_A6, REG_kv3_A7,
+    REG_kv3_A8, REG_kv3_A9, REG_kv3_A10, REG_kv3_A11,
+    REG_kv3_A12, REG_kv3_A13, REG_kv3_A14, REG_kv3_A15,
+    REG_kv3_A16, REG_kv3_A17, REG_kv3_A18, REG_kv3_A19,
+    REG_kv3_A20, REG_kv3_A21, REG_kv3_A22, REG_kv3_A23,
+    REG_kv3_A24, REG_kv3_A25, REG_kv3_A26, REG_kv3_A27,
+    REG_kv3_A28, REG_kv3_A29, REG_kv3_A30, REG_kv3_A31,
+    REG_kv3_A32, REG_kv3_A33, REG_kv3_A34, REG_kv3_A35,
+    REG_kv3_A36, REG_kv3_A37, REG_kv3_A38, REG_kv3_A39,
+    REG_kv3_A40, REG_kv3_A41, REG_kv3_A42, REG_kv3_A43,
+    REG_kv3_A44, REG_kv3_A45, REG_kv3_A46, REG_kv3_A47,
+    REG_kv3_A48, REG_kv3_A49, REG_kv3_A50, REG_kv3_A51,
+    REG_kv3_A52, REG_kv3_A53, REG_kv3_A54, REG_kv3_A55,
+    REG_kv3_A56, REG_kv3_A57, REG_kv3_A58, REG_kv3_A59,
+    REG_kv3_A60, REG_kv3_A61, REG_kv3_A62, REG_kv3_A63,
+    REG_kv3_W0, REG_kv3_W1, REG_kv3_W2, REG_kv3_W3,
+    REG_kv3_W4, REG_kv3_W5, REG_kv3_W6, REG_kv3_W7,
+    REG_kv3_W8, REG_kv3_W9, REG_kv3_W10, REG_kv3_W11,
+    REG_kv3_W12, REG_kv3_W13, REG_kv3_W14, REG_kv3_W15,
+    REG_kv3_W16, REG_kv3_W17, REG_kv3_W18, REG_kv3_W19,
+    REG_kv3_W20, REG_kv3_W21, REG_kv3_W22, REG_kv3_W23,
+    REG_kv3_W24, REG_kv3_W25, REG_kv3_W26, REG_kv3_W27,
+    REG_kv3_W28, REG_kv3_W29, REG_kv3_W30, REG_kv3_W31,
+    REG_kv3_X0, REG_kv3_X1, REG_kv3_X2, REG_kv3_X3,
+    REG_kv3_X4, REG_kv3_X5, REG_kv3_X6, REG_kv3_X7,
+    REG_kv3_X8, REG_kv3_X9, REG_kv3_X10, REG_kv3_X11,
+    REG_kv3_X12, REG_kv3_X13, REG_kv3_X14, REG_kv3_X15,
+    REG_v2_PCR, REG_v2_PMC, REG_v2_IXC, REG_v2_MO,
+    REG_v2_ES_PL0, REG_v2_ES_PL1, REG_v2_ES_PL2, REG_v2_ES_PL3,
+    REG_v2_SID_PL0, REG_v2_SID_PL1, REG_v2_SID_PL2, REG_v2_SID_PL3,
+    REG_v2_MOW, REG_v2_ES, REG_v2_SID, };
+
+typedef enum RegFile RegFile;
+enum RegFile {
+    REGFILE_kv3_SFR,
+    REGFILE_kv3_GPR,
+    REGFILE_kv3_PGR,
+    REGFILE_kv3_QGR,
+    REGFILE_kv3_XCR,
+    REGFILE_kv3_XBR,
+    REGFILE_kv3_XVR,
+    REGFILE_kv3_XWR,
+    REGFILE_kv3_XMR,
+};
+
+typedef enum RegClass RegClass;
+enum RegClass {
+    REGCLASS_kv3_systemReg,
+    REGCLASS_kv3_singleReg,
+    REGCLASS_kv3_pairedReg,
+    REGCLASS_kv3_pairedReg_0,
+    REGCLASS_kv3_pairedReg_1,
+    REGCLASS_kv3_quadReg,
+    REGCLASS_kv3_quadReg_0,
+    REGCLASS_kv3_quadReg_1,
+    REGCLASS_kv3_quadReg_2,
+    REGCLASS_kv3_quadReg_3,
+    REGCLASS_kv3_coproReg,
+    REGCLASS_kv3_blockReg,
+    REGCLASS_kv3_blockReg_0,
+    REGCLASS_kv3_blockReg_1,
+    REGCLASS_kv3_vectorReg,
+    REGCLASS_kv3_vectorReg_0,
+    REGCLASS_kv3_vectorReg_1,
+    REGCLASS_kv3_vectorReg_2,
+    REGCLASS_kv3_vectorReg_3,
+    REGCLASS_kv3_wideReg,
+    REGCLASS_kv3_wideReg_0,
+    REGCLASS_kv3_wideReg_1,
+    REGCLASS_kv3_matrixReg,
+    REGCLASS_kv3_matrixReg_0,
+    REGCLASS_kv3_matrixReg_1,
+    REGCLASS_kv3_matrixReg_2,
+    REGCLASS_kv3_matrixReg_3,
+    REGCLASS_kv3_aloneReg,
+    REGCLASS_kv3_onlyraReg,
+    REGCLASS_kv3_onlygetReg,
+    REGCLASS_kv3_onlysetReg,
+    REGCLASS_kv3_onlyfxReg,
+    REGCLASS_kv3_onlyswapReg,
+    REGCLASS_kv3_vectorRegE,
+    REGCLASS_kv3_vectorRegO,
+    REGCLASS_kv3_blockRegE,
+    REGCLASS_kv3_blockRegO,
+    REGCLASS_kv3_blockReg0M4,
+    REGCLASS_kv3_blockReg1M4,
+    REGCLASS_kv3_blockReg2M4,
+    REGCLASS_kv3_blockReg3M4,
+    REGCLASS_kv3_coproReg0M4,
+    REGCLASS_kv3_coproReg1M4,
+    REGCLASS_kv3_coproReg2M4,
+    REGCLASS_kv3_coproReg3M4,
+    REGCLASS_v2_systemReg,
+    REGCLASS_v2_aloneReg,
+    REGCLASS_v2_onlygetReg,
+    REGCLASS_v2_onlysetReg,
+    REGCLASS_v2_onlyfxReg,
+    REGCLASS_v2_onlyswapReg,
+};
+
+typedef struct StorageDescr StorageDescr;
+struct StorageDescr {
+    size_t width;
+    size_t count;
+    size_t data_width;
+    size_t offset;
+};
+
+static const StorageDescr STORAGES[] = {
+    [STORAGE_kv3_AESPC] = {
+        .width = 64,
+        .count = 1,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_AESPC)
+    },
+    [STORAGE_kv3_PM0] = {
+        .width = 64,
+        .count = 1,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_PM0)
+    },
+    [STORAGE_kv3_PM1] = {
+        .width = 64,
+        .count = 1,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_PM1)
+    },
+    [STORAGE_kv3_PM2] = {
+        .width = 64,
+        .count = 1,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_PM2)
+    },
+    [STORAGE_kv3_PM3] = {
+        .width = 64,
+        .count = 1,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_PM3)
+    },
+    [STORAGE_kv3_PMSA] = {
+        .width = 64,
+        .count = 1,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_PMSA)
+    },
+    [STORAGE_kv3_T0V] = {
+        .width = 64,
+        .count = 1,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_T0V)
+    },
+    [STORAGE_kv3_T1V] = {
+        .width = 64,
+        .count = 1,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_T1V)
+    },
+    [STORAGE_kv3_T0R] = {
+        .width = 64,
+        .count = 1,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_T0R)
+    },
+    [STORAGE_kv3_T1R] = {
+        .width = 64,
+        .count = 1,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_T1R)
+    },
+    [STORAGE_kv3_WDV] = {
+        .width = 64,
+        .count = 1,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_WDV)
+    },
+    [STORAGE_kv3_WDR] = {
+        .width = 64,
+        .count = 1,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_WDR)
+    },
+    [STORAGE_kv3_MEN] = {
+        .width = 1,
+        .count = 16,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_MEN)
+    },
+    [STORAGE_kv3_PC] = {
+        .width = 64,
+        .count = 1,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_PC)
+    },
+    [STORAGE_kv3_PS] = {
+        .width = 1,
+        .count = 32,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_PS)
+    },
+    [STORAGE_kv3_SPS] = {
+        .width = 1,
+        .count = 32,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_SPS)
+    },
+    [STORAGE_kv3_SPS_PL0] = {
+        .width = 1,
+        .count = 32,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_SPS_PL0)
+    },
+    [STORAGE_kv3_SPS_PL1] = {
+        .width = 1,
+        .count = 32,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_SPS_PL1)
+    },
+    [STORAGE_kv3_SPS_PL2] = {
+        .width = 1,
+        .count = 32,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_SPS_PL2)
+    },
+    [STORAGE_kv3_SPS_PL3] = {
+        .width = 1,
+        .count = 32,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_SPS_PL3)
+    },
+    [STORAGE_kv3_CS] = {
+        .width = 1,
+        .count = 64,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_CS)
+    },
+    [STORAGE_kv3_DBA0] = {
+        .width = 64,
+        .count = 1,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_DBA0)
+    },
+    [STORAGE_kv3_DBA1] = {
+        .width = 64,
+        .count = 1,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_DBA1)
+    },
+    [STORAGE_kv3_DWA0] = {
+        .width = 64,
+        .count = 1,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_DWA0)
+    },
+    [STORAGE_kv3_DWA1] = {
+        .width = 64,
+        .count = 1,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_DWA1)
+    },
+    [STORAGE_kv3_CSIT] = {
+        .width = 1,
+        .count = 32,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_CSIT)
+    },
+    [STORAGE_kv3_ES] = {
+        .width = 1,
+        .count = 64,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_ES)
+    },
+    [STORAGE_kv3_ES_PL0] = {
+        .width = 1,
+        .count = 64,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_ES_PL0)
+    },
+    [STORAGE_kv3_ES_PL1] = {
+        .width = 1,
+        .count = 64,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_ES_PL1)
+    },
+    [STORAGE_kv3_ES_PL2] = {
+        .width = 1,
+        .count = 64,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_ES_PL2)
+    },
+    [STORAGE_kv3_ES_PL3] = {
+        .width = 1,
+        .count = 64,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_ES_PL3)
+    },
+    [STORAGE_kv3_SID] = {
+        .width = 1,
+        .count = 64,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_SID)
+    },
+    [STORAGE_kv3_SID_PL0] = {
+        .width = 1,
+        .count = 64,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_SID_PL0)
+    },
+    [STORAGE_kv3_SID_PL1] = {
+        .width = 1,
+        .count = 64,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_SID_PL1)
+    },
+    [STORAGE_kv3_SID_PL2] = {
+        .width = 1,
+        .count = 64,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_SID_PL2)
+    },
+    [STORAGE_kv3_SID_PL3] = {
+        .width = 1,
+        .count = 64,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_SID_PL3)
+    },
+    [STORAGE_kv3_IXC] = {
+        .width = 1,
+        .count = 64,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_IXC)
+    },
+    [STORAGE_kv3_TEL] = {
+        .width = 1,
+        .count = 64,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_TEL)
+    },
+    [STORAGE_kv3_TEH] = {
+        .width = 1,
+        .count = 64,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_TEH)
+    },
+    [STORAGE_kv3_DC] = {
+        .width = 1,
+        .count = 32,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_DC)
+    },
+    [STORAGE_kv3_SRS] = {
+        .width = 64,
+        .count = 512,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_SRS)
+    },
+    [STORAGE_kv3_GRS] = {
+        .width = 64,
+        .count = 64,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_GRS)
+    },
+    [STORAGE_kv3_XRS] = {
+        .width = 64,
+        .count = 256,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_XRS)
+    },
+    [STORAGE_kv3_NPC] = {
+        .width = 64,
+        .count = 1,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_NPC)
+    },
+    [STORAGE_kv3_TCR] = {
+        .width = 1,
+        .count = 32,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_TCR)
+    },
+    [STORAGE_kv3_PMC] = {
+        .width = 1,
+        .count = 64,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_PMC)
+    },
+    [STORAGE_kv3_PCR] = {
+        .width = 1,
+        .count = 64,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_PCR)
+    },
+    [STORAGE_kv3_SYO] = {
+        .width = 1,
+        .count = 32,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_SYO)
+    },
+    [STORAGE_kv3_HTO] = {
+        .width = 1,
+        .count = 32,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_HTO)
+    },
+    [STORAGE_kv3_ITO] = {
+        .width = 1,
+        .count = 64,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_ITO)
+    },
+    [STORAGE_kv3_ILE] = {
+        .width = 1,
+        .count = 32,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_ILE)
+    },
+    [STORAGE_kv3_ILL] = {
+        .width = 1,
+        .count = 64,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_ILL)
+    },
+    [STORAGE_kv3_ILR] = {
+        .width = 1,
+        .count = 32,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_ILR)
+    },
+    [STORAGE_kv3_DO] = {
+        .width = 1,
+        .count = 32,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_DO)
+    },
+    [STORAGE_kv3_MO] = {
+        .width = 1,
+        .count = 64,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_MO)
+    },
+    [STORAGE_kv3_PSO] = {
+        .width = 1,
+        .count = 64,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_PSO)
+    },
+    [STORAGE_kv3_MMC] = {
+        .width = 1,
+        .count = 32,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_MMC)
+    },
+    [STORAGE_kv3_MES] = {
+        .width = 1,
+        .count = 32,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_MES)
+    },
+    [STORAGE_kv3_WS] = {
+        .width = 1,
+        .count = 32,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_WS)
+    },
+    [STORAGE_v2_SID] = {
+        .width = 1,
+        .count = 32,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.v2_SID)
+    },
+    [STORAGE_v2_SID_PL0] = {
+        .width = 1,
+        .count = 32,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.v2_SID_PL0)
+    },
+    [STORAGE_v2_SID_PL1] = {
+        .width = 1,
+        .count = 32,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.v2_SID_PL1)
+    },
+    [STORAGE_v2_SID_PL2] = {
+        .width = 1,
+        .count = 32,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.v2_SID_PL2)
+    },
+    [STORAGE_v2_SID_PL3] = {
+        .width = 1,
+        .count = 32,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.v2_SID_PL3)
+    },
+    [STORAGE_v2_IXC] = {
+        .width = 1,
+        .count = 32,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.v2_IXC)
+    },
+};
+
+typedef struct RegisterFieldDescr RegisterFieldDescr;
+struct RegisterFieldDescr {
+    const char *name; /* name (debug purpose mostly) */
+    Register reg; /* register containing this field */
+    int offset; /* offset of the field in bits */
+    int width; /* width of the field in bits */
+    uint64_t mask; /* field mask */
+    int n_owners; /* number of fields */
+    const RegisterField *owners; /* owners (pl-sized field(s)) */
+    RegisterReadErrorType rerror; /* error on unprivileged read */
+    RegisterWriteErrorType werror; /* error on unprivileged write */
+};
+
+static const RegisterFieldDescr REGISTERFIELDS[] = {
+    [REGFIELD_kv3_MEN_MEN] = {
+        .name = "MEN_MEN",
+        .reg = REG_kv3_MEN,
+        .offset = 0,
+        .width = 16,
+        .mask = 0x000000000000ffff,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_MEN,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SYO_Q0] = {
+        .name = "SYO_Q0",
+        .reg = REG_kv3_SYO,
+        .offset = 0,
+        .width = 2,
+        .mask = 0x0000000000000003,
+    },
+    [REGFIELD_kv3_SYO_Q1] = {
+        .name = "SYO_Q1",
+        .reg = REG_kv3_SYO,
+        .offset = 2,
+        .width = 2,
+        .mask = 0x000000000000000c,
+    },
+    [REGFIELD_kv3_SYO_Q2] = {
+        .name = "SYO_Q2",
+        .reg = REG_kv3_SYO,
+        .offset = 4,
+        .width = 2,
+        .mask = 0x0000000000000030,
+    },
+    [REGFIELD_kv3_SYO_Q3] = {
+        .name = "SYO_Q3",
+        .reg = REG_kv3_SYO,
+        .offset = 6,
+        .width = 2,
+        .mask = 0x00000000000000c0,
+    },
+    [REGFIELD_kv3_SYOW_Q0] = {
+        .name = "SYOW_Q0",
+        .reg = REG_kv3_SYOW,
+        .offset = 0,
+        .width = 2,
+        .mask = 0x0000000000000003,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_SYO_Q0,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SYOW_Q1] = {
+        .name = "SYOW_Q1",
+        .reg = REG_kv3_SYOW,
+        .offset = 2,
+        .width = 2,
+        .mask = 0x000000000000000c,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_SYO_Q1,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SYOW_Q2] = {
+        .name = "SYOW_Q2",
+        .reg = REG_kv3_SYOW,
+        .offset = 4,
+        .width = 2,
+        .mask = 0x0000000000000030,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_SYO_Q2,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SYOW_Q3] = {
+        .name = "SYOW_Q3",
+        .reg = REG_kv3_SYOW,
+        .offset = 6,
+        .width = 2,
+        .mask = 0x00000000000000c0,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_SYO_Q3,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_HTO_OPC] = {
+        .name = "HTO_OPC",
+        .reg = REG_kv3_HTO,
+        .offset = 0,
+        .width = 2,
+        .mask = 0x0000000000000003,
+    },
+    [REGFIELD_kv3_HTO_DMIS] = {
+        .name = "HTO_DMIS",
+        .reg = REG_kv3_HTO,
+        .offset = 2,
+        .width = 2,
+        .mask = 0x000000000000000c,
+    },
+    [REGFIELD_kv3_HTO_PSYS] = {
+        .name = "HTO_PSYS",
+        .reg = REG_kv3_HTO,
+        .offset = 4,
+        .width = 2,
+        .mask = 0x0000000000000030,
+    },
+    [REGFIELD_kv3_HTO_DSYS] = {
+        .name = "HTO_DSYS",
+        .reg = REG_kv3_HTO,
+        .offset = 6,
+        .width = 2,
+        .mask = 0x00000000000000c0,
+    },
+    [REGFIELD_kv3_HTO_DECCG] = {
+        .name = "HTO_DECCG",
+        .reg = REG_kv3_HTO,
+        .offset = 8,
+        .width = 2,
+        .mask = 0x0000000000000300,
+    },
+    [REGFIELD_kv3_HTO_SECCG] = {
+        .name = "HTO_SECCG",
+        .reg = REG_kv3_HTO,
+        .offset = 10,
+        .width = 2,
+        .mask = 0x0000000000000c00,
+    },
+    [REGFIELD_kv3_HTO_NOMAP] = {
+        .name = "HTO_NOMAP",
+        .reg = REG_kv3_HTO,
+        .offset = 12,
+        .width = 2,
+        .mask = 0x0000000000003000,
+    },
+    [REGFIELD_kv3_HTO_PROT] = {
+        .name = "HTO_PROT",
+        .reg = REG_kv3_HTO,
+        .offset = 14,
+        .width = 2,
+        .mask = 0x000000000000c000,
+    },
+    [REGFIELD_kv3_HTO_W2CL] = {
+        .name = "HTO_W2CL",
+        .reg = REG_kv3_HTO,
+        .offset = 16,
+        .width = 2,
+        .mask = 0x0000000000030000,
+    },
+    [REGFIELD_kv3_HTO_A2CL] = {
+        .name = "HTO_A2CL",
+        .reg = REG_kv3_HTO,
+        .offset = 18,
+        .width = 2,
+        .mask = 0x00000000000c0000,
+    },
+    [REGFIELD_kv3_HTO_DE] = {
+        .name = "HTO_DE",
+        .reg = REG_kv3_HTO,
+        .offset = 20,
+        .width = 2,
+        .mask = 0x0000000000300000,
+    },
+    [REGFIELD_kv3_HTO_VSFR] = {
+        .name = "HTO_VSFR",
+        .reg = REG_kv3_HTO,
+        .offset = 22,
+        .width = 2,
+        .mask = 0x0000000000c00000,
+    },
+    [REGFIELD_kv3_HTO_PLO] = {
+        .name = "HTO_PLO",
+        .reg = REG_kv3_HTO,
+        .offset = 24,
+        .width = 2,
+        .mask = 0x0000000003000000,
+    },
+    [REGFIELD_kv3_HTOW_OPC] = {
+        .name = "HTOW_OPC",
+        .reg = REG_kv3_HTOW,
+        .offset = 0,
+        .width = 2,
+        .mask = 0x0000000000000003,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_HTO_OPC,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_HTOW_DMIS] = {
+        .name = "HTOW_DMIS",
+        .reg = REG_kv3_HTOW,
+        .offset = 2,
+        .width = 2,
+        .mask = 0x000000000000000c,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_HTO_DMIS,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_HTOW_PSYS] = {
+        .name = "HTOW_PSYS",
+        .reg = REG_kv3_HTOW,
+        .offset = 4,
+        .width = 2,
+        .mask = 0x0000000000000030,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_HTO_PSYS,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_HTOW_DSYS] = {
+        .name = "HTOW_DSYS",
+        .reg = REG_kv3_HTOW,
+        .offset = 6,
+        .width = 2,
+        .mask = 0x00000000000000c0,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_HTO_DSYS,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_HTOW_DECCG] = {
+        .name = "HTOW_DECCG",
+        .reg = REG_kv3_HTOW,
+        .offset = 8,
+        .width = 2,
+        .mask = 0x0000000000000300,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_HTO_DECCG,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_HTOW_SECCG] = {
+        .name = "HTOW_SECCG",
+        .reg = REG_kv3_HTOW,
+        .offset = 10,
+        .width = 2,
+        .mask = 0x0000000000000c00,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_HTO_SECCG,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_HTOW_NOMAP] = {
+        .name = "HTOW_NOMAP",
+        .reg = REG_kv3_HTOW,
+        .offset = 12,
+        .width = 2,
+        .mask = 0x0000000000003000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_HTO_NOMAP,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_HTOW_PROT] = {
+        .name = "HTOW_PROT",
+        .reg = REG_kv3_HTOW,
+        .offset = 14,
+        .width = 2,
+        .mask = 0x000000000000c000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_HTO_PROT,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_HTOW_W2CL] = {
+        .name = "HTOW_W2CL",
+        .reg = REG_kv3_HTOW,
+        .offset = 16,
+        .width = 2,
+        .mask = 0x0000000000030000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_HTO_W2CL,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_HTOW_A2CL] = {
+        .name = "HTOW_A2CL",
+        .reg = REG_kv3_HTOW,
+        .offset = 18,
+        .width = 2,
+        .mask = 0x00000000000c0000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_HTO_A2CL,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_HTOW_DE] = {
+        .name = "HTOW_DE",
+        .reg = REG_kv3_HTOW,
+        .offset = 20,
+        .width = 2,
+        .mask = 0x0000000000300000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_HTO_DE,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_HTOW_VSFR] = {
+        .name = "HTOW_VSFR",
+        .reg = REG_kv3_HTOW,
+        .offset = 22,
+        .width = 2,
+        .mask = 0x0000000000c00000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_HTO_VSFR,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_HTOW_PLO] = {
+        .name = "HTOW_PLO",
+        .reg = REG_kv3_HTOW,
+        .offset = 24,
+        .width = 2,
+        .mask = 0x0000000003000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_HTO_PLO,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ITO_IT0] = {
+        .name = "ITO_IT0",
+        .reg = REG_kv3_ITO,
+        .offset = 0,
+        .width = 2,
+        .mask = 0x0000000000000003,
+    },
+    [REGFIELD_kv3_ITO_IT1] = {
+        .name = "ITO_IT1",
+        .reg = REG_kv3_ITO,
+        .offset = 2,
+        .width = 2,
+        .mask = 0x000000000000000c,
+    },
+    [REGFIELD_kv3_ITO_IT2] = {
+        .name = "ITO_IT2",
+        .reg = REG_kv3_ITO,
+        .offset = 4,
+        .width = 2,
+        .mask = 0x0000000000000030,
+    },
+    [REGFIELD_kv3_ITO_IT3] = {
+        .name = "ITO_IT3",
+        .reg = REG_kv3_ITO,
+        .offset = 6,
+        .width = 2,
+        .mask = 0x00000000000000c0,
+    },
+    [REGFIELD_kv3_ITO_IT4] = {
+        .name = "ITO_IT4",
+        .reg = REG_kv3_ITO,
+        .offset = 8,
+        .width = 2,
+        .mask = 0x0000000000000300,
+    },
+    [REGFIELD_kv3_ITO_IT5] = {
+        .name = "ITO_IT5",
+        .reg = REG_kv3_ITO,
+        .offset = 10,
+        .width = 2,
+        .mask = 0x0000000000000c00,
+    },
+    [REGFIELD_kv3_ITO_IT6] = {
+        .name = "ITO_IT6",
+        .reg = REG_kv3_ITO,
+        .offset = 12,
+        .width = 2,
+        .mask = 0x0000000000003000,
+    },
+    [REGFIELD_kv3_ITO_IT7] = {
+        .name = "ITO_IT7",
+        .reg = REG_kv3_ITO,
+        .offset = 14,
+        .width = 2,
+        .mask = 0x000000000000c000,
+    },
+    [REGFIELD_kv3_ITO_IT8] = {
+        .name = "ITO_IT8",
+        .reg = REG_kv3_ITO,
+        .offset = 16,
+        .width = 2,
+        .mask = 0x0000000000030000,
+    },
+    [REGFIELD_kv3_ITO_IT9] = {
+        .name = "ITO_IT9",
+        .reg = REG_kv3_ITO,
+        .offset = 18,
+        .width = 2,
+        .mask = 0x00000000000c0000,
+    },
+    [REGFIELD_kv3_ITO_IT10] = {
+        .name = "ITO_IT10",
+        .reg = REG_kv3_ITO,
+        .offset = 20,
+        .width = 2,
+        .mask = 0x0000000000300000,
+    },
+    [REGFIELD_kv3_ITO_IT11] = {
+        .name = "ITO_IT11",
+        .reg = REG_kv3_ITO,
+        .offset = 22,
+        .width = 2,
+        .mask = 0x0000000000c00000,
+    },
+    [REGFIELD_kv3_ITO_IT12] = {
+        .name = "ITO_IT12",
+        .reg = REG_kv3_ITO,
+        .offset = 24,
+        .width = 2,
+        .mask = 0x0000000003000000,
+    },
+    [REGFIELD_kv3_ITO_IT13] = {
+        .name = "ITO_IT13",
+        .reg = REG_kv3_ITO,
+        .offset = 26,
+        .width = 2,
+        .mask = 0x000000000c000000,
+    },
+    [REGFIELD_kv3_ITO_IT14] = {
+        .name = "ITO_IT14",
+        .reg = REG_kv3_ITO,
+        .offset = 28,
+        .width = 2,
+        .mask = 0x0000000030000000,
+    },
+    [REGFIELD_kv3_ITO_IT15] = {
+        .name = "ITO_IT15",
+        .reg = REG_kv3_ITO,
+        .offset = 30,
+        .width = 2,
+        .mask = 0x00000000c0000000,
+    },
+    [REGFIELD_kv3_ITO_IT16] = {
+        .name = "ITO_IT16",
+        .reg = REG_kv3_ITO,
+        .offset = 32,
+        .width = 2,
+        .mask = 0x0000000300000000,
+    },
+    [REGFIELD_kv3_ITO_IT17] = {
+        .name = "ITO_IT17",
+        .reg = REG_kv3_ITO,
+        .offset = 34,
+        .width = 2,
+        .mask = 0x0000000c00000000,
+    },
+    [REGFIELD_kv3_ITO_IT18] = {
+        .name = "ITO_IT18",
+        .reg = REG_kv3_ITO,
+        .offset = 36,
+        .width = 2,
+        .mask = 0x0000003000000000,
+    },
+    [REGFIELD_kv3_ITO_IT19] = {
+        .name = "ITO_IT19",
+        .reg = REG_kv3_ITO,
+        .offset = 38,
+        .width = 2,
+        .mask = 0x000000c000000000,
+    },
+    [REGFIELD_kv3_ITO_IT20] = {
+        .name = "ITO_IT20",
+        .reg = REG_kv3_ITO,
+        .offset = 40,
+        .width = 2,
+        .mask = 0x0000030000000000,
+    },
+    [REGFIELD_kv3_ITO_IT21] = {
+        .name = "ITO_IT21",
+        .reg = REG_kv3_ITO,
+        .offset = 42,
+        .width = 2,
+        .mask = 0x00000c0000000000,
+    },
+    [REGFIELD_kv3_ITO_IT22] = {
+        .name = "ITO_IT22",
+        .reg = REG_kv3_ITO,
+        .offset = 44,
+        .width = 2,
+        .mask = 0x0000300000000000,
+    },
+    [REGFIELD_kv3_ITO_IT23] = {
+        .name = "ITO_IT23",
+        .reg = REG_kv3_ITO,
+        .offset = 46,
+        .width = 2,
+        .mask = 0x0000c00000000000,
+    },
+    [REGFIELD_kv3_ITO_IT24] = {
+        .name = "ITO_IT24",
+        .reg = REG_kv3_ITO,
+        .offset = 48,
+        .width = 2,
+        .mask = 0x0003000000000000,
+    },
+    [REGFIELD_kv3_ITO_IT25] = {
+        .name = "ITO_IT25",
+        .reg = REG_kv3_ITO,
+        .offset = 50,
+        .width = 2,
+        .mask = 0x000c000000000000,
+    },
+    [REGFIELD_kv3_ITO_IT26] = {
+        .name = "ITO_IT26",
+        .reg = REG_kv3_ITO,
+        .offset = 52,
+        .width = 2,
+        .mask = 0x0030000000000000,
+    },
+    [REGFIELD_kv3_ITO_IT27] = {
+        .name = "ITO_IT27",
+        .reg = REG_kv3_ITO,
+        .offset = 54,
+        .width = 2,
+        .mask = 0x00c0000000000000,
+    },
+    [REGFIELD_kv3_ITO_IT28] = {
+        .name = "ITO_IT28",
+        .reg = REG_kv3_ITO,
+        .offset = 56,
+        .width = 2,
+        .mask = 0x0300000000000000,
+    },
+    [REGFIELD_kv3_ITO_IT29] = {
+        .name = "ITO_IT29",
+        .reg = REG_kv3_ITO,
+        .offset = 58,
+        .width = 2,
+        .mask = 0x0c00000000000000,
+    },
+    [REGFIELD_kv3_ITO_IT30] = {
+        .name = "ITO_IT30",
+        .reg = REG_kv3_ITO,
+        .offset = 60,
+        .width = 2,
+        .mask = 0x3000000000000000,
+    },
+    [REGFIELD_kv3_ITO_IT31] = {
+        .name = "ITO_IT31",
+        .reg = REG_kv3_ITO,
+        .offset = 62,
+        .width = 2,
+        .mask = 0xc000000000000000,
+    },
+    [REGFIELD_kv3_ILE_IT0] = {
+        .name = "ILE_IT0",
+        .reg = REG_kv3_ILE,
+        .offset = 0,
+        .width = 1,
+        .mask = 0x0000000000000001,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT0,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILE_IT1] = {
+        .name = "ILE_IT1",
+        .reg = REG_kv3_ILE,
+        .offset = 1,
+        .width = 1,
+        .mask = 0x0000000000000002,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT1,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILE_IT2] = {
+        .name = "ILE_IT2",
+        .reg = REG_kv3_ILE,
+        .offset = 2,
+        .width = 1,
+        .mask = 0x0000000000000004,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT2,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILE_IT3] = {
+        .name = "ILE_IT3",
+        .reg = REG_kv3_ILE,
+        .offset = 3,
+        .width = 1,
+        .mask = 0x0000000000000008,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT3,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILE_IT4] = {
+        .name = "ILE_IT4",
+        .reg = REG_kv3_ILE,
+        .offset = 4,
+        .width = 1,
+        .mask = 0x0000000000000010,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT4,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILE_IT5] = {
+        .name = "ILE_IT5",
+        .reg = REG_kv3_ILE,
+        .offset = 5,
+        .width = 1,
+        .mask = 0x0000000000000020,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT5,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILE_IT6] = {
+        .name = "ILE_IT6",
+        .reg = REG_kv3_ILE,
+        .offset = 6,
+        .width = 1,
+        .mask = 0x0000000000000040,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT6,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILE_IT7] = {
+        .name = "ILE_IT7",
+        .reg = REG_kv3_ILE,
+        .offset = 7,
+        .width = 1,
+        .mask = 0x0000000000000080,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT7,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILE_IT8] = {
+        .name = "ILE_IT8",
+        .reg = REG_kv3_ILE,
+        .offset = 8,
+        .width = 1,
+        .mask = 0x0000000000000100,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT8,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILE_IT9] = {
+        .name = "ILE_IT9",
+        .reg = REG_kv3_ILE,
+        .offset = 9,
+        .width = 1,
+        .mask = 0x0000000000000200,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT9,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILE_IT10] = {
+        .name = "ILE_IT10",
+        .reg = REG_kv3_ILE,
+        .offset = 10,
+        .width = 1,
+        .mask = 0x0000000000000400,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT10,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILE_IT11] = {
+        .name = "ILE_IT11",
+        .reg = REG_kv3_ILE,
+        .offset = 11,
+        .width = 1,
+        .mask = 0x0000000000000800,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT11,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILE_IT12] = {
+        .name = "ILE_IT12",
+        .reg = REG_kv3_ILE,
+        .offset = 12,
+        .width = 1,
+        .mask = 0x0000000000001000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT12,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILE_IT13] = {
+        .name = "ILE_IT13",
+        .reg = REG_kv3_ILE,
+        .offset = 13,
+        .width = 1,
+        .mask = 0x0000000000002000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT13,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILE_IT14] = {
+        .name = "ILE_IT14",
+        .reg = REG_kv3_ILE,
+        .offset = 14,
+        .width = 1,
+        .mask = 0x0000000000004000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT14,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILE_IT15] = {
+        .name = "ILE_IT15",
+        .reg = REG_kv3_ILE,
+        .offset = 15,
+        .width = 1,
+        .mask = 0x0000000000008000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT15,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILE_IT16] = {
+        .name = "ILE_IT16",
+        .reg = REG_kv3_ILE,
+        .offset = 16,
+        .width = 1,
+        .mask = 0x0000000000010000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT16,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILE_IT17] = {
+        .name = "ILE_IT17",
+        .reg = REG_kv3_ILE,
+        .offset = 17,
+        .width = 1,
+        .mask = 0x0000000000020000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT17,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILE_IT18] = {
+        .name = "ILE_IT18",
+        .reg = REG_kv3_ILE,
+        .offset = 18,
+        .width = 1,
+        .mask = 0x0000000000040000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT18,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILE_IT19] = {
+        .name = "ILE_IT19",
+        .reg = REG_kv3_ILE,
+        .offset = 19,
+        .width = 1,
+        .mask = 0x0000000000080000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT19,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILE_IT20] = {
+        .name = "ILE_IT20",
+        .reg = REG_kv3_ILE,
+        .offset = 20,
+        .width = 1,
+        .mask = 0x0000000000100000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT20,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILE_IT21] = {
+        .name = "ILE_IT21",
+        .reg = REG_kv3_ILE,
+        .offset = 21,
+        .width = 1,
+        .mask = 0x0000000000200000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT21,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILE_IT22] = {
+        .name = "ILE_IT22",
+        .reg = REG_kv3_ILE,
+        .offset = 22,
+        .width = 1,
+        .mask = 0x0000000000400000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT22,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILE_IT23] = {
+        .name = "ILE_IT23",
+        .reg = REG_kv3_ILE,
+        .offset = 23,
+        .width = 1,
+        .mask = 0x0000000000800000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT23,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILE_IT24] = {
+        .name = "ILE_IT24",
+        .reg = REG_kv3_ILE,
+        .offset = 24,
+        .width = 1,
+        .mask = 0x0000000001000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT24,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILE_IT25] = {
+        .name = "ILE_IT25",
+        .reg = REG_kv3_ILE,
+        .offset = 25,
+        .width = 1,
+        .mask = 0x0000000002000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT25,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILE_IT26] = {
+        .name = "ILE_IT26",
+        .reg = REG_kv3_ILE,
+        .offset = 26,
+        .width = 1,
+        .mask = 0x0000000004000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT26,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILE_IT27] = {
+        .name = "ILE_IT27",
+        .reg = REG_kv3_ILE,
+        .offset = 27,
+        .width = 1,
+        .mask = 0x0000000008000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT27,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILE_IT28] = {
+        .name = "ILE_IT28",
+        .reg = REG_kv3_ILE,
+        .offset = 28,
+        .width = 1,
+        .mask = 0x0000000010000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT28,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILE_IT29] = {
+        .name = "ILE_IT29",
+        .reg = REG_kv3_ILE,
+        .offset = 29,
+        .width = 1,
+        .mask = 0x0000000020000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT29,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILE_IT30] = {
+        .name = "ILE_IT30",
+        .reg = REG_kv3_ILE,
+        .offset = 30,
+        .width = 1,
+        .mask = 0x0000000040000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT30,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILE_IT31] = {
+        .name = "ILE_IT31",
+        .reg = REG_kv3_ILE,
+        .offset = 31,
+        .width = 1,
+        .mask = 0x0000000080000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT31,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILL_IT0] = {
+        .name = "ILL_IT0",
+        .reg = REG_kv3_ILL,
+        .offset = 0,
+        .width = 2,
+        .mask = 0x0000000000000003,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT0,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILL_IT1] = {
+        .name = "ILL_IT1",
+        .reg = REG_kv3_ILL,
+        .offset = 2,
+        .width = 2,
+        .mask = 0x000000000000000c,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT1,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILL_IT2] = {
+        .name = "ILL_IT2",
+        .reg = REG_kv3_ILL,
+        .offset = 4,
+        .width = 2,
+        .mask = 0x0000000000000030,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT2,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILL_IT3] = {
+        .name = "ILL_IT3",
+        .reg = REG_kv3_ILL,
+        .offset = 6,
+        .width = 2,
+        .mask = 0x00000000000000c0,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT3,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILL_IT4] = {
+        .name = "ILL_IT4",
+        .reg = REG_kv3_ILL,
+        .offset = 8,
+        .width = 2,
+        .mask = 0x0000000000000300,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT4,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILL_IT5] = {
+        .name = "ILL_IT5",
+        .reg = REG_kv3_ILL,
+        .offset = 10,
+        .width = 2,
+        .mask = 0x0000000000000c00,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT5,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILL_IT6] = {
+        .name = "ILL_IT6",
+        .reg = REG_kv3_ILL,
+        .offset = 12,
+        .width = 2,
+        .mask = 0x0000000000003000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT6,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILL_IT7] = {
+        .name = "ILL_IT7",
+        .reg = REG_kv3_ILL,
+        .offset = 14,
+        .width = 2,
+        .mask = 0x000000000000c000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT7,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILL_IT8] = {
+        .name = "ILL_IT8",
+        .reg = REG_kv3_ILL,
+        .offset = 16,
+        .width = 2,
+        .mask = 0x0000000000030000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT8,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILL_IT9] = {
+        .name = "ILL_IT9",
+        .reg = REG_kv3_ILL,
+        .offset = 18,
+        .width = 2,
+        .mask = 0x00000000000c0000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT9,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILL_IT10] = {
+        .name = "ILL_IT10",
+        .reg = REG_kv3_ILL,
+        .offset = 20,
+        .width = 2,
+        .mask = 0x0000000000300000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT10,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILL_IT11] = {
+        .name = "ILL_IT11",
+        .reg = REG_kv3_ILL,
+        .offset = 22,
+        .width = 2,
+        .mask = 0x0000000000c00000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT11,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILL_IT12] = {
+        .name = "ILL_IT12",
+        .reg = REG_kv3_ILL,
+        .offset = 24,
+        .width = 2,
+        .mask = 0x0000000003000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT12,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILL_IT13] = {
+        .name = "ILL_IT13",
+        .reg = REG_kv3_ILL,
+        .offset = 26,
+        .width = 2,
+        .mask = 0x000000000c000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT13,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILL_IT14] = {
+        .name = "ILL_IT14",
+        .reg = REG_kv3_ILL,
+        .offset = 28,
+        .width = 2,
+        .mask = 0x0000000030000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT14,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILL_IT15] = {
+        .name = "ILL_IT15",
+        .reg = REG_kv3_ILL,
+        .offset = 30,
+        .width = 2,
+        .mask = 0x00000000c0000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT15,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILL_IT16] = {
+        .name = "ILL_IT16",
+        .reg = REG_kv3_ILL,
+        .offset = 32,
+        .width = 2,
+        .mask = 0x0000000300000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT16,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILL_IT17] = {
+        .name = "ILL_IT17",
+        .reg = REG_kv3_ILL,
+        .offset = 34,
+        .width = 2,
+        .mask = 0x0000000c00000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT17,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILL_IT18] = {
+        .name = "ILL_IT18",
+        .reg = REG_kv3_ILL,
+        .offset = 36,
+        .width = 2,
+        .mask = 0x0000003000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT18,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILL_IT19] = {
+        .name = "ILL_IT19",
+        .reg = REG_kv3_ILL,
+        .offset = 38,
+        .width = 2,
+        .mask = 0x000000c000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT19,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILL_IT20] = {
+        .name = "ILL_IT20",
+        .reg = REG_kv3_ILL,
+        .offset = 40,
+        .width = 2,
+        .mask = 0x0000030000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT20,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILL_IT21] = {
+        .name = "ILL_IT21",
+        .reg = REG_kv3_ILL,
+        .offset = 42,
+        .width = 2,
+        .mask = 0x00000c0000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT21,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILL_IT22] = {
+        .name = "ILL_IT22",
+        .reg = REG_kv3_ILL,
+        .offset = 44,
+        .width = 2,
+        .mask = 0x0000300000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT22,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILL_IT23] = {
+        .name = "ILL_IT23",
+        .reg = REG_kv3_ILL,
+        .offset = 46,
+        .width = 2,
+        .mask = 0x0000c00000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT23,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILL_IT24] = {
+        .name = "ILL_IT24",
+        .reg = REG_kv3_ILL,
+        .offset = 48,
+        .width = 2,
+        .mask = 0x0003000000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT24,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILL_IT25] = {
+        .name = "ILL_IT25",
+        .reg = REG_kv3_ILL,
+        .offset = 50,
+        .width = 2,
+        .mask = 0x000c000000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT25,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILL_IT26] = {
+        .name = "ILL_IT26",
+        .reg = REG_kv3_ILL,
+        .offset = 52,
+        .width = 2,
+        .mask = 0x0030000000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT26,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILL_IT27] = {
+        .name = "ILL_IT27",
+        .reg = REG_kv3_ILL,
+        .offset = 54,
+        .width = 2,
+        .mask = 0x00c0000000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT27,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILL_IT28] = {
+        .name = "ILL_IT28",
+        .reg = REG_kv3_ILL,
+        .offset = 56,
+        .width = 2,
+        .mask = 0x0300000000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT28,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILL_IT29] = {
+        .name = "ILL_IT29",
+        .reg = REG_kv3_ILL,
+        .offset = 58,
+        .width = 2,
+        .mask = 0x0c00000000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT29,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILL_IT30] = {
+        .name = "ILL_IT30",
+        .reg = REG_kv3_ILL,
+        .offset = 60,
+        .width = 2,
+        .mask = 0x3000000000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT30,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILL_IT31] = {
+        .name = "ILL_IT31",
+        .reg = REG_kv3_ILL,
+        .offset = 62,
+        .width = 2,
+        .mask = 0xc000000000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT31,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILR_IT0] = {
+        .name = "ILR_IT0",
+        .reg = REG_kv3_ILR,
+        .offset = 0,
+        .width = 1,
+        .mask = 0x0000000000000001,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT0,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILR_IT1] = {
+        .name = "ILR_IT1",
+        .reg = REG_kv3_ILR,
+        .offset = 1,
+        .width = 1,
+        .mask = 0x0000000000000002,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT1,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILR_IT2] = {
+        .name = "ILR_IT2",
+        .reg = REG_kv3_ILR,
+        .offset = 2,
+        .width = 1,
+        .mask = 0x0000000000000004,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT2,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILR_IT3] = {
+        .name = "ILR_IT3",
+        .reg = REG_kv3_ILR,
+        .offset = 3,
+        .width = 1,
+        .mask = 0x0000000000000008,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT3,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILR_IT4] = {
+        .name = "ILR_IT4",
+        .reg = REG_kv3_ILR,
+        .offset = 4,
+        .width = 1,
+        .mask = 0x0000000000000010,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT4,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILR_IT5] = {
+        .name = "ILR_IT5",
+        .reg = REG_kv3_ILR,
+        .offset = 5,
+        .width = 1,
+        .mask = 0x0000000000000020,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT5,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILR_IT6] = {
+        .name = "ILR_IT6",
+        .reg = REG_kv3_ILR,
+        .offset = 6,
+        .width = 1,
+        .mask = 0x0000000000000040,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT6,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILR_IT7] = {
+        .name = "ILR_IT7",
+        .reg = REG_kv3_ILR,
+        .offset = 7,
+        .width = 1,
+        .mask = 0x0000000000000080,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT7,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILR_IT8] = {
+        .name = "ILR_IT8",
+        .reg = REG_kv3_ILR,
+        .offset = 8,
+        .width = 1,
+        .mask = 0x0000000000000100,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT8,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILR_IT9] = {
+        .name = "ILR_IT9",
+        .reg = REG_kv3_ILR,
+        .offset = 9,
+        .width = 1,
+        .mask = 0x0000000000000200,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT9,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILR_IT10] = {
+        .name = "ILR_IT10",
+        .reg = REG_kv3_ILR,
+        .offset = 10,
+        .width = 1,
+        .mask = 0x0000000000000400,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT10,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILR_IT11] = {
+        .name = "ILR_IT11",
+        .reg = REG_kv3_ILR,
+        .offset = 11,
+        .width = 1,
+        .mask = 0x0000000000000800,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT11,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILR_IT12] = {
+        .name = "ILR_IT12",
+        .reg = REG_kv3_ILR,
+        .offset = 12,
+        .width = 1,
+        .mask = 0x0000000000001000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT12,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILR_IT13] = {
+        .name = "ILR_IT13",
+        .reg = REG_kv3_ILR,
+        .offset = 13,
+        .width = 1,
+        .mask = 0x0000000000002000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT13,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILR_IT14] = {
+        .name = "ILR_IT14",
+        .reg = REG_kv3_ILR,
+        .offset = 14,
+        .width = 1,
+        .mask = 0x0000000000004000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT14,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILR_IT15] = {
+        .name = "ILR_IT15",
+        .reg = REG_kv3_ILR,
+        .offset = 15,
+        .width = 1,
+        .mask = 0x0000000000008000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT15,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILR_IT16] = {
+        .name = "ILR_IT16",
+        .reg = REG_kv3_ILR,
+        .offset = 16,
+        .width = 1,
+        .mask = 0x0000000000010000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT16,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILR_IT17] = {
+        .name = "ILR_IT17",
+        .reg = REG_kv3_ILR,
+        .offset = 17,
+        .width = 1,
+        .mask = 0x0000000000020000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT17,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILR_IT18] = {
+        .name = "ILR_IT18",
+        .reg = REG_kv3_ILR,
+        .offset = 18,
+        .width = 1,
+        .mask = 0x0000000000040000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT18,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILR_IT19] = {
+        .name = "ILR_IT19",
+        .reg = REG_kv3_ILR,
+        .offset = 19,
+        .width = 1,
+        .mask = 0x0000000000080000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT19,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILR_IT20] = {
+        .name = "ILR_IT20",
+        .reg = REG_kv3_ILR,
+        .offset = 20,
+        .width = 1,
+        .mask = 0x0000000000100000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT20,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILR_IT21] = {
+        .name = "ILR_IT21",
+        .reg = REG_kv3_ILR,
+        .offset = 21,
+        .width = 1,
+        .mask = 0x0000000000200000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT21,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILR_IT22] = {
+        .name = "ILR_IT22",
+        .reg = REG_kv3_ILR,
+        .offset = 22,
+        .width = 1,
+        .mask = 0x0000000000400000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT22,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILR_IT23] = {
+        .name = "ILR_IT23",
+        .reg = REG_kv3_ILR,
+        .offset = 23,
+        .width = 1,
+        .mask = 0x0000000000800000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT23,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILR_IT24] = {
+        .name = "ILR_IT24",
+        .reg = REG_kv3_ILR,
+        .offset = 24,
+        .width = 1,
+        .mask = 0x0000000001000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT24,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILR_IT25] = {
+        .name = "ILR_IT25",
+        .reg = REG_kv3_ILR,
+        .offset = 25,
+        .width = 1,
+        .mask = 0x0000000002000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT25,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILR_IT26] = {
+        .name = "ILR_IT26",
+        .reg = REG_kv3_ILR,
+        .offset = 26,
+        .width = 1,
+        .mask = 0x0000000004000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT26,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILR_IT27] = {
+        .name = "ILR_IT27",
+        .reg = REG_kv3_ILR,
+        .offset = 27,
+        .width = 1,
+        .mask = 0x0000000008000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT27,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILR_IT28] = {
+        .name = "ILR_IT28",
+        .reg = REG_kv3_ILR,
+        .offset = 28,
+        .width = 1,
+        .mask = 0x0000000010000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT28,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILR_IT29] = {
+        .name = "ILR_IT29",
+        .reg = REG_kv3_ILR,
+        .offset = 29,
+        .width = 1,
+        .mask = 0x0000000020000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT29,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILR_IT30] = {
+        .name = "ILR_IT30",
+        .reg = REG_kv3_ILR,
+        .offset = 30,
+        .width = 1,
+        .mask = 0x0000000040000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT30,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ILR_IT31] = {
+        .name = "ILR_IT31",
+        .reg = REG_kv3_ILR,
+        .offset = 31,
+        .width = 1,
+        .mask = 0x0000000080000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT31,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ITOW_IT0] = {
+        .name = "ITOW_IT0",
+        .reg = REG_kv3_ITOW,
+        .offset = 0,
+        .width = 2,
+        .mask = 0x0000000000000003,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT0,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ITOW_IT1] = {
+        .name = "ITOW_IT1",
+        .reg = REG_kv3_ITOW,
+        .offset = 2,
+        .width = 2,
+        .mask = 0x000000000000000c,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT1,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ITOW_IT2] = {
+        .name = "ITOW_IT2",
+        .reg = REG_kv3_ITOW,
+        .offset = 4,
+        .width = 2,
+        .mask = 0x0000000000000030,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT2,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ITOW_IT3] = {
+        .name = "ITOW_IT3",
+        .reg = REG_kv3_ITOW,
+        .offset = 6,
+        .width = 2,
+        .mask = 0x00000000000000c0,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT3,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ITOW_IT4] = {
+        .name = "ITOW_IT4",
+        .reg = REG_kv3_ITOW,
+        .offset = 8,
+        .width = 2,
+        .mask = 0x0000000000000300,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT4,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ITOW_IT5] = {
+        .name = "ITOW_IT5",
+        .reg = REG_kv3_ITOW,
+        .offset = 10,
+        .width = 2,
+        .mask = 0x0000000000000c00,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT5,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ITOW_IT6] = {
+        .name = "ITOW_IT6",
+        .reg = REG_kv3_ITOW,
+        .offset = 12,
+        .width = 2,
+        .mask = 0x0000000000003000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT6,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ITOW_IT7] = {
+        .name = "ITOW_IT7",
+        .reg = REG_kv3_ITOW,
+        .offset = 14,
+        .width = 2,
+        .mask = 0x000000000000c000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT7,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ITOW_IT8] = {
+        .name = "ITOW_IT8",
+        .reg = REG_kv3_ITOW,
+        .offset = 16,
+        .width = 2,
+        .mask = 0x0000000000030000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT8,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ITOW_IT9] = {
+        .name = "ITOW_IT9",
+        .reg = REG_kv3_ITOW,
+        .offset = 18,
+        .width = 2,
+        .mask = 0x00000000000c0000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT9,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ITOW_IT10] = {
+        .name = "ITOW_IT10",
+        .reg = REG_kv3_ITOW,
+        .offset = 20,
+        .width = 2,
+        .mask = 0x0000000000300000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT10,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ITOW_IT11] = {
+        .name = "ITOW_IT11",
+        .reg = REG_kv3_ITOW,
+        .offset = 22,
+        .width = 2,
+        .mask = 0x0000000000c00000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT11,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ITOW_IT12] = {
+        .name = "ITOW_IT12",
+        .reg = REG_kv3_ITOW,
+        .offset = 24,
+        .width = 2,
+        .mask = 0x0000000003000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT12,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ITOW_IT13] = {
+        .name = "ITOW_IT13",
+        .reg = REG_kv3_ITOW,
+        .offset = 26,
+        .width = 2,
+        .mask = 0x000000000c000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT13,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ITOW_IT14] = {
+        .name = "ITOW_IT14",
+        .reg = REG_kv3_ITOW,
+        .offset = 28,
+        .width = 2,
+        .mask = 0x0000000030000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT14,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ITOW_IT15] = {
+        .name = "ITOW_IT15",
+        .reg = REG_kv3_ITOW,
+        .offset = 30,
+        .width = 2,
+        .mask = 0x00000000c0000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT15,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ITOW_IT16] = {
+        .name = "ITOW_IT16",
+        .reg = REG_kv3_ITOW,
+        .offset = 32,
+        .width = 2,
+        .mask = 0x0000000300000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT16,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ITOW_IT17] = {
+        .name = "ITOW_IT17",
+        .reg = REG_kv3_ITOW,
+        .offset = 34,
+        .width = 2,
+        .mask = 0x0000000c00000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT17,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ITOW_IT18] = {
+        .name = "ITOW_IT18",
+        .reg = REG_kv3_ITOW,
+        .offset = 36,
+        .width = 2,
+        .mask = 0x0000003000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT18,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ITOW_IT19] = {
+        .name = "ITOW_IT19",
+        .reg = REG_kv3_ITOW,
+        .offset = 38,
+        .width = 2,
+        .mask = 0x000000c000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT19,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ITOW_IT20] = {
+        .name = "ITOW_IT20",
+        .reg = REG_kv3_ITOW,
+        .offset = 40,
+        .width = 2,
+        .mask = 0x0000030000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT20,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ITOW_IT21] = {
+        .name = "ITOW_IT21",
+        .reg = REG_kv3_ITOW,
+        .offset = 42,
+        .width = 2,
+        .mask = 0x00000c0000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT21,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ITOW_IT22] = {
+        .name = "ITOW_IT22",
+        .reg = REG_kv3_ITOW,
+        .offset = 44,
+        .width = 2,
+        .mask = 0x0000300000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT22,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ITOW_IT23] = {
+        .name = "ITOW_IT23",
+        .reg = REG_kv3_ITOW,
+        .offset = 46,
+        .width = 2,
+        .mask = 0x0000c00000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT23,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ITOW_IT24] = {
+        .name = "ITOW_IT24",
+        .reg = REG_kv3_ITOW,
+        .offset = 48,
+        .width = 2,
+        .mask = 0x0003000000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT24,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ITOW_IT25] = {
+        .name = "ITOW_IT25",
+        .reg = REG_kv3_ITOW,
+        .offset = 50,
+        .width = 2,
+        .mask = 0x000c000000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT25,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ITOW_IT26] = {
+        .name = "ITOW_IT26",
+        .reg = REG_kv3_ITOW,
+        .offset = 52,
+        .width = 2,
+        .mask = 0x0030000000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT26,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ITOW_IT27] = {
+        .name = "ITOW_IT27",
+        .reg = REG_kv3_ITOW,
+        .offset = 54,
+        .width = 2,
+        .mask = 0x00c0000000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT27,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ITOW_IT28] = {
+        .name = "ITOW_IT28",
+        .reg = REG_kv3_ITOW,
+        .offset = 56,
+        .width = 2,
+        .mask = 0x0300000000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT28,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ITOW_IT29] = {
+        .name = "ITOW_IT29",
+        .reg = REG_kv3_ITOW,
+        .offset = 58,
+        .width = 2,
+        .mask = 0x0c00000000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT29,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ITOW_IT30] = {
+        .name = "ITOW_IT30",
+        .reg = REG_kv3_ITOW,
+        .offset = 60,
+        .width = 2,
+        .mask = 0x3000000000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT30,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ITOW_IT31] = {
+        .name = "ITOW_IT31",
+        .reg = REG_kv3_ITOW,
+        .offset = 62,
+        .width = 2,
+        .mask = 0xc000000000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_ITO_IT31,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_DO_B0] = {
+        .name = "DO_B0",
+        .reg = REG_kv3_DO,
+        .offset = 0,
+        .width = 2,
+        .mask = 0x0000000000000003,
+    },
+    [REGFIELD_kv3_DO_B1] = {
+        .name = "DO_B1",
+        .reg = REG_kv3_DO,
+        .offset = 2,
+        .width = 2,
+        .mask = 0x000000000000000c,
+    },
+    [REGFIELD_kv3_DO_W0] = {
+        .name = "DO_W0",
+        .reg = REG_kv3_DO,
+        .offset = 4,
+        .width = 2,
+        .mask = 0x0000000000000030,
+    },
+    [REGFIELD_kv3_DO_W1] = {
+        .name = "DO_W1",
+        .reg = REG_kv3_DO,
+        .offset = 6,
+        .width = 2,
+        .mask = 0x00000000000000c0,
+    },
+    [REGFIELD_kv3_DBA0_DBA0] = {
+        .name = "DBA0_DBA0",
+        .reg = REG_kv3_DBA0,
+        .offset = 0,
+        .width = 64,
+        .mask = 0xffffffffffffffff,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_DO_B0,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_DBA1_DBA1] = {
+        .name = "DBA1_DBA1",
+        .reg = REG_kv3_DBA1,
+        .offset = 0,
+        .width = 64,
+        .mask = 0xffffffffffffffff,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_DO_B1,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_DWA0_DWA0] = {
+        .name = "DWA0_DWA0",
+        .reg = REG_kv3_DWA0,
+        .offset = 0,
+        .width = 64,
+        .mask = 0xffffffffffffffff,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_DO_W0,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_DWA1_DWA1] = {
+        .name = "DWA1_DWA1",
+        .reg = REG_kv3_DWA1,
+        .offset = 0,
+        .width = 64,
+        .mask = 0xffffffffffffffff,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_DO_W1,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_DOW_B0] = {
+        .name = "DOW_B0",
+        .reg = REG_kv3_DOW,
+        .offset = 0,
+        .width = 2,
+        .mask = 0x0000000000000003,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_DO_B0,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_DOW_B1] = {
+        .name = "DOW_B1",
+        .reg = REG_kv3_DOW,
+        .offset = 2,
+        .width = 2,
+        .mask = 0x000000000000000c,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_DO_B1,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_DOW_W0] = {
+        .name = "DOW_W0",
+        .reg = REG_kv3_DOW,
+        .offset = 4,
+        .width = 2,
+        .mask = 0x0000000000000030,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_DO_W0,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_DOW_W1] = {
+        .name = "DOW_W1",
+        .reg = REG_kv3_DOW,
+        .offset = 6,
+        .width = 2,
+        .mask = 0x00000000000000c0,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_DO_W1,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_MO_MMI] = {
+        .name = "MO_MMI",
+        .reg = REG_kv3_MO,
+        .offset = 0,
+        .width = 2,
+        .mask = 0x0000000000000003,
+    },
+    [REGFIELD_kv3_MO_RFE] = {
+        .name = "MO_RFE",
+        .reg = REG_kv3_MO,
+        .offset = 2,
+        .width = 2,
+        .mask = 0x000000000000000c,
+    },
+    [REGFIELD_kv3_MO_STOP] = {
+        .name = "MO_STOP",
+        .reg = REG_kv3_MO,
+        .offset = 4,
+        .width = 2,
+        .mask = 0x0000000000000030,
+    },
+    [REGFIELD_kv3_MO_SYNC] = {
+        .name = "MO_SYNC",
+        .reg = REG_kv3_MO,
+        .offset = 6,
+        .width = 2,
+        .mask = 0x00000000000000c0,
+    },
+    [REGFIELD_kv3_MO_PCR] = {
+        .name = "MO_PCR",
+        .reg = REG_kv3_MO,
+        .offset = 8,
+        .width = 2,
+        .mask = 0x0000000000000300,
+    },
+    [REGFIELD_kv3_MO_MSG] = {
+        .name = "MO_MSG",
+        .reg = REG_kv3_MO,
+        .offset = 10,
+        .width = 2,
+        .mask = 0x0000000000000c00,
+    },
+    [REGFIELD_kv3_MO_MEN] = {
+        .name = "MO_MEN",
+        .reg = REG_kv3_MO,
+        .offset = 12,
+        .width = 2,
+        .mask = 0x0000000000003000,
+    },
+    [REGFIELD_kv3_MO_MES] = {
+        .name = "MO_MES",
+        .reg = REG_kv3_MO,
+        .offset = 14,
+        .width = 2,
+        .mask = 0x000000000000c000,
+    },
+    [REGFIELD_kv3_MO_CSIT] = {
+        .name = "MO_CSIT",
+        .reg = REG_kv3_MO,
+        .offset = 16,
+        .width = 2,
+        .mask = 0x0000000000030000,
+    },
+    [REGFIELD_kv3_MO_T0] = {
+        .name = "MO_T0",
+        .reg = REG_kv3_MO,
+        .offset = 18,
+        .width = 2,
+        .mask = 0x00000000000c0000,
+    },
+    [REGFIELD_kv3_MO_T1] = {
+        .name = "MO_T1",
+        .reg = REG_kv3_MO,
+        .offset = 20,
+        .width = 2,
+        .mask = 0x0000000000300000,
+    },
+    [REGFIELD_kv3_MO_WD] = {
+        .name = "MO_WD",
+        .reg = REG_kv3_MO,
+        .offset = 22,
+        .width = 2,
+        .mask = 0x0000000000c00000,
+    },
+    [REGFIELD_kv3_MO_PM0] = {
+        .name = "MO_PM0",
+        .reg = REG_kv3_MO,
+        .offset = 24,
+        .width = 2,
+        .mask = 0x0000000003000000,
+    },
+    [REGFIELD_kv3_MO_PM1] = {
+        .name = "MO_PM1",
+        .reg = REG_kv3_MO,
+        .offset = 26,
+        .width = 2,
+        .mask = 0x000000000c000000,
+    },
+    [REGFIELD_kv3_MO_PM2] = {
+        .name = "MO_PM2",
+        .reg = REG_kv3_MO,
+        .offset = 28,
+        .width = 2,
+        .mask = 0x0000000030000000,
+    },
+    [REGFIELD_kv3_MO_PM3] = {
+        .name = "MO_PM3",
+        .reg = REG_kv3_MO,
+        .offset = 30,
+        .width = 2,
+        .mask = 0x00000000c0000000,
+    },
+    [REGFIELD_kv3_MO_PMIT] = {
+        .name = "MO_PMIT",
+        .reg = REG_kv3_MO,
+        .offset = 32,
+        .width = 2,
+        .mask = 0x0000000300000000,
+    },
+    [REGFIELD_kv3_MOW_MMI] = {
+        .name = "MOW_MMI",
+        .reg = REG_kv3_MOW,
+        .offset = 0,
+        .width = 2,
+        .mask = 0x0000000000000003,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_MMI,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_MOW_RFE] = {
+        .name = "MOW_RFE",
+        .reg = REG_kv3_MOW,
+        .offset = 2,
+        .width = 2,
+        .mask = 0x000000000000000c,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_RFE,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_MOW_STOP] = {
+        .name = "MOW_STOP",
+        .reg = REG_kv3_MOW,
+        .offset = 4,
+        .width = 2,
+        .mask = 0x0000000000000030,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_STOP,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_MOW_SYNC] = {
+        .name = "MOW_SYNC",
+        .reg = REG_kv3_MOW,
+        .offset = 6,
+        .width = 2,
+        .mask = 0x00000000000000c0,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_SYNC,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_MOW_PCR] = {
+        .name = "MOW_PCR",
+        .reg = REG_kv3_MOW,
+        .offset = 8,
+        .width = 2,
+        .mask = 0x0000000000000300,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_PCR,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_MOW_MSG] = {
+        .name = "MOW_MSG",
+        .reg = REG_kv3_MOW,
+        .offset = 10,
+        .width = 2,
+        .mask = 0x0000000000000c00,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_MSG,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_MOW_MEN] = {
+        .name = "MOW_MEN",
+        .reg = REG_kv3_MOW,
+        .offset = 12,
+        .width = 2,
+        .mask = 0x0000000000003000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_MEN,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_MOW_MES] = {
+        .name = "MOW_MES",
+        .reg = REG_kv3_MOW,
+        .offset = 14,
+        .width = 2,
+        .mask = 0x000000000000c000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_MES,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_MOW_CSIT] = {
+        .name = "MOW_CSIT",
+        .reg = REG_kv3_MOW,
+        .offset = 16,
+        .width = 2,
+        .mask = 0x0000000000030000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_CSIT,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_MOW_T0] = {
+        .name = "MOW_T0",
+        .reg = REG_kv3_MOW,
+        .offset = 18,
+        .width = 2,
+        .mask = 0x00000000000c0000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_T0,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_MOW_T1] = {
+        .name = "MOW_T1",
+        .reg = REG_kv3_MOW,
+        .offset = 20,
+        .width = 2,
+        .mask = 0x0000000000300000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_T1,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_MOW_WD] = {
+        .name = "MOW_WD",
+        .reg = REG_kv3_MOW,
+        .offset = 22,
+        .width = 2,
+        .mask = 0x0000000000c00000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_WD,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_MOW_PM0] = {
+        .name = "MOW_PM0",
+        .reg = REG_kv3_MOW,
+        .offset = 24,
+        .width = 2,
+        .mask = 0x0000000003000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_PM0,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_MOW_PM1] = {
+        .name = "MOW_PM1",
+        .reg = REG_kv3_MOW,
+        .offset = 26,
+        .width = 2,
+        .mask = 0x000000000c000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_PM1,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_MOW_PM2] = {
+        .name = "MOW_PM2",
+        .reg = REG_kv3_MOW,
+        .offset = 28,
+        .width = 2,
+        .mask = 0x0000000030000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_PM2,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_MOW_PM3] = {
+        .name = "MOW_PM3",
+        .reg = REG_kv3_MOW,
+        .offset = 30,
+        .width = 2,
+        .mask = 0x00000000c0000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_PM3,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_MOW_PMIT] = {
+        .name = "MOW_PMIT",
+        .reg = REG_kv3_MOW,
+        .offset = 32,
+        .width = 2,
+        .mask = 0x0000000300000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_PMIT,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PS_PL] = {
+        .name = "PS_PL",
+        .reg = REG_kv3_PS,
+        .offset = 0,
+        .width = 2,
+        .mask = 0x0000000000000003,
+        .n_owners = 2,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_PL0,
+            REGFIELD_kv3_PSO_PL1,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PS_ET] = {
+        .name = "PS_ET",
+        .reg = REG_kv3_PS,
+        .offset = 2,
+        .width = 1,
+        .mask = 0x0000000000000004,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_ET,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PS_HTD] = {
+        .name = "PS_HTD",
+        .reg = REG_kv3_PS,
+        .offset = 3,
+        .width = 1,
+        .mask = 0x0000000000000008,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_HTD,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PS_IE] = {
+        .name = "PS_IE",
+        .reg = REG_kv3_PS,
+        .offset = 4,
+        .width = 1,
+        .mask = 0x0000000000000010,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_IE,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PS_HLE] = {
+        .name = "PS_HLE",
+        .reg = REG_kv3_PS,
+        .offset = 5,
+        .width = 1,
+        .mask = 0x0000000000000020,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_HLE,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PS_SRE] = {
+        .name = "PS_SRE",
+        .reg = REG_kv3_PS,
+        .offset = 6,
+        .width = 1,
+        .mask = 0x0000000000000040,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_SRE,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PS_DAUS] = {
+        .name = "PS_DAUS",
+        .reg = REG_kv3_PS,
+        .offset = 7,
+        .width = 1,
+        .mask = 0x0000000000000080,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_DAUS,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PS_ICE] = {
+        .name = "PS_ICE",
+        .reg = REG_kv3_PS,
+        .offset = 8,
+        .width = 1,
+        .mask = 0x0000000000000100,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_ICE,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PS_USE] = {
+        .name = "PS_USE",
+        .reg = REG_kv3_PS,
+        .offset = 9,
+        .width = 1,
+        .mask = 0x0000000000000200,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_USE,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PS_DCE] = {
+        .name = "PS_DCE",
+        .reg = REG_kv3_PS,
+        .offset = 10,
+        .width = 1,
+        .mask = 0x0000000000000400,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_DCE,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PS_MME] = {
+        .name = "PS_MME",
+        .reg = REG_kv3_PS,
+        .offset = 11,
+        .width = 1,
+        .mask = 0x0000000000000800,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_MME,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PS_IL] = {
+        .name = "PS_IL",
+        .reg = REG_kv3_PS,
+        .offset = 12,
+        .width = 2,
+        .mask = 0x0000000000003000,
+        .n_owners = 2,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_IL0,
+            REGFIELD_kv3_PSO_IL1,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PS_VS] = {
+        .name = "PS_VS",
+        .reg = REG_kv3_PS,
+        .offset = 14,
+        .width = 2,
+        .mask = 0x000000000000c000,
+        .n_owners = 2,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_VS0,
+            REGFIELD_kv3_PSO_VS1,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PS_V64] = {
+        .name = "PS_V64",
+        .reg = REG_kv3_PS,
+        .offset = 16,
+        .width = 1,
+        .mask = 0x0000000000010000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_V64,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PS_L2E] = {
+        .name = "PS_L2E",
+        .reg = REG_kv3_PS,
+        .offset = 17,
+        .width = 1,
+        .mask = 0x0000000000020000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_L2E,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PS_SME] = {
+        .name = "PS_SME",
+        .reg = REG_kv3_PS,
+        .offset = 18,
+        .width = 1,
+        .mask = 0x0000000000040000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_SME,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PS_SMR] = {
+        .name = "PS_SMR",
+        .reg = REG_kv3_PS,
+        .offset = 19,
+        .width = 1,
+        .mask = 0x0000000000080000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_SMR,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PS_PMJ] = {
+        .name = "PS_PMJ",
+        .reg = REG_kv3_PS,
+        .offset = 20,
+        .width = 4,
+        .mask = 0x0000000000f00000,
+        .n_owners = 4,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_PMJ0,
+            REGFIELD_kv3_PSO_PMJ1,
+            REGFIELD_kv3_PSO_PMJ2,
+            REGFIELD_kv3_PSO_PMJ3,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PS_MMUP] = {
+        .name = "PS_MMUP",
+        .reg = REG_kv3_PS,
+        .offset = 24,
+        .width = 1,
+        .mask = 0x0000000001000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_MMUP,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL] = {
+        .name = "SPS_PL",
+        .reg = REG_kv3_SPS,
+        .offset = 0,
+        .width = 2,
+        .mask = 0x0000000000000003,
+        .n_owners = 2,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_PL0,
+            REGFIELD_kv3_PSO_PL1,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_ET] = {
+        .name = "SPS_ET",
+        .reg = REG_kv3_SPS,
+        .offset = 2,
+        .width = 1,
+        .mask = 0x0000000000000004,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_ET,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_HTD] = {
+        .name = "SPS_HTD",
+        .reg = REG_kv3_SPS,
+        .offset = 3,
+        .width = 1,
+        .mask = 0x0000000000000008,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_HTD,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_IE] = {
+        .name = "SPS_IE",
+        .reg = REG_kv3_SPS,
+        .offset = 4,
+        .width = 1,
+        .mask = 0x0000000000000010,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_IE,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_HLE] = {
+        .name = "SPS_HLE",
+        .reg = REG_kv3_SPS,
+        .offset = 5,
+        .width = 1,
+        .mask = 0x0000000000000020,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_HLE,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_SRE] = {
+        .name = "SPS_SRE",
+        .reg = REG_kv3_SPS,
+        .offset = 6,
+        .width = 1,
+        .mask = 0x0000000000000040,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_SRE,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_DAUS] = {
+        .name = "SPS_DAUS",
+        .reg = REG_kv3_SPS,
+        .offset = 7,
+        .width = 1,
+        .mask = 0x0000000000000080,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_DAUS,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_ICE] = {
+        .name = "SPS_ICE",
+        .reg = REG_kv3_SPS,
+        .offset = 8,
+        .width = 1,
+        .mask = 0x0000000000000100,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_ICE,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_USE] = {
+        .name = "SPS_USE",
+        .reg = REG_kv3_SPS,
+        .offset = 9,
+        .width = 1,
+        .mask = 0x0000000000000200,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_USE,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_DCE] = {
+        .name = "SPS_DCE",
+        .reg = REG_kv3_SPS,
+        .offset = 10,
+        .width = 1,
+        .mask = 0x0000000000000400,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_DCE,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_MME] = {
+        .name = "SPS_MME",
+        .reg = REG_kv3_SPS,
+        .offset = 11,
+        .width = 1,
+        .mask = 0x0000000000000800,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_MME,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_IL] = {
+        .name = "SPS_IL",
+        .reg = REG_kv3_SPS,
+        .offset = 12,
+        .width = 2,
+        .mask = 0x0000000000003000,
+        .n_owners = 2,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_IL0,
+            REGFIELD_kv3_PSO_IL1,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_VS] = {
+        .name = "SPS_VS",
+        .reg = REG_kv3_SPS,
+        .offset = 14,
+        .width = 2,
+        .mask = 0x000000000000c000,
+        .n_owners = 2,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_VS0,
+            REGFIELD_kv3_PSO_VS1,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_V64] = {
+        .name = "SPS_V64",
+        .reg = REG_kv3_SPS,
+        .offset = 16,
+        .width = 1,
+        .mask = 0x0000000000010000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_V64,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_L2E] = {
+        .name = "SPS_L2E",
+        .reg = REG_kv3_SPS,
+        .offset = 17,
+        .width = 1,
+        .mask = 0x0000000000020000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_L2E,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_SME] = {
+        .name = "SPS_SME",
+        .reg = REG_kv3_SPS,
+        .offset = 18,
+        .width = 1,
+        .mask = 0x0000000000040000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_SME,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_SMR] = {
+        .name = "SPS_SMR",
+        .reg = REG_kv3_SPS,
+        .offset = 19,
+        .width = 1,
+        .mask = 0x0000000000080000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_SMR,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PMJ] = {
+        .name = "SPS_PMJ",
+        .reg = REG_kv3_SPS,
+        .offset = 20,
+        .width = 4,
+        .mask = 0x0000000000f00000,
+        .n_owners = 4,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_PMJ0,
+            REGFIELD_kv3_PSO_PMJ1,
+            REGFIELD_kv3_PSO_PMJ2,
+            REGFIELD_kv3_PSO_PMJ3,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_MMUP] = {
+        .name = "SPS_MMUP",
+        .reg = REG_kv3_SPS,
+        .offset = 24,
+        .width = 1,
+        .mask = 0x0000000001000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_MMUP,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL0_PL] = {
+        .name = "SPS_PL0_PL",
+        .reg = REG_kv3_SPS_PL0,
+        .offset = 0,
+        .width = 2,
+        .mask = 0x0000000000000003,
+        .n_owners = 2,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_PL0,
+            REGFIELD_kv3_PSO_PL1,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL0_ET] = {
+        .name = "SPS_PL0_ET",
+        .reg = REG_kv3_SPS_PL0,
+        .offset = 2,
+        .width = 1,
+        .mask = 0x0000000000000004,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_ET,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL0_HTD] = {
+        .name = "SPS_PL0_HTD",
+        .reg = REG_kv3_SPS_PL0,
+        .offset = 3,
+        .width = 1,
+        .mask = 0x0000000000000008,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_HTD,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL0_IE] = {
+        .name = "SPS_PL0_IE",
+        .reg = REG_kv3_SPS_PL0,
+        .offset = 4,
+        .width = 1,
+        .mask = 0x0000000000000010,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_IE,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL0_HLE] = {
+        .name = "SPS_PL0_HLE",
+        .reg = REG_kv3_SPS_PL0,
+        .offset = 5,
+        .width = 1,
+        .mask = 0x0000000000000020,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_HLE,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL0_SRE] = {
+        .name = "SPS_PL0_SRE",
+        .reg = REG_kv3_SPS_PL0,
+        .offset = 6,
+        .width = 1,
+        .mask = 0x0000000000000040,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_SRE,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL0_DAUS] = {
+        .name = "SPS_PL0_DAUS",
+        .reg = REG_kv3_SPS_PL0,
+        .offset = 7,
+        .width = 1,
+        .mask = 0x0000000000000080,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_DAUS,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL0_ICE] = {
+        .name = "SPS_PL0_ICE",
+        .reg = REG_kv3_SPS_PL0,
+        .offset = 8,
+        .width = 1,
+        .mask = 0x0000000000000100,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_ICE,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL0_USE] = {
+        .name = "SPS_PL0_USE",
+        .reg = REG_kv3_SPS_PL0,
+        .offset = 9,
+        .width = 1,
+        .mask = 0x0000000000000200,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_USE,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL0_DCE] = {
+        .name = "SPS_PL0_DCE",
+        .reg = REG_kv3_SPS_PL0,
+        .offset = 10,
+        .width = 1,
+        .mask = 0x0000000000000400,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_DCE,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL0_MME] = {
+        .name = "SPS_PL0_MME",
+        .reg = REG_kv3_SPS_PL0,
+        .offset = 11,
+        .width = 1,
+        .mask = 0x0000000000000800,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_MME,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL0_IL] = {
+        .name = "SPS_PL0_IL",
+        .reg = REG_kv3_SPS_PL0,
+        .offset = 12,
+        .width = 2,
+        .mask = 0x0000000000003000,
+        .n_owners = 2,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_IL0,
+            REGFIELD_kv3_PSO_IL1,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL0_VS] = {
+        .name = "SPS_PL0_VS",
+        .reg = REG_kv3_SPS_PL0,
+        .offset = 14,
+        .width = 2,
+        .mask = 0x000000000000c000,
+        .n_owners = 2,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_VS0,
+            REGFIELD_kv3_PSO_VS1,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL0_V64] = {
+        .name = "SPS_PL0_V64",
+        .reg = REG_kv3_SPS_PL0,
+        .offset = 16,
+        .width = 1,
+        .mask = 0x0000000000010000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_V64,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL0_L2E] = {
+        .name = "SPS_PL0_L2E",
+        .reg = REG_kv3_SPS_PL0,
+        .offset = 17,
+        .width = 1,
+        .mask = 0x0000000000020000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_L2E,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL0_SME] = {
+        .name = "SPS_PL0_SME",
+        .reg = REG_kv3_SPS_PL0,
+        .offset = 18,
+        .width = 1,
+        .mask = 0x0000000000040000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_SME,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL0_SMR] = {
+        .name = "SPS_PL0_SMR",
+        .reg = REG_kv3_SPS_PL0,
+        .offset = 19,
+        .width = 1,
+        .mask = 0x0000000000080000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_SMR,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL0_PMJ] = {
+        .name = "SPS_PL0_PMJ",
+        .reg = REG_kv3_SPS_PL0,
+        .offset = 20,
+        .width = 4,
+        .mask = 0x0000000000f00000,
+        .n_owners = 4,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_PMJ0,
+            REGFIELD_kv3_PSO_PMJ1,
+            REGFIELD_kv3_PSO_PMJ2,
+            REGFIELD_kv3_PSO_PMJ3,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL0_MMUP] = {
+        .name = "SPS_PL0_MMUP",
+        .reg = REG_kv3_SPS_PL0,
+        .offset = 24,
+        .width = 1,
+        .mask = 0x0000000001000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_MMUP,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL1_PL] = {
+        .name = "SPS_PL1_PL",
+        .reg = REG_kv3_SPS_PL1,
+        .offset = 0,
+        .width = 2,
+        .mask = 0x0000000000000003,
+        .n_owners = 2,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_PL0,
+            REGFIELD_kv3_PSO_PL1,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL1_ET] = {
+        .name = "SPS_PL1_ET",
+        .reg = REG_kv3_SPS_PL1,
+        .offset = 2,
+        .width = 1,
+        .mask = 0x0000000000000004,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_ET,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL1_HTD] = {
+        .name = "SPS_PL1_HTD",
+        .reg = REG_kv3_SPS_PL1,
+        .offset = 3,
+        .width = 1,
+        .mask = 0x0000000000000008,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_HTD,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL1_IE] = {
+        .name = "SPS_PL1_IE",
+        .reg = REG_kv3_SPS_PL1,
+        .offset = 4,
+        .width = 1,
+        .mask = 0x0000000000000010,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_IE,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL1_HLE] = {
+        .name = "SPS_PL1_HLE",
+        .reg = REG_kv3_SPS_PL1,
+        .offset = 5,
+        .width = 1,
+        .mask = 0x0000000000000020,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_HLE,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL1_SRE] = {
+        .name = "SPS_PL1_SRE",
+        .reg = REG_kv3_SPS_PL1,
+        .offset = 6,
+        .width = 1,
+        .mask = 0x0000000000000040,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_SRE,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL1_DAUS] = {
+        .name = "SPS_PL1_DAUS",
+        .reg = REG_kv3_SPS_PL1,
+        .offset = 7,
+        .width = 1,
+        .mask = 0x0000000000000080,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_DAUS,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL1_ICE] = {
+        .name = "SPS_PL1_ICE",
+        .reg = REG_kv3_SPS_PL1,
+        .offset = 8,
+        .width = 1,
+        .mask = 0x0000000000000100,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_ICE,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL1_USE] = {
+        .name = "SPS_PL1_USE",
+        .reg = REG_kv3_SPS_PL1,
+        .offset = 9,
+        .width = 1,
+        .mask = 0x0000000000000200,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_USE,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL1_DCE] = {
+        .name = "SPS_PL1_DCE",
+        .reg = REG_kv3_SPS_PL1,
+        .offset = 10,
+        .width = 1,
+        .mask = 0x0000000000000400,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_DCE,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL1_MME] = {
+        .name = "SPS_PL1_MME",
+        .reg = REG_kv3_SPS_PL1,
+        .offset = 11,
+        .width = 1,
+        .mask = 0x0000000000000800,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_MME,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL1_IL] = {
+        .name = "SPS_PL1_IL",
+        .reg = REG_kv3_SPS_PL1,
+        .offset = 12,
+        .width = 2,
+        .mask = 0x0000000000003000,
+        .n_owners = 2,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_IL0,
+            REGFIELD_kv3_PSO_IL1,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL1_VS] = {
+        .name = "SPS_PL1_VS",
+        .reg = REG_kv3_SPS_PL1,
+        .offset = 14,
+        .width = 2,
+        .mask = 0x000000000000c000,
+        .n_owners = 2,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_VS0,
+            REGFIELD_kv3_PSO_VS1,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL1_V64] = {
+        .name = "SPS_PL1_V64",
+        .reg = REG_kv3_SPS_PL1,
+        .offset = 16,
+        .width = 1,
+        .mask = 0x0000000000010000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_V64,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL1_L2E] = {
+        .name = "SPS_PL1_L2E",
+        .reg = REG_kv3_SPS_PL1,
+        .offset = 17,
+        .width = 1,
+        .mask = 0x0000000000020000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_L2E,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL1_SME] = {
+        .name = "SPS_PL1_SME",
+        .reg = REG_kv3_SPS_PL1,
+        .offset = 18,
+        .width = 1,
+        .mask = 0x0000000000040000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_SME,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL1_SMR] = {
+        .name = "SPS_PL1_SMR",
+        .reg = REG_kv3_SPS_PL1,
+        .offset = 19,
+        .width = 1,
+        .mask = 0x0000000000080000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_SMR,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL1_PMJ] = {
+        .name = "SPS_PL1_PMJ",
+        .reg = REG_kv3_SPS_PL1,
+        .offset = 20,
+        .width = 4,
+        .mask = 0x0000000000f00000,
+        .n_owners = 4,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_PMJ0,
+            REGFIELD_kv3_PSO_PMJ1,
+            REGFIELD_kv3_PSO_PMJ2,
+            REGFIELD_kv3_PSO_PMJ3,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL1_MMUP] = {
+        .name = "SPS_PL1_MMUP",
+        .reg = REG_kv3_SPS_PL1,
+        .offset = 24,
+        .width = 1,
+        .mask = 0x0000000001000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_MMUP,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL2_PL] = {
+        .name = "SPS_PL2_PL",
+        .reg = REG_kv3_SPS_PL2,
+        .offset = 0,
+        .width = 2,
+        .mask = 0x0000000000000003,
+        .n_owners = 2,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_PL0,
+            REGFIELD_kv3_PSO_PL1,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL2_ET] = {
+        .name = "SPS_PL2_ET",
+        .reg = REG_kv3_SPS_PL2,
+        .offset = 2,
+        .width = 1,
+        .mask = 0x0000000000000004,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_ET,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL2_HTD] = {
+        .name = "SPS_PL2_HTD",
+        .reg = REG_kv3_SPS_PL2,
+        .offset = 3,
+        .width = 1,
+        .mask = 0x0000000000000008,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_HTD,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL2_IE] = {
+        .name = "SPS_PL2_IE",
+        .reg = REG_kv3_SPS_PL2,
+        .offset = 4,
+        .width = 1,
+        .mask = 0x0000000000000010,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_IE,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL2_HLE] = {
+        .name = "SPS_PL2_HLE",
+        .reg = REG_kv3_SPS_PL2,
+        .offset = 5,
+        .width = 1,
+        .mask = 0x0000000000000020,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_HLE,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL2_SRE] = {
+        .name = "SPS_PL2_SRE",
+        .reg = REG_kv3_SPS_PL2,
+        .offset = 6,
+        .width = 1,
+        .mask = 0x0000000000000040,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_SRE,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL2_DAUS] = {
+        .name = "SPS_PL2_DAUS",
+        .reg = REG_kv3_SPS_PL2,
+        .offset = 7,
+        .width = 1,
+        .mask = 0x0000000000000080,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_DAUS,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL2_ICE] = {
+        .name = "SPS_PL2_ICE",
+        .reg = REG_kv3_SPS_PL2,
+        .offset = 8,
+        .width = 1,
+        .mask = 0x0000000000000100,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_ICE,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL2_USE] = {
+        .name = "SPS_PL2_USE",
+        .reg = REG_kv3_SPS_PL2,
+        .offset = 9,
+        .width = 1,
+        .mask = 0x0000000000000200,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_USE,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL2_DCE] = {
+        .name = "SPS_PL2_DCE",
+        .reg = REG_kv3_SPS_PL2,
+        .offset = 10,
+        .width = 1,
+        .mask = 0x0000000000000400,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_DCE,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL2_MME] = {
+        .name = "SPS_PL2_MME",
+        .reg = REG_kv3_SPS_PL2,
+        .offset = 11,
+        .width = 1,
+        .mask = 0x0000000000000800,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_MME,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL2_IL] = {
+        .name = "SPS_PL2_IL",
+        .reg = REG_kv3_SPS_PL2,
+        .offset = 12,
+        .width = 2,
+        .mask = 0x0000000000003000,
+        .n_owners = 2,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_IL0,
+            REGFIELD_kv3_PSO_IL1,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL2_VS] = {
+        .name = "SPS_PL2_VS",
+        .reg = REG_kv3_SPS_PL2,
+        .offset = 14,
+        .width = 2,
+        .mask = 0x000000000000c000,
+        .n_owners = 2,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_VS0,
+            REGFIELD_kv3_PSO_VS1,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL2_V64] = {
+        .name = "SPS_PL2_V64",
+        .reg = REG_kv3_SPS_PL2,
+        .offset = 16,
+        .width = 1,
+        .mask = 0x0000000000010000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_V64,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL2_L2E] = {
+        .name = "SPS_PL2_L2E",
+        .reg = REG_kv3_SPS_PL2,
+        .offset = 17,
+        .width = 1,
+        .mask = 0x0000000000020000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_L2E,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL2_SME] = {
+        .name = "SPS_PL2_SME",
+        .reg = REG_kv3_SPS_PL2,
+        .offset = 18,
+        .width = 1,
+        .mask = 0x0000000000040000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_SME,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL2_SMR] = {
+        .name = "SPS_PL2_SMR",
+        .reg = REG_kv3_SPS_PL2,
+        .offset = 19,
+        .width = 1,
+        .mask = 0x0000000000080000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_SMR,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL2_PMJ] = {
+        .name = "SPS_PL2_PMJ",
+        .reg = REG_kv3_SPS_PL2,
+        .offset = 20,
+        .width = 4,
+        .mask = 0x0000000000f00000,
+        .n_owners = 4,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_PMJ0,
+            REGFIELD_kv3_PSO_PMJ1,
+            REGFIELD_kv3_PSO_PMJ2,
+            REGFIELD_kv3_PSO_PMJ3,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL2_MMUP] = {
+        .name = "SPS_PL2_MMUP",
+        .reg = REG_kv3_SPS_PL2,
+        .offset = 24,
+        .width = 1,
+        .mask = 0x0000000001000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_MMUP,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL3_PL] = {
+        .name = "SPS_PL3_PL",
+        .reg = REG_kv3_SPS_PL3,
+        .offset = 0,
+        .width = 2,
+        .mask = 0x0000000000000003,
+        .n_owners = 2,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_PL0,
+            REGFIELD_kv3_PSO_PL1,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL3_ET] = {
+        .name = "SPS_PL3_ET",
+        .reg = REG_kv3_SPS_PL3,
+        .offset = 2,
+        .width = 1,
+        .mask = 0x0000000000000004,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_ET,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL3_HTD] = {
+        .name = "SPS_PL3_HTD",
+        .reg = REG_kv3_SPS_PL3,
+        .offset = 3,
+        .width = 1,
+        .mask = 0x0000000000000008,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_HTD,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL3_IE] = {
+        .name = "SPS_PL3_IE",
+        .reg = REG_kv3_SPS_PL3,
+        .offset = 4,
+        .width = 1,
+        .mask = 0x0000000000000010,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_IE,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL3_HLE] = {
+        .name = "SPS_PL3_HLE",
+        .reg = REG_kv3_SPS_PL3,
+        .offset = 5,
+        .width = 1,
+        .mask = 0x0000000000000020,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_HLE,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL3_SRE] = {
+        .name = "SPS_PL3_SRE",
+        .reg = REG_kv3_SPS_PL3,
+        .offset = 6,
+        .width = 1,
+        .mask = 0x0000000000000040,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_SRE,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL3_DAUS] = {
+        .name = "SPS_PL3_DAUS",
+        .reg = REG_kv3_SPS_PL3,
+        .offset = 7,
+        .width = 1,
+        .mask = 0x0000000000000080,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_DAUS,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL3_ICE] = {
+        .name = "SPS_PL3_ICE",
+        .reg = REG_kv3_SPS_PL3,
+        .offset = 8,
+        .width = 1,
+        .mask = 0x0000000000000100,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_ICE,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL3_USE] = {
+        .name = "SPS_PL3_USE",
+        .reg = REG_kv3_SPS_PL3,
+        .offset = 9,
+        .width = 1,
+        .mask = 0x0000000000000200,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_USE,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL3_DCE] = {
+        .name = "SPS_PL3_DCE",
+        .reg = REG_kv3_SPS_PL3,
+        .offset = 10,
+        .width = 1,
+        .mask = 0x0000000000000400,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_DCE,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL3_MME] = {
+        .name = "SPS_PL3_MME",
+        .reg = REG_kv3_SPS_PL3,
+        .offset = 11,
+        .width = 1,
+        .mask = 0x0000000000000800,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_MME,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL3_IL] = {
+        .name = "SPS_PL3_IL",
+        .reg = REG_kv3_SPS_PL3,
+        .offset = 12,
+        .width = 2,
+        .mask = 0x0000000000003000,
+        .n_owners = 2,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_IL0,
+            REGFIELD_kv3_PSO_IL1,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL3_VS] = {
+        .name = "SPS_PL3_VS",
+        .reg = REG_kv3_SPS_PL3,
+        .offset = 14,
+        .width = 2,
+        .mask = 0x000000000000c000,
+        .n_owners = 2,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_VS0,
+            REGFIELD_kv3_PSO_VS1,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL3_V64] = {
+        .name = "SPS_PL3_V64",
+        .reg = REG_kv3_SPS_PL3,
+        .offset = 16,
+        .width = 1,
+        .mask = 0x0000000000010000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_V64,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL3_L2E] = {
+        .name = "SPS_PL3_L2E",
+        .reg = REG_kv3_SPS_PL3,
+        .offset = 17,
+        .width = 1,
+        .mask = 0x0000000000020000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_L2E,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL3_SME] = {
+        .name = "SPS_PL3_SME",
+        .reg = REG_kv3_SPS_PL3,
+        .offset = 18,
+        .width = 1,
+        .mask = 0x0000000000040000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_SME,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL3_SMR] = {
+        .name = "SPS_PL3_SMR",
+        .reg = REG_kv3_SPS_PL3,
+        .offset = 19,
+        .width = 1,
+        .mask = 0x0000000000080000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_SMR,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL3_PMJ] = {
+        .name = "SPS_PL3_PMJ",
+        .reg = REG_kv3_SPS_PL3,
+        .offset = 20,
+        .width = 4,
+        .mask = 0x0000000000f00000,
+        .n_owners = 4,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_PMJ0,
+            REGFIELD_kv3_PSO_PMJ1,
+            REGFIELD_kv3_PSO_PMJ2,
+            REGFIELD_kv3_PSO_PMJ3,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SPS_PL3_MMUP] = {
+        .name = "SPS_PL3_MMUP",
+        .reg = REG_kv3_SPS_PL3,
+        .offset = 24,
+        .width = 1,
+        .mask = 0x0000000001000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_MMUP,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PSO_PL0] = {
+        .name = "PSO_PL0",
+        .reg = REG_kv3_PSO,
+        .offset = 0,
+        .width = 2,
+        .mask = 0x0000000000000003,
+    },
+    [REGFIELD_kv3_PSO_PL1] = {
+        .name = "PSO_PL1",
+        .reg = REG_kv3_PSO,
+        .offset = 2,
+        .width = 2,
+        .mask = 0x000000000000000c,
+    },
+    [REGFIELD_kv3_PSO_ET] = {
+        .name = "PSO_ET",
+        .reg = REG_kv3_PSO,
+        .offset = 4,
+        .width = 2,
+        .mask = 0x0000000000000030,
+    },
+    [REGFIELD_kv3_PSO_HTD] = {
+        .name = "PSO_HTD",
+        .reg = REG_kv3_PSO,
+        .offset = 6,
+        .width = 2,
+        .mask = 0x00000000000000c0,
+    },
+    [REGFIELD_kv3_PSO_IE] = {
+        .name = "PSO_IE",
+        .reg = REG_kv3_PSO,
+        .offset = 8,
+        .width = 2,
+        .mask = 0x0000000000000300,
+    },
+    [REGFIELD_kv3_PSO_HLE] = {
+        .name = "PSO_HLE",
+        .reg = REG_kv3_PSO,
+        .offset = 10,
+        .width = 2,
+        .mask = 0x0000000000000c00,
+    },
+    [REGFIELD_kv3_PSO_SRE] = {
+        .name = "PSO_SRE",
+        .reg = REG_kv3_PSO,
+        .offset = 12,
+        .width = 2,
+        .mask = 0x0000000000003000,
+    },
+    [REGFIELD_kv3_PSO_DAUS] = {
+        .name = "PSO_DAUS",
+        .reg = REG_kv3_PSO,
+        .offset = 14,
+        .width = 2,
+        .mask = 0x000000000000c000,
+    },
+    [REGFIELD_kv3_PSO_ICE] = {
+        .name = "PSO_ICE",
+        .reg = REG_kv3_PSO,
+        .offset = 16,
+        .width = 2,
+        .mask = 0x0000000000030000,
+    },
+    [REGFIELD_kv3_PSO_USE] = {
+        .name = "PSO_USE",
+        .reg = REG_kv3_PSO,
+        .offset = 18,
+        .width = 2,
+        .mask = 0x00000000000c0000,
+    },
+    [REGFIELD_kv3_PSO_DCE] = {
+        .name = "PSO_DCE",
+        .reg = REG_kv3_PSO,
+        .offset = 20,
+        .width = 2,
+        .mask = 0x0000000000300000,
+    },
+    [REGFIELD_kv3_PSO_MME] = {
+        .name = "PSO_MME",
+        .reg = REG_kv3_PSO,
+        .offset = 22,
+        .width = 2,
+        .mask = 0x0000000000c00000,
+    },
+    [REGFIELD_kv3_PSO_IL0] = {
+        .name = "PSO_IL0",
+        .reg = REG_kv3_PSO,
+        .offset = 24,
+        .width = 2,
+        .mask = 0x0000000003000000,
+    },
+    [REGFIELD_kv3_PSO_IL1] = {
+        .name = "PSO_IL1",
+        .reg = REG_kv3_PSO,
+        .offset = 26,
+        .width = 2,
+        .mask = 0x000000000c000000,
+    },
+    [REGFIELD_kv3_PSO_VS0] = {
+        .name = "PSO_VS0",
+        .reg = REG_kv3_PSO,
+        .offset = 28,
+        .width = 2,
+        .mask = 0x0000000030000000,
+    },
+    [REGFIELD_kv3_PSO_VS1] = {
+        .name = "PSO_VS1",
+        .reg = REG_kv3_PSO,
+        .offset = 30,
+        .width = 2,
+        .mask = 0x00000000c0000000,
+    },
+    [REGFIELD_kv3_PSO_V64] = {
+        .name = "PSO_V64",
+        .reg = REG_kv3_PSO,
+        .offset = 32,
+        .width = 2,
+        .mask = 0x0000000300000000,
+    },
+    [REGFIELD_kv3_PSO_L2E] = {
+        .name = "PSO_L2E",
+        .reg = REG_kv3_PSO,
+        .offset = 34,
+        .width = 2,
+        .mask = 0x0000000c00000000,
+    },
+    [REGFIELD_kv3_PSO_SME] = {
+        .name = "PSO_SME",
+        .reg = REG_kv3_PSO,
+        .offset = 36,
+        .width = 2,
+        .mask = 0x0000003000000000,
+    },
+    [REGFIELD_kv3_PSO_SMR] = {
+        .name = "PSO_SMR",
+        .reg = REG_kv3_PSO,
+        .offset = 38,
+        .width = 2,
+        .mask = 0x000000c000000000,
+    },
+    [REGFIELD_kv3_PSO_PMJ0] = {
+        .name = "PSO_PMJ0",
+        .reg = REG_kv3_PSO,
+        .offset = 40,
+        .width = 2,
+        .mask = 0x0000030000000000,
+    },
+    [REGFIELD_kv3_PSO_PMJ1] = {
+        .name = "PSO_PMJ1",
+        .reg = REG_kv3_PSO,
+        .offset = 42,
+        .width = 2,
+        .mask = 0x00000c0000000000,
+    },
+    [REGFIELD_kv3_PSO_PMJ2] = {
+        .name = "PSO_PMJ2",
+        .reg = REG_kv3_PSO,
+        .offset = 44,
+        .width = 2,
+        .mask = 0x0000300000000000,
+    },
+    [REGFIELD_kv3_PSO_PMJ3] = {
+        .name = "PSO_PMJ3",
+        .reg = REG_kv3_PSO,
+        .offset = 46,
+        .width = 2,
+        .mask = 0x0000c00000000000,
+    },
+    [REGFIELD_kv3_PSO_MMUP] = {
+        .name = "PSO_MMUP",
+        .reg = REG_kv3_PSO,
+        .offset = 48,
+        .width = 2,
+        .mask = 0x0003000000000000,
+    },
+    [REGFIELD_kv3_PSOW_PL0] = {
+        .name = "PSOW_PL0",
+        .reg = REG_kv3_PSOW,
+        .offset = 0,
+        .width = 2,
+        .mask = 0x0000000000000003,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_PL0,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PSOW_PL1] = {
+        .name = "PSOW_PL1",
+        .reg = REG_kv3_PSOW,
+        .offset = 2,
+        .width = 2,
+        .mask = 0x000000000000000c,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_PL1,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PSOW_ET] = {
+        .name = "PSOW_ET",
+        .reg = REG_kv3_PSOW,
+        .offset = 4,
+        .width = 2,
+        .mask = 0x0000000000000030,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_ET,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PSOW_HTD] = {
+        .name = "PSOW_HTD",
+        .reg = REG_kv3_PSOW,
+        .offset = 6,
+        .width = 2,
+        .mask = 0x00000000000000c0,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_HTD,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PSOW_IE] = {
+        .name = "PSOW_IE",
+        .reg = REG_kv3_PSOW,
+        .offset = 8,
+        .width = 2,
+        .mask = 0x0000000000000300,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_IE,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PSOW_HLE] = {
+        .name = "PSOW_HLE",
+        .reg = REG_kv3_PSOW,
+        .offset = 10,
+        .width = 2,
+        .mask = 0x0000000000000c00,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_HLE,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PSOW_SRE] = {
+        .name = "PSOW_SRE",
+        .reg = REG_kv3_PSOW,
+        .offset = 12,
+        .width = 2,
+        .mask = 0x0000000000003000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_SRE,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PSOW_DAUS] = {
+        .name = "PSOW_DAUS",
+        .reg = REG_kv3_PSOW,
+        .offset = 14,
+        .width = 2,
+        .mask = 0x000000000000c000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_DAUS,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PSOW_ICE] = {
+        .name = "PSOW_ICE",
+        .reg = REG_kv3_PSOW,
+        .offset = 16,
+        .width = 2,
+        .mask = 0x0000000000030000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_ICE,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PSOW_USE] = {
+        .name = "PSOW_USE",
+        .reg = REG_kv3_PSOW,
+        .offset = 18,
+        .width = 2,
+        .mask = 0x00000000000c0000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_USE,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PSOW_DCE] = {
+        .name = "PSOW_DCE",
+        .reg = REG_kv3_PSOW,
+        .offset = 20,
+        .width = 2,
+        .mask = 0x0000000000300000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_DCE,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PSOW_MME] = {
+        .name = "PSOW_MME",
+        .reg = REG_kv3_PSOW,
+        .offset = 22,
+        .width = 2,
+        .mask = 0x0000000000c00000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_MME,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PSOW_IL0] = {
+        .name = "PSOW_IL0",
+        .reg = REG_kv3_PSOW,
+        .offset = 24,
+        .width = 2,
+        .mask = 0x0000000003000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_IL0,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PSOW_IL1] = {
+        .name = "PSOW_IL1",
+        .reg = REG_kv3_PSOW,
+        .offset = 26,
+        .width = 2,
+        .mask = 0x000000000c000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_IL1,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PSOW_VS0] = {
+        .name = "PSOW_VS0",
+        .reg = REG_kv3_PSOW,
+        .offset = 28,
+        .width = 2,
+        .mask = 0x0000000030000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_VS0,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PSOW_VS1] = {
+        .name = "PSOW_VS1",
+        .reg = REG_kv3_PSOW,
+        .offset = 30,
+        .width = 2,
+        .mask = 0x00000000c0000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_VS1,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PSOW_V64] = {
+        .name = "PSOW_V64",
+        .reg = REG_kv3_PSOW,
+        .offset = 32,
+        .width = 2,
+        .mask = 0x0000000300000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_V64,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PSOW_L2E] = {
+        .name = "PSOW_L2E",
+        .reg = REG_kv3_PSOW,
+        .offset = 34,
+        .width = 2,
+        .mask = 0x0000000c00000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_L2E,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PSOW_SME] = {
+        .name = "PSOW_SME",
+        .reg = REG_kv3_PSOW,
+        .offset = 36,
+        .width = 2,
+        .mask = 0x0000003000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_SME,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PSOW_SMR] = {
+        .name = "PSOW_SMR",
+        .reg = REG_kv3_PSOW,
+        .offset = 38,
+        .width = 2,
+        .mask = 0x000000c000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_SMR,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PSOW_PMJ0] = {
+        .name = "PSOW_PMJ0",
+        .reg = REG_kv3_PSOW,
+        .offset = 40,
+        .width = 2,
+        .mask = 0x0000030000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_PMJ0,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PSOW_PMJ1] = {
+        .name = "PSOW_PMJ1",
+        .reg = REG_kv3_PSOW,
+        .offset = 42,
+        .width = 2,
+        .mask = 0x00000c0000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_PMJ1,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PSOW_PMJ2] = {
+        .name = "PSOW_PMJ2",
+        .reg = REG_kv3_PSOW,
+        .offset = 44,
+        .width = 2,
+        .mask = 0x0000300000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_PMJ2,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PSOW_PMJ3] = {
+        .name = "PSOW_PMJ3",
+        .reg = REG_kv3_PSOW,
+        .offset = 46,
+        .width = 2,
+        .mask = 0x0000c00000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_PMJ3,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PSOW_MMUP] = {
+        .name = "PSOW_MMUP",
+        .reg = REG_kv3_PSOW,
+        .offset = 48,
+        .width = 2,
+        .mask = 0x0003000000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_PSO_MMUP,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_CS_IC] = {
+        .name = "CS_IC",
+        .reg = REG_kv3_CS,
+        .offset = 0,
+        .width = 1,
+        .mask = 0x0000000000000001,
+    },
+    [REGFIELD_kv3_CS_IO] = {
+        .name = "CS_IO",
+        .reg = REG_kv3_CS,
+        .offset = 1,
+        .width = 1,
+        .mask = 0x0000000000000002,
+    },
+    [REGFIELD_kv3_CS_DZ] = {
+        .name = "CS_DZ",
+        .reg = REG_kv3_CS,
+        .offset = 2,
+        .width = 1,
+        .mask = 0x0000000000000004,
+    },
+    [REGFIELD_kv3_CS_OV] = {
+        .name = "CS_OV",
+        .reg = REG_kv3_CS,
+        .offset = 3,
+        .width = 1,
+        .mask = 0x0000000000000008,
+    },
+    [REGFIELD_kv3_CS_UN] = {
+        .name = "CS_UN",
+        .reg = REG_kv3_CS,
+        .offset = 4,
+        .width = 1,
+        .mask = 0x0000000000000010,
+    },
+    [REGFIELD_kv3_CS_IN] = {
+        .name = "CS_IN",
+        .reg = REG_kv3_CS,
+        .offset = 5,
+        .width = 1,
+        .mask = 0x0000000000000020,
+    },
+    [REGFIELD_kv3_CS_XIO] = {
+        .name = "CS_XIO",
+        .reg = REG_kv3_CS,
+        .offset = 9,
+        .width = 1,
+        .mask = 0x0000000000000200,
+    },
+    [REGFIELD_kv3_CS_XDZ] = {
+        .name = "CS_XDZ",
+        .reg = REG_kv3_CS,
+        .offset = 10,
+        .width = 1,
+        .mask = 0x0000000000000400,
+    },
+    [REGFIELD_kv3_CS_XOV] = {
+        .name = "CS_XOV",
+        .reg = REG_kv3_CS,
+        .offset = 11,
+        .width = 1,
+        .mask = 0x0000000000000800,
+    },
+    [REGFIELD_kv3_CS_XUN] = {
+        .name = "CS_XUN",
+        .reg = REG_kv3_CS,
+        .offset = 12,
+        .width = 1,
+        .mask = 0x0000000000001000,
+    },
+    [REGFIELD_kv3_CS_XIN] = {
+        .name = "CS_XIN",
+        .reg = REG_kv3_CS,
+        .offset = 13,
+        .width = 1,
+        .mask = 0x0000000000002000,
+    },
+    [REGFIELD_kv3_CS_RM] = {
+        .name = "CS_RM",
+        .reg = REG_kv3_CS,
+        .offset = 16,
+        .width = 2,
+        .mask = 0x0000000000030000,
+    },
+    [REGFIELD_kv3_CS_XRM] = {
+        .name = "CS_XRM",
+        .reg = REG_kv3_CS,
+        .offset = 20,
+        .width = 2,
+        .mask = 0x0000000000300000,
+    },
+    [REGFIELD_kv3_CS_XMF] = {
+        .name = "CS_XMF",
+        .reg = REG_kv3_CS,
+        .offset = 24,
+        .width = 1,
+        .mask = 0x0000000001000000,
+    },
+    [REGFIELD_kv3_CS_CC] = {
+        .name = "CS_CC",
+        .reg = REG_kv3_CS,
+        .offset = 32,
+        .width = 16,
+        .mask = 0x0000ffff00000000,
+    },
+    [REGFIELD_kv3_CS_XDROP] = {
+        .name = "CS_XDROP",
+        .reg = REG_kv3_CS,
+        .offset = 48,
+        .width = 6,
+        .mask = 0x003f000000000000,
+    },
+    [REGFIELD_kv3_CS_XPOW2] = {
+        .name = "CS_XPOW2",
+        .reg = REG_kv3_CS,
+        .offset = 54,
+        .width = 6,
+        .mask = 0x0fc0000000000000,
+    },
+    [REGFIELD_kv3_AESPC_AESPC] = {
+        .name = "AESPC_AESPC",
+        .reg = REG_kv3_AESPC,
+        .offset = 0,
+        .width = 64,
+        .mask = 0xffffffffffffffff,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_CSIT,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_CSIT_ICIE] = {
+        .name = "CSIT_ICIE",
+        .reg = REG_kv3_CSIT,
+        .offset = 0,
+        .width = 1,
+        .mask = 0x0000000000000001,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_CSIT,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_CSIT_IOIE] = {
+        .name = "CSIT_IOIE",
+        .reg = REG_kv3_CSIT,
+        .offset = 1,
+        .width = 1,
+        .mask = 0x0000000000000002,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_CSIT,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_CSIT_DZIE] = {
+        .name = "CSIT_DZIE",
+        .reg = REG_kv3_CSIT,
+        .offset = 2,
+        .width = 1,
+        .mask = 0x0000000000000004,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_CSIT,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_CSIT_OVIE] = {
+        .name = "CSIT_OVIE",
+        .reg = REG_kv3_CSIT,
+        .offset = 3,
+        .width = 1,
+        .mask = 0x0000000000000008,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_CSIT,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_CSIT_UNIE] = {
+        .name = "CSIT_UNIE",
+        .reg = REG_kv3_CSIT,
+        .offset = 4,
+        .width = 1,
+        .mask = 0x0000000000000010,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_CSIT,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_CSIT_INIE] = {
+        .name = "CSIT_INIE",
+        .reg = REG_kv3_CSIT,
+        .offset = 5,
+        .width = 1,
+        .mask = 0x0000000000000020,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_CSIT,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_CSIT_XIOIE] = {
+        .name = "CSIT_XIOIE",
+        .reg = REG_kv3_CSIT,
+        .offset = 9,
+        .width = 1,
+        .mask = 0x0000000000000200,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_CSIT,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_CSIT_XDZIE] = {
+        .name = "CSIT_XDZIE",
+        .reg = REG_kv3_CSIT,
+        .offset = 10,
+        .width = 1,
+        .mask = 0x0000000000000400,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_CSIT,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_CSIT_XOVIE] = {
+        .name = "CSIT_XOVIE",
+        .reg = REG_kv3_CSIT,
+        .offset = 11,
+        .width = 1,
+        .mask = 0x0000000000000800,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_CSIT,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_CSIT_XUNIE] = {
+        .name = "CSIT_XUNIE",
+        .reg = REG_kv3_CSIT,
+        .offset = 12,
+        .width = 1,
+        .mask = 0x0000000000001000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_CSIT,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_CSIT_XINIE] = {
+        .name = "CSIT_XINIE",
+        .reg = REG_kv3_CSIT,
+        .offset = 13,
+        .width = 1,
+        .mask = 0x0000000000002000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_CSIT,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_CSIT_AEIR] = {
+        .name = "CSIT_AEIR",
+        .reg = REG_kv3_CSIT,
+        .offset = 16,
+        .width = 1,
+        .mask = 0x0000000000010000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_CSIT,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_CSIT_AEC] = {
+        .name = "CSIT_AEC",
+        .reg = REG_kv3_CSIT,
+        .offset = 17,
+        .width = 3,
+        .mask = 0x00000000000e0000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_CSIT,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_CSIT_SPCV] = {
+        .name = "CSIT_SPCV",
+        .reg = REG_kv3_CSIT,
+        .offset = 20,
+        .width = 1,
+        .mask = 0x0000000000100000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_CSIT,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ES_EC] = {
+        .name = "ES_EC",
+        .reg = REG_kv3_ES,
+        .offset = 0,
+        .width = 4,
+        .mask = 0x000000000000000f,
+    },
+    [REGFIELD_kv3_ES_ED] = {
+        .name = "ES_ED",
+        .reg = REG_kv3_ES,
+        .offset = 4,
+        .width = 60,
+        .mask = 0xfffffffffffffff0,
+    },
+    [REGFIELD_kv3_ES_OAPL] = {
+        .name = "ES_OAPL",
+        .reg = REG_kv3_ES,
+        .offset = 4,
+        .width = 2,
+        .mask = 0x0000000000000030,
+    },
+    [REGFIELD_kv3_ES_ORPL] = {
+        .name = "ES_ORPL",
+        .reg = REG_kv3_ES,
+        .offset = 6,
+        .width = 2,
+        .mask = 0x00000000000000c0,
+    },
+    [REGFIELD_kv3_ES_PTAPL] = {
+        .name = "ES_PTAPL",
+        .reg = REG_kv3_ES,
+        .offset = 8,
+        .width = 2,
+        .mask = 0x0000000000000300,
+    },
+    [REGFIELD_kv3_ES_PTRPL] = {
+        .name = "ES_PTRPL",
+        .reg = REG_kv3_ES,
+        .offset = 10,
+        .width = 2,
+        .mask = 0x0000000000000c00,
+    },
+    [REGFIELD_kv3_ES_ITN] = {
+        .name = "ES_ITN",
+        .reg = REG_kv3_ES,
+        .offset = 12,
+        .width = 5,
+        .mask = 0x000000000001f000,
+    },
+    [REGFIELD_kv3_ES_ITL] = {
+        .name = "ES_ITL",
+        .reg = REG_kv3_ES,
+        .offset = 17,
+        .width = 2,
+        .mask = 0x0000000000060000,
+    },
+    [REGFIELD_kv3_ES_ITI] = {
+        .name = "ES_ITI",
+        .reg = REG_kv3_ES,
+        .offset = 19,
+        .width = 10,
+        .mask = 0x000000001ff80000,
+    },
+    [REGFIELD_kv3_ES_SN] = {
+        .name = "ES_SN",
+        .reg = REG_kv3_ES,
+        .offset = 12,
+        .width = 12,
+        .mask = 0x0000000000fff000,
+    },
+    [REGFIELD_kv3_ES_HTC] = {
+        .name = "ES_HTC",
+        .reg = REG_kv3_ES,
+        .offset = 12,
+        .width = 5,
+        .mask = 0x000000000001f000,
+    },
+    [REGFIELD_kv3_ES_SFRT] = {
+        .name = "ES_SFRT",
+        .reg = REG_kv3_ES,
+        .offset = 17,
+        .width = 1,
+        .mask = 0x0000000000020000,
+    },
+    [REGFIELD_kv3_ES_SFRI] = {
+        .name = "ES_SFRI",
+        .reg = REG_kv3_ES,
+        .offset = 18,
+        .width = 3,
+        .mask = 0x00000000001c0000,
+    },
+    [REGFIELD_kv3_ES_GPRP] = {
+        .name = "ES_GPRP",
+        .reg = REG_kv3_ES,
+        .offset = 21,
+        .width = 6,
+        .mask = 0x0000000007e00000,
+    },
+    [REGFIELD_kv3_ES_SFRP] = {
+        .name = "ES_SFRP",
+        .reg = REG_kv3_ES,
+        .offset = 27,
+        .width = 9,
+        .mask = 0x0000000ff8000000,
+    },
+    [REGFIELD_kv3_ES_DHT] = {
+        .name = "ES_DHT",
+        .reg = REG_kv3_ES,
+        .offset = 36,
+        .width = 1,
+        .mask = 0x0000001000000000,
+    },
+    [REGFIELD_kv3_ES_RWX] = {
+        .name = "ES_RWX",
+        .reg = REG_kv3_ES,
+        .offset = 39,
+        .width = 3,
+        .mask = 0x0000038000000000,
+    },
+    [REGFIELD_kv3_ES_NTA] = {
+        .name = "ES_NTA",
+        .reg = REG_kv3_ES,
+        .offset = 42,
+        .width = 1,
+        .mask = 0x0000040000000000,
+    },
+    [REGFIELD_kv3_ES_UCA] = {
+        .name = "ES_UCA",
+        .reg = REG_kv3_ES,
+        .offset = 43,
+        .width = 1,
+        .mask = 0x0000080000000000,
+    },
+    [REGFIELD_kv3_ES_AS] = {
+        .name = "ES_AS",
+        .reg = REG_kv3_ES,
+        .offset = 44,
+        .width = 6,
+        .mask = 0x0003f00000000000,
+    },
+    [REGFIELD_kv3_ES_BS] = {
+        .name = "ES_BS",
+        .reg = REG_kv3_ES,
+        .offset = 50,
+        .width = 4,
+        .mask = 0x003c000000000000,
+    },
+    [REGFIELD_kv3_ES_DRI] = {
+        .name = "ES_DRI",
+        .reg = REG_kv3_ES,
+        .offset = 54,
+        .width = 6,
+        .mask = 0x0fc0000000000000,
+    },
+    [REGFIELD_kv3_ES_PIC] = {
+        .name = "ES_PIC",
+        .reg = REG_kv3_ES,
+        .offset = 60,
+        .width = 4,
+        .mask = 0xf000000000000000,
+    },
+    [REGFIELD_kv3_ES_DC] = {
+        .name = "ES_DC",
+        .reg = REG_kv3_ES,
+        .offset = 12,
+        .width = 2,
+        .mask = 0x0000000000003000,
+    },
+    [REGFIELD_kv3_ES_BN] = {
+        .name = "ES_BN",
+        .reg = REG_kv3_ES,
+        .offset = 14,
+        .width = 1,
+        .mask = 0x0000000000004000,
+    },
+    [REGFIELD_kv3_ES_WN] = {
+        .name = "ES_WN",
+        .reg = REG_kv3_ES,
+        .offset = 15,
+        .width = 1,
+        .mask = 0x0000000000008000,
+    },
+    [REGFIELD_kv3_ES_PL0_EC] = {
+        .name = "ES_PL0_EC",
+        .reg = REG_kv3_ES_PL0,
+        .offset = 0,
+        .width = 4,
+        .mask = 0x000000000000000f,
+    },
+    [REGFIELD_kv3_ES_PL0_ED] = {
+        .name = "ES_PL0_ED",
+        .reg = REG_kv3_ES_PL0,
+        .offset = 4,
+        .width = 60,
+        .mask = 0xfffffffffffffff0,
+    },
+    [REGFIELD_kv3_ES_PL0_OAPL] = {
+        .name = "ES_PL0_OAPL",
+        .reg = REG_kv3_ES_PL0,
+        .offset = 4,
+        .width = 2,
+        .mask = 0x0000000000000030,
+    },
+    [REGFIELD_kv3_ES_PL0_ORPL] = {
+        .name = "ES_PL0_ORPL",
+        .reg = REG_kv3_ES_PL0,
+        .offset = 6,
+        .width = 2,
+        .mask = 0x00000000000000c0,
+    },
+    [REGFIELD_kv3_ES_PL0_PTAPL] = {
+        .name = "ES_PL0_PTAPL",
+        .reg = REG_kv3_ES_PL0,
+        .offset = 8,
+        .width = 2,
+        .mask = 0x0000000000000300,
+    },
+    [REGFIELD_kv3_ES_PL0_PTRPL] = {
+        .name = "ES_PL0_PTRPL",
+        .reg = REG_kv3_ES_PL0,
+        .offset = 10,
+        .width = 2,
+        .mask = 0x0000000000000c00,
+    },
+    [REGFIELD_kv3_ES_PL0_ITN] = {
+        .name = "ES_PL0_ITN",
+        .reg = REG_kv3_ES_PL0,
+        .offset = 12,
+        .width = 5,
+        .mask = 0x000000000001f000,
+    },
+    [REGFIELD_kv3_ES_PL0_ITL] = {
+        .name = "ES_PL0_ITL",
+        .reg = REG_kv3_ES_PL0,
+        .offset = 17,
+        .width = 2,
+        .mask = 0x0000000000060000,
+    },
+    [REGFIELD_kv3_ES_PL0_ITI] = {
+        .name = "ES_PL0_ITI",
+        .reg = REG_kv3_ES_PL0,
+        .offset = 19,
+        .width = 10,
+        .mask = 0x000000001ff80000,
+    },
+    [REGFIELD_kv3_ES_PL0_SN] = {
+        .name = "ES_PL0_SN",
+        .reg = REG_kv3_ES_PL0,
+        .offset = 12,
+        .width = 12,
+        .mask = 0x0000000000fff000,
+    },
+    [REGFIELD_kv3_ES_PL0_HTC] = {
+        .name = "ES_PL0_HTC",
+        .reg = REG_kv3_ES_PL0,
+        .offset = 12,
+        .width = 5,
+        .mask = 0x000000000001f000,
+    },
+    [REGFIELD_kv3_ES_PL0_SFRT] = {
+        .name = "ES_PL0_SFRT",
+        .reg = REG_kv3_ES_PL0,
+        .offset = 17,
+        .width = 1,
+        .mask = 0x0000000000020000,
+    },
+    [REGFIELD_kv3_ES_PL0_SFRI] = {
+        .name = "ES_PL0_SFRI",
+        .reg = REG_kv3_ES_PL0,
+        .offset = 18,
+        .width = 3,
+        .mask = 0x00000000001c0000,
+    },
+    [REGFIELD_kv3_ES_PL0_GPRP] = {
+        .name = "ES_PL0_GPRP",
+        .reg = REG_kv3_ES_PL0,
+        .offset = 21,
+        .width = 6,
+        .mask = 0x0000000007e00000,
+    },
+    [REGFIELD_kv3_ES_PL0_SFRP] = {
+        .name = "ES_PL0_SFRP",
+        .reg = REG_kv3_ES_PL0,
+        .offset = 27,
+        .width = 9,
+        .mask = 0x0000000ff8000000,
+    },
+    [REGFIELD_kv3_ES_PL0_DHT] = {
+        .name = "ES_PL0_DHT",
+        .reg = REG_kv3_ES_PL0,
+        .offset = 36,
+        .width = 1,
+        .mask = 0x0000001000000000,
+    },
+    [REGFIELD_kv3_ES_PL0_RWX] = {
+        .name = "ES_PL0_RWX",
+        .reg = REG_kv3_ES_PL0,
+        .offset = 39,
+        .width = 3,
+        .mask = 0x0000038000000000,
+    },
+    [REGFIELD_kv3_ES_PL0_NTA] = {
+        .name = "ES_PL0_NTA",
+        .reg = REG_kv3_ES_PL0,
+        .offset = 42,
+        .width = 1,
+        .mask = 0x0000040000000000,
+    },
+    [REGFIELD_kv3_ES_PL0_UCA] = {
+        .name = "ES_PL0_UCA",
+        .reg = REG_kv3_ES_PL0,
+        .offset = 43,
+        .width = 1,
+        .mask = 0x0000080000000000,
+    },
+    [REGFIELD_kv3_ES_PL0_AS] = {
+        .name = "ES_PL0_AS",
+        .reg = REG_kv3_ES_PL0,
+        .offset = 44,
+        .width = 6,
+        .mask = 0x0003f00000000000,
+    },
+    [REGFIELD_kv3_ES_PL0_BS] = {
+        .name = "ES_PL0_BS",
+        .reg = REG_kv3_ES_PL0,
+        .offset = 50,
+        .width = 4,
+        .mask = 0x003c000000000000,
+    },
+    [REGFIELD_kv3_ES_PL0_DRI] = {
+        .name = "ES_PL0_DRI",
+        .reg = REG_kv3_ES_PL0,
+        .offset = 54,
+        .width = 6,
+        .mask = 0x0fc0000000000000,
+    },
+    [REGFIELD_kv3_ES_PL0_PIC] = {
+        .name = "ES_PL0_PIC",
+        .reg = REG_kv3_ES_PL0,
+        .offset = 60,
+        .width = 4,
+        .mask = 0xf000000000000000,
+    },
+    [REGFIELD_kv3_ES_PL0_DC] = {
+        .name = "ES_PL0_DC",
+        .reg = REG_kv3_ES_PL0,
+        .offset = 12,
+        .width = 2,
+        .mask = 0x0000000000003000,
+    },
+    [REGFIELD_kv3_ES_PL0_BN] = {
+        .name = "ES_PL0_BN",
+        .reg = REG_kv3_ES_PL0,
+        .offset = 14,
+        .width = 1,
+        .mask = 0x0000000000004000,
+    },
+    [REGFIELD_kv3_ES_PL0_WN] = {
+        .name = "ES_PL0_WN",
+        .reg = REG_kv3_ES_PL0,
+        .offset = 15,
+        .width = 1,
+        .mask = 0x0000000000008000,
+    },
+    [REGFIELD_kv3_ES_PL1_EC] = {
+        .name = "ES_PL1_EC",
+        .reg = REG_kv3_ES_PL1,
+        .offset = 0,
+        .width = 4,
+        .mask = 0x000000000000000f,
+    },
+    [REGFIELD_kv3_ES_PL1_ED] = {
+        .name = "ES_PL1_ED",
+        .reg = REG_kv3_ES_PL1,
+        .offset = 4,
+        .width = 60,
+        .mask = 0xfffffffffffffff0,
+    },
+    [REGFIELD_kv3_ES_PL1_OAPL] = {
+        .name = "ES_PL1_OAPL",
+        .reg = REG_kv3_ES_PL1,
+        .offset = 4,
+        .width = 2,
+        .mask = 0x0000000000000030,
+    },
+    [REGFIELD_kv3_ES_PL1_ORPL] = {
+        .name = "ES_PL1_ORPL",
+        .reg = REG_kv3_ES_PL1,
+        .offset = 6,
+        .width = 2,
+        .mask = 0x00000000000000c0,
+    },
+    [REGFIELD_kv3_ES_PL1_PTAPL] = {
+        .name = "ES_PL1_PTAPL",
+        .reg = REG_kv3_ES_PL1,
+        .offset = 8,
+        .width = 2,
+        .mask = 0x0000000000000300,
+    },
+    [REGFIELD_kv3_ES_PL1_PTRPL] = {
+        .name = "ES_PL1_PTRPL",
+        .reg = REG_kv3_ES_PL1,
+        .offset = 10,
+        .width = 2,
+        .mask = 0x0000000000000c00,
+    },
+    [REGFIELD_kv3_ES_PL1_ITN] = {
+        .name = "ES_PL1_ITN",
+        .reg = REG_kv3_ES_PL1,
+        .offset = 12,
+        .width = 5,
+        .mask = 0x000000000001f000,
+    },
+    [REGFIELD_kv3_ES_PL1_ITL] = {
+        .name = "ES_PL1_ITL",
+        .reg = REG_kv3_ES_PL1,
+        .offset = 17,
+        .width = 2,
+        .mask = 0x0000000000060000,
+    },
+    [REGFIELD_kv3_ES_PL1_ITI] = {
+        .name = "ES_PL1_ITI",
+        .reg = REG_kv3_ES_PL1,
+        .offset = 19,
+        .width = 10,
+        .mask = 0x000000001ff80000,
+    },
+    [REGFIELD_kv3_ES_PL1_SN] = {
+        .name = "ES_PL1_SN",
+        .reg = REG_kv3_ES_PL1,
+        .offset = 12,
+        .width = 12,
+        .mask = 0x0000000000fff000,
+    },
+    [REGFIELD_kv3_ES_PL1_HTC] = {
+        .name = "ES_PL1_HTC",
+        .reg = REG_kv3_ES_PL1,
+        .offset = 12,
+        .width = 5,
+        .mask = 0x000000000001f000,
+    },
+    [REGFIELD_kv3_ES_PL1_SFRT] = {
+        .name = "ES_PL1_SFRT",
+        .reg = REG_kv3_ES_PL1,
+        .offset = 17,
+        .width = 1,
+        .mask = 0x0000000000020000,
+    },
+    [REGFIELD_kv3_ES_PL1_SFRI] = {
+        .name = "ES_PL1_SFRI",
+        .reg = REG_kv3_ES_PL1,
+        .offset = 18,
+        .width = 3,
+        .mask = 0x00000000001c0000,
+    },
+    [REGFIELD_kv3_ES_PL1_GPRP] = {
+        .name = "ES_PL1_GPRP",
+        .reg = REG_kv3_ES_PL1,
+        .offset = 21,
+        .width = 6,
+        .mask = 0x0000000007e00000,
+    },
+    [REGFIELD_kv3_ES_PL1_SFRP] = {
+        .name = "ES_PL1_SFRP",
+        .reg = REG_kv3_ES_PL1,
+        .offset = 27,
+        .width = 9,
+        .mask = 0x0000000ff8000000,
+    },
+    [REGFIELD_kv3_ES_PL1_DHT] = {
+        .name = "ES_PL1_DHT",
+        .reg = REG_kv3_ES_PL1,
+        .offset = 36,
+        .width = 1,
+        .mask = 0x0000001000000000,
+    },
+    [REGFIELD_kv3_ES_PL1_RWX] = {
+        .name = "ES_PL1_RWX",
+        .reg = REG_kv3_ES_PL1,
+        .offset = 39,
+        .width = 3,
+        .mask = 0x0000038000000000,
+    },
+    [REGFIELD_kv3_ES_PL1_NTA] = {
+        .name = "ES_PL1_NTA",
+        .reg = REG_kv3_ES_PL1,
+        .offset = 42,
+        .width = 1,
+        .mask = 0x0000040000000000,
+    },
+    [REGFIELD_kv3_ES_PL1_UCA] = {
+        .name = "ES_PL1_UCA",
+        .reg = REG_kv3_ES_PL1,
+        .offset = 43,
+        .width = 1,
+        .mask = 0x0000080000000000,
+    },
+    [REGFIELD_kv3_ES_PL1_AS] = {
+        .name = "ES_PL1_AS",
+        .reg = REG_kv3_ES_PL1,
+        .offset = 44,
+        .width = 6,
+        .mask = 0x0003f00000000000,
+    },
+    [REGFIELD_kv3_ES_PL1_BS] = {
+        .name = "ES_PL1_BS",
+        .reg = REG_kv3_ES_PL1,
+        .offset = 50,
+        .width = 4,
+        .mask = 0x003c000000000000,
+    },
+    [REGFIELD_kv3_ES_PL1_DRI] = {
+        .name = "ES_PL1_DRI",
+        .reg = REG_kv3_ES_PL1,
+        .offset = 54,
+        .width = 6,
+        .mask = 0x0fc0000000000000,
+    },
+    [REGFIELD_kv3_ES_PL1_PIC] = {
+        .name = "ES_PL1_PIC",
+        .reg = REG_kv3_ES_PL1,
+        .offset = 60,
+        .width = 4,
+        .mask = 0xf000000000000000,
+    },
+    [REGFIELD_kv3_ES_PL1_DC] = {
+        .name = "ES_PL1_DC",
+        .reg = REG_kv3_ES_PL1,
+        .offset = 12,
+        .width = 2,
+        .mask = 0x0000000000003000,
+    },
+    [REGFIELD_kv3_ES_PL1_BN] = {
+        .name = "ES_PL1_BN",
+        .reg = REG_kv3_ES_PL1,
+        .offset = 14,
+        .width = 1,
+        .mask = 0x0000000000004000,
+    },
+    [REGFIELD_kv3_ES_PL1_WN] = {
+        .name = "ES_PL1_WN",
+        .reg = REG_kv3_ES_PL1,
+        .offset = 15,
+        .width = 1,
+        .mask = 0x0000000000008000,
+    },
+    [REGFIELD_kv3_ES_PL2_EC] = {
+        .name = "ES_PL2_EC",
+        .reg = REG_kv3_ES_PL2,
+        .offset = 0,
+        .width = 4,
+        .mask = 0x000000000000000f,
+    },
+    [REGFIELD_kv3_ES_PL2_ED] = {
+        .name = "ES_PL2_ED",
+        .reg = REG_kv3_ES_PL2,
+        .offset = 4,
+        .width = 60,
+        .mask = 0xfffffffffffffff0,
+    },
+    [REGFIELD_kv3_ES_PL2_OAPL] = {
+        .name = "ES_PL2_OAPL",
+        .reg = REG_kv3_ES_PL2,
+        .offset = 4,
+        .width = 2,
+        .mask = 0x0000000000000030,
+    },
+    [REGFIELD_kv3_ES_PL2_ORPL] = {
+        .name = "ES_PL2_ORPL",
+        .reg = REG_kv3_ES_PL2,
+        .offset = 6,
+        .width = 2,
+        .mask = 0x00000000000000c0,
+    },
+    [REGFIELD_kv3_ES_PL2_PTAPL] = {
+        .name = "ES_PL2_PTAPL",
+        .reg = REG_kv3_ES_PL2,
+        .offset = 8,
+        .width = 2,
+        .mask = 0x0000000000000300,
+    },
+    [REGFIELD_kv3_ES_PL2_PTRPL] = {
+        .name = "ES_PL2_PTRPL",
+        .reg = REG_kv3_ES_PL2,
+        .offset = 10,
+        .width = 2,
+        .mask = 0x0000000000000c00,
+    },
+    [REGFIELD_kv3_ES_PL2_ITN] = {
+        .name = "ES_PL2_ITN",
+        .reg = REG_kv3_ES_PL2,
+        .offset = 12,
+        .width = 5,
+        .mask = 0x000000000001f000,
+    },
+    [REGFIELD_kv3_ES_PL2_ITL] = {
+        .name = "ES_PL2_ITL",
+        .reg = REG_kv3_ES_PL2,
+        .offset = 17,
+        .width = 2,
+        .mask = 0x0000000000060000,
+    },
+    [REGFIELD_kv3_ES_PL2_ITI] = {
+        .name = "ES_PL2_ITI",
+        .reg = REG_kv3_ES_PL2,
+        .offset = 19,
+        .width = 10,
+        .mask = 0x000000001ff80000,
+    },
+    [REGFIELD_kv3_ES_PL2_SN] = {
+        .name = "ES_PL2_SN",
+        .reg = REG_kv3_ES_PL2,
+        .offset = 12,
+        .width = 12,
+        .mask = 0x0000000000fff000,
+    },
+    [REGFIELD_kv3_ES_PL2_HTC] = {
+        .name = "ES_PL2_HTC",
+        .reg = REG_kv3_ES_PL2,
+        .offset = 12,
+        .width = 5,
+        .mask = 0x000000000001f000,
+    },
+    [REGFIELD_kv3_ES_PL2_SFRT] = {
+        .name = "ES_PL2_SFRT",
+        .reg = REG_kv3_ES_PL2,
+        .offset = 17,
+        .width = 1,
+        .mask = 0x0000000000020000,
+    },
+    [REGFIELD_kv3_ES_PL2_SFRI] = {
+        .name = "ES_PL2_SFRI",
+        .reg = REG_kv3_ES_PL2,
+        .offset = 18,
+        .width = 3,
+        .mask = 0x00000000001c0000,
+    },
+    [REGFIELD_kv3_ES_PL2_GPRP] = {
+        .name = "ES_PL2_GPRP",
+        .reg = REG_kv3_ES_PL2,
+        .offset = 21,
+        .width = 6,
+        .mask = 0x0000000007e00000,
+    },
+    [REGFIELD_kv3_ES_PL2_SFRP] = {
+        .name = "ES_PL2_SFRP",
+        .reg = REG_kv3_ES_PL2,
+        .offset = 27,
+        .width = 9,
+        .mask = 0x0000000ff8000000,
+    },
+    [REGFIELD_kv3_ES_PL2_DHT] = {
+        .name = "ES_PL2_DHT",
+        .reg = REG_kv3_ES_PL2,
+        .offset = 36,
+        .width = 1,
+        .mask = 0x0000001000000000,
+    },
+    [REGFIELD_kv3_ES_PL2_RWX] = {
+        .name = "ES_PL2_RWX",
+        .reg = REG_kv3_ES_PL2,
+        .offset = 39,
+        .width = 3,
+        .mask = 0x0000038000000000,
+    },
+    [REGFIELD_kv3_ES_PL2_NTA] = {
+        .name = "ES_PL2_NTA",
+        .reg = REG_kv3_ES_PL2,
+        .offset = 42,
+        .width = 1,
+        .mask = 0x0000040000000000,
+    },
+    [REGFIELD_kv3_ES_PL2_UCA] = {
+        .name = "ES_PL2_UCA",
+        .reg = REG_kv3_ES_PL2,
+        .offset = 43,
+        .width = 1,
+        .mask = 0x0000080000000000,
+    },
+    [REGFIELD_kv3_ES_PL2_AS] = {
+        .name = "ES_PL2_AS",
+        .reg = REG_kv3_ES_PL2,
+        .offset = 44,
+        .width = 6,
+        .mask = 0x0003f00000000000,
+    },
+    [REGFIELD_kv3_ES_PL2_BS] = {
+        .name = "ES_PL2_BS",
+        .reg = REG_kv3_ES_PL2,
+        .offset = 50,
+        .width = 4,
+        .mask = 0x003c000000000000,
+    },
+    [REGFIELD_kv3_ES_PL2_DRI] = {
+        .name = "ES_PL2_DRI",
+        .reg = REG_kv3_ES_PL2,
+        .offset = 54,
+        .width = 6,
+        .mask = 0x0fc0000000000000,
+    },
+    [REGFIELD_kv3_ES_PL2_PIC] = {
+        .name = "ES_PL2_PIC",
+        .reg = REG_kv3_ES_PL2,
+        .offset = 60,
+        .width = 4,
+        .mask = 0xf000000000000000,
+    },
+    [REGFIELD_kv3_ES_PL2_DC] = {
+        .name = "ES_PL2_DC",
+        .reg = REG_kv3_ES_PL2,
+        .offset = 12,
+        .width = 2,
+        .mask = 0x0000000000003000,
+    },
+    [REGFIELD_kv3_ES_PL2_BN] = {
+        .name = "ES_PL2_BN",
+        .reg = REG_kv3_ES_PL2,
+        .offset = 14,
+        .width = 1,
+        .mask = 0x0000000000004000,
+    },
+    [REGFIELD_kv3_ES_PL2_WN] = {
+        .name = "ES_PL2_WN",
+        .reg = REG_kv3_ES_PL2,
+        .offset = 15,
+        .width = 1,
+        .mask = 0x0000000000008000,
+    },
+    [REGFIELD_kv3_ES_PL3_EC] = {
+        .name = "ES_PL3_EC",
+        .reg = REG_kv3_ES_PL3,
+        .offset = 0,
+        .width = 4,
+        .mask = 0x000000000000000f,
+    },
+    [REGFIELD_kv3_ES_PL3_ED] = {
+        .name = "ES_PL3_ED",
+        .reg = REG_kv3_ES_PL3,
+        .offset = 4,
+        .width = 60,
+        .mask = 0xfffffffffffffff0,
+    },
+    [REGFIELD_kv3_ES_PL3_OAPL] = {
+        .name = "ES_PL3_OAPL",
+        .reg = REG_kv3_ES_PL3,
+        .offset = 4,
+        .width = 2,
+        .mask = 0x0000000000000030,
+    },
+    [REGFIELD_kv3_ES_PL3_ORPL] = {
+        .name = "ES_PL3_ORPL",
+        .reg = REG_kv3_ES_PL3,
+        .offset = 6,
+        .width = 2,
+        .mask = 0x00000000000000c0,
+    },
+    [REGFIELD_kv3_ES_PL3_PTAPL] = {
+        .name = "ES_PL3_PTAPL",
+        .reg = REG_kv3_ES_PL3,
+        .offset = 8,
+        .width = 2,
+        .mask = 0x0000000000000300,
+    },
+    [REGFIELD_kv3_ES_PL3_PTRPL] = {
+        .name = "ES_PL3_PTRPL",
+        .reg = REG_kv3_ES_PL3,
+        .offset = 10,
+        .width = 2,
+        .mask = 0x0000000000000c00,
+    },
+    [REGFIELD_kv3_ES_PL3_ITN] = {
+        .name = "ES_PL3_ITN",
+        .reg = REG_kv3_ES_PL3,
+        .offset = 12,
+        .width = 5,
+        .mask = 0x000000000001f000,
+    },
+    [REGFIELD_kv3_ES_PL3_ITL] = {
+        .name = "ES_PL3_ITL",
+        .reg = REG_kv3_ES_PL3,
+        .offset = 17,
+        .width = 2,
+        .mask = 0x0000000000060000,
+    },
+    [REGFIELD_kv3_ES_PL3_ITI] = {
+        .name = "ES_PL3_ITI",
+        .reg = REG_kv3_ES_PL3,
+        .offset = 19,
+        .width = 10,
+        .mask = 0x000000001ff80000,
+    },
+    [REGFIELD_kv3_ES_PL3_SN] = {
+        .name = "ES_PL3_SN",
+        .reg = REG_kv3_ES_PL3,
+        .offset = 12,
+        .width = 12,
+        .mask = 0x0000000000fff000,
+    },
+    [REGFIELD_kv3_ES_PL3_HTC] = {
+        .name = "ES_PL3_HTC",
+        .reg = REG_kv3_ES_PL3,
+        .offset = 12,
+        .width = 5,
+        .mask = 0x000000000001f000,
+    },
+    [REGFIELD_kv3_ES_PL3_SFRT] = {
+        .name = "ES_PL3_SFRT",
+        .reg = REG_kv3_ES_PL3,
+        .offset = 17,
+        .width = 1,
+        .mask = 0x0000000000020000,
+    },
+    [REGFIELD_kv3_ES_PL3_SFRI] = {
+        .name = "ES_PL3_SFRI",
+        .reg = REG_kv3_ES_PL3,
+        .offset = 18,
+        .width = 3,
+        .mask = 0x00000000001c0000,
+    },
+    [REGFIELD_kv3_ES_PL3_GPRP] = {
+        .name = "ES_PL3_GPRP",
+        .reg = REG_kv3_ES_PL3,
+        .offset = 21,
+        .width = 6,
+        .mask = 0x0000000007e00000,
+    },
+    [REGFIELD_kv3_ES_PL3_SFRP] = {
+        .name = "ES_PL3_SFRP",
+        .reg = REG_kv3_ES_PL3,
+        .offset = 27,
+        .width = 9,
+        .mask = 0x0000000ff8000000,
+    },
+    [REGFIELD_kv3_ES_PL3_DHT] = {
+        .name = "ES_PL3_DHT",
+        .reg = REG_kv3_ES_PL3,
+        .offset = 36,
+        .width = 1,
+        .mask = 0x0000001000000000,
+    },
+    [REGFIELD_kv3_ES_PL3_RWX] = {
+        .name = "ES_PL3_RWX",
+        .reg = REG_kv3_ES_PL3,
+        .offset = 39,
+        .width = 3,
+        .mask = 0x0000038000000000,
+    },
+    [REGFIELD_kv3_ES_PL3_NTA] = {
+        .name = "ES_PL3_NTA",
+        .reg = REG_kv3_ES_PL3,
+        .offset = 42,
+        .width = 1,
+        .mask = 0x0000040000000000,
+    },
+    [REGFIELD_kv3_ES_PL3_UCA] = {
+        .name = "ES_PL3_UCA",
+        .reg = REG_kv3_ES_PL3,
+        .offset = 43,
+        .width = 1,
+        .mask = 0x0000080000000000,
+    },
+    [REGFIELD_kv3_ES_PL3_AS] = {
+        .name = "ES_PL3_AS",
+        .reg = REG_kv3_ES_PL3,
+        .offset = 44,
+        .width = 6,
+        .mask = 0x0003f00000000000,
+    },
+    [REGFIELD_kv3_ES_PL3_BS] = {
+        .name = "ES_PL3_BS",
+        .reg = REG_kv3_ES_PL3,
+        .offset = 50,
+        .width = 4,
+        .mask = 0x003c000000000000,
+    },
+    [REGFIELD_kv3_ES_PL3_DRI] = {
+        .name = "ES_PL3_DRI",
+        .reg = REG_kv3_ES_PL3,
+        .offset = 54,
+        .width = 6,
+        .mask = 0x0fc0000000000000,
+    },
+    [REGFIELD_kv3_ES_PL3_PIC] = {
+        .name = "ES_PL3_PIC",
+        .reg = REG_kv3_ES_PL3,
+        .offset = 60,
+        .width = 4,
+        .mask = 0xf000000000000000,
+    },
+    [REGFIELD_kv3_ES_PL3_DC] = {
+        .name = "ES_PL3_DC",
+        .reg = REG_kv3_ES_PL3,
+        .offset = 12,
+        .width = 2,
+        .mask = 0x0000000000003000,
+    },
+    [REGFIELD_kv3_ES_PL3_BN] = {
+        .name = "ES_PL3_BN",
+        .reg = REG_kv3_ES_PL3,
+        .offset = 14,
+        .width = 1,
+        .mask = 0x0000000000004000,
+    },
+    [REGFIELD_kv3_ES_PL3_WN] = {
+        .name = "ES_PL3_WN",
+        .reg = REG_kv3_ES_PL3,
+        .offset = 15,
+        .width = 1,
+        .mask = 0x0000000000008000,
+    },
+    [REGFIELD_kv3_TCR_T0CE] = {
+        .name = "TCR_T0CE",
+        .reg = REG_kv3_TCR,
+        .offset = 16,
+        .width = 1,
+        .mask = 0x0000000000010000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_T0,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_TCR_T1CE] = {
+        .name = "TCR_T1CE",
+        .reg = REG_kv3_TCR,
+        .offset = 17,
+        .width = 1,
+        .mask = 0x0000000000020000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_T1,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_TCR_T0IE] = {
+        .name = "TCR_T0IE",
+        .reg = REG_kv3_TCR,
+        .offset = 18,
+        .width = 1,
+        .mask = 0x0000000000040000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_T0,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_TCR_T1IE] = {
+        .name = "TCR_T1IE",
+        .reg = REG_kv3_TCR,
+        .offset = 19,
+        .width = 1,
+        .mask = 0x0000000000080000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_T1,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_TCR_T0ST] = {
+        .name = "TCR_T0ST",
+        .reg = REG_kv3_TCR,
+        .offset = 20,
+        .width = 1,
+        .mask = 0x0000000000100000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_T0,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_TCR_T1ST] = {
+        .name = "TCR_T1ST",
+        .reg = REG_kv3_TCR,
+        .offset = 21,
+        .width = 1,
+        .mask = 0x0000000000200000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_T1,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_TCR_T0SI] = {
+        .name = "TCR_T0SI",
+        .reg = REG_kv3_TCR,
+        .offset = 22,
+        .width = 1,
+        .mask = 0x0000000000400000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_T0,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_TCR_T1SI] = {
+        .name = "TCR_T1SI",
+        .reg = REG_kv3_TCR,
+        .offset = 23,
+        .width = 1,
+        .mask = 0x0000000000800000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_T1,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_TCR_WCE] = {
+        .name = "TCR_WCE",
+        .reg = REG_kv3_TCR,
+        .offset = 24,
+        .width = 1,
+        .mask = 0x0000000001000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_WD,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_TCR_WIE] = {
+        .name = "TCR_WIE",
+        .reg = REG_kv3_TCR,
+        .offset = 25,
+        .width = 1,
+        .mask = 0x0000000002000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_WD,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_TCR_WUI] = {
+        .name = "TCR_WUI",
+        .reg = REG_kv3_TCR,
+        .offset = 26,
+        .width = 1,
+        .mask = 0x0000000004000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_WD,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_TCR_WUS] = {
+        .name = "TCR_WUS",
+        .reg = REG_kv3_TCR,
+        .offset = 27,
+        .width = 1,
+        .mask = 0x0000000008000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_WD,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_TCR_WSI] = {
+        .name = "TCR_WSI",
+        .reg = REG_kv3_TCR,
+        .offset = 28,
+        .width = 1,
+        .mask = 0x0000000010000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_WD,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PM0_PM0] = {
+        .name = "PM0_PM0",
+        .reg = REG_kv3_PM0,
+        .offset = 0,
+        .width = 64,
+        .mask = 0xffffffffffffffff,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_PM0,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PM1_PM1] = {
+        .name = "PM1_PM1",
+        .reg = REG_kv3_PM1,
+        .offset = 0,
+        .width = 64,
+        .mask = 0xffffffffffffffff,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_PM1,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PM2_PM2] = {
+        .name = "PM2_PM2",
+        .reg = REG_kv3_PM2,
+        .offset = 0,
+        .width = 64,
+        .mask = 0xffffffffffffffff,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_PM2,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PM3_PM3] = {
+        .name = "PM3_PM3",
+        .reg = REG_kv3_PM3,
+        .offset = 0,
+        .width = 64,
+        .mask = 0xffffffffffffffff,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_PM3,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PMSA_PMSA] = {
+        .name = "PMSA_PMSA",
+        .reg = REG_kv3_PMSA,
+        .offset = 0,
+        .width = 64,
+        .mask = 0xffffffffffffffff,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_PMIT,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_T0V_T0V] = {
+        .name = "T0V_T0V",
+        .reg = REG_kv3_T0V,
+        .offset = 0,
+        .width = 64,
+        .mask = 0xffffffffffffffff,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_T0,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_T1V_T1V] = {
+        .name = "T1V_T1V",
+        .reg = REG_kv3_T1V,
+        .offset = 0,
+        .width = 64,
+        .mask = 0xffffffffffffffff,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_T1,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_T0R_T0R] = {
+        .name = "T0R_T0R",
+        .reg = REG_kv3_T0R,
+        .offset = 0,
+        .width = 64,
+        .mask = 0xffffffffffffffff,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_T0,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_T1R_T1R] = {
+        .name = "T1R_T1R",
+        .reg = REG_kv3_T1R,
+        .offset = 0,
+        .width = 64,
+        .mask = 0xffffffffffffffff,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_T1,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_WDV_WDV] = {
+        .name = "WDV_WDV",
+        .reg = REG_kv3_WDV,
+        .offset = 0,
+        .width = 64,
+        .mask = 0xffffffffffffffff,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_WD,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_WDR_WDR] = {
+        .name = "WDR_WDR",
+        .reg = REG_kv3_WDR,
+        .offset = 0,
+        .width = 64,
+        .mask = 0xffffffffffffffff,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_WD,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PMC_PM0C] = {
+        .name = "PMC_PM0C",
+        .reg = REG_kv3_PMC,
+        .offset = 0,
+        .width = 6,
+        .mask = 0x000000000000003f,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_PM0,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PMC_PM1C] = {
+        .name = "PMC_PM1C",
+        .reg = REG_kv3_PMC,
+        .offset = 7,
+        .width = 6,
+        .mask = 0x0000000000001f80,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_PM1,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PMC_PM2C] = {
+        .name = "PMC_PM2C",
+        .reg = REG_kv3_PMC,
+        .offset = 14,
+        .width = 6,
+        .mask = 0x00000000000fc000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_PM2,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PMC_PM3C] = {
+        .name = "PMC_PM3C",
+        .reg = REG_kv3_PMC,
+        .offset = 21,
+        .width = 6,
+        .mask = 0x0000000007e00000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_PM3,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PMC_SAV] = {
+        .name = "PMC_SAV",
+        .reg = REG_kv3_PMC,
+        .offset = 30,
+        .width = 1,
+        .mask = 0x0000000040000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_PMIT,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PMC_PM0IE] = {
+        .name = "PMC_PM0IE",
+        .reg = REG_kv3_PMC,
+        .offset = 32,
+        .width = 1,
+        .mask = 0x0000000100000000,
+        .n_owners = 2,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_PMIT,
+            REGFIELD_kv3_MO_PM0,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PMC_PM1IE] = {
+        .name = "PMC_PM1IE",
+        .reg = REG_kv3_PMC,
+        .offset = 33,
+        .width = 1,
+        .mask = 0x0000000200000000,
+        .n_owners = 2,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_PMIT,
+            REGFIELD_kv3_MO_PM1,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PMC_PM2IE] = {
+        .name = "PMC_PM2IE",
+        .reg = REG_kv3_PMC,
+        .offset = 34,
+        .width = 1,
+        .mask = 0x0000000400000000,
+        .n_owners = 2,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_PMIT,
+            REGFIELD_kv3_MO_PM2,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PMC_PM3IE] = {
+        .name = "PMC_PM3IE",
+        .reg = REG_kv3_PMC,
+        .offset = 35,
+        .width = 1,
+        .mask = 0x0000000800000000,
+        .n_owners = 2,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_PMIT,
+            REGFIELD_kv3_MO_PM3,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PMC_SAT] = {
+        .name = "PMC_SAT",
+        .reg = REG_kv3_PMC,
+        .offset = 36,
+        .width = 2,
+        .mask = 0x0000003000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_PMIT,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PCR_PID] = {
+        .name = "PCR_PID",
+        .reg = REG_kv3_PCR,
+        .offset = 0,
+        .width = 8,
+        .mask = 0x00000000000000ff,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_PCR,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PCR_CID] = {
+        .name = "PCR_CID",
+        .reg = REG_kv3_PCR,
+        .offset = 8,
+        .width = 8,
+        .mask = 0x000000000000ff00,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_PCR,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PCR_MID] = {
+        .name = "PCR_MID",
+        .reg = REG_kv3_PCR,
+        .offset = 16,
+        .width = 8,
+        .mask = 0x0000000000ff0000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_PCR,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PCR_CAR] = {
+        .name = "PCR_CAR",
+        .reg = REG_kv3_PCR,
+        .offset = 24,
+        .width = 4,
+        .mask = 0x000000000f000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_PCR,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PCR_CMA] = {
+        .name = "PCR_CMA",
+        .reg = REG_kv3_PCR,
+        .offset = 28,
+        .width = 4,
+        .mask = 0x00000000f0000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_PCR,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PCR_SV] = {
+        .name = "PCR_SV",
+        .reg = REG_kv3_PCR,
+        .offset = 32,
+        .width = 8,
+        .mask = 0x000000ff00000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_PCR,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PCR_ST] = {
+        .name = "PCR_ST",
+        .reg = REG_kv3_PCR,
+        .offset = 40,
+        .width = 4,
+        .mask = 0x00000f0000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_PCR,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PCR_BM] = {
+        .name = "PCR_BM",
+        .reg = REG_kv3_PCR,
+        .offset = 44,
+        .width = 8,
+        .mask = 0x000ff00000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_PCR,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PCR_COE] = {
+        .name = "PCR_COE",
+        .reg = REG_kv3_PCR,
+        .offset = 52,
+        .width = 1,
+        .mask = 0x0010000000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_PCR,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PCR_L1CE] = {
+        .name = "PCR_L1CE",
+        .reg = REG_kv3_PCR,
+        .offset = 53,
+        .width = 1,
+        .mask = 0x0020000000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_PCR,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PCR_DSEM] = {
+        .name = "PCR_DSEM",
+        .reg = REG_kv3_PCR,
+        .offset = 54,
+        .width = 1,
+        .mask = 0x0040000000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_PCR,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_MMC_ASN] = {
+        .name = "MMC_ASN",
+        .reg = REG_kv3_MMC,
+        .offset = 0,
+        .width = 9,
+        .mask = 0x00000000000001ff,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_MSG,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_MMC_S] = {
+        .name = "MMC_S",
+        .reg = REG_kv3_MMC,
+        .offset = 9,
+        .width = 1,
+        .mask = 0x0000000000000200,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_MSG,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_MMC_SNE] = {
+        .name = "MMC_SNE",
+        .reg = REG_kv3_MMC,
+        .offset = 14,
+        .width = 1,
+        .mask = 0x0000000000004000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_MSG,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_MMC_SPE] = {
+        .name = "MMC_SPE",
+        .reg = REG_kv3_MMC,
+        .offset = 15,
+        .width = 1,
+        .mask = 0x0000000000008000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_MSG,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_MMC_PTC] = {
+        .name = "MMC_PTC",
+        .reg = REG_kv3_MMC,
+        .offset = 16,
+        .width = 2,
+        .mask = 0x0000000000030000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_MSG,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_MMC_SW] = {
+        .name = "MMC_SW",
+        .reg = REG_kv3_MMC,
+        .offset = 18,
+        .width = 4,
+        .mask = 0x00000000003c0000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_MSG,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_MMC_SS] = {
+        .name = "MMC_SS",
+        .reg = REG_kv3_MMC,
+        .offset = 22,
+        .width = 6,
+        .mask = 0x000000000fc00000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_MSG,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_MMC_SB] = {
+        .name = "MMC_SB",
+        .reg = REG_kv3_MMC,
+        .offset = 28,
+        .width = 1,
+        .mask = 0x0000000010000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_MSG,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_MMC_PAR] = {
+        .name = "MMC_PAR",
+        .reg = REG_kv3_MMC,
+        .offset = 30,
+        .width = 1,
+        .mask = 0x0000000040000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_MSG,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_MMC_E] = {
+        .name = "MMC_E",
+        .reg = REG_kv3_MMC,
+        .offset = 31,
+        .width = 1,
+        .mask = 0x0000000080000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_MSG,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_TEL_ES] = {
+        .name = "TEL_ES",
+        .reg = REG_kv3_TEL,
+        .offset = 0,
+        .width = 2,
+        .mask = 0x0000000000000003,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_MSG,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_TEL_CP] = {
+        .name = "TEL_CP",
+        .reg = REG_kv3_TEL,
+        .offset = 2,
+        .width = 2,
+        .mask = 0x000000000000000c,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_MSG,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_TEL_PA] = {
+        .name = "TEL_PA",
+        .reg = REG_kv3_TEL,
+        .offset = 4,
+        .width = 4,
+        .mask = 0x00000000000000f0,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_MSG,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_TEL_PS] = {
+        .name = "TEL_PS",
+        .reg = REG_kv3_TEL,
+        .offset = 10,
+        .width = 2,
+        .mask = 0x0000000000000c00,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_MSG,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_TEL_FN] = {
+        .name = "TEL_FN",
+        .reg = REG_kv3_TEL,
+        .offset = 12,
+        .width = 28,
+        .mask = 0x000000fffffff000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_MSG,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_TEH_ASN] = {
+        .name = "TEH_ASN",
+        .reg = REG_kv3_TEH,
+        .offset = 0,
+        .width = 9,
+        .mask = 0x00000000000001ff,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_MSG,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_TEH_G] = {
+        .name = "TEH_G",
+        .reg = REG_kv3_TEH,
+        .offset = 9,
+        .width = 1,
+        .mask = 0x0000000000000200,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_MSG,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_TEH_VS] = {
+        .name = "TEH_VS",
+        .reg = REG_kv3_TEH,
+        .offset = 10,
+        .width = 2,
+        .mask = 0x0000000000000c00,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_MSG,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_TEH_PN] = {
+        .name = "TEH_PN",
+        .reg = REG_kv3_TEH,
+        .offset = 12,
+        .width = 29,
+        .mask = 0x000001fffffff000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_MSG,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_DC_BE0] = {
+        .name = "DC_BE0",
+        .reg = REG_kv3_DC,
+        .offset = 0,
+        .width = 1,
+        .mask = 0x0000000000000001,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_DO_B0,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_DC_BR0] = {
+        .name = "DC_BR0",
+        .reg = REG_kv3_DC,
+        .offset = 1,
+        .width = 6,
+        .mask = 0x000000000000007e,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_DO_B0,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_DC_BE1] = {
+        .name = "DC_BE1",
+        .reg = REG_kv3_DC,
+        .offset = 7,
+        .width = 1,
+        .mask = 0x0000000000000080,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_DO_B1,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_DC_BR1] = {
+        .name = "DC_BR1",
+        .reg = REG_kv3_DC,
+        .offset = 8,
+        .width = 6,
+        .mask = 0x0000000000003f00,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_DO_B1,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_DC_WE0] = {
+        .name = "DC_WE0",
+        .reg = REG_kv3_DC,
+        .offset = 14,
+        .width = 1,
+        .mask = 0x0000000000004000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_DO_W0,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_DC_WR0] = {
+        .name = "DC_WR0",
+        .reg = REG_kv3_DC,
+        .offset = 15,
+        .width = 6,
+        .mask = 0x00000000001f8000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_DO_W0,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_DC_WE1] = {
+        .name = "DC_WE1",
+        .reg = REG_kv3_DC,
+        .offset = 21,
+        .width = 1,
+        .mask = 0x0000000000200000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_DO_W1,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_DC_WR1] = {
+        .name = "DC_WR1",
+        .reg = REG_kv3_DC,
+        .offset = 22,
+        .width = 6,
+        .mask = 0x000000000fc00000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_DO_W1,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_MES_PSE] = {
+        .name = "MES_PSE",
+        .reg = REG_kv3_MES,
+        .offset = 0,
+        .width = 1,
+        .mask = 0x0000000000000001,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_MES,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_MES_PILSY] = {
+        .name = "MES_PILSY",
+        .reg = REG_kv3_MES,
+        .offset = 1,
+        .width = 1,
+        .mask = 0x0000000000000002,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_MES,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_MES_PILDE] = {
+        .name = "MES_PILDE",
+        .reg = REG_kv3_MES,
+        .offset = 2,
+        .width = 1,
+        .mask = 0x0000000000000004,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_MES,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_MES_PILPA] = {
+        .name = "MES_PILPA",
+        .reg = REG_kv3_MES,
+        .offset = 3,
+        .width = 1,
+        .mask = 0x0000000000000008,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_MES,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_MES_DSE] = {
+        .name = "MES_DSE",
+        .reg = REG_kv3_MES,
+        .offset = 4,
+        .width = 1,
+        .mask = 0x0000000000000010,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_MES,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_MES_DILSY] = {
+        .name = "MES_DILSY",
+        .reg = REG_kv3_MES,
+        .offset = 5,
+        .width = 1,
+        .mask = 0x0000000000000020,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_MES,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_MES_DILDE] = {
+        .name = "MES_DILDE",
+        .reg = REG_kv3_MES,
+        .offset = 6,
+        .width = 1,
+        .mask = 0x0000000000000040,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_MES,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_MES_DILPA] = {
+        .name = "MES_DILPA",
+        .reg = REG_kv3_MES,
+        .offset = 7,
+        .width = 1,
+        .mask = 0x0000000000000080,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_MES,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_MES_DDEE] = {
+        .name = "MES_DDEE",
+        .reg = REG_kv3_MES,
+        .offset = 8,
+        .width = 1,
+        .mask = 0x0000000000000100,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_MES,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_MES_DSYE] = {
+        .name = "MES_DSYE",
+        .reg = REG_kv3_MES,
+        .offset = 9,
+        .width = 1,
+        .mask = 0x0000000000000200,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_MES,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_WS_WU0] = {
+        .name = "WS_WU0",
+        .reg = REG_kv3_WS,
+        .offset = 0,
+        .width = 1,
+        .mask = 0x0000000000000001,
+    },
+    [REGFIELD_kv3_WS_WU1] = {
+        .name = "WS_WU1",
+        .reg = REG_kv3_WS,
+        .offset = 1,
+        .width = 1,
+        .mask = 0x0000000000000002,
+    },
+    [REGFIELD_kv3_WS_WU2] = {
+        .name = "WS_WU2",
+        .reg = REG_kv3_WS,
+        .offset = 2,
+        .width = 1,
+        .mask = 0x0000000000000004,
+    },
+    [REGFIELD_kv3_IPE_FE] = {
+        .name = "IPE_FE",
+        .reg = REG_kv3_IPE,
+        .offset = 0,
+        .width = 16,
+        .mask = 0x000000000000ffff,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_SYNC,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_IPE_BE] = {
+        .name = "IPE_BE",
+        .reg = REG_kv3_IPE,
+        .offset = 16,
+        .width = 16,
+        .mask = 0x00000000ffff0000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_SYNC,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_IPE_FM] = {
+        .name = "IPE_FM",
+        .reg = REG_kv3_IPE,
+        .offset = 32,
+        .width = 16,
+        .mask = 0x0000ffff00000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_SYNC,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_IPE_BM] = {
+        .name = "IPE_BM",
+        .reg = REG_kv3_IPE,
+        .offset = 48,
+        .width = 16,
+        .mask = 0xffff000000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_SYNC,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_MO_COMM] = {
+        .name = "MO_COMM",
+        .reg = REG_kv3_MO,
+        .offset = 34,
+        .width = 2,
+        .mask = 0x0000000c00000000,
+    },
+    [REGFIELD_kv3_MOW_COMM] = {
+        .name = "MOW_COMM",
+        .reg = REG_kv3_MOW,
+        .offset = 34,
+        .width = 2,
+        .mask = 0x0000000c00000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_COMM,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_ES_DRX] = {
+        .name = "ES_DRX",
+        .reg = REG_kv3_ES,
+        .offset = 37,
+        .width = 1,
+        .mask = 0x0000002000000000,
+    },
+    [REGFIELD_kv3_ES_DAF] = {
+        .name = "ES_DAF",
+        .reg = REG_kv3_ES,
+        .offset = 38,
+        .width = 1,
+        .mask = 0x0000004000000000,
+    },
+    [REGFIELD_kv3_ES_PL0_DRX] = {
+        .name = "ES_PL0_DRX",
+        .reg = REG_kv3_ES_PL0,
+        .offset = 37,
+        .width = 1,
+        .mask = 0x0000002000000000,
+    },
+    [REGFIELD_kv3_ES_PL0_DAF] = {
+        .name = "ES_PL0_DAF",
+        .reg = REG_kv3_ES_PL0,
+        .offset = 38,
+        .width = 1,
+        .mask = 0x0000004000000000,
+    },
+    [REGFIELD_kv3_ES_PL1_DRX] = {
+        .name = "ES_PL1_DRX",
+        .reg = REG_kv3_ES_PL1,
+        .offset = 37,
+        .width = 1,
+        .mask = 0x0000002000000000,
+    },
+    [REGFIELD_kv3_ES_PL1_DAF] = {
+        .name = "ES_PL1_DAF",
+        .reg = REG_kv3_ES_PL1,
+        .offset = 38,
+        .width = 1,
+        .mask = 0x0000004000000000,
+    },
+    [REGFIELD_kv3_ES_PL2_DRX] = {
+        .name = "ES_PL2_DRX",
+        .reg = REG_kv3_ES_PL2,
+        .offset = 37,
+        .width = 1,
+        .mask = 0x0000002000000000,
+    },
+    [REGFIELD_kv3_ES_PL2_DAF] = {
+        .name = "ES_PL2_DAF",
+        .reg = REG_kv3_ES_PL2,
+        .offset = 38,
+        .width = 1,
+        .mask = 0x0000004000000000,
+    },
+    [REGFIELD_kv3_ES_PL3_DRX] = {
+        .name = "ES_PL3_DRX",
+        .reg = REG_kv3_ES_PL3,
+        .offset = 37,
+        .width = 1,
+        .mask = 0x0000002000000000,
+    },
+    [REGFIELD_kv3_ES_PL3_DAF] = {
+        .name = "ES_PL3_DAF",
+        .reg = REG_kv3_ES_PL3,
+        .offset = 38,
+        .width = 1,
+        .mask = 0x0000004000000000,
+    },
+    [REGFIELD_kv3_SID_SID] = {
+        .name = "SID_SID",
+        .reg = REG_kv3_SID,
+        .offset = 0,
+        .width = 9,
+        .mask = 0x00000000000001ff,
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SID_PL0_SID] = {
+        .name = "SID_PL0_SID",
+        .reg = REG_kv3_SID_PL0,
+        .offset = 0,
+        .width = 9,
+        .mask = 0x00000000000001ff,
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SID_PL1_SID] = {
+        .name = "SID_PL1_SID",
+        .reg = REG_kv3_SID_PL1,
+        .offset = 0,
+        .width = 9,
+        .mask = 0x00000000000001ff,
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SID_PL2_SID] = {
+        .name = "SID_PL2_SID",
+        .reg = REG_kv3_SID_PL2,
+        .offset = 0,
+        .width = 9,
+        .mask = 0x00000000000001ff,
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_SID_PL3_SID] = {
+        .name = "SID_PL3_SID",
+        .reg = REG_kv3_SID_PL3,
+        .offset = 0,
+        .width = 9,
+        .mask = 0x00000000000001ff,
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PMC_SAF] = {
+        .name = "PMC_SAF",
+        .reg = REG_kv3_PMC,
+        .offset = 28,
+        .width = 2,
+        .mask = 0x0000000030000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_PMIT,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_v2_PCR_CAR] = {
+        .name = "PCR_CAR",
+        .reg = REG_kv3_PCR,
+        .offset = 24,
+        .width = 4,
+        .mask = 0x000000000f000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_PCR,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_IXC_FCB] = {
+        .name = "IXC_FCB",
+        .reg = REG_kv3_IXC,
+        .offset = 0,
+        .width = 1,
+        .mask = 0x0000000000000001,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_COMM,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_IXC_BCB] = {
+        .name = "IXC_BCB",
+        .reg = REG_kv3_IXC,
+        .offset = 16,
+        .width = 1,
+        .mask = 0x0000000000010000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_COMM,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+};
 
 typedef struct RegisterDescr RegisterDescr;
 struct RegisterDescr {
@@ -1968,13 +8765,14 @@ struct RegisterDescr {
     size_t offset; /* offset in storage */
     /* the following fields concern only SFR registers */
     uint64_t reset; /* reset_value */
-    uint64_t mask_n; /* inverted mask (0x0 means all bits are present) */
+    uint64_t mask; /* write mask */
     int n_fields; /* number of fields */
     const RegisterField *fields; /* fields */
     RegisterReadErrorType rerror; /* consequence on read pl error */
     RegisterWriteErrorType werror; /* consequence on write pl error */
     RegisterAccessType raccess; /* allowed read instruction */
     RegisterAccessType waccess; /* allowed write instruction */
+    uint64_t cpu_models; /* CPU models for which this register exists */
 };
 
 static const RegisterDescr REGISTERS[] = {
@@ -1984,8 +8782,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_PC) + 0,
         /*.reset = Hardwired,*/
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_PS] = {
         .name = "ps",
@@ -1993,26 +8793,26 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 32,
         .offset = offsetof(CPUArchState, storages.kv3_PS) + 0,
         .reset = 0x01000004,
-        .mask_n = ~( (uint64_t)
-              R_kv3_PS_PL_MASK
-            | R_kv3_PS_ET_MASK
-            | R_kv3_PS_HTD_MASK
-            | R_kv3_PS_IE_MASK
-            | R_kv3_PS_HLE_MASK
-            | R_kv3_PS_SRE_MASK
-            | R_kv3_PS_DAUS_MASK
-            | R_kv3_PS_ICE_MASK
-            | R_kv3_PS_USE_MASK
-            | R_kv3_PS_DCE_MASK
-            | R_kv3_PS_MME_MASK
-            | R_kv3_PS_IL_MASK
-            | R_kv3_PS_VS_MASK
-            | R_kv3_PS_V64_MASK
-            | R_kv3_PS_L2E_MASK
-            | R_kv3_PS_SME_MASK
-            | R_kv3_PS_SMR_MASK
-            | R_kv3_PS_PMJ_MASK
-            | R_kv3_PS_MMUP_MASK
+        .mask = (
+              0x0000000000000003
+            | 0x0000000000000004
+            | 0x0000000000000008
+            | 0x0000000000000010
+            | 0x0000000000000020
+            | 0x0000000000000040
+            | 0x0000000000000080
+            | 0x0000000000000100
+            | 0x0000000000000200
+            | 0x0000000000000400
+            | 0x0000000000000800
+            | 0x0000000000003000
+            | 0x000000000000c000
+            | 0x0000000000010000
+            | 0x0000000000020000
+            | 0x0000000000040000
+            | 0x0000000000080000
+            | 0x0000000000f00000
+            | 0x0000000001000000
         ),
         .n_fields = 19,
         .fields = (const RegisterField []) {
@@ -2040,6 +8840,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_PCR] = {
         .name = "pcr",
@@ -2047,18 +8848,18 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_PCR) + 0,
         .reset = 0x0010000000000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_PCR_PID_MASK
-            | R_kv3_PCR_CID_MASK
-            | R_kv3_PCR_MID_MASK
-            | R_kv3_PCR_CAR_MASK
-            | R_kv3_PCR_CMA_MASK
-            | R_kv3_PCR_SV_MASK
-            | R_kv3_PCR_ST_MASK
-            | R_kv3_PCR_BM_MASK
-            | R_kv3_PCR_COE_MASK
-            | R_kv3_PCR_L1CE_MASK
-            | R_kv3_PCR_DSEM_MASK
+        .mask = (
+              0x00000000000000ff
+            | 0x000000000000ff00
+            | 0x0000000000ff0000
+            | 0x000000000f000000
+            | 0x00000000f0000000
+            | 0x000000ff00000000
+            | 0x00000f0000000000
+            | 0x000ff00000000000
+            | 0x0010000000000000
+            | 0x0020000000000000
+            | 0x0040000000000000
         ),
         .n_fields = 11,
         .fields = (const RegisterField []) {
@@ -2078,6 +8879,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v1,
     },
     [REG_kv3_RA] = {
         .name = "ra",
@@ -2085,8 +8887,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 24,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_CS] = {
         .name = "cs",
@@ -2094,24 +8898,24 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_CS) + 0,
         .reset = 0x0000000000000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_CS_IC_MASK
-            | R_kv3_CS_IO_MASK
-            | R_kv3_CS_DZ_MASK
-            | R_kv3_CS_OV_MASK
-            | R_kv3_CS_UN_MASK
-            | R_kv3_CS_IN_MASK
-            | R_kv3_CS_XIO_MASK
-            | R_kv3_CS_XDZ_MASK
-            | R_kv3_CS_XOV_MASK
-            | R_kv3_CS_XUN_MASK
-            | R_kv3_CS_XIN_MASK
-            | R_kv3_CS_RM_MASK
-            | R_kv3_CS_XRM_MASK
-            | R_kv3_CS_XMF_MASK
-            | R_kv3_CS_CC_MASK
-            | R_kv3_CS_XDROP_MASK
-            | R_kv3_CS_XPOW2_MASK
+        .mask = (
+              0x0000000000000001
+            | 0x0000000000000002
+            | 0x0000000000000004
+            | 0x0000000000000008
+            | 0x0000000000000010
+            | 0x0000000000000020
+            | 0x0000000000000200
+            | 0x0000000000000400
+            | 0x0000000000000800
+            | 0x0000000000001000
+            | 0x0000000000002000
+            | 0x0000000000030000
+            | 0x0000000000300000
+            | 0x0000000001000000
+            | 0x0000ffff00000000
+            | 0x003f000000000000
+            | 0x0fc0000000000000
         ),
         .n_fields = 17,
         .fields = (const RegisterField []) {
@@ -2135,6 +8939,7 @@ static const RegisterDescr REGISTERS[] = {
         },
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_CSIT] = {
         .name = "csit",
@@ -2142,21 +8947,21 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 32,
         .offset = offsetof(CPUArchState, storages.kv3_CSIT) + 0,
         .reset = 0x00000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_CSIT_ICIE_MASK
-            | R_kv3_CSIT_IOIE_MASK
-            | R_kv3_CSIT_DZIE_MASK
-            | R_kv3_CSIT_OVIE_MASK
-            | R_kv3_CSIT_UNIE_MASK
-            | R_kv3_CSIT_INIE_MASK
-            | R_kv3_CSIT_XIOIE_MASK
-            | R_kv3_CSIT_XDZIE_MASK
-            | R_kv3_CSIT_XOVIE_MASK
-            | R_kv3_CSIT_XUNIE_MASK
-            | R_kv3_CSIT_XINIE_MASK
-            | R_kv3_CSIT_AEIR_MASK
-            | R_kv3_CSIT_AEC_MASK
-            | R_kv3_CSIT_SPCV_MASK
+        .mask = (
+              0x0000000000000001
+            | 0x0000000000000002
+            | 0x0000000000000004
+            | 0x0000000000000008
+            | 0x0000000000000010
+            | 0x0000000000000020
+            | 0x0000000000000200
+            | 0x0000000000000400
+            | 0x0000000000000800
+            | 0x0000000000001000
+            | 0x0000000000002000
+            | 0x0000000000010000
+            | 0x00000000000e0000
+            | 0x0000000000100000
         ),
         .n_fields = 14,
         .fields = (const RegisterField []) {
@@ -2179,6 +8984,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_AESPC] = {
         .name = "aespc",
@@ -2186,8 +8992,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_AESPC) + 0,
         .reset = 0x0000000000000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_AESPC_AESPC_MASK
+        .mask = (
+              0xffffffffffffffff
         ),
         .n_fields = 1,
         .fields = (const RegisterField []) {
@@ -2197,6 +9003,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_LS] = {
         .name = "ls",
@@ -2204,8 +9011,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 56,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_LE] = {
         .name = "le",
@@ -2213,8 +9022,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 64,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_LC] = {
         .name = "lc",
@@ -2222,8 +9033,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 72,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_IPE] = {
         .name = "ipe",
@@ -2231,11 +9044,11 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 80,
         .reset = 0x0000000000000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_IPE_FE_MASK
-            | R_kv3_IPE_BE_MASK
-            | R_kv3_IPE_FM_MASK
-            | R_kv3_IPE_BM_MASK
+        .mask = (
+              0x000000000000ffff
+            | 0x00000000ffff0000
+            | 0x0000ffff00000000
+            | 0xffff000000000000
         ),
         .n_fields = 4,
         .fields = (const RegisterField []) {
@@ -2248,6 +9061,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_MEN] = {
         .name = "men",
@@ -2255,8 +9069,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_MEN) + 0,
         .reset = 0x0000000000000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_MEN_MEN_MASK
+        .mask = (
+              0x000000000000ffff
         ),
         .n_fields = 1,
         .fields = (const RegisterField []) {
@@ -2266,6 +9080,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_PMC] = {
         .name = "pmc",
@@ -2273,17 +9088,17 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_PMC) + 0,
         .reset = 0x0000000000408000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_PMC_PM0C_MASK
-            | R_kv3_PMC_PM1C_MASK
-            | R_kv3_PMC_PM2C_MASK
-            | R_kv3_PMC_PM3C_MASK
-            | R_kv3_PMC_SAV_MASK
-            | R_kv3_PMC_PM0IE_MASK
-            | R_kv3_PMC_PM1IE_MASK
-            | R_kv3_PMC_PM2IE_MASK
-            | R_kv3_PMC_PM3IE_MASK
-            | R_kv3_PMC_SAT_MASK
+        .mask = (
+              0x000000000000003f
+            | 0x0000000000001f80
+            | 0x00000000000fc000
+            | 0x0000000007e00000
+            | 0x0000000040000000
+            | 0x0000000100000000
+            | 0x0000000200000000
+            | 0x0000000400000000
+            | 0x0000000800000000
+            | 0x0000003000000000
         ),
         .n_fields = 10,
         .fields = (const RegisterField []) {
@@ -2302,6 +9117,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v1,
     },
     [REG_kv3_PM0] = {
         .name = "pm0",
@@ -2309,8 +9125,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_PM0) + 0,
         .reset = 0x0000000000000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_PM0_PM0_MASK
+        .mask = (
+              0xffffffffffffffff
         ),
         .n_fields = 1,
         .fields = (const RegisterField []) {
@@ -2320,6 +9136,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_PM1] = {
         .name = "pm1",
@@ -2327,8 +9144,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_PM1) + 0,
         .reset = 0x0000000000000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_PM1_PM1_MASK
+        .mask = (
+              0xffffffffffffffff
         ),
         .n_fields = 1,
         .fields = (const RegisterField []) {
@@ -2338,6 +9155,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_PM2] = {
         .name = "pm2",
@@ -2345,8 +9163,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_PM2) + 0,
         .reset = 0x0000000000000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_PM2_PM2_MASK
+        .mask = (
+              0xffffffffffffffff
         ),
         .n_fields = 1,
         .fields = (const RegisterField []) {
@@ -2356,6 +9174,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_PM3] = {
         .name = "pm3",
@@ -2363,8 +9182,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_PM3) + 0,
         .reset = 0x0000000000000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_PM3_PM3_MASK
+        .mask = (
+              0xffffffffffffffff
         ),
         .n_fields = 1,
         .fields = (const RegisterField []) {
@@ -2374,6 +9193,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_PMSA] = {
         .name = "pmsa",
@@ -2381,8 +9201,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_PMSA) + 0,
         .reset = 0x0000000000000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_PMSA_PMSA_MASK
+        .mask = (
+              0xffffffffffffffff
         ),
         .n_fields = 1,
         .fields = (const RegisterField []) {
@@ -2392,6 +9212,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_TCR] = {
         .name = "tcr",
@@ -2399,20 +9220,20 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 32,
         .offset = offsetof(CPUArchState, storages.kv3_TCR) + 0,
         .reset = 0x00000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_TCR_T0CE_MASK
-            | R_kv3_TCR_T1CE_MASK
-            | R_kv3_TCR_T0IE_MASK
-            | R_kv3_TCR_T1IE_MASK
-            | R_kv3_TCR_T0ST_MASK
-            | R_kv3_TCR_T1ST_MASK
-            | R_kv3_TCR_T0SI_MASK
-            | R_kv3_TCR_T1SI_MASK
-            | R_kv3_TCR_WCE_MASK
-            | R_kv3_TCR_WIE_MASK
-            | R_kv3_TCR_WUI_MASK
-            | R_kv3_TCR_WUS_MASK
-            | R_kv3_TCR_WSI_MASK
+        .mask = (
+              0x0000000000010000
+            | 0x0000000000020000
+            | 0x0000000000040000
+            | 0x0000000000080000
+            | 0x0000000000100000
+            | 0x0000000000200000
+            | 0x0000000000400000
+            | 0x0000000000800000
+            | 0x0000000001000000
+            | 0x0000000002000000
+            | 0x0000000004000000
+            | 0x0000000008000000
+            | 0x0000000010000000
         ),
         .n_fields = 13,
         .fields = (const RegisterField []) {
@@ -2434,6 +9255,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_T0V] = {
         .name = "t0v",
@@ -2441,8 +9263,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_T0V) + 0,
         .reset = 0x0000000000000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_T0V_T0V_MASK
+        .mask = (
+              0xffffffffffffffff
         ),
         .n_fields = 1,
         .fields = (const RegisterField []) {
@@ -2452,6 +9274,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_T1V] = {
         .name = "t1v",
@@ -2459,8 +9282,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_T1V) + 0,
         .reset = 0x0000000000000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_T1V_T1V_MASK
+        .mask = (
+              0xffffffffffffffff
         ),
         .n_fields = 1,
         .fields = (const RegisterField []) {
@@ -2470,6 +9293,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_T0R] = {
         .name = "t0r",
@@ -2477,8 +9301,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_T0R) + 0,
         .reset = 0x0000000000000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_T0R_T0R_MASK
+        .mask = (
+              0xffffffffffffffff
         ),
         .n_fields = 1,
         .fields = (const RegisterField []) {
@@ -2488,6 +9312,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_T1R] = {
         .name = "t1r",
@@ -2495,8 +9320,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_T1R) + 0,
         .reset = 0x0000000000000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_T1R_T1R_MASK
+        .mask = (
+              0xffffffffffffffff
         ),
         .n_fields = 1,
         .fields = (const RegisterField []) {
@@ -2506,6 +9331,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_WDV] = {
         .name = "wdv",
@@ -2513,8 +9339,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_WDV) + 0,
         .reset = 0x0000000000000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_WDV_WDV_MASK
+        .mask = (
+              0xffffffffffffffff
         ),
         .n_fields = 1,
         .fields = (const RegisterField []) {
@@ -2524,6 +9350,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_WDR] = {
         .name = "wdr",
@@ -2531,8 +9358,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_WDR) + 0,
         .reset = 0x0000000000000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_WDR_WDR_MASK
+        .mask = (
+              0xffffffffffffffff
         ),
         .n_fields = 1,
         .fields = (const RegisterField []) {
@@ -2542,6 +9369,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_ILE] = {
         .name = "ile",
@@ -2549,39 +9377,39 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_ILE) + 0,
         .reset = 0x0000000000000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_ILE_IT0_MASK
-            | R_kv3_ILE_IT1_MASK
-            | R_kv3_ILE_IT2_MASK
-            | R_kv3_ILE_IT3_MASK
-            | R_kv3_ILE_IT4_MASK
-            | R_kv3_ILE_IT5_MASK
-            | R_kv3_ILE_IT6_MASK
-            | R_kv3_ILE_IT7_MASK
-            | R_kv3_ILE_IT8_MASK
-            | R_kv3_ILE_IT9_MASK
-            | R_kv3_ILE_IT10_MASK
-            | R_kv3_ILE_IT11_MASK
-            | R_kv3_ILE_IT12_MASK
-            | R_kv3_ILE_IT13_MASK
-            | R_kv3_ILE_IT14_MASK
-            | R_kv3_ILE_IT15_MASK
-            | R_kv3_ILE_IT16_MASK
-            | R_kv3_ILE_IT17_MASK
-            | R_kv3_ILE_IT18_MASK
-            | R_kv3_ILE_IT19_MASK
-            | R_kv3_ILE_IT20_MASK
-            | R_kv3_ILE_IT21_MASK
-            | R_kv3_ILE_IT22_MASK
-            | R_kv3_ILE_IT23_MASK
-            | R_kv3_ILE_IT24_MASK
-            | R_kv3_ILE_IT25_MASK
-            | R_kv3_ILE_IT26_MASK
-            | R_kv3_ILE_IT27_MASK
-            | R_kv3_ILE_IT28_MASK
-            | R_kv3_ILE_IT29_MASK
-            | R_kv3_ILE_IT30_MASK
-            | R_kv3_ILE_IT31_MASK
+        .mask = (
+              0x0000000000000001
+            | 0x0000000000000002
+            | 0x0000000000000004
+            | 0x0000000000000008
+            | 0x0000000000000010
+            | 0x0000000000000020
+            | 0x0000000000000040
+            | 0x0000000000000080
+            | 0x0000000000000100
+            | 0x0000000000000200
+            | 0x0000000000000400
+            | 0x0000000000000800
+            | 0x0000000000001000
+            | 0x0000000000002000
+            | 0x0000000000004000
+            | 0x0000000000008000
+            | 0x0000000000010000
+            | 0x0000000000020000
+            | 0x0000000000040000
+            | 0x0000000000080000
+            | 0x0000000000100000
+            | 0x0000000000200000
+            | 0x0000000000400000
+            | 0x0000000000800000
+            | 0x0000000001000000
+            | 0x0000000002000000
+            | 0x0000000004000000
+            | 0x0000000008000000
+            | 0x0000000010000000
+            | 0x0000000020000000
+            | 0x0000000040000000
+            | 0x0000000080000000
         ),
         .n_fields = 32,
         .fields = (const RegisterField []) {
@@ -2622,6 +9450,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_ILL] = {
         .name = "ill",
@@ -2629,39 +9458,39 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_ILL) + 0,
         .reset = 0x0000000000000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_ILL_IT0_MASK
-            | R_kv3_ILL_IT1_MASK
-            | R_kv3_ILL_IT2_MASK
-            | R_kv3_ILL_IT3_MASK
-            | R_kv3_ILL_IT4_MASK
-            | R_kv3_ILL_IT5_MASK
-            | R_kv3_ILL_IT6_MASK
-            | R_kv3_ILL_IT7_MASK
-            | R_kv3_ILL_IT8_MASK
-            | R_kv3_ILL_IT9_MASK
-            | R_kv3_ILL_IT10_MASK
-            | R_kv3_ILL_IT11_MASK
-            | R_kv3_ILL_IT12_MASK
-            | R_kv3_ILL_IT13_MASK
-            | R_kv3_ILL_IT14_MASK
-            | R_kv3_ILL_IT15_MASK
-            | R_kv3_ILL_IT16_MASK
-            | R_kv3_ILL_IT17_MASK
-            | R_kv3_ILL_IT18_MASK
-            | R_kv3_ILL_IT19_MASK
-            | R_kv3_ILL_IT20_MASK
-            | R_kv3_ILL_IT21_MASK
-            | R_kv3_ILL_IT22_MASK
-            | R_kv3_ILL_IT23_MASK
-            | R_kv3_ILL_IT24_MASK
-            | R_kv3_ILL_IT25_MASK
-            | R_kv3_ILL_IT26_MASK
-            | R_kv3_ILL_IT27_MASK
-            | R_kv3_ILL_IT28_MASK
-            | R_kv3_ILL_IT29_MASK
-            | R_kv3_ILL_IT30_MASK
-            | R_kv3_ILL_IT31_MASK
+        .mask = (
+              0x0000000000000003
+            | 0x000000000000000c
+            | 0x0000000000000030
+            | 0x00000000000000c0
+            | 0x0000000000000300
+            | 0x0000000000000c00
+            | 0x0000000000003000
+            | 0x000000000000c000
+            | 0x0000000000030000
+            | 0x00000000000c0000
+            | 0x0000000000300000
+            | 0x0000000000c00000
+            | 0x0000000003000000
+            | 0x000000000c000000
+            | 0x0000000030000000
+            | 0x00000000c0000000
+            | 0x0000000300000000
+            | 0x0000000c00000000
+            | 0x0000003000000000
+            | 0x000000c000000000
+            | 0x0000030000000000
+            | 0x00000c0000000000
+            | 0x0000300000000000
+            | 0x0000c00000000000
+            | 0x0003000000000000
+            | 0x000c000000000000
+            | 0x0030000000000000
+            | 0x00c0000000000000
+            | 0x0300000000000000
+            | 0x0c00000000000000
+            | 0x3000000000000000
+            | 0xc000000000000000
         ),
         .n_fields = 32,
         .fields = (const RegisterField []) {
@@ -2702,6 +9531,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_ILR] = {
         .name = "ilr",
@@ -2709,39 +9539,39 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_ILR) + 0,
         .reset = 0x0000000000000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_ILR_IT0_MASK
-            | R_kv3_ILR_IT1_MASK
-            | R_kv3_ILR_IT2_MASK
-            | R_kv3_ILR_IT3_MASK
-            | R_kv3_ILR_IT4_MASK
-            | R_kv3_ILR_IT5_MASK
-            | R_kv3_ILR_IT6_MASK
-            | R_kv3_ILR_IT7_MASK
-            | R_kv3_ILR_IT8_MASK
-            | R_kv3_ILR_IT9_MASK
-            | R_kv3_ILR_IT10_MASK
-            | R_kv3_ILR_IT11_MASK
-            | R_kv3_ILR_IT12_MASK
-            | R_kv3_ILR_IT13_MASK
-            | R_kv3_ILR_IT14_MASK
-            | R_kv3_ILR_IT15_MASK
-            | R_kv3_ILR_IT16_MASK
-            | R_kv3_ILR_IT17_MASK
-            | R_kv3_ILR_IT18_MASK
-            | R_kv3_ILR_IT19_MASK
-            | R_kv3_ILR_IT20_MASK
-            | R_kv3_ILR_IT21_MASK
-            | R_kv3_ILR_IT22_MASK
-            | R_kv3_ILR_IT23_MASK
-            | R_kv3_ILR_IT24_MASK
-            | R_kv3_ILR_IT25_MASK
-            | R_kv3_ILR_IT26_MASK
-            | R_kv3_ILR_IT27_MASK
-            | R_kv3_ILR_IT28_MASK
-            | R_kv3_ILR_IT29_MASK
-            | R_kv3_ILR_IT30_MASK
-            | R_kv3_ILR_IT31_MASK
+        .mask = (
+              0x0000000000000001
+            | 0x0000000000000002
+            | 0x0000000000000004
+            | 0x0000000000000008
+            | 0x0000000000000010
+            | 0x0000000000000020
+            | 0x0000000000000040
+            | 0x0000000000000080
+            | 0x0000000000000100
+            | 0x0000000000000200
+            | 0x0000000000000400
+            | 0x0000000000000800
+            | 0x0000000000001000
+            | 0x0000000000002000
+            | 0x0000000000004000
+            | 0x0000000000008000
+            | 0x0000000000010000
+            | 0x0000000000020000
+            | 0x0000000000040000
+            | 0x0000000000080000
+            | 0x0000000000100000
+            | 0x0000000000200000
+            | 0x0000000000400000
+            | 0x0000000000800000
+            | 0x0000000001000000
+            | 0x0000000002000000
+            | 0x0000000004000000
+            | 0x0000000008000000
+            | 0x0000000010000000
+            | 0x0000000020000000
+            | 0x0000000040000000
+            | 0x0000000080000000
         ),
         .n_fields = 32,
         .fields = (const RegisterField []) {
@@ -2782,6 +9612,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_MMC] = {
         .name = "mmc",
@@ -2789,17 +9620,17 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 32,
         .offset = offsetof(CPUArchState, storages.kv3_MMC) + 0,
         .reset = 0x00004000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_MMC_ASN_MASK
-            | R_kv3_MMC_S_MASK
-            | R_kv3_MMC_SNE_MASK
-            | R_kv3_MMC_SPE_MASK
-            | R_kv3_MMC_PTC_MASK
-            | R_kv3_MMC_SW_MASK
-            | R_kv3_MMC_SS_MASK
-            | R_kv3_MMC_SB_MASK
-            | R_kv3_MMC_PAR_MASK
-            | R_kv3_MMC_E_MASK
+        .mask = (
+              0x00000000000001ff
+            | 0x0000000000000200
+            | 0x0000000000004000
+            | 0x0000000000008000
+            | 0x0000000000030000
+            | 0x00000000003c0000
+            | 0x000000000fc00000
+            | 0x0000000010000000
+            | 0x0000000040000000
+            | 0x0000000080000000
         ),
         .n_fields = 10,
         .fields = (const RegisterField []) {
@@ -2818,6 +9649,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_TEL] = {
         .name = "tel",
@@ -2825,12 +9657,12 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_TEL) + 0,
         .reset = 0x0000000000000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_TEL_ES_MASK
-            | R_kv3_TEL_CP_MASK
-            | R_kv3_TEL_PA_MASK
-            | R_kv3_TEL_PS_MASK
-            | R_kv3_TEL_FN_MASK
+        .mask = (
+              0x0000000000000003
+            | 0x000000000000000c
+            | 0x00000000000000f0
+            | 0x0000000000000c00
+            | 0x000000fffffff000
         ),
         .n_fields = 5,
         .fields = (const RegisterField []) {
@@ -2844,6 +9676,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_TEH] = {
         .name = "teh",
@@ -2851,11 +9684,11 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_TEH) + 0,
         .reset = 0x0000000000000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_TEH_ASN_MASK
-            | R_kv3_TEH_G_MASK
-            | R_kv3_TEH_VS_MASK
-            | R_kv3_TEH_PN_MASK
+        .mask = (
+              0x00000000000001ff
+            | 0x0000000000000200
+            | 0x0000000000000c00
+            | 0x000001fffffff000
         ),
         .n_fields = 4,
         .fields = (const RegisterField []) {
@@ -2868,15 +9701,18 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
-    [REG_kv3_RES31] = {
-        .name = "res31",
+    [REG_kv3_IXC] = {
+        .name = "ixc",
         .regfile = REGFILE_kv3_SFR,
         .reg_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_SRS) + 248,
-        .reset = 0x0000000000000000,
+        .offset = offsetof(CPUArchState, storages.kv3_IXC) + 0,
+        .reset = 0x0000000000010001,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1,
     },
     [REG_kv3_SYO] = {
         .name = "syo",
@@ -2884,11 +9720,11 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 32,
         .offset = offsetof(CPUArchState, storages.kv3_SYO) + 0,
         .reset = 0x00000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_SYO_Q0_MASK
-            | R_kv3_SYO_Q1_MASK
-            | R_kv3_SYO_Q2_MASK
-            | R_kv3_SYO_Q3_MASK
+        .mask = (
+              0x0000000000000003
+            | 0x000000000000000c
+            | 0x0000000000000030
+            | 0x00000000000000c0
         ),
         .n_fields = 4,
         .fields = (const RegisterField []) {
@@ -2899,6 +9735,7 @@ static const RegisterDescr REGISTERS[] = {
         },
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_HTO] = {
         .name = "hto",
@@ -2906,20 +9743,20 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 32,
         .offset = offsetof(CPUArchState, storages.kv3_HTO) + 0,
         .reset = 0x00000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_HTO_OPC_MASK
-            | R_kv3_HTO_DMIS_MASK
-            | R_kv3_HTO_PSYS_MASK
-            | R_kv3_HTO_DSYS_MASK
-            | R_kv3_HTO_DECCG_MASK
-            | R_kv3_HTO_SECCG_MASK
-            | R_kv3_HTO_NOMAP_MASK
-            | R_kv3_HTO_PROT_MASK
-            | R_kv3_HTO_W2CL_MASK
-            | R_kv3_HTO_A2CL_MASK
-            | R_kv3_HTO_DE_MASK
-            | R_kv3_HTO_VSFR_MASK
-            | R_kv3_HTO_PLO_MASK
+        .mask = (
+              0x0000000000000003
+            | 0x000000000000000c
+            | 0x0000000000000030
+            | 0x00000000000000c0
+            | 0x0000000000000300
+            | 0x0000000000000c00
+            | 0x0000000000003000
+            | 0x000000000000c000
+            | 0x0000000000030000
+            | 0x00000000000c0000
+            | 0x0000000000300000
+            | 0x0000000000c00000
+            | 0x0000000003000000
         ),
         .n_fields = 13,
         .fields = (const RegisterField []) {
@@ -2939,6 +9776,7 @@ static const RegisterDescr REGISTERS[] = {
         },
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_ITO] = {
         .name = "ito",
@@ -2946,39 +9784,39 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_ITO) + 0,
         .reset = 0x0000000000000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_ITO_IT0_MASK
-            | R_kv3_ITO_IT1_MASK
-            | R_kv3_ITO_IT2_MASK
-            | R_kv3_ITO_IT3_MASK
-            | R_kv3_ITO_IT4_MASK
-            | R_kv3_ITO_IT5_MASK
-            | R_kv3_ITO_IT6_MASK
-            | R_kv3_ITO_IT7_MASK
-            | R_kv3_ITO_IT8_MASK
-            | R_kv3_ITO_IT9_MASK
-            | R_kv3_ITO_IT10_MASK
-            | R_kv3_ITO_IT11_MASK
-            | R_kv3_ITO_IT12_MASK
-            | R_kv3_ITO_IT13_MASK
-            | R_kv3_ITO_IT14_MASK
-            | R_kv3_ITO_IT15_MASK
-            | R_kv3_ITO_IT16_MASK
-            | R_kv3_ITO_IT17_MASK
-            | R_kv3_ITO_IT18_MASK
-            | R_kv3_ITO_IT19_MASK
-            | R_kv3_ITO_IT20_MASK
-            | R_kv3_ITO_IT21_MASK
-            | R_kv3_ITO_IT22_MASK
-            | R_kv3_ITO_IT23_MASK
-            | R_kv3_ITO_IT24_MASK
-            | R_kv3_ITO_IT25_MASK
-            | R_kv3_ITO_IT26_MASK
-            | R_kv3_ITO_IT27_MASK
-            | R_kv3_ITO_IT28_MASK
-            | R_kv3_ITO_IT29_MASK
-            | R_kv3_ITO_IT30_MASK
-            | R_kv3_ITO_IT31_MASK
+        .mask = (
+              0x0000000000000003
+            | 0x000000000000000c
+            | 0x0000000000000030
+            | 0x00000000000000c0
+            | 0x0000000000000300
+            | 0x0000000000000c00
+            | 0x0000000000003000
+            | 0x000000000000c000
+            | 0x0000000000030000
+            | 0x00000000000c0000
+            | 0x0000000000300000
+            | 0x0000000000c00000
+            | 0x0000000003000000
+            | 0x000000000c000000
+            | 0x0000000030000000
+            | 0x00000000c0000000
+            | 0x0000000300000000
+            | 0x0000000c00000000
+            | 0x0000003000000000
+            | 0x000000c000000000
+            | 0x0000030000000000
+            | 0x00000c0000000000
+            | 0x0000300000000000
+            | 0x0000c00000000000
+            | 0x0003000000000000
+            | 0x000c000000000000
+            | 0x0030000000000000
+            | 0x00c0000000000000
+            | 0x0300000000000000
+            | 0x0c00000000000000
+            | 0x3000000000000000
+            | 0xc000000000000000
         ),
         .n_fields = 32,
         .fields = (const RegisterField []) {
@@ -3017,6 +9855,7 @@ static const RegisterDescr REGISTERS[] = {
         },
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_DO] = {
         .name = "do",
@@ -3024,11 +9863,11 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 32,
         .offset = offsetof(CPUArchState, storages.kv3_DO) + 0,
         .reset = 0x00000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_DO_B0_MASK
-            | R_kv3_DO_B1_MASK
-            | R_kv3_DO_W0_MASK
-            | R_kv3_DO_W1_MASK
+        .mask = (
+              0x0000000000000003
+            | 0x000000000000000c
+            | 0x0000000000000030
+            | 0x00000000000000c0
         ),
         .n_fields = 4,
         .fields = (const RegisterField []) {
@@ -3039,6 +9878,7 @@ static const RegisterDescr REGISTERS[] = {
         },
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_MO] = {
         .name = "mo",
@@ -3046,24 +9886,24 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_MO) + 0,
         .reset = 0x0000000000000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_MO_MMI_MASK
-            | R_kv3_MO_RFE_MASK
-            | R_kv3_MO_STOP_MASK
-            | R_kv3_MO_SYNC_MASK
-            | R_kv3_MO_PCR_MASK
-            | R_kv3_MO_MSG_MASK
-            | R_kv3_MO_MEN_MASK
-            | R_kv3_MO_MES_MASK
-            | R_kv3_MO_CSIT_MASK
-            | R_kv3_MO_T0_MASK
-            | R_kv3_MO_T1_MASK
-            | R_kv3_MO_WD_MASK
-            | R_kv3_MO_PM0_MASK
-            | R_kv3_MO_PM1_MASK
-            | R_kv3_MO_PM2_MASK
-            | R_kv3_MO_PM3_MASK
-            | R_kv3_MO_PMIT_MASK
+        .mask = (
+              0x0000000000000003
+            | 0x000000000000000c
+            | 0x0000000000000030
+            | 0x00000000000000c0
+            | 0x0000000000000300
+            | 0x0000000000000c00
+            | 0x0000000000003000
+            | 0x000000000000c000
+            | 0x0000000000030000
+            | 0x00000000000c0000
+            | 0x0000000000300000
+            | 0x0000000000c00000
+            | 0x0000000003000000
+            | 0x000000000c000000
+            | 0x0000000030000000
+            | 0x00000000c0000000
+            | 0x0000000300000000
         ),
         .n_fields = 17,
         .fields = (const RegisterField []) {
@@ -3087,6 +9927,7 @@ static const RegisterDescr REGISTERS[] = {
         },
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1,
     },
     [REG_kv3_PSO] = {
         .name = "pso",
@@ -3094,32 +9935,32 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_PSO) + 0,
         .reset = 0x0000000000000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_PSO_PL0_MASK
-            | R_kv3_PSO_PL1_MASK
-            | R_kv3_PSO_ET_MASK
-            | R_kv3_PSO_HTD_MASK
-            | R_kv3_PSO_IE_MASK
-            | R_kv3_PSO_HLE_MASK
-            | R_kv3_PSO_SRE_MASK
-            | R_kv3_PSO_DAUS_MASK
-            | R_kv3_PSO_ICE_MASK
-            | R_kv3_PSO_USE_MASK
-            | R_kv3_PSO_DCE_MASK
-            | R_kv3_PSO_MME_MASK
-            | R_kv3_PSO_IL0_MASK
-            | R_kv3_PSO_IL1_MASK
-            | R_kv3_PSO_VS0_MASK
-            | R_kv3_PSO_VS1_MASK
-            | R_kv3_PSO_V64_MASK
-            | R_kv3_PSO_L2E_MASK
-            | R_kv3_PSO_SME_MASK
-            | R_kv3_PSO_SMR_MASK
-            | R_kv3_PSO_PMJ0_MASK
-            | R_kv3_PSO_PMJ1_MASK
-            | R_kv3_PSO_PMJ2_MASK
-            | R_kv3_PSO_PMJ3_MASK
-            | R_kv3_PSO_MMUP_MASK
+        .mask = (
+              0x0000000000000003
+            | 0x000000000000000c
+            | 0x0000000000000030
+            | 0x00000000000000c0
+            | 0x0000000000000300
+            | 0x0000000000000c00
+            | 0x0000000000003000
+            | 0x000000000000c000
+            | 0x0000000000030000
+            | 0x00000000000c0000
+            | 0x0000000000300000
+            | 0x0000000000c00000
+            | 0x0000000003000000
+            | 0x000000000c000000
+            | 0x0000000030000000
+            | 0x00000000c0000000
+            | 0x0000000300000000
+            | 0x0000000c00000000
+            | 0x0000003000000000
+            | 0x000000c000000000
+            | 0x0000030000000000
+            | 0x00000c0000000000
+            | 0x0000300000000000
+            | 0x0000c00000000000
+            | 0x0003000000000000
         ),
         .n_fields = 25,
         .fields = (const RegisterField []) {
@@ -3151,6 +9992,7 @@ static const RegisterDescr REGISTERS[] = {
         },
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES38] = {
         .name = "res38",
@@ -3158,8 +10000,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 304,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES39] = {
         .name = "res39",
@@ -3167,8 +10011,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 312,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_DC] = {
         .name = "dc",
@@ -3176,15 +10022,15 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 32,
         .offset = offsetof(CPUArchState, storages.kv3_DC) + 0,
         .reset = 0x00000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_DC_BE0_MASK
-            | R_kv3_DC_BR0_MASK
-            | R_kv3_DC_BE1_MASK
-            | R_kv3_DC_BR1_MASK
-            | R_kv3_DC_WE0_MASK
-            | R_kv3_DC_WR0_MASK
-            | R_kv3_DC_WE1_MASK
-            | R_kv3_DC_WR1_MASK
+        .mask = (
+              0x0000000000000001
+            | 0x000000000000007e
+            | 0x0000000000000080
+            | 0x0000000000003f00
+            | 0x0000000000004000
+            | 0x00000000001f8000
+            | 0x0000000000200000
+            | 0x000000000fc00000
         ),
         .n_fields = 8,
         .fields = (const RegisterField []) {
@@ -3201,6 +10047,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_DBA0] = {
         .name = "dba0",
@@ -3208,8 +10055,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_DBA0) + 0,
         .reset = 0x0000000000000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_DBA0_DBA0_MASK
+        .mask = (
+              0xffffffffffffffff
         ),
         .n_fields = 1,
         .fields = (const RegisterField []) {
@@ -3219,6 +10066,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_DBA1] = {
         .name = "dba1",
@@ -3226,8 +10074,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_DBA1) + 0,
         .reset = 0x0000000000000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_DBA1_DBA1_MASK
+        .mask = (
+              0xffffffffffffffff
         ),
         .n_fields = 1,
         .fields = (const RegisterField []) {
@@ -3237,6 +10085,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_DWA0] = {
         .name = "dwa0",
@@ -3244,8 +10093,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_DWA0) + 0,
         .reset = 0x0000000000000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_DWA0_DWA0_MASK
+        .mask = (
+              0xffffffffffffffff
         ),
         .n_fields = 1,
         .fields = (const RegisterField []) {
@@ -3255,6 +10104,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_DWA1] = {
         .name = "dwa1",
@@ -3262,8 +10112,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_DWA1) + 0,
         .reset = 0x0000000000000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_DWA1_DWA1_MASK
+        .mask = (
+              0xffffffffffffffff
         ),
         .n_fields = 1,
         .fields = (const RegisterField []) {
@@ -3273,6 +10123,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_MES] = {
         .name = "mes",
@@ -3280,17 +10131,17 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 32,
         .offset = offsetof(CPUArchState, storages.kv3_MES) + 0,
         .reset = 0x00000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_MES_PSE_MASK
-            | R_kv3_MES_PILSY_MASK
-            | R_kv3_MES_PILDE_MASK
-            | R_kv3_MES_PILPA_MASK
-            | R_kv3_MES_DSE_MASK
-            | R_kv3_MES_DILSY_MASK
-            | R_kv3_MES_DILDE_MASK
-            | R_kv3_MES_DILPA_MASK
-            | R_kv3_MES_DDEE_MASK
-            | R_kv3_MES_DSYE_MASK
+        .mask = (
+              0x0000000000000001
+            | 0x0000000000000002
+            | 0x0000000000000004
+            | 0x0000000000000008
+            | 0x0000000000000010
+            | 0x0000000000000020
+            | 0x0000000000000040
+            | 0x0000000000000080
+            | 0x0000000000000100
+            | 0x0000000000000200
         ),
         .n_fields = 10,
         .fields = (const RegisterField []) {
@@ -3309,6 +10160,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_WS] = {
         .name = "ws",
@@ -3316,10 +10168,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 32,
         .offset = offsetof(CPUArchState, storages.kv3_WS) + 0,
         .reset = 0x00000007,
-        .mask_n = ~( (uint64_t)
-              R_kv3_WS_WU0_MASK
-            | R_kv3_WS_WU1_MASK
-            | R_kv3_WS_WU2_MASK
+        .mask = (
+              0x0000000000000001
+            | 0x0000000000000002
+            | 0x0000000000000004
         ),
         .n_fields = 3,
         .fields = (const RegisterField []) {
@@ -3329,6 +10181,7 @@ static const RegisterDescr REGISTERS[] = {
         },
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES47] = {
         .name = "res47",
@@ -3336,8 +10189,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 376,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES48] = {
         .name = "res48",
@@ -3345,8 +10200,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 384,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES49] = {
         .name = "res49",
@@ -3354,8 +10211,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 392,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES50] = {
         .name = "res50",
@@ -3363,8 +10222,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 400,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES51] = {
         .name = "res51",
@@ -3372,8 +10233,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 408,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES52] = {
         .name = "res52",
@@ -3381,8 +10244,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 416,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES53] = {
         .name = "res53",
@@ -3390,8 +10255,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 424,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES54] = {
         .name = "res54",
@@ -3399,8 +10266,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 432,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES55] = {
         .name = "res55",
@@ -3408,8 +10277,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 440,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES56] = {
         .name = "res56",
@@ -3417,8 +10288,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 448,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES57] = {
         .name = "res57",
@@ -3426,8 +10299,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 456,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES58] = {
         .name = "res58",
@@ -3435,8 +10310,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 464,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES59] = {
         .name = "res59",
@@ -3444,8 +10321,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 472,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES60] = {
         .name = "res60",
@@ -3453,8 +10332,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 480,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES61] = {
         .name = "res61",
@@ -3462,8 +10343,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 488,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES62] = {
         .name = "res62",
@@ -3471,8 +10354,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 496,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES63] = {
         .name = "res63",
@@ -3480,8 +10365,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 504,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_SPC_PL0] = {
         .name = "spc_pl0",
@@ -3489,8 +10376,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 512,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_SPC_PL1] = {
         .name = "spc_pl1",
@@ -3498,8 +10387,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 520,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_SPC_PL2] = {
         .name = "spc_pl2",
@@ -3507,8 +10398,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 528,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_SPC_PL3] = {
         .name = "spc_pl3",
@@ -3516,8 +10409,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 536,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_SPS_PL0] = {
         .name = "sps_pl0",
@@ -3525,26 +10420,26 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 32,
         .offset = offsetof(CPUArchState, storages.kv3_SPS_PL0) + 0,
         .reset = 0x00000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_SPS_PL0_PL_MASK
-            | R_kv3_SPS_PL0_ET_MASK
-            | R_kv3_SPS_PL0_HTD_MASK
-            | R_kv3_SPS_PL0_IE_MASK
-            | R_kv3_SPS_PL0_HLE_MASK
-            | R_kv3_SPS_PL0_SRE_MASK
-            | R_kv3_SPS_PL0_DAUS_MASK
-            | R_kv3_SPS_PL0_ICE_MASK
-            | R_kv3_SPS_PL0_USE_MASK
-            | R_kv3_SPS_PL0_DCE_MASK
-            | R_kv3_SPS_PL0_MME_MASK
-            | R_kv3_SPS_PL0_IL_MASK
-            | R_kv3_SPS_PL0_VS_MASK
-            | R_kv3_SPS_PL0_V64_MASK
-            | R_kv3_SPS_PL0_L2E_MASK
-            | R_kv3_SPS_PL0_SME_MASK
-            | R_kv3_SPS_PL0_SMR_MASK
-            | R_kv3_SPS_PL0_PMJ_MASK
-            | R_kv3_SPS_PL0_MMUP_MASK
+        .mask = (
+              0x0000000000000003
+            | 0x0000000000000004
+            | 0x0000000000000008
+            | 0x0000000000000010
+            | 0x0000000000000020
+            | 0x0000000000000040
+            | 0x0000000000000080
+            | 0x0000000000000100
+            | 0x0000000000000200
+            | 0x0000000000000400
+            | 0x0000000000000800
+            | 0x0000000000003000
+            | 0x000000000000c000
+            | 0x0000000000010000
+            | 0x0000000000020000
+            | 0x0000000000040000
+            | 0x0000000000080000
+            | 0x0000000000f00000
+            | 0x0000000001000000
         ),
         .n_fields = 19,
         .fields = (const RegisterField []) {
@@ -3572,6 +10467,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_SPS_PL1] = {
         .name = "sps_pl1",
@@ -3579,26 +10475,26 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 32,
         .offset = offsetof(CPUArchState, storages.kv3_SPS_PL1) + 0,
         .reset = 0x00000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_SPS_PL1_PL_MASK
-            | R_kv3_SPS_PL1_ET_MASK
-            | R_kv3_SPS_PL1_HTD_MASK
-            | R_kv3_SPS_PL1_IE_MASK
-            | R_kv3_SPS_PL1_HLE_MASK
-            | R_kv3_SPS_PL1_SRE_MASK
-            | R_kv3_SPS_PL1_DAUS_MASK
-            | R_kv3_SPS_PL1_ICE_MASK
-            | R_kv3_SPS_PL1_USE_MASK
-            | R_kv3_SPS_PL1_DCE_MASK
-            | R_kv3_SPS_PL1_MME_MASK
-            | R_kv3_SPS_PL1_IL_MASK
-            | R_kv3_SPS_PL1_VS_MASK
-            | R_kv3_SPS_PL1_V64_MASK
-            | R_kv3_SPS_PL1_L2E_MASK
-            | R_kv3_SPS_PL1_SME_MASK
-            | R_kv3_SPS_PL1_SMR_MASK
-            | R_kv3_SPS_PL1_PMJ_MASK
-            | R_kv3_SPS_PL1_MMUP_MASK
+        .mask = (
+              0x0000000000000003
+            | 0x0000000000000004
+            | 0x0000000000000008
+            | 0x0000000000000010
+            | 0x0000000000000020
+            | 0x0000000000000040
+            | 0x0000000000000080
+            | 0x0000000000000100
+            | 0x0000000000000200
+            | 0x0000000000000400
+            | 0x0000000000000800
+            | 0x0000000000003000
+            | 0x000000000000c000
+            | 0x0000000000010000
+            | 0x0000000000020000
+            | 0x0000000000040000
+            | 0x0000000000080000
+            | 0x0000000000f00000
+            | 0x0000000001000000
         ),
         .n_fields = 19,
         .fields = (const RegisterField []) {
@@ -3626,6 +10522,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_SPS_PL2] = {
         .name = "sps_pl2",
@@ -3633,26 +10530,26 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 32,
         .offset = offsetof(CPUArchState, storages.kv3_SPS_PL2) + 0,
         .reset = 0x00000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_SPS_PL2_PL_MASK
-            | R_kv3_SPS_PL2_ET_MASK
-            | R_kv3_SPS_PL2_HTD_MASK
-            | R_kv3_SPS_PL2_IE_MASK
-            | R_kv3_SPS_PL2_HLE_MASK
-            | R_kv3_SPS_PL2_SRE_MASK
-            | R_kv3_SPS_PL2_DAUS_MASK
-            | R_kv3_SPS_PL2_ICE_MASK
-            | R_kv3_SPS_PL2_USE_MASK
-            | R_kv3_SPS_PL2_DCE_MASK
-            | R_kv3_SPS_PL2_MME_MASK
-            | R_kv3_SPS_PL2_IL_MASK
-            | R_kv3_SPS_PL2_VS_MASK
-            | R_kv3_SPS_PL2_V64_MASK
-            | R_kv3_SPS_PL2_L2E_MASK
-            | R_kv3_SPS_PL2_SME_MASK
-            | R_kv3_SPS_PL2_SMR_MASK
-            | R_kv3_SPS_PL2_PMJ_MASK
-            | R_kv3_SPS_PL2_MMUP_MASK
+        .mask = (
+              0x0000000000000003
+            | 0x0000000000000004
+            | 0x0000000000000008
+            | 0x0000000000000010
+            | 0x0000000000000020
+            | 0x0000000000000040
+            | 0x0000000000000080
+            | 0x0000000000000100
+            | 0x0000000000000200
+            | 0x0000000000000400
+            | 0x0000000000000800
+            | 0x0000000000003000
+            | 0x000000000000c000
+            | 0x0000000000010000
+            | 0x0000000000020000
+            | 0x0000000000040000
+            | 0x0000000000080000
+            | 0x0000000000f00000
+            | 0x0000000001000000
         ),
         .n_fields = 19,
         .fields = (const RegisterField []) {
@@ -3680,6 +10577,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_SPS_PL3] = {
         .name = "sps_pl3",
@@ -3687,26 +10585,26 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 32,
         .offset = offsetof(CPUArchState, storages.kv3_SPS_PL3) + 0,
         .reset = 0x00000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_SPS_PL3_PL_MASK
-            | R_kv3_SPS_PL3_ET_MASK
-            | R_kv3_SPS_PL3_HTD_MASK
-            | R_kv3_SPS_PL3_IE_MASK
-            | R_kv3_SPS_PL3_HLE_MASK
-            | R_kv3_SPS_PL3_SRE_MASK
-            | R_kv3_SPS_PL3_DAUS_MASK
-            | R_kv3_SPS_PL3_ICE_MASK
-            | R_kv3_SPS_PL3_USE_MASK
-            | R_kv3_SPS_PL3_DCE_MASK
-            | R_kv3_SPS_PL3_MME_MASK
-            | R_kv3_SPS_PL3_IL_MASK
-            | R_kv3_SPS_PL3_VS_MASK
-            | R_kv3_SPS_PL3_V64_MASK
-            | R_kv3_SPS_PL3_L2E_MASK
-            | R_kv3_SPS_PL3_SME_MASK
-            | R_kv3_SPS_PL3_SMR_MASK
-            | R_kv3_SPS_PL3_PMJ_MASK
-            | R_kv3_SPS_PL3_MMUP_MASK
+        .mask = (
+              0x0000000000000003
+            | 0x0000000000000004
+            | 0x0000000000000008
+            | 0x0000000000000010
+            | 0x0000000000000020
+            | 0x0000000000000040
+            | 0x0000000000000080
+            | 0x0000000000000100
+            | 0x0000000000000200
+            | 0x0000000000000400
+            | 0x0000000000000800
+            | 0x0000000000003000
+            | 0x000000000000c000
+            | 0x0000000000010000
+            | 0x0000000000020000
+            | 0x0000000000040000
+            | 0x0000000000080000
+            | 0x0000000000f00000
+            | 0x0000000001000000
         ),
         .n_fields = 19,
         .fields = (const RegisterField []) {
@@ -3734,6 +10632,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_EA_PL0] = {
         .name = "ea_pl0",
@@ -3741,8 +10640,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 576,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_EA_PL1] = {
         .name = "ea_pl1",
@@ -3750,8 +10651,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 584,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_EA_PL2] = {
         .name = "ea_pl2",
@@ -3759,8 +10662,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 592,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_EA_PL3] = {
         .name = "ea_pl3",
@@ -3768,8 +10673,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 600,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_EV_PL0] = {
         .name = "ev_pl0",
@@ -3777,8 +10684,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 608,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_EV_PL1] = {
         .name = "ev_pl1",
@@ -3786,8 +10695,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 616,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_EV_PL2] = {
         .name = "ev_pl2",
@@ -3795,8 +10706,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 624,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_EV_PL3] = {
         .name = "ev_pl3",
@@ -3804,8 +10717,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 632,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_SR_PL0] = {
         .name = "sr_pl0",
@@ -3813,8 +10728,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 640,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_SR_PL1] = {
         .name = "sr_pl1",
@@ -3822,8 +10739,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 648,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_SR_PL2] = {
         .name = "sr_pl2",
@@ -3831,8 +10750,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 656,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_SR_PL3] = {
         .name = "sr_pl3",
@@ -3840,8 +10761,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 664,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_ES_PL0] = {
         .name = "es_pl0",
@@ -3849,33 +10772,33 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_ES_PL0) + 0,
         .reset = 0x0000000000000004,
-        .mask_n = ~( (uint64_t)
-              R_kv3_ES_PL0_EC_MASK
-            | R_kv3_ES_PL0_OAPL_MASK
-            | R_kv3_ES_PL0_ED_MASK
-            | R_kv3_ES_PL0_ORPL_MASK
-            | R_kv3_ES_PL0_PTAPL_MASK
-            | R_kv3_ES_PL0_PTRPL_MASK
-            | R_kv3_ES_PL0_DC_MASK
-            | R_kv3_ES_PL0_ITN_MASK
-            | R_kv3_ES_PL0_HTC_MASK
-            | R_kv3_ES_PL0_SN_MASK
-            | R_kv3_ES_PL0_BN_MASK
-            | R_kv3_ES_PL0_WN_MASK
-            | R_kv3_ES_PL0_SFRT_MASK
-            | R_kv3_ES_PL0_ITL_MASK
-            | R_kv3_ES_PL0_SFRI_MASK
-            | R_kv3_ES_PL0_ITI_MASK
-            | R_kv3_ES_PL0_GPRP_MASK
-            | R_kv3_ES_PL0_SFRP_MASK
-            | R_kv3_ES_PL0_DHT_MASK
-            | R_kv3_ES_PL0_RWX_MASK
-            | R_kv3_ES_PL0_NTA_MASK
-            | R_kv3_ES_PL0_UCA_MASK
-            | R_kv3_ES_PL0_AS_MASK
-            | R_kv3_ES_PL0_BS_MASK
-            | R_kv3_ES_PL0_DRI_MASK
-            | R_kv3_ES_PL0_PIC_MASK
+        .mask = (
+              0x000000000000000f
+            | 0x0000000000000030
+            | 0xfffffffffffffff0
+            | 0x00000000000000c0
+            | 0x0000000000000300
+            | 0x0000000000000c00
+            | 0x0000000000003000
+            | 0x000000000001f000
+            | 0x000000000001f000
+            | 0x0000000000fff000
+            | 0x0000000000004000
+            | 0x0000000000008000
+            | 0x0000000000020000
+            | 0x0000000000060000
+            | 0x00000000001c0000
+            | 0x000000001ff80000
+            | 0x0000000007e00000
+            | 0x0000000ff8000000
+            | 0x0000001000000000
+            | 0x0000038000000000
+            | 0x0000040000000000
+            | 0x0000080000000000
+            | 0x0003f00000000000
+            | 0x003c000000000000
+            | 0x0fc0000000000000
+            | 0xf000000000000000
         ),
         .n_fields = 26,
         .fields = (const RegisterField []) {
@@ -3908,6 +10831,7 @@ static const RegisterDescr REGISTERS[] = {
         },
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v1,
     },
     [REG_kv3_ES_PL1] = {
         .name = "es_pl1",
@@ -3915,33 +10839,33 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_ES_PL1) + 0,
         .reset = 0x0000000000000004,
-        .mask_n = ~( (uint64_t)
-              R_kv3_ES_PL1_EC_MASK
-            | R_kv3_ES_PL1_OAPL_MASK
-            | R_kv3_ES_PL1_ED_MASK
-            | R_kv3_ES_PL1_ORPL_MASK
-            | R_kv3_ES_PL1_PTAPL_MASK
-            | R_kv3_ES_PL1_PTRPL_MASK
-            | R_kv3_ES_PL1_DC_MASK
-            | R_kv3_ES_PL1_ITN_MASK
-            | R_kv3_ES_PL1_HTC_MASK
-            | R_kv3_ES_PL1_SN_MASK
-            | R_kv3_ES_PL1_BN_MASK
-            | R_kv3_ES_PL1_WN_MASK
-            | R_kv3_ES_PL1_SFRT_MASK
-            | R_kv3_ES_PL1_ITL_MASK
-            | R_kv3_ES_PL1_SFRI_MASK
-            | R_kv3_ES_PL1_ITI_MASK
-            | R_kv3_ES_PL1_GPRP_MASK
-            | R_kv3_ES_PL1_SFRP_MASK
-            | R_kv3_ES_PL1_DHT_MASK
-            | R_kv3_ES_PL1_RWX_MASK
-            | R_kv3_ES_PL1_NTA_MASK
-            | R_kv3_ES_PL1_UCA_MASK
-            | R_kv3_ES_PL1_AS_MASK
-            | R_kv3_ES_PL1_BS_MASK
-            | R_kv3_ES_PL1_DRI_MASK
-            | R_kv3_ES_PL1_PIC_MASK
+        .mask = (
+              0x000000000000000f
+            | 0x0000000000000030
+            | 0xfffffffffffffff0
+            | 0x00000000000000c0
+            | 0x0000000000000300
+            | 0x0000000000000c00
+            | 0x0000000000003000
+            | 0x000000000001f000
+            | 0x000000000001f000
+            | 0x0000000000fff000
+            | 0x0000000000004000
+            | 0x0000000000008000
+            | 0x0000000000020000
+            | 0x0000000000060000
+            | 0x00000000001c0000
+            | 0x000000001ff80000
+            | 0x0000000007e00000
+            | 0x0000000ff8000000
+            | 0x0000001000000000
+            | 0x0000038000000000
+            | 0x0000040000000000
+            | 0x0000080000000000
+            | 0x0003f00000000000
+            | 0x003c000000000000
+            | 0x0fc0000000000000
+            | 0xf000000000000000
         ),
         .n_fields = 26,
         .fields = (const RegisterField []) {
@@ -3974,6 +10898,7 @@ static const RegisterDescr REGISTERS[] = {
         },
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v1,
     },
     [REG_kv3_ES_PL2] = {
         .name = "es_pl2",
@@ -3981,33 +10906,33 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_ES_PL2) + 0,
         .reset = 0x0000000000000004,
-        .mask_n = ~( (uint64_t)
-              R_kv3_ES_PL2_EC_MASK
-            | R_kv3_ES_PL2_OAPL_MASK
-            | R_kv3_ES_PL2_ED_MASK
-            | R_kv3_ES_PL2_ORPL_MASK
-            | R_kv3_ES_PL2_PTAPL_MASK
-            | R_kv3_ES_PL2_PTRPL_MASK
-            | R_kv3_ES_PL2_DC_MASK
-            | R_kv3_ES_PL2_ITN_MASK
-            | R_kv3_ES_PL2_HTC_MASK
-            | R_kv3_ES_PL2_SN_MASK
-            | R_kv3_ES_PL2_BN_MASK
-            | R_kv3_ES_PL2_WN_MASK
-            | R_kv3_ES_PL2_SFRT_MASK
-            | R_kv3_ES_PL2_ITL_MASK
-            | R_kv3_ES_PL2_SFRI_MASK
-            | R_kv3_ES_PL2_ITI_MASK
-            | R_kv3_ES_PL2_GPRP_MASK
-            | R_kv3_ES_PL2_SFRP_MASK
-            | R_kv3_ES_PL2_DHT_MASK
-            | R_kv3_ES_PL2_RWX_MASK
-            | R_kv3_ES_PL2_NTA_MASK
-            | R_kv3_ES_PL2_UCA_MASK
-            | R_kv3_ES_PL2_AS_MASK
-            | R_kv3_ES_PL2_BS_MASK
-            | R_kv3_ES_PL2_DRI_MASK
-            | R_kv3_ES_PL2_PIC_MASK
+        .mask = (
+              0x000000000000000f
+            | 0x0000000000000030
+            | 0xfffffffffffffff0
+            | 0x00000000000000c0
+            | 0x0000000000000300
+            | 0x0000000000000c00
+            | 0x0000000000003000
+            | 0x000000000001f000
+            | 0x000000000001f000
+            | 0x0000000000fff000
+            | 0x0000000000004000
+            | 0x0000000000008000
+            | 0x0000000000020000
+            | 0x0000000000060000
+            | 0x00000000001c0000
+            | 0x000000001ff80000
+            | 0x0000000007e00000
+            | 0x0000000ff8000000
+            | 0x0000001000000000
+            | 0x0000038000000000
+            | 0x0000040000000000
+            | 0x0000080000000000
+            | 0x0003f00000000000
+            | 0x003c000000000000
+            | 0x0fc0000000000000
+            | 0xf000000000000000
         ),
         .n_fields = 26,
         .fields = (const RegisterField []) {
@@ -4040,6 +10965,7 @@ static const RegisterDescr REGISTERS[] = {
         },
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v1,
     },
     [REG_kv3_ES_PL3] = {
         .name = "es_pl3",
@@ -4047,33 +10973,33 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_ES_PL3) + 0,
         .reset = 0x0000000000000004,
-        .mask_n = ~( (uint64_t)
-              R_kv3_ES_PL3_EC_MASK
-            | R_kv3_ES_PL3_OAPL_MASK
-            | R_kv3_ES_PL3_ED_MASK
-            | R_kv3_ES_PL3_ORPL_MASK
-            | R_kv3_ES_PL3_PTAPL_MASK
-            | R_kv3_ES_PL3_PTRPL_MASK
-            | R_kv3_ES_PL3_DC_MASK
-            | R_kv3_ES_PL3_ITN_MASK
-            | R_kv3_ES_PL3_HTC_MASK
-            | R_kv3_ES_PL3_SN_MASK
-            | R_kv3_ES_PL3_BN_MASK
-            | R_kv3_ES_PL3_WN_MASK
-            | R_kv3_ES_PL3_SFRT_MASK
-            | R_kv3_ES_PL3_ITL_MASK
-            | R_kv3_ES_PL3_SFRI_MASK
-            | R_kv3_ES_PL3_ITI_MASK
-            | R_kv3_ES_PL3_GPRP_MASK
-            | R_kv3_ES_PL3_SFRP_MASK
-            | R_kv3_ES_PL3_DHT_MASK
-            | R_kv3_ES_PL3_RWX_MASK
-            | R_kv3_ES_PL3_NTA_MASK
-            | R_kv3_ES_PL3_UCA_MASK
-            | R_kv3_ES_PL3_AS_MASK
-            | R_kv3_ES_PL3_BS_MASK
-            | R_kv3_ES_PL3_DRI_MASK
-            | R_kv3_ES_PL3_PIC_MASK
+        .mask = (
+              0x000000000000000f
+            | 0x0000000000000030
+            | 0xfffffffffffffff0
+            | 0x00000000000000c0
+            | 0x0000000000000300
+            | 0x0000000000000c00
+            | 0x0000000000003000
+            | 0x000000000001f000
+            | 0x000000000001f000
+            | 0x0000000000fff000
+            | 0x0000000000004000
+            | 0x0000000000008000
+            | 0x0000000000020000
+            | 0x0000000000060000
+            | 0x00000000001c0000
+            | 0x000000001ff80000
+            | 0x0000000007e00000
+            | 0x0000000ff8000000
+            | 0x0000001000000000
+            | 0x0000038000000000
+            | 0x0000040000000000
+            | 0x0000080000000000
+            | 0x0003f00000000000
+            | 0x003c000000000000
+            | 0x0fc0000000000000
+            | 0xf000000000000000
         ),
         .n_fields = 26,
         .fields = (const RegisterField []) {
@@ -4106,42 +11032,51 @@ static const RegisterDescr REGISTERS[] = {
         },
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v1,
     },
-    [REG_kv3_RES88] = {
-        .name = "res88",
+    [REG_kv3_SID_PL0] = {
+        .name = "sid_pl0",
         .regfile = REGFILE_kv3_SFR,
         .reg_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_SRS) + 704,
+        .offset = offsetof(CPUArchState, storages.kv3_SID_PL0) + 0,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1,
     },
-    [REG_kv3_RES89] = {
-        .name = "res89",
+    [REG_kv3_SID_PL1] = {
+        .name = "sid_pl1",
         .regfile = REGFILE_kv3_SFR,
         .reg_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_SRS) + 712,
+        .offset = offsetof(CPUArchState, storages.kv3_SID_PL1) + 0,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1,
     },
-    [REG_kv3_RES90] = {
-        .name = "res90",
+    [REG_kv3_SID_PL2] = {
+        .name = "sid_pl2",
         .regfile = REGFILE_kv3_SFR,
         .reg_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_SRS) + 720,
+        .offset = offsetof(CPUArchState, storages.kv3_SID_PL2) + 0,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1,
     },
-    [REG_kv3_RES91] = {
-        .name = "res91",
+    [REG_kv3_SID_PL3] = {
+        .name = "sid_pl3",
         .regfile = REGFILE_kv3_SFR,
         .reg_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_SRS) + 728,
+        .offset = offsetof(CPUArchState, storages.kv3_SID_PL3) + 0,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1,
     },
     [REG_kv3_RES92] = {
         .name = "res92",
@@ -4149,8 +11084,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 736,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES93] = {
         .name = "res93",
@@ -4158,8 +11095,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 744,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES94] = {
         .name = "res94",
@@ -4167,8 +11106,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 752,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES95] = {
         .name = "res95",
@@ -4176,8 +11117,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 760,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_SYOW] = {
         .name = "syow",
@@ -4185,11 +11128,11 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 32,
         .offset = offsetof(CPUArchState, storages.kv3_SYO) + 0,
         .reset = 0x00000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_SYOW_Q0_MASK
-            | R_kv3_SYOW_Q1_MASK
-            | R_kv3_SYOW_Q2_MASK
-            | R_kv3_SYOW_Q3_MASK
+        .mask = (
+              0x0000000000000003
+            | 0x000000000000000c
+            | 0x0000000000000030
+            | 0x00000000000000c0
         ),
         .n_fields = 4,
         .fields = (const RegisterField []) {
@@ -4202,6 +11145,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_HTOW] = {
         .name = "htow",
@@ -4209,20 +11153,20 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 32,
         .offset = offsetof(CPUArchState, storages.kv3_HTO) + 0,
         .reset = 0x00000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_HTOW_OPC_MASK
-            | R_kv3_HTOW_DMIS_MASK
-            | R_kv3_HTOW_PSYS_MASK
-            | R_kv3_HTOW_DSYS_MASK
-            | R_kv3_HTOW_DECCG_MASK
-            | R_kv3_HTOW_SECCG_MASK
-            | R_kv3_HTOW_NOMAP_MASK
-            | R_kv3_HTOW_PROT_MASK
-            | R_kv3_HTOW_W2CL_MASK
-            | R_kv3_HTOW_A2CL_MASK
-            | R_kv3_HTOW_DE_MASK
-            | R_kv3_HTOW_VSFR_MASK
-            | R_kv3_HTOW_PLO_MASK
+        .mask = (
+              0x0000000000000003
+            | 0x000000000000000c
+            | 0x0000000000000030
+            | 0x00000000000000c0
+            | 0x0000000000000300
+            | 0x0000000000000c00
+            | 0x0000000000003000
+            | 0x000000000000c000
+            | 0x0000000000030000
+            | 0x00000000000c0000
+            | 0x0000000000300000
+            | 0x0000000000c00000
+            | 0x0000000003000000
         ),
         .n_fields = 13,
         .fields = (const RegisterField []) {
@@ -4244,6 +11188,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_ITOW] = {
         .name = "itow",
@@ -4251,39 +11196,39 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_ITO) + 0,
         .reset = 0x0000000000000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_ITOW_IT0_MASK
-            | R_kv3_ITOW_IT1_MASK
-            | R_kv3_ITOW_IT2_MASK
-            | R_kv3_ITOW_IT3_MASK
-            | R_kv3_ITOW_IT4_MASK
-            | R_kv3_ITOW_IT5_MASK
-            | R_kv3_ITOW_IT6_MASK
-            | R_kv3_ITOW_IT7_MASK
-            | R_kv3_ITOW_IT8_MASK
-            | R_kv3_ITOW_IT9_MASK
-            | R_kv3_ITOW_IT10_MASK
-            | R_kv3_ITOW_IT11_MASK
-            | R_kv3_ITOW_IT12_MASK
-            | R_kv3_ITOW_IT13_MASK
-            | R_kv3_ITOW_IT14_MASK
-            | R_kv3_ITOW_IT15_MASK
-            | R_kv3_ITOW_IT16_MASK
-            | R_kv3_ITOW_IT17_MASK
-            | R_kv3_ITOW_IT18_MASK
-            | R_kv3_ITOW_IT19_MASK
-            | R_kv3_ITOW_IT20_MASK
-            | R_kv3_ITOW_IT21_MASK
-            | R_kv3_ITOW_IT22_MASK
-            | R_kv3_ITOW_IT23_MASK
-            | R_kv3_ITOW_IT24_MASK
-            | R_kv3_ITOW_IT25_MASK
-            | R_kv3_ITOW_IT26_MASK
-            | R_kv3_ITOW_IT27_MASK
-            | R_kv3_ITOW_IT28_MASK
-            | R_kv3_ITOW_IT29_MASK
-            | R_kv3_ITOW_IT30_MASK
-            | R_kv3_ITOW_IT31_MASK
+        .mask = (
+              0x0000000000000003
+            | 0x000000000000000c
+            | 0x0000000000000030
+            | 0x00000000000000c0
+            | 0x0000000000000300
+            | 0x0000000000000c00
+            | 0x0000000000003000
+            | 0x000000000000c000
+            | 0x0000000000030000
+            | 0x00000000000c0000
+            | 0x0000000000300000
+            | 0x0000000000c00000
+            | 0x0000000003000000
+            | 0x000000000c000000
+            | 0x0000000030000000
+            | 0x00000000c0000000
+            | 0x0000000300000000
+            | 0x0000000c00000000
+            | 0x0000003000000000
+            | 0x000000c000000000
+            | 0x0000030000000000
+            | 0x00000c0000000000
+            | 0x0000300000000000
+            | 0x0000c00000000000
+            | 0x0003000000000000
+            | 0x000c000000000000
+            | 0x0030000000000000
+            | 0x00c0000000000000
+            | 0x0300000000000000
+            | 0x0c00000000000000
+            | 0x3000000000000000
+            | 0xc000000000000000
         ),
         .n_fields = 32,
         .fields = (const RegisterField []) {
@@ -4324,6 +11269,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_DOW] = {
         .name = "dow",
@@ -4331,11 +11277,11 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 32,
         .offset = offsetof(CPUArchState, storages.kv3_DO) + 0,
         .reset = 0x00000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_DOW_B0_MASK
-            | R_kv3_DOW_B1_MASK
-            | R_kv3_DOW_W0_MASK
-            | R_kv3_DOW_W1_MASK
+        .mask = (
+              0x0000000000000003
+            | 0x000000000000000c
+            | 0x0000000000000030
+            | 0x00000000000000c0
         ),
         .n_fields = 4,
         .fields = (const RegisterField []) {
@@ -4348,6 +11294,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_MOW] = {
         .name = "mow",
@@ -4355,24 +11302,24 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_MO) + 0,
         .reset = 0x0000000000000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_MOW_MMI_MASK
-            | R_kv3_MOW_RFE_MASK
-            | R_kv3_MOW_STOP_MASK
-            | R_kv3_MOW_SYNC_MASK
-            | R_kv3_MOW_PCR_MASK
-            | R_kv3_MOW_MSG_MASK
-            | R_kv3_MOW_MEN_MASK
-            | R_kv3_MOW_MES_MASK
-            | R_kv3_MOW_CSIT_MASK
-            | R_kv3_MOW_T0_MASK
-            | R_kv3_MOW_T1_MASK
-            | R_kv3_MOW_WD_MASK
-            | R_kv3_MOW_PM0_MASK
-            | R_kv3_MOW_PM1_MASK
-            | R_kv3_MOW_PM2_MASK
-            | R_kv3_MOW_PM3_MASK
-            | R_kv3_MOW_PMIT_MASK
+        .mask = (
+              0x0000000000000003
+            | 0x000000000000000c
+            | 0x0000000000000030
+            | 0x00000000000000c0
+            | 0x0000000000000300
+            | 0x0000000000000c00
+            | 0x0000000000003000
+            | 0x000000000000c000
+            | 0x0000000000030000
+            | 0x00000000000c0000
+            | 0x0000000000300000
+            | 0x0000000000c00000
+            | 0x0000000003000000
+            | 0x000000000c000000
+            | 0x0000000030000000
+            | 0x00000000c0000000
+            | 0x0000000300000000
         ),
         .n_fields = 17,
         .fields = (const RegisterField []) {
@@ -4398,6 +11345,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v1,
     },
     [REG_kv3_PSOW] = {
         .name = "psow",
@@ -4405,32 +11353,32 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_PSO) + 0,
         .reset = 0x0000000000000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_PSOW_PL0_MASK
-            | R_kv3_PSOW_PL1_MASK
-            | R_kv3_PSOW_ET_MASK
-            | R_kv3_PSOW_HTD_MASK
-            | R_kv3_PSOW_IE_MASK
-            | R_kv3_PSOW_HLE_MASK
-            | R_kv3_PSOW_SRE_MASK
-            | R_kv3_PSOW_DAUS_MASK
-            | R_kv3_PSOW_ICE_MASK
-            | R_kv3_PSOW_USE_MASK
-            | R_kv3_PSOW_DCE_MASK
-            | R_kv3_PSOW_MME_MASK
-            | R_kv3_PSOW_IL0_MASK
-            | R_kv3_PSOW_IL1_MASK
-            | R_kv3_PSOW_VS0_MASK
-            | R_kv3_PSOW_VS1_MASK
-            | R_kv3_PSOW_V64_MASK
-            | R_kv3_PSOW_L2E_MASK
-            | R_kv3_PSOW_SME_MASK
-            | R_kv3_PSOW_SMR_MASK
-            | R_kv3_PSOW_PMJ0_MASK
-            | R_kv3_PSOW_PMJ1_MASK
-            | R_kv3_PSOW_PMJ2_MASK
-            | R_kv3_PSOW_PMJ3_MASK
-            | R_kv3_PSOW_MMUP_MASK
+        .mask = (
+              0x0000000000000003
+            | 0x000000000000000c
+            | 0x0000000000000030
+            | 0x00000000000000c0
+            | 0x0000000000000300
+            | 0x0000000000000c00
+            | 0x0000000000003000
+            | 0x000000000000c000
+            | 0x0000000000030000
+            | 0x00000000000c0000
+            | 0x0000000000300000
+            | 0x0000000000c00000
+            | 0x0000000003000000
+            | 0x000000000c000000
+            | 0x0000000030000000
+            | 0x00000000c0000000
+            | 0x0000000300000000
+            | 0x0000000c00000000
+            | 0x0000003000000000
+            | 0x000000c000000000
+            | 0x0000030000000000
+            | 0x00000c0000000000
+            | 0x0000300000000000
+            | 0x0000c00000000000
+            | 0x0003000000000000
         ),
         .n_fields = 25,
         .fields = (const RegisterField []) {
@@ -4464,6 +11412,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES102] = {
         .name = "res102",
@@ -4471,8 +11420,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 816,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES103] = {
         .name = "res103",
@@ -4480,8 +11431,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 824,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES104] = {
         .name = "res104",
@@ -4489,8 +11442,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 832,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES105] = {
         .name = "res105",
@@ -4498,8 +11453,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 840,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES106] = {
         .name = "res106",
@@ -4507,8 +11464,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 848,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES107] = {
         .name = "res107",
@@ -4516,8 +11475,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 856,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES108] = {
         .name = "res108",
@@ -4525,8 +11486,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 864,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES109] = {
         .name = "res109",
@@ -4534,8 +11497,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 872,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES110] = {
         .name = "res110",
@@ -4543,8 +11508,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 880,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES111] = {
         .name = "res111",
@@ -4552,8 +11519,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 888,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES112] = {
         .name = "res112",
@@ -4561,8 +11530,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 896,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES113] = {
         .name = "res113",
@@ -4570,8 +11541,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 904,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES114] = {
         .name = "res114",
@@ -4579,8 +11552,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 912,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES115] = {
         .name = "res115",
@@ -4588,8 +11563,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 920,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES116] = {
         .name = "res116",
@@ -4597,8 +11574,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 928,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES117] = {
         .name = "res117",
@@ -4606,8 +11585,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 936,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES118] = {
         .name = "res118",
@@ -4615,8 +11596,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 944,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES119] = {
         .name = "res119",
@@ -4624,8 +11607,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 952,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES120] = {
         .name = "res120",
@@ -4633,8 +11618,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 960,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES121] = {
         .name = "res121",
@@ -4642,8 +11629,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 968,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES122] = {
         .name = "res122",
@@ -4651,8 +11640,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 976,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES123] = {
         .name = "res123",
@@ -4660,8 +11651,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 984,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES124] = {
         .name = "res124",
@@ -4669,8 +11662,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 992,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES125] = {
         .name = "res125",
@@ -4678,8 +11673,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1000,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES126] = {
         .name = "res126",
@@ -4687,8 +11684,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1008,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES127] = {
         .name = "res127",
@@ -4696,8 +11695,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1016,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_SPC] = {
         .name = "spc",
@@ -4705,8 +11706,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1024,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES129] = {
         .name = "res129",
@@ -4714,8 +11717,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1032,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES130] = {
         .name = "res130",
@@ -4723,8 +11728,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1040,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES131] = {
         .name = "res131",
@@ -4732,8 +11739,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1048,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_SPS] = {
         .name = "sps",
@@ -4741,26 +11750,26 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 32,
         .offset = offsetof(CPUArchState, storages.kv3_SPS) + 0,
         .reset = 0x00000000,
-        .mask_n = ~( (uint64_t)
-              R_kv3_SPS_PL_MASK
-            | R_kv3_SPS_ET_MASK
-            | R_kv3_SPS_HTD_MASK
-            | R_kv3_SPS_IE_MASK
-            | R_kv3_SPS_HLE_MASK
-            | R_kv3_SPS_SRE_MASK
-            | R_kv3_SPS_DAUS_MASK
-            | R_kv3_SPS_ICE_MASK
-            | R_kv3_SPS_USE_MASK
-            | R_kv3_SPS_DCE_MASK
-            | R_kv3_SPS_MME_MASK
-            | R_kv3_SPS_IL_MASK
-            | R_kv3_SPS_VS_MASK
-            | R_kv3_SPS_V64_MASK
-            | R_kv3_SPS_L2E_MASK
-            | R_kv3_SPS_SME_MASK
-            | R_kv3_SPS_SMR_MASK
-            | R_kv3_SPS_PMJ_MASK
-            | R_kv3_SPS_MMUP_MASK
+        .mask = (
+              0x0000000000000003
+            | 0x0000000000000004
+            | 0x0000000000000008
+            | 0x0000000000000010
+            | 0x0000000000000020
+            | 0x0000000000000040
+            | 0x0000000000000080
+            | 0x0000000000000100
+            | 0x0000000000000200
+            | 0x0000000000000400
+            | 0x0000000000000800
+            | 0x0000000000003000
+            | 0x000000000000c000
+            | 0x0000000000010000
+            | 0x0000000000020000
+            | 0x0000000000040000
+            | 0x0000000000080000
+            | 0x0000000000f00000
+            | 0x0000000001000000
         ),
         .n_fields = 19,
         .fields = (const RegisterField []) {
@@ -4788,6 +11797,7 @@ static const RegisterDescr REGISTERS[] = {
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES133] = {
         .name = "res133",
@@ -4795,8 +11805,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1064,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES134] = {
         .name = "res134",
@@ -4804,8 +11816,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1072,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES135] = {
         .name = "res135",
@@ -4813,8 +11827,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1080,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_EA] = {
         .name = "ea",
@@ -4822,8 +11838,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1088,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES137] = {
         .name = "res137",
@@ -4831,8 +11849,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1096,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES138] = {
         .name = "res138",
@@ -4840,8 +11860,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1104,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES139] = {
         .name = "res139",
@@ -4849,8 +11871,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1112,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_EV] = {
         .name = "ev",
@@ -4858,8 +11882,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1120,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES141] = {
         .name = "res141",
@@ -4867,8 +11893,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1128,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES142] = {
         .name = "res142",
@@ -4876,8 +11904,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1136,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES143] = {
         .name = "res143",
@@ -4885,8 +11915,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1144,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_SR] = {
         .name = "sr",
@@ -4894,8 +11926,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1152,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES145] = {
         .name = "res145",
@@ -4903,8 +11937,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1160,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES146] = {
         .name = "res146",
@@ -4912,8 +11948,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1168,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES147] = {
         .name = "res147",
@@ -4921,8 +11959,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1176,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_ES] = {
         .name = "es",
@@ -4930,33 +11970,33 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_ES) + 0,
         .reset = 0x0000000000000004,
-        .mask_n = ~( (uint64_t)
-              R_kv3_ES_EC_MASK
-            | R_kv3_ES_OAPL_MASK
-            | R_kv3_ES_ED_MASK
-            | R_kv3_ES_ORPL_MASK
-            | R_kv3_ES_PTAPL_MASK
-            | R_kv3_ES_PTRPL_MASK
-            | R_kv3_ES_DC_MASK
-            | R_kv3_ES_ITN_MASK
-            | R_kv3_ES_HTC_MASK
-            | R_kv3_ES_SN_MASK
-            | R_kv3_ES_BN_MASK
-            | R_kv3_ES_WN_MASK
-            | R_kv3_ES_SFRT_MASK
-            | R_kv3_ES_ITL_MASK
-            | R_kv3_ES_SFRI_MASK
-            | R_kv3_ES_ITI_MASK
-            | R_kv3_ES_GPRP_MASK
-            | R_kv3_ES_SFRP_MASK
-            | R_kv3_ES_DHT_MASK
-            | R_kv3_ES_RWX_MASK
-            | R_kv3_ES_NTA_MASK
-            | R_kv3_ES_UCA_MASK
-            | R_kv3_ES_AS_MASK
-            | R_kv3_ES_BS_MASK
-            | R_kv3_ES_DRI_MASK
-            | R_kv3_ES_PIC_MASK
+        .mask = (
+              0x000000000000000f
+            | 0x0000000000000030
+            | 0xfffffffffffffff0
+            | 0x00000000000000c0
+            | 0x0000000000000300
+            | 0x0000000000000c00
+            | 0x0000000000003000
+            | 0x000000000001f000
+            | 0x000000000001f000
+            | 0x0000000000fff000
+            | 0x0000000000004000
+            | 0x0000000000008000
+            | 0x0000000000020000
+            | 0x0000000000060000
+            | 0x00000000001c0000
+            | 0x000000001ff80000
+            | 0x0000000007e00000
+            | 0x0000000ff8000000
+            | 0x0000001000000000
+            | 0x0000038000000000
+            | 0x0000040000000000
+            | 0x0000080000000000
+            | 0x0003f00000000000
+            | 0x003c000000000000
+            | 0x0fc0000000000000
+            | 0xf000000000000000
         ),
         .n_fields = 26,
         .fields = (const RegisterField []) {
@@ -4989,6 +12029,7 @@ static const RegisterDescr REGISTERS[] = {
         },
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v1,
     },
     [REG_kv3_RES149] = {
         .name = "res149",
@@ -4996,8 +12037,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1192,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES150] = {
         .name = "res150",
@@ -5005,8 +12048,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1200,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES151] = {
         .name = "res151",
@@ -5014,17 +12059,21 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1208,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
-    [REG_kv3_RES152] = {
-        .name = "res152",
+    [REG_kv3_SID] = {
+        .name = "sid",
         .regfile = REGFILE_kv3_SFR,
         .reg_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1216,
+        .offset = offsetof(CPUArchState, storages.kv3_SID) + 0,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1,
     },
     [REG_kv3_RES153] = {
         .name = "res153",
@@ -5032,8 +12081,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1224,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES154] = {
         .name = "res154",
@@ -5041,8 +12092,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1232,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES155] = {
         .name = "res155",
@@ -5050,8 +12103,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1240,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES156] = {
         .name = "res156",
@@ -5059,8 +12114,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1248,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES157] = {
         .name = "res157",
@@ -5068,8 +12125,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1256,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES158] = {
         .name = "res158",
@@ -5077,8 +12136,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1264,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES159] = {
         .name = "res159",
@@ -5086,8 +12147,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1272,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES160] = {
         .name = "res160",
@@ -5095,8 +12158,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1280,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES161] = {
         .name = "res161",
@@ -5104,8 +12169,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1288,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES162] = {
         .name = "res162",
@@ -5113,8 +12180,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1296,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES163] = {
         .name = "res163",
@@ -5122,8 +12191,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1304,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES164] = {
         .name = "res164",
@@ -5131,8 +12202,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1312,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES165] = {
         .name = "res165",
@@ -5140,8 +12213,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1320,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES166] = {
         .name = "res166",
@@ -5149,8 +12224,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1328,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES167] = {
         .name = "res167",
@@ -5158,8 +12235,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1336,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES168] = {
         .name = "res168",
@@ -5167,8 +12246,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1344,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES169] = {
         .name = "res169",
@@ -5176,8 +12257,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1352,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES170] = {
         .name = "res170",
@@ -5185,8 +12268,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1360,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES171] = {
         .name = "res171",
@@ -5194,8 +12279,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1368,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES172] = {
         .name = "res172",
@@ -5203,8 +12290,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1376,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES173] = {
         .name = "res173",
@@ -5212,8 +12301,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1384,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES174] = {
         .name = "res174",
@@ -5221,8 +12312,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1392,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES175] = {
         .name = "res175",
@@ -5230,8 +12323,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1400,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES176] = {
         .name = "res176",
@@ -5239,8 +12334,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1408,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES177] = {
         .name = "res177",
@@ -5248,8 +12345,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1416,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES178] = {
         .name = "res178",
@@ -5257,8 +12356,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1424,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES179] = {
         .name = "res179",
@@ -5266,8 +12367,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1432,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES180] = {
         .name = "res180",
@@ -5275,8 +12378,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1440,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES181] = {
         .name = "res181",
@@ -5284,8 +12389,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1448,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES182] = {
         .name = "res182",
@@ -5293,8 +12400,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1456,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES183] = {
         .name = "res183",
@@ -5302,8 +12411,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1464,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES184] = {
         .name = "res184",
@@ -5311,8 +12422,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1472,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES185] = {
         .name = "res185",
@@ -5320,8 +12433,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1480,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES186] = {
         .name = "res186",
@@ -5329,8 +12444,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1488,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES187] = {
         .name = "res187",
@@ -5338,8 +12455,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1496,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES188] = {
         .name = "res188",
@@ -5347,8 +12466,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1504,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES189] = {
         .name = "res189",
@@ -5356,8 +12477,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1512,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES190] = {
         .name = "res190",
@@ -5365,8 +12488,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1520,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES191] = {
         .name = "res191",
@@ -5374,8 +12499,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1528,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES192] = {
         .name = "res192",
@@ -5383,8 +12510,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1536,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES193] = {
         .name = "res193",
@@ -5392,8 +12521,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1544,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES194] = {
         .name = "res194",
@@ -5401,8 +12532,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1552,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES195] = {
         .name = "res195",
@@ -5410,8 +12543,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1560,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES196] = {
         .name = "res196",
@@ -5419,8 +12554,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1568,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES197] = {
         .name = "res197",
@@ -5428,8 +12565,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1576,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES198] = {
         .name = "res198",
@@ -5437,8 +12576,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1584,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES199] = {
         .name = "res199",
@@ -5446,8 +12587,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1592,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES200] = {
         .name = "res200",
@@ -5455,8 +12598,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1600,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES201] = {
         .name = "res201",
@@ -5464,8 +12609,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1608,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES202] = {
         .name = "res202",
@@ -5473,8 +12620,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1616,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES203] = {
         .name = "res203",
@@ -5482,8 +12631,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1624,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES204] = {
         .name = "res204",
@@ -5491,8 +12642,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1632,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES205] = {
         .name = "res205",
@@ -5500,8 +12653,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1640,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES206] = {
         .name = "res206",
@@ -5509,8 +12664,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1648,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES207] = {
         .name = "res207",
@@ -5518,8 +12675,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1656,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES208] = {
         .name = "res208",
@@ -5527,8 +12686,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1664,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES209] = {
         .name = "res209",
@@ -5536,8 +12697,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1672,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES210] = {
         .name = "res210",
@@ -5545,8 +12708,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1680,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES211] = {
         .name = "res211",
@@ -5554,8 +12719,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1688,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES212] = {
         .name = "res212",
@@ -5563,8 +12730,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1696,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES213] = {
         .name = "res213",
@@ -5572,8 +12741,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1704,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES214] = {
         .name = "res214",
@@ -5581,8 +12752,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1712,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES215] = {
         .name = "res215",
@@ -5590,8 +12763,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1720,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES216] = {
         .name = "res216",
@@ -5599,8 +12774,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1728,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES217] = {
         .name = "res217",
@@ -5608,8 +12785,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1736,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES218] = {
         .name = "res218",
@@ -5617,8 +12796,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1744,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES219] = {
         .name = "res219",
@@ -5626,8 +12807,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1752,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES220] = {
         .name = "res220",
@@ -5635,8 +12818,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1760,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES221] = {
         .name = "res221",
@@ -5644,8 +12829,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1768,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES222] = {
         .name = "res222",
@@ -5653,8 +12840,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1776,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES223] = {
         .name = "res223",
@@ -5662,8 +12851,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1784,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES224] = {
         .name = "res224",
@@ -5671,8 +12862,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1792,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES225] = {
         .name = "res225",
@@ -5680,8 +12873,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1800,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES226] = {
         .name = "res226",
@@ -5689,8 +12884,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1808,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES227] = {
         .name = "res227",
@@ -5698,8 +12895,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1816,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES228] = {
         .name = "res228",
@@ -5707,8 +12906,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1824,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES229] = {
         .name = "res229",
@@ -5716,8 +12917,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1832,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES230] = {
         .name = "res230",
@@ -5725,8 +12928,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1840,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES231] = {
         .name = "res231",
@@ -5734,8 +12939,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1848,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES232] = {
         .name = "res232",
@@ -5743,8 +12950,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1856,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES233] = {
         .name = "res233",
@@ -5752,8 +12961,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1864,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES234] = {
         .name = "res234",
@@ -5761,8 +12972,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1872,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES235] = {
         .name = "res235",
@@ -5770,8 +12983,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1880,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES236] = {
         .name = "res236",
@@ -5779,8 +12994,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1888,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES237] = {
         .name = "res237",
@@ -5788,8 +13005,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1896,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES238] = {
         .name = "res238",
@@ -5797,8 +13016,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1904,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES239] = {
         .name = "res239",
@@ -5806,8 +13027,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1912,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES240] = {
         .name = "res240",
@@ -5815,8 +13038,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1920,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES241] = {
         .name = "res241",
@@ -5824,8 +13049,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1928,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES242] = {
         .name = "res242",
@@ -5833,8 +13060,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1936,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES243] = {
         .name = "res243",
@@ -5842,8 +13071,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1944,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES244] = {
         .name = "res244",
@@ -5851,8 +13082,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1952,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES245] = {
         .name = "res245",
@@ -5860,8 +13093,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1960,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES246] = {
         .name = "res246",
@@ -5869,8 +13104,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1968,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES247] = {
         .name = "res247",
@@ -5878,8 +13115,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1976,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES248] = {
         .name = "res248",
@@ -5887,8 +13126,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1984,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES249] = {
         .name = "res249",
@@ -5896,8 +13137,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1992,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES250] = {
         .name = "res250",
@@ -5905,8 +13148,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2000,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES251] = {
         .name = "res251",
@@ -5914,8 +13159,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2008,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES252] = {
         .name = "res252",
@@ -5923,8 +13170,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2016,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES253] = {
         .name = "res253",
@@ -5932,8 +13181,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2024,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES254] = {
         .name = "res254",
@@ -5941,8 +13192,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2032,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_RES255] = {
         .name = "res255",
@@ -5950,8 +13203,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2040,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR0] = {
         .name = "vsfr0",
@@ -5959,8 +13214,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2048,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR1] = {
         .name = "vsfr1",
@@ -5968,8 +13225,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2056,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR2] = {
         .name = "vsfr2",
@@ -5977,8 +13236,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2064,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR3] = {
         .name = "vsfr3",
@@ -5986,8 +13247,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2072,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR4] = {
         .name = "vsfr4",
@@ -5995,8 +13258,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2080,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR5] = {
         .name = "vsfr5",
@@ -6004,8 +13269,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2088,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR6] = {
         .name = "vsfr6",
@@ -6013,8 +13280,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2096,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR7] = {
         .name = "vsfr7",
@@ -6022,8 +13291,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2104,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR8] = {
         .name = "vsfr8",
@@ -6031,8 +13302,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2112,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR9] = {
         .name = "vsfr9",
@@ -6040,8 +13313,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2120,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR10] = {
         .name = "vsfr10",
@@ -6049,8 +13324,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2128,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR11] = {
         .name = "vsfr11",
@@ -6058,8 +13335,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2136,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR12] = {
         .name = "vsfr12",
@@ -6067,8 +13346,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2144,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR13] = {
         .name = "vsfr13",
@@ -6076,8 +13357,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2152,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR14] = {
         .name = "vsfr14",
@@ -6085,8 +13368,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2160,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR15] = {
         .name = "vsfr15",
@@ -6094,8 +13379,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2168,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR16] = {
         .name = "vsfr16",
@@ -6103,8 +13390,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2176,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR17] = {
         .name = "vsfr17",
@@ -6112,8 +13401,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2184,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR18] = {
         .name = "vsfr18",
@@ -6121,8 +13412,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2192,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR19] = {
         .name = "vsfr19",
@@ -6130,8 +13423,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2200,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR20] = {
         .name = "vsfr20",
@@ -6139,8 +13434,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2208,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR21] = {
         .name = "vsfr21",
@@ -6148,8 +13445,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2216,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR22] = {
         .name = "vsfr22",
@@ -6157,8 +13456,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2224,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR23] = {
         .name = "vsfr23",
@@ -6166,8 +13467,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2232,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR24] = {
         .name = "vsfr24",
@@ -6175,8 +13478,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2240,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR25] = {
         .name = "vsfr25",
@@ -6184,8 +13489,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2248,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR26] = {
         .name = "vsfr26",
@@ -6193,8 +13500,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2256,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR27] = {
         .name = "vsfr27",
@@ -6202,8 +13511,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2264,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR28] = {
         .name = "vsfr28",
@@ -6211,8 +13522,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2272,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR29] = {
         .name = "vsfr29",
@@ -6220,8 +13533,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2280,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR30] = {
         .name = "vsfr30",
@@ -6229,8 +13544,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2288,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR31] = {
         .name = "vsfr31",
@@ -6238,8 +13555,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2296,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR32] = {
         .name = "vsfr32",
@@ -6247,8 +13566,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2304,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR33] = {
         .name = "vsfr33",
@@ -6256,8 +13577,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2312,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR34] = {
         .name = "vsfr34",
@@ -6265,8 +13588,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2320,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR35] = {
         .name = "vsfr35",
@@ -6274,8 +13599,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2328,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR36] = {
         .name = "vsfr36",
@@ -6283,8 +13610,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2336,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR37] = {
         .name = "vsfr37",
@@ -6292,8 +13621,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2344,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR38] = {
         .name = "vsfr38",
@@ -6301,8 +13632,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2352,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR39] = {
         .name = "vsfr39",
@@ -6310,8 +13643,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2360,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR40] = {
         .name = "vsfr40",
@@ -6319,8 +13654,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2368,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR41] = {
         .name = "vsfr41",
@@ -6328,8 +13665,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2376,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR42] = {
         .name = "vsfr42",
@@ -6337,8 +13676,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2384,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR43] = {
         .name = "vsfr43",
@@ -6346,8 +13687,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2392,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR44] = {
         .name = "vsfr44",
@@ -6355,8 +13698,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2400,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR45] = {
         .name = "vsfr45",
@@ -6364,8 +13709,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2408,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR46] = {
         .name = "vsfr46",
@@ -6373,8 +13720,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2416,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR47] = {
         .name = "vsfr47",
@@ -6382,8 +13731,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2424,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR48] = {
         .name = "vsfr48",
@@ -6391,8 +13742,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2432,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR49] = {
         .name = "vsfr49",
@@ -6400,8 +13753,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2440,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR50] = {
         .name = "vsfr50",
@@ -6409,8 +13764,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2448,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR51] = {
         .name = "vsfr51",
@@ -6418,8 +13775,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2456,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR52] = {
         .name = "vsfr52",
@@ -6427,8 +13786,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2464,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR53] = {
         .name = "vsfr53",
@@ -6436,8 +13797,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2472,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR54] = {
         .name = "vsfr54",
@@ -6445,8 +13808,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2480,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR55] = {
         .name = "vsfr55",
@@ -6454,8 +13819,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2488,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR56] = {
         .name = "vsfr56",
@@ -6463,8 +13830,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2496,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR57] = {
         .name = "vsfr57",
@@ -6472,8 +13841,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2504,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR58] = {
         .name = "vsfr58",
@@ -6481,8 +13852,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2512,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR59] = {
         .name = "vsfr59",
@@ -6490,8 +13863,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2520,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR60] = {
         .name = "vsfr60",
@@ -6499,8 +13874,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2528,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR61] = {
         .name = "vsfr61",
@@ -6508,8 +13885,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2536,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR62] = {
         .name = "vsfr62",
@@ -6517,8 +13896,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2544,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR63] = {
         .name = "vsfr63",
@@ -6526,8 +13907,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2552,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR64] = {
         .name = "vsfr64",
@@ -6535,8 +13918,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2560,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR65] = {
         .name = "vsfr65",
@@ -6544,8 +13929,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2568,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR66] = {
         .name = "vsfr66",
@@ -6553,8 +13940,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2576,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR67] = {
         .name = "vsfr67",
@@ -6562,8 +13951,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2584,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR68] = {
         .name = "vsfr68",
@@ -6571,8 +13962,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2592,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR69] = {
         .name = "vsfr69",
@@ -6580,8 +13973,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2600,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR70] = {
         .name = "vsfr70",
@@ -6589,8 +13984,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2608,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR71] = {
         .name = "vsfr71",
@@ -6598,8 +13995,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2616,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR72] = {
         .name = "vsfr72",
@@ -6607,8 +14006,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2624,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR73] = {
         .name = "vsfr73",
@@ -6616,8 +14017,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2632,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR74] = {
         .name = "vsfr74",
@@ -6625,8 +14028,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2640,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR75] = {
         .name = "vsfr75",
@@ -6634,8 +14039,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2648,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR76] = {
         .name = "vsfr76",
@@ -6643,8 +14050,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2656,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR77] = {
         .name = "vsfr77",
@@ -6652,8 +14061,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2664,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR78] = {
         .name = "vsfr78",
@@ -6661,8 +14072,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2672,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR79] = {
         .name = "vsfr79",
@@ -6670,8 +14083,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2680,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR80] = {
         .name = "vsfr80",
@@ -6679,8 +14094,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2688,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR81] = {
         .name = "vsfr81",
@@ -6688,8 +14105,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2696,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR82] = {
         .name = "vsfr82",
@@ -6697,8 +14116,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2704,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR83] = {
         .name = "vsfr83",
@@ -6706,8 +14127,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2712,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR84] = {
         .name = "vsfr84",
@@ -6715,8 +14138,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2720,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR85] = {
         .name = "vsfr85",
@@ -6724,8 +14149,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2728,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR86] = {
         .name = "vsfr86",
@@ -6733,8 +14160,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2736,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR87] = {
         .name = "vsfr87",
@@ -6742,8 +14171,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2744,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR88] = {
         .name = "vsfr88",
@@ -6751,8 +14182,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2752,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR89] = {
         .name = "vsfr89",
@@ -6760,8 +14193,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2760,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR90] = {
         .name = "vsfr90",
@@ -6769,8 +14204,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2768,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR91] = {
         .name = "vsfr91",
@@ -6778,8 +14215,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2776,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR92] = {
         .name = "vsfr92",
@@ -6787,8 +14226,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2784,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR93] = {
         .name = "vsfr93",
@@ -6796,8 +14237,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2792,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR94] = {
         .name = "vsfr94",
@@ -6805,8 +14248,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2800,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR95] = {
         .name = "vsfr95",
@@ -6814,8 +14259,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2808,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR96] = {
         .name = "vsfr96",
@@ -6823,8 +14270,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2816,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR97] = {
         .name = "vsfr97",
@@ -6832,8 +14281,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2824,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR98] = {
         .name = "vsfr98",
@@ -6841,8 +14292,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2832,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR99] = {
         .name = "vsfr99",
@@ -6850,8 +14303,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2840,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR100] = {
         .name = "vsfr100",
@@ -6859,8 +14314,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2848,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR101] = {
         .name = "vsfr101",
@@ -6868,8 +14325,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2856,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR102] = {
         .name = "vsfr102",
@@ -6877,8 +14336,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2864,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR103] = {
         .name = "vsfr103",
@@ -6886,8 +14347,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2872,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR104] = {
         .name = "vsfr104",
@@ -6895,8 +14358,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2880,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR105] = {
         .name = "vsfr105",
@@ -6904,8 +14369,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2888,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR106] = {
         .name = "vsfr106",
@@ -6913,8 +14380,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2896,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR107] = {
         .name = "vsfr107",
@@ -6922,8 +14391,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2904,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR108] = {
         .name = "vsfr108",
@@ -6931,8 +14402,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2912,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR109] = {
         .name = "vsfr109",
@@ -6940,8 +14413,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2920,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR110] = {
         .name = "vsfr110",
@@ -6949,8 +14424,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2928,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR111] = {
         .name = "vsfr111",
@@ -6958,8 +14435,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2936,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR112] = {
         .name = "vsfr112",
@@ -6967,8 +14446,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2944,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR113] = {
         .name = "vsfr113",
@@ -6976,8 +14457,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2952,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR114] = {
         .name = "vsfr114",
@@ -6985,8 +14468,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2960,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR115] = {
         .name = "vsfr115",
@@ -6994,8 +14479,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2968,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR116] = {
         .name = "vsfr116",
@@ -7003,8 +14490,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2976,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR117] = {
         .name = "vsfr117",
@@ -7012,8 +14501,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2984,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR118] = {
         .name = "vsfr118",
@@ -7021,8 +14512,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 2992,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR119] = {
         .name = "vsfr119",
@@ -7030,8 +14523,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3000,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR120] = {
         .name = "vsfr120",
@@ -7039,8 +14534,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3008,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR121] = {
         .name = "vsfr121",
@@ -7048,8 +14545,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3016,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR122] = {
         .name = "vsfr122",
@@ -7057,8 +14556,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3024,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR123] = {
         .name = "vsfr123",
@@ -7066,8 +14567,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3032,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR124] = {
         .name = "vsfr124",
@@ -7075,8 +14578,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3040,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR125] = {
         .name = "vsfr125",
@@ -7084,8 +14589,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3048,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR126] = {
         .name = "vsfr126",
@@ -7093,8 +14600,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3056,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR127] = {
         .name = "vsfr127",
@@ -7102,8 +14611,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3064,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR128] = {
         .name = "vsfr128",
@@ -7111,8 +14622,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3072,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR129] = {
         .name = "vsfr129",
@@ -7120,8 +14633,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3080,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR130] = {
         .name = "vsfr130",
@@ -7129,8 +14644,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3088,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR131] = {
         .name = "vsfr131",
@@ -7138,8 +14655,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3096,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR132] = {
         .name = "vsfr132",
@@ -7147,8 +14666,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3104,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR133] = {
         .name = "vsfr133",
@@ -7156,8 +14677,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3112,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR134] = {
         .name = "vsfr134",
@@ -7165,8 +14688,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3120,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR135] = {
         .name = "vsfr135",
@@ -7174,8 +14699,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3128,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR136] = {
         .name = "vsfr136",
@@ -7183,8 +14710,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3136,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR137] = {
         .name = "vsfr137",
@@ -7192,8 +14721,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3144,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR138] = {
         .name = "vsfr138",
@@ -7201,8 +14732,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3152,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR139] = {
         .name = "vsfr139",
@@ -7210,8 +14743,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3160,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR140] = {
         .name = "vsfr140",
@@ -7219,8 +14754,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3168,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR141] = {
         .name = "vsfr141",
@@ -7228,8 +14765,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3176,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR142] = {
         .name = "vsfr142",
@@ -7237,8 +14776,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3184,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR143] = {
         .name = "vsfr143",
@@ -7246,8 +14787,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3192,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR144] = {
         .name = "vsfr144",
@@ -7255,8 +14798,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3200,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR145] = {
         .name = "vsfr145",
@@ -7264,8 +14809,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3208,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR146] = {
         .name = "vsfr146",
@@ -7273,8 +14820,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3216,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR147] = {
         .name = "vsfr147",
@@ -7282,8 +14831,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3224,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR148] = {
         .name = "vsfr148",
@@ -7291,8 +14842,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3232,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR149] = {
         .name = "vsfr149",
@@ -7300,8 +14853,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3240,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR150] = {
         .name = "vsfr150",
@@ -7309,8 +14864,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3248,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR151] = {
         .name = "vsfr151",
@@ -7318,8 +14875,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3256,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR152] = {
         .name = "vsfr152",
@@ -7327,8 +14886,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3264,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR153] = {
         .name = "vsfr153",
@@ -7336,8 +14897,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3272,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR154] = {
         .name = "vsfr154",
@@ -7345,8 +14908,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3280,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR155] = {
         .name = "vsfr155",
@@ -7354,8 +14919,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3288,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR156] = {
         .name = "vsfr156",
@@ -7363,8 +14930,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3296,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR157] = {
         .name = "vsfr157",
@@ -7372,8 +14941,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3304,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR158] = {
         .name = "vsfr158",
@@ -7381,8 +14952,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3312,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR159] = {
         .name = "vsfr159",
@@ -7390,8 +14963,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3320,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR160] = {
         .name = "vsfr160",
@@ -7399,8 +14974,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3328,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR161] = {
         .name = "vsfr161",
@@ -7408,8 +14985,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3336,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR162] = {
         .name = "vsfr162",
@@ -7417,8 +14996,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3344,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR163] = {
         .name = "vsfr163",
@@ -7426,8 +15007,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3352,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR164] = {
         .name = "vsfr164",
@@ -7435,8 +15018,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3360,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR165] = {
         .name = "vsfr165",
@@ -7444,8 +15029,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3368,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR166] = {
         .name = "vsfr166",
@@ -7453,8 +15040,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3376,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR167] = {
         .name = "vsfr167",
@@ -7462,8 +15051,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3384,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR168] = {
         .name = "vsfr168",
@@ -7471,8 +15062,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3392,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR169] = {
         .name = "vsfr169",
@@ -7480,8 +15073,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3400,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR170] = {
         .name = "vsfr170",
@@ -7489,8 +15084,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3408,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR171] = {
         .name = "vsfr171",
@@ -7498,8 +15095,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3416,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR172] = {
         .name = "vsfr172",
@@ -7507,8 +15106,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3424,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR173] = {
         .name = "vsfr173",
@@ -7516,8 +15117,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3432,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR174] = {
         .name = "vsfr174",
@@ -7525,8 +15128,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3440,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR175] = {
         .name = "vsfr175",
@@ -7534,8 +15139,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3448,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR176] = {
         .name = "vsfr176",
@@ -7543,8 +15150,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3456,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR177] = {
         .name = "vsfr177",
@@ -7552,8 +15161,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3464,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR178] = {
         .name = "vsfr178",
@@ -7561,8 +15172,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3472,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR179] = {
         .name = "vsfr179",
@@ -7570,8 +15183,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3480,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR180] = {
         .name = "vsfr180",
@@ -7579,8 +15194,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3488,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR181] = {
         .name = "vsfr181",
@@ -7588,8 +15205,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3496,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR182] = {
         .name = "vsfr182",
@@ -7597,8 +15216,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3504,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR183] = {
         .name = "vsfr183",
@@ -7606,8 +15227,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3512,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR184] = {
         .name = "vsfr184",
@@ -7615,8 +15238,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3520,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR185] = {
         .name = "vsfr185",
@@ -7624,8 +15249,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3528,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR186] = {
         .name = "vsfr186",
@@ -7633,8 +15260,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3536,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR187] = {
         .name = "vsfr187",
@@ -7642,8 +15271,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3544,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR188] = {
         .name = "vsfr188",
@@ -7651,8 +15282,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3552,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR189] = {
         .name = "vsfr189",
@@ -7660,8 +15293,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3560,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR190] = {
         .name = "vsfr190",
@@ -7669,8 +15304,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3568,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR191] = {
         .name = "vsfr191",
@@ -7678,8 +15315,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3576,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR192] = {
         .name = "vsfr192",
@@ -7687,8 +15326,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3584,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR193] = {
         .name = "vsfr193",
@@ -7696,8 +15337,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3592,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR194] = {
         .name = "vsfr194",
@@ -7705,8 +15348,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3600,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR195] = {
         .name = "vsfr195",
@@ -7714,8 +15359,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3608,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR196] = {
         .name = "vsfr196",
@@ -7723,8 +15370,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3616,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR197] = {
         .name = "vsfr197",
@@ -7732,8 +15381,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3624,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR198] = {
         .name = "vsfr198",
@@ -7741,8 +15392,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3632,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR199] = {
         .name = "vsfr199",
@@ -7750,8 +15403,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3640,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR200] = {
         .name = "vsfr200",
@@ -7759,8 +15414,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3648,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR201] = {
         .name = "vsfr201",
@@ -7768,8 +15425,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3656,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR202] = {
         .name = "vsfr202",
@@ -7777,8 +15436,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3664,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR203] = {
         .name = "vsfr203",
@@ -7786,8 +15447,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3672,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR204] = {
         .name = "vsfr204",
@@ -7795,8 +15458,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3680,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR205] = {
         .name = "vsfr205",
@@ -7804,8 +15469,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3688,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR206] = {
         .name = "vsfr206",
@@ -7813,8 +15480,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3696,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR207] = {
         .name = "vsfr207",
@@ -7822,8 +15491,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3704,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR208] = {
         .name = "vsfr208",
@@ -7831,8 +15502,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3712,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR209] = {
         .name = "vsfr209",
@@ -7840,8 +15513,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3720,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR210] = {
         .name = "vsfr210",
@@ -7849,8 +15524,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3728,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR211] = {
         .name = "vsfr211",
@@ -7858,8 +15535,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3736,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR212] = {
         .name = "vsfr212",
@@ -7867,8 +15546,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3744,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR213] = {
         .name = "vsfr213",
@@ -7876,8 +15557,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3752,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR214] = {
         .name = "vsfr214",
@@ -7885,8 +15568,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3760,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR215] = {
         .name = "vsfr215",
@@ -7894,8 +15579,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3768,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR216] = {
         .name = "vsfr216",
@@ -7903,8 +15590,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3776,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR217] = {
         .name = "vsfr217",
@@ -7912,8 +15601,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3784,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR218] = {
         .name = "vsfr218",
@@ -7921,8 +15612,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3792,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR219] = {
         .name = "vsfr219",
@@ -7930,8 +15623,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3800,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR220] = {
         .name = "vsfr220",
@@ -7939,8 +15634,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3808,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR221] = {
         .name = "vsfr221",
@@ -7948,8 +15645,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3816,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR222] = {
         .name = "vsfr222",
@@ -7957,8 +15656,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3824,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR223] = {
         .name = "vsfr223",
@@ -7966,8 +15667,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3832,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR224] = {
         .name = "vsfr224",
@@ -7975,8 +15678,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3840,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR225] = {
         .name = "vsfr225",
@@ -7984,8 +15689,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3848,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR226] = {
         .name = "vsfr226",
@@ -7993,8 +15700,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3856,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR227] = {
         .name = "vsfr227",
@@ -8002,8 +15711,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3864,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR228] = {
         .name = "vsfr228",
@@ -8011,8 +15722,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3872,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR229] = {
         .name = "vsfr229",
@@ -8020,8 +15733,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3880,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR230] = {
         .name = "vsfr230",
@@ -8029,8 +15744,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3888,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR231] = {
         .name = "vsfr231",
@@ -8038,8 +15755,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3896,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR232] = {
         .name = "vsfr232",
@@ -8047,8 +15766,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3904,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR233] = {
         .name = "vsfr233",
@@ -8056,8 +15777,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3912,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR234] = {
         .name = "vsfr234",
@@ -8065,8 +15788,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3920,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR235] = {
         .name = "vsfr235",
@@ -8074,8 +15799,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3928,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR236] = {
         .name = "vsfr236",
@@ -8083,8 +15810,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3936,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR237] = {
         .name = "vsfr237",
@@ -8092,8 +15821,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3944,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR238] = {
         .name = "vsfr238",
@@ -8101,8 +15832,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3952,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR239] = {
         .name = "vsfr239",
@@ -8110,8 +15843,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3960,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR240] = {
         .name = "vsfr240",
@@ -8119,8 +15854,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3968,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR241] = {
         .name = "vsfr241",
@@ -8128,8 +15865,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3976,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR242] = {
         .name = "vsfr242",
@@ -8137,8 +15876,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3984,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR243] = {
         .name = "vsfr243",
@@ -8146,8 +15887,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 3992,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR244] = {
         .name = "vsfr244",
@@ -8155,8 +15898,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 4000,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR245] = {
         .name = "vsfr245",
@@ -8164,8 +15909,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 4008,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR246] = {
         .name = "vsfr246",
@@ -8173,8 +15920,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 4016,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR247] = {
         .name = "vsfr247",
@@ -8182,8 +15931,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 4024,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR248] = {
         .name = "vsfr248",
@@ -8191,8 +15942,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 4032,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR249] = {
         .name = "vsfr249",
@@ -8200,8 +15953,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 4040,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR250] = {
         .name = "vsfr250",
@@ -8209,8 +15964,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 4048,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR251] = {
         .name = "vsfr251",
@@ -8218,8 +15975,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 4056,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR252] = {
         .name = "vsfr252",
@@ -8227,8 +15986,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 4064,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR253] = {
         .name = "vsfr253",
@@ -8236,8 +15997,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 4072,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR254] = {
         .name = "vsfr254",
@@ -8245,8 +16008,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 4080,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_VSFR255] = {
         .name = "vsfr255",
@@ -8254,8 +16019,10 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 4088,
         .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R0] = {
         .name = "r0",
@@ -8263,6 +16030,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 0,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R1] = {
         .name = "r1",
@@ -8270,6 +16039,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 8,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R2] = {
         .name = "r2",
@@ -8277,6 +16048,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 16,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R3] = {
         .name = "r3",
@@ -8284,6 +16057,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 24,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R4] = {
         .name = "r4",
@@ -8291,6 +16066,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 32,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R5] = {
         .name = "r5",
@@ -8298,6 +16075,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 40,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R6] = {
         .name = "r6",
@@ -8305,6 +16084,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 48,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R7] = {
         .name = "r7",
@@ -8312,6 +16093,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 56,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R8] = {
         .name = "r8",
@@ -8319,6 +16102,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 64,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R9] = {
         .name = "r9",
@@ -8326,6 +16111,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 72,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R10] = {
         .name = "r10",
@@ -8333,6 +16120,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 80,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R11] = {
         .name = "r11",
@@ -8340,6 +16129,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 88,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R12] = {
         .name = "r12",
@@ -8347,6 +16138,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 96,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R13] = {
         .name = "r13",
@@ -8354,6 +16147,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 104,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R14] = {
         .name = "r14",
@@ -8361,6 +16156,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 112,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R15] = {
         .name = "r15",
@@ -8368,6 +16165,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 120,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R16] = {
         .name = "r16",
@@ -8375,6 +16174,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 128,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R17] = {
         .name = "r17",
@@ -8382,6 +16183,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 136,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R18] = {
         .name = "r18",
@@ -8389,6 +16192,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 144,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R19] = {
         .name = "r19",
@@ -8396,6 +16201,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 152,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R20] = {
         .name = "r20",
@@ -8403,6 +16210,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 160,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R21] = {
         .name = "r21",
@@ -8410,6 +16219,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 168,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R22] = {
         .name = "r22",
@@ -8417,6 +16228,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 176,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R23] = {
         .name = "r23",
@@ -8424,6 +16237,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 184,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R24] = {
         .name = "r24",
@@ -8431,6 +16246,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 192,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R25] = {
         .name = "r25",
@@ -8438,6 +16255,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 200,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R26] = {
         .name = "r26",
@@ -8445,6 +16264,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 208,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R27] = {
         .name = "r27",
@@ -8452,6 +16273,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 216,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R28] = {
         .name = "r28",
@@ -8459,6 +16282,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 224,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R29] = {
         .name = "r29",
@@ -8466,6 +16291,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 232,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R30] = {
         .name = "r30",
@@ -8473,6 +16300,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 240,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R31] = {
         .name = "r31",
@@ -8480,6 +16309,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 248,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R32] = {
         .name = "r32",
@@ -8487,6 +16318,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 256,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R33] = {
         .name = "r33",
@@ -8494,6 +16327,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 264,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R34] = {
         .name = "r34",
@@ -8501,6 +16336,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 272,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R35] = {
         .name = "r35",
@@ -8508,6 +16345,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 280,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R36] = {
         .name = "r36",
@@ -8515,6 +16354,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 288,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R37] = {
         .name = "r37",
@@ -8522,6 +16363,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 296,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R38] = {
         .name = "r38",
@@ -8529,6 +16372,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 304,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R39] = {
         .name = "r39",
@@ -8536,6 +16381,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 312,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R40] = {
         .name = "r40",
@@ -8543,6 +16390,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 320,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R41] = {
         .name = "r41",
@@ -8550,6 +16399,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 328,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R42] = {
         .name = "r42",
@@ -8557,6 +16408,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 336,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R43] = {
         .name = "r43",
@@ -8564,6 +16417,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 344,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R44] = {
         .name = "r44",
@@ -8571,6 +16426,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 352,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R45] = {
         .name = "r45",
@@ -8578,6 +16435,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 360,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R46] = {
         .name = "r46",
@@ -8585,6 +16444,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 368,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R47] = {
         .name = "r47",
@@ -8592,6 +16453,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 376,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R48] = {
         .name = "r48",
@@ -8599,6 +16462,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 384,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R49] = {
         .name = "r49",
@@ -8606,6 +16471,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 392,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R50] = {
         .name = "r50",
@@ -8613,6 +16480,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 400,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R51] = {
         .name = "r51",
@@ -8620,6 +16489,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 408,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R52] = {
         .name = "r52",
@@ -8627,6 +16498,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 416,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R53] = {
         .name = "r53",
@@ -8634,6 +16507,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 424,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R54] = {
         .name = "r54",
@@ -8641,6 +16516,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 432,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R55] = {
         .name = "r55",
@@ -8648,6 +16525,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 440,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R56] = {
         .name = "r56",
@@ -8655,6 +16534,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 448,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R57] = {
         .name = "r57",
@@ -8662,6 +16543,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 456,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R58] = {
         .name = "r58",
@@ -8669,6 +16552,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 464,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R59] = {
         .name = "r59",
@@ -8676,6 +16561,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 472,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R60] = {
         .name = "r60",
@@ -8683,6 +16570,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 480,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R61] = {
         .name = "r61",
@@ -8690,6 +16579,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 488,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R62] = {
         .name = "r62",
@@ -8697,6 +16588,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 496,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_R63] = {
         .name = "r63",
@@ -8704,6 +16597,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 504,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_P0] = {
         .name = "p0",
@@ -8711,6 +16606,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 0,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_P2] = {
         .name = "p2",
@@ -8718,6 +16615,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 16,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_P4] = {
         .name = "p4",
@@ -8725,6 +16624,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 32,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_P6] = {
         .name = "p6",
@@ -8732,6 +16633,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 48,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_P8] = {
         .name = "p8",
@@ -8739,6 +16642,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 64,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_P10] = {
         .name = "p10",
@@ -8746,6 +16651,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 80,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_P12] = {
         .name = "p12",
@@ -8753,6 +16660,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 96,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_P14] = {
         .name = "p14",
@@ -8760,6 +16669,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 112,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_P16] = {
         .name = "p16",
@@ -8767,6 +16678,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 128,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_P18] = {
         .name = "p18",
@@ -8774,6 +16687,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 144,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_P20] = {
         .name = "p20",
@@ -8781,6 +16696,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 160,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_P22] = {
         .name = "p22",
@@ -8788,6 +16705,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 176,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_P24] = {
         .name = "p24",
@@ -8795,6 +16714,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 192,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_P26] = {
         .name = "p26",
@@ -8802,6 +16723,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 208,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_P28] = {
         .name = "p28",
@@ -8809,6 +16732,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 224,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_P30] = {
         .name = "p30",
@@ -8816,6 +16741,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 240,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_P32] = {
         .name = "p32",
@@ -8823,6 +16750,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 256,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_P34] = {
         .name = "p34",
@@ -8830,6 +16759,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 272,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_P36] = {
         .name = "p36",
@@ -8837,6 +16768,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 288,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_P38] = {
         .name = "p38",
@@ -8844,6 +16777,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 304,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_P40] = {
         .name = "p40",
@@ -8851,6 +16786,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 320,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_P42] = {
         .name = "p42",
@@ -8858,6 +16795,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 336,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_P44] = {
         .name = "p44",
@@ -8865,6 +16804,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 352,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_P46] = {
         .name = "p46",
@@ -8872,6 +16813,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 368,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_P48] = {
         .name = "p48",
@@ -8879,6 +16822,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 384,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_P50] = {
         .name = "p50",
@@ -8886,6 +16831,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 400,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_P52] = {
         .name = "p52",
@@ -8893,6 +16840,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 416,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_P54] = {
         .name = "p54",
@@ -8900,6 +16849,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 432,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_P56] = {
         .name = "p56",
@@ -8907,6 +16858,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 448,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_P58] = {
         .name = "p58",
@@ -8914,6 +16867,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 464,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_P60] = {
         .name = "p60",
@@ -8921,6 +16876,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 480,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_P62] = {
         .name = "p62",
@@ -8928,6 +16885,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 496,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_Q0] = {
         .name = "q0",
@@ -8935,6 +16894,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 0,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_Q4] = {
         .name = "q4",
@@ -8942,6 +16903,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 32,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_Q8] = {
         .name = "q8",
@@ -8949,6 +16912,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 64,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_Q12] = {
         .name = "q12",
@@ -8956,6 +16921,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 96,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_Q16] = {
         .name = "q16",
@@ -8963,6 +16930,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 128,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_Q20] = {
         .name = "q20",
@@ -8970,6 +16939,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 160,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_Q24] = {
         .name = "q24",
@@ -8977,6 +16948,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 192,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_Q28] = {
         .name = "q28",
@@ -8984,6 +16957,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 224,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_Q32] = {
         .name = "q32",
@@ -8991,6 +16966,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 256,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_Q36] = {
         .name = "q36",
@@ -8998,6 +16975,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 288,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_Q40] = {
         .name = "q40",
@@ -9005,6 +16984,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 320,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_Q44] = {
         .name = "q44",
@@ -9012,6 +16993,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 352,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_Q48] = {
         .name = "q48",
@@ -9019,6 +17002,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 384,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_Q52] = {
         .name = "q52",
@@ -9026,6 +17011,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 416,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_Q56] = {
         .name = "q56",
@@ -9033,6 +17020,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 448,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_Q60] = {
         .name = "q60",
@@ -9040,6 +17029,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_GRS) + 480,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C0] = {
         .name = "c0",
@@ -9047,6 +17038,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 0,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C1] = {
         .name = "c1",
@@ -9054,6 +17047,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 8,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C2] = {
         .name = "c2",
@@ -9061,6 +17056,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 16,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C3] = {
         .name = "c3",
@@ -9068,6 +17065,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 24,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C4] = {
         .name = "c4",
@@ -9075,6 +17074,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 32,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C5] = {
         .name = "c5",
@@ -9082,6 +17083,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 40,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C6] = {
         .name = "c6",
@@ -9089,6 +17092,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 48,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C7] = {
         .name = "c7",
@@ -9096,6 +17101,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 56,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C8] = {
         .name = "c8",
@@ -9103,6 +17110,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 64,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C9] = {
         .name = "c9",
@@ -9110,6 +17119,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 72,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C10] = {
         .name = "c10",
@@ -9117,6 +17128,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 80,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C11] = {
         .name = "c11",
@@ -9124,6 +17137,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 88,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C12] = {
         .name = "c12",
@@ -9131,6 +17146,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 96,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C13] = {
         .name = "c13",
@@ -9138,6 +17155,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 104,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C14] = {
         .name = "c14",
@@ -9145,6 +17164,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 112,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C15] = {
         .name = "c15",
@@ -9152,6 +17173,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 120,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C16] = {
         .name = "c16",
@@ -9159,6 +17182,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 128,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C17] = {
         .name = "c17",
@@ -9166,6 +17191,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 136,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C18] = {
         .name = "c18",
@@ -9173,6 +17200,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 144,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C19] = {
         .name = "c19",
@@ -9180,6 +17209,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 152,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C20] = {
         .name = "c20",
@@ -9187,6 +17218,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 160,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C21] = {
         .name = "c21",
@@ -9194,6 +17227,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 168,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C22] = {
         .name = "c22",
@@ -9201,6 +17236,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 176,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C23] = {
         .name = "c23",
@@ -9208,6 +17245,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 184,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C24] = {
         .name = "c24",
@@ -9215,6 +17254,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 192,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C25] = {
         .name = "c25",
@@ -9222,6 +17263,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 200,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C26] = {
         .name = "c26",
@@ -9229,6 +17272,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 208,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C27] = {
         .name = "c27",
@@ -9236,6 +17281,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 216,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C28] = {
         .name = "c28",
@@ -9243,6 +17290,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 224,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C29] = {
         .name = "c29",
@@ -9250,6 +17299,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 232,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C30] = {
         .name = "c30",
@@ -9257,6 +17308,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 240,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C31] = {
         .name = "c31",
@@ -9264,6 +17317,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 248,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C32] = {
         .name = "c32",
@@ -9271,6 +17326,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 256,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C33] = {
         .name = "c33",
@@ -9278,6 +17335,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 264,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C34] = {
         .name = "c34",
@@ -9285,6 +17344,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 272,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C35] = {
         .name = "c35",
@@ -9292,6 +17353,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 280,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C36] = {
         .name = "c36",
@@ -9299,6 +17362,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 288,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C37] = {
         .name = "c37",
@@ -9306,6 +17371,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 296,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C38] = {
         .name = "c38",
@@ -9313,6 +17380,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 304,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C39] = {
         .name = "c39",
@@ -9320,6 +17389,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 312,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C40] = {
         .name = "c40",
@@ -9327,6 +17398,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 320,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C41] = {
         .name = "c41",
@@ -9334,6 +17407,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 328,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C42] = {
         .name = "c42",
@@ -9341,6 +17416,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 336,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C43] = {
         .name = "c43",
@@ -9348,6 +17425,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 344,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C44] = {
         .name = "c44",
@@ -9355,6 +17434,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 352,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C45] = {
         .name = "c45",
@@ -9362,6 +17443,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 360,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C46] = {
         .name = "c46",
@@ -9369,6 +17452,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 368,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C47] = {
         .name = "c47",
@@ -9376,6 +17461,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 376,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C48] = {
         .name = "c48",
@@ -9383,6 +17470,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 384,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C49] = {
         .name = "c49",
@@ -9390,6 +17479,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 392,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C50] = {
         .name = "c50",
@@ -9397,6 +17488,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 400,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C51] = {
         .name = "c51",
@@ -9404,6 +17497,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 408,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C52] = {
         .name = "c52",
@@ -9411,6 +17506,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 416,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C53] = {
         .name = "c53",
@@ -9418,6 +17515,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 424,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C54] = {
         .name = "c54",
@@ -9425,6 +17524,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 432,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C55] = {
         .name = "c55",
@@ -9432,6 +17533,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 440,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C56] = {
         .name = "c56",
@@ -9439,6 +17542,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 448,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C57] = {
         .name = "c57",
@@ -9446,6 +17551,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 456,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C58] = {
         .name = "c58",
@@ -9453,6 +17560,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 464,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C59] = {
         .name = "c59",
@@ -9460,6 +17569,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 472,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C60] = {
         .name = "c60",
@@ -9467,6 +17578,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 480,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C61] = {
         .name = "c61",
@@ -9474,6 +17587,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 488,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C62] = {
         .name = "c62",
@@ -9481,6 +17596,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 496,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C63] = {
         .name = "c63",
@@ -9488,6 +17605,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 504,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C64] = {
         .name = "c64",
@@ -9495,6 +17614,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 512,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C65] = {
         .name = "c65",
@@ -9502,6 +17623,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 520,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C66] = {
         .name = "c66",
@@ -9509,6 +17632,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 528,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C67] = {
         .name = "c67",
@@ -9516,6 +17641,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 536,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C68] = {
         .name = "c68",
@@ -9523,6 +17650,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 544,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C69] = {
         .name = "c69",
@@ -9530,6 +17659,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 552,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C70] = {
         .name = "c70",
@@ -9537,6 +17668,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 560,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C71] = {
         .name = "c71",
@@ -9544,6 +17677,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 568,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C72] = {
         .name = "c72",
@@ -9551,6 +17686,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 576,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C73] = {
         .name = "c73",
@@ -9558,6 +17695,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 584,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C74] = {
         .name = "c74",
@@ -9565,6 +17704,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 592,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C75] = {
         .name = "c75",
@@ -9572,6 +17713,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 600,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C76] = {
         .name = "c76",
@@ -9579,6 +17722,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 608,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C77] = {
         .name = "c77",
@@ -9586,6 +17731,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 616,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C78] = {
         .name = "c78",
@@ -9593,6 +17740,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 624,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C79] = {
         .name = "c79",
@@ -9600,6 +17749,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 632,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C80] = {
         .name = "c80",
@@ -9607,6 +17758,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 640,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C81] = {
         .name = "c81",
@@ -9614,6 +17767,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 648,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C82] = {
         .name = "c82",
@@ -9621,6 +17776,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 656,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C83] = {
         .name = "c83",
@@ -9628,6 +17785,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 664,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C84] = {
         .name = "c84",
@@ -9635,6 +17794,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 672,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C85] = {
         .name = "c85",
@@ -9642,6 +17803,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 680,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C86] = {
         .name = "c86",
@@ -9649,6 +17812,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 688,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C87] = {
         .name = "c87",
@@ -9656,6 +17821,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 696,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C88] = {
         .name = "c88",
@@ -9663,6 +17830,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 704,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C89] = {
         .name = "c89",
@@ -9670,6 +17839,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 712,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C90] = {
         .name = "c90",
@@ -9677,6 +17848,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 720,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C91] = {
         .name = "c91",
@@ -9684,6 +17857,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 728,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C92] = {
         .name = "c92",
@@ -9691,6 +17866,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 736,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C93] = {
         .name = "c93",
@@ -9698,6 +17875,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 744,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C94] = {
         .name = "c94",
@@ -9705,6 +17884,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 752,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C95] = {
         .name = "c95",
@@ -9712,6 +17893,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 760,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C96] = {
         .name = "c96",
@@ -9719,6 +17902,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 768,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C97] = {
         .name = "c97",
@@ -9726,6 +17911,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 776,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C98] = {
         .name = "c98",
@@ -9733,6 +17920,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 784,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C99] = {
         .name = "c99",
@@ -9740,6 +17929,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 792,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C100] = {
         .name = "c100",
@@ -9747,6 +17938,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 800,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C101] = {
         .name = "c101",
@@ -9754,6 +17947,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 808,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C102] = {
         .name = "c102",
@@ -9761,6 +17956,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 816,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C103] = {
         .name = "c103",
@@ -9768,6 +17965,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 824,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C104] = {
         .name = "c104",
@@ -9775,6 +17974,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 832,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C105] = {
         .name = "c105",
@@ -9782,6 +17983,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 840,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C106] = {
         .name = "c106",
@@ -9789,6 +17992,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 848,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C107] = {
         .name = "c107",
@@ -9796,6 +18001,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 856,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C108] = {
         .name = "c108",
@@ -9803,6 +18010,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 864,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C109] = {
         .name = "c109",
@@ -9810,6 +18019,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 872,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C110] = {
         .name = "c110",
@@ -9817,6 +18028,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 880,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C111] = {
         .name = "c111",
@@ -9824,6 +18037,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 888,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C112] = {
         .name = "c112",
@@ -9831,6 +18046,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 896,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C113] = {
         .name = "c113",
@@ -9838,6 +18055,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 904,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C114] = {
         .name = "c114",
@@ -9845,6 +18064,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 912,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C115] = {
         .name = "c115",
@@ -9852,6 +18073,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 920,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C116] = {
         .name = "c116",
@@ -9859,6 +18082,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 928,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C117] = {
         .name = "c117",
@@ -9866,6 +18091,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 936,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C118] = {
         .name = "c118",
@@ -9873,6 +18100,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 944,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C119] = {
         .name = "c119",
@@ -9880,6 +18109,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 952,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C120] = {
         .name = "c120",
@@ -9887,6 +18118,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 960,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C121] = {
         .name = "c121",
@@ -9894,6 +18127,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 968,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C122] = {
         .name = "c122",
@@ -9901,6 +18136,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 976,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C123] = {
         .name = "c123",
@@ -9908,6 +18145,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 984,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C124] = {
         .name = "c124",
@@ -9915,6 +18154,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 992,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C125] = {
         .name = "c125",
@@ -9922,6 +18163,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1000,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C126] = {
         .name = "c126",
@@ -9929,6 +18172,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1008,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C127] = {
         .name = "c127",
@@ -9936,6 +18181,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1016,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C128] = {
         .name = "c128",
@@ -9943,6 +18190,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1024,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C129] = {
         .name = "c129",
@@ -9950,6 +18199,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1032,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C130] = {
         .name = "c130",
@@ -9957,6 +18208,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1040,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C131] = {
         .name = "c131",
@@ -9964,6 +18217,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1048,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C132] = {
         .name = "c132",
@@ -9971,6 +18226,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1056,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C133] = {
         .name = "c133",
@@ -9978,6 +18235,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1064,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C134] = {
         .name = "c134",
@@ -9985,6 +18244,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1072,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C135] = {
         .name = "c135",
@@ -9992,6 +18253,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1080,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C136] = {
         .name = "c136",
@@ -9999,6 +18262,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1088,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C137] = {
         .name = "c137",
@@ -10006,6 +18271,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1096,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C138] = {
         .name = "c138",
@@ -10013,6 +18280,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1104,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C139] = {
         .name = "c139",
@@ -10020,6 +18289,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1112,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C140] = {
         .name = "c140",
@@ -10027,6 +18298,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1120,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C141] = {
         .name = "c141",
@@ -10034,6 +18307,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1128,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C142] = {
         .name = "c142",
@@ -10041,6 +18316,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1136,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C143] = {
         .name = "c143",
@@ -10048,6 +18325,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1144,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C144] = {
         .name = "c144",
@@ -10055,6 +18334,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1152,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C145] = {
         .name = "c145",
@@ -10062,6 +18343,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1160,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C146] = {
         .name = "c146",
@@ -10069,6 +18352,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1168,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C147] = {
         .name = "c147",
@@ -10076,6 +18361,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1176,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C148] = {
         .name = "c148",
@@ -10083,6 +18370,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1184,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C149] = {
         .name = "c149",
@@ -10090,6 +18379,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1192,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C150] = {
         .name = "c150",
@@ -10097,6 +18388,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1200,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C151] = {
         .name = "c151",
@@ -10104,6 +18397,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1208,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C152] = {
         .name = "c152",
@@ -10111,6 +18406,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1216,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C153] = {
         .name = "c153",
@@ -10118,6 +18415,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1224,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C154] = {
         .name = "c154",
@@ -10125,6 +18424,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1232,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C155] = {
         .name = "c155",
@@ -10132,6 +18433,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1240,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C156] = {
         .name = "c156",
@@ -10139,6 +18442,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1248,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C157] = {
         .name = "c157",
@@ -10146,6 +18451,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1256,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C158] = {
         .name = "c158",
@@ -10153,6 +18460,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1264,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C159] = {
         .name = "c159",
@@ -10160,6 +18469,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1272,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C160] = {
         .name = "c160",
@@ -10167,6 +18478,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1280,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C161] = {
         .name = "c161",
@@ -10174,6 +18487,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1288,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C162] = {
         .name = "c162",
@@ -10181,6 +18496,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1296,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C163] = {
         .name = "c163",
@@ -10188,6 +18505,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1304,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C164] = {
         .name = "c164",
@@ -10195,6 +18514,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1312,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C165] = {
         .name = "c165",
@@ -10202,6 +18523,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1320,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C166] = {
         .name = "c166",
@@ -10209,6 +18532,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1328,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C167] = {
         .name = "c167",
@@ -10216,6 +18541,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1336,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C168] = {
         .name = "c168",
@@ -10223,6 +18550,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1344,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C169] = {
         .name = "c169",
@@ -10230,6 +18559,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1352,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C170] = {
         .name = "c170",
@@ -10237,6 +18568,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1360,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C171] = {
         .name = "c171",
@@ -10244,6 +18577,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1368,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C172] = {
         .name = "c172",
@@ -10251,6 +18586,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1376,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C173] = {
         .name = "c173",
@@ -10258,6 +18595,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1384,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C174] = {
         .name = "c174",
@@ -10265,6 +18604,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1392,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C175] = {
         .name = "c175",
@@ -10272,6 +18613,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1400,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C176] = {
         .name = "c176",
@@ -10279,6 +18622,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1408,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C177] = {
         .name = "c177",
@@ -10286,6 +18631,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1416,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C178] = {
         .name = "c178",
@@ -10293,6 +18640,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1424,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C179] = {
         .name = "c179",
@@ -10300,6 +18649,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1432,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C180] = {
         .name = "c180",
@@ -10307,6 +18658,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1440,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C181] = {
         .name = "c181",
@@ -10314,6 +18667,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1448,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C182] = {
         .name = "c182",
@@ -10321,6 +18676,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1456,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C183] = {
         .name = "c183",
@@ -10328,6 +18685,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1464,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C184] = {
         .name = "c184",
@@ -10335,6 +18694,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1472,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C185] = {
         .name = "c185",
@@ -10342,6 +18703,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1480,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C186] = {
         .name = "c186",
@@ -10349,6 +18712,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1488,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C187] = {
         .name = "c187",
@@ -10356,6 +18721,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1496,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C188] = {
         .name = "c188",
@@ -10363,6 +18730,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1504,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C189] = {
         .name = "c189",
@@ -10370,6 +18739,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1512,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C190] = {
         .name = "c190",
@@ -10377,6 +18748,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1520,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C191] = {
         .name = "c191",
@@ -10384,6 +18757,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1528,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C192] = {
         .name = "c192",
@@ -10391,6 +18766,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1536,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C193] = {
         .name = "c193",
@@ -10398,6 +18775,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1544,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C194] = {
         .name = "c194",
@@ -10405,6 +18784,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1552,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C195] = {
         .name = "c195",
@@ -10412,6 +18793,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1560,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C196] = {
         .name = "c196",
@@ -10419,6 +18802,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1568,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C197] = {
         .name = "c197",
@@ -10426,6 +18811,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1576,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C198] = {
         .name = "c198",
@@ -10433,6 +18820,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1584,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C199] = {
         .name = "c199",
@@ -10440,6 +18829,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1592,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C200] = {
         .name = "c200",
@@ -10447,6 +18838,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1600,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C201] = {
         .name = "c201",
@@ -10454,6 +18847,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1608,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C202] = {
         .name = "c202",
@@ -10461,6 +18856,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1616,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C203] = {
         .name = "c203",
@@ -10468,6 +18865,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1624,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C204] = {
         .name = "c204",
@@ -10475,6 +18874,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1632,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C205] = {
         .name = "c205",
@@ -10482,6 +18883,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1640,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C206] = {
         .name = "c206",
@@ -10489,6 +18892,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1648,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C207] = {
         .name = "c207",
@@ -10496,6 +18901,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1656,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C208] = {
         .name = "c208",
@@ -10503,6 +18910,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1664,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C209] = {
         .name = "c209",
@@ -10510,6 +18919,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1672,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C210] = {
         .name = "c210",
@@ -10517,6 +18928,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1680,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C211] = {
         .name = "c211",
@@ -10524,6 +18937,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1688,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C212] = {
         .name = "c212",
@@ -10531,6 +18946,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1696,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C213] = {
         .name = "c213",
@@ -10538,6 +18955,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1704,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C214] = {
         .name = "c214",
@@ -10545,6 +18964,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1712,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C215] = {
         .name = "c215",
@@ -10552,6 +18973,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1720,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C216] = {
         .name = "c216",
@@ -10559,6 +18982,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1728,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C217] = {
         .name = "c217",
@@ -10566,6 +18991,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1736,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C218] = {
         .name = "c218",
@@ -10573,6 +19000,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1744,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C219] = {
         .name = "c219",
@@ -10580,6 +19009,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1752,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C220] = {
         .name = "c220",
@@ -10587,6 +19018,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1760,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C221] = {
         .name = "c221",
@@ -10594,6 +19027,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1768,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C222] = {
         .name = "c222",
@@ -10601,6 +19036,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1776,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C223] = {
         .name = "c223",
@@ -10608,6 +19045,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1784,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C224] = {
         .name = "c224",
@@ -10615,6 +19054,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1792,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C225] = {
         .name = "c225",
@@ -10622,6 +19063,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1800,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C226] = {
         .name = "c226",
@@ -10629,6 +19072,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1808,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C227] = {
         .name = "c227",
@@ -10636,6 +19081,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1816,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C228] = {
         .name = "c228",
@@ -10643,6 +19090,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1824,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C229] = {
         .name = "c229",
@@ -10650,6 +19099,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1832,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C230] = {
         .name = "c230",
@@ -10657,6 +19108,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1840,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C231] = {
         .name = "c231",
@@ -10664,6 +19117,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1848,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C232] = {
         .name = "c232",
@@ -10671,6 +19126,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1856,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C233] = {
         .name = "c233",
@@ -10678,6 +19135,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1864,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C234] = {
         .name = "c234",
@@ -10685,6 +19144,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1872,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C235] = {
         .name = "c235",
@@ -10692,6 +19153,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1880,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C236] = {
         .name = "c236",
@@ -10699,6 +19162,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1888,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C237] = {
         .name = "c237",
@@ -10706,6 +19171,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1896,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C238] = {
         .name = "c238",
@@ -10713,6 +19180,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1904,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C239] = {
         .name = "c239",
@@ -10720,6 +19189,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1912,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C240] = {
         .name = "c240",
@@ -10727,6 +19198,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1920,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C241] = {
         .name = "c241",
@@ -10734,6 +19207,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1928,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C242] = {
         .name = "c242",
@@ -10741,6 +19216,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1936,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C243] = {
         .name = "c243",
@@ -10748,6 +19225,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1944,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C244] = {
         .name = "c244",
@@ -10755,6 +19234,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1952,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C245] = {
         .name = "c245",
@@ -10762,6 +19243,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1960,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C246] = {
         .name = "c246",
@@ -10769,6 +19252,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1968,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C247] = {
         .name = "c247",
@@ -10776,6 +19261,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1976,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C248] = {
         .name = "c248",
@@ -10783,6 +19270,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1984,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C249] = {
         .name = "c249",
@@ -10790,6 +19279,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1992,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C250] = {
         .name = "c250",
@@ -10797,6 +19288,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 2000,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C251] = {
         .name = "c251",
@@ -10804,6 +19297,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 2008,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C252] = {
         .name = "c252",
@@ -10811,6 +19306,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 2016,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C253] = {
         .name = "c253",
@@ -10818,6 +19315,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 2024,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C254] = {
         .name = "c254",
@@ -10825,6 +19324,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 2032,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_C255] = {
         .name = "c255",
@@ -10832,6 +19333,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 2040,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B0] = {
         .name = "b0",
@@ -10839,6 +19342,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 0,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B1] = {
         .name = "b1",
@@ -10846,6 +19351,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 16,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B2] = {
         .name = "b2",
@@ -10853,6 +19360,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 32,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B3] = {
         .name = "b3",
@@ -10860,6 +19369,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 48,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B4] = {
         .name = "b4",
@@ -10867,6 +19378,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 64,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B5] = {
         .name = "b5",
@@ -10874,6 +19387,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 80,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B6] = {
         .name = "b6",
@@ -10881,6 +19396,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 96,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B7] = {
         .name = "b7",
@@ -10888,6 +19405,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 112,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B8] = {
         .name = "b8",
@@ -10895,6 +19414,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 128,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B9] = {
         .name = "b9",
@@ -10902,6 +19423,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 144,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B10] = {
         .name = "b10",
@@ -10909,6 +19432,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 160,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B11] = {
         .name = "b11",
@@ -10916,6 +19441,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 176,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B12] = {
         .name = "b12",
@@ -10923,6 +19450,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 192,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B13] = {
         .name = "b13",
@@ -10930,6 +19459,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 208,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B14] = {
         .name = "b14",
@@ -10937,6 +19468,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 224,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B15] = {
         .name = "b15",
@@ -10944,6 +19477,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 240,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B16] = {
         .name = "b16",
@@ -10951,6 +19486,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 256,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B17] = {
         .name = "b17",
@@ -10958,6 +19495,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 272,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B18] = {
         .name = "b18",
@@ -10965,6 +19504,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 288,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B19] = {
         .name = "b19",
@@ -10972,6 +19513,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 304,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B20] = {
         .name = "b20",
@@ -10979,6 +19522,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 320,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B21] = {
         .name = "b21",
@@ -10986,6 +19531,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 336,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B22] = {
         .name = "b22",
@@ -10993,6 +19540,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 352,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B23] = {
         .name = "b23",
@@ -11000,6 +19549,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 368,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B24] = {
         .name = "b24",
@@ -11007,6 +19558,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 384,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B25] = {
         .name = "b25",
@@ -11014,6 +19567,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 400,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B26] = {
         .name = "b26",
@@ -11021,6 +19576,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 416,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B27] = {
         .name = "b27",
@@ -11028,6 +19585,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 432,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B28] = {
         .name = "b28",
@@ -11035,6 +19594,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 448,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B29] = {
         .name = "b29",
@@ -11042,6 +19603,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 464,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B30] = {
         .name = "b30",
@@ -11049,6 +19612,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 480,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B31] = {
         .name = "b31",
@@ -11056,6 +19621,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 496,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B32] = {
         .name = "b32",
@@ -11063,6 +19630,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 512,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B33] = {
         .name = "b33",
@@ -11070,6 +19639,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 528,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B34] = {
         .name = "b34",
@@ -11077,6 +19648,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 544,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B35] = {
         .name = "b35",
@@ -11084,6 +19657,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 560,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B36] = {
         .name = "b36",
@@ -11091,6 +19666,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 576,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B37] = {
         .name = "b37",
@@ -11098,6 +19675,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 592,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B38] = {
         .name = "b38",
@@ -11105,6 +19684,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 608,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B39] = {
         .name = "b39",
@@ -11112,6 +19693,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 624,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B40] = {
         .name = "b40",
@@ -11119,6 +19702,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 640,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B41] = {
         .name = "b41",
@@ -11126,6 +19711,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 656,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B42] = {
         .name = "b42",
@@ -11133,6 +19720,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 672,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B43] = {
         .name = "b43",
@@ -11140,6 +19729,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 688,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B44] = {
         .name = "b44",
@@ -11147,6 +19738,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 704,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B45] = {
         .name = "b45",
@@ -11154,6 +19747,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 720,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B46] = {
         .name = "b46",
@@ -11161,6 +19756,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 736,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B47] = {
         .name = "b47",
@@ -11168,6 +19765,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 752,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B48] = {
         .name = "b48",
@@ -11175,6 +19774,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 768,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B49] = {
         .name = "b49",
@@ -11182,6 +19783,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 784,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B50] = {
         .name = "b50",
@@ -11189,6 +19792,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 800,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B51] = {
         .name = "b51",
@@ -11196,6 +19801,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 816,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B52] = {
         .name = "b52",
@@ -11203,6 +19810,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 832,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B53] = {
         .name = "b53",
@@ -11210,6 +19819,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 848,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B54] = {
         .name = "b54",
@@ -11217,6 +19828,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 864,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B55] = {
         .name = "b55",
@@ -11224,6 +19837,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 880,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B56] = {
         .name = "b56",
@@ -11231,6 +19846,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 896,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B57] = {
         .name = "b57",
@@ -11238,6 +19855,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 912,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B58] = {
         .name = "b58",
@@ -11245,6 +19864,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 928,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B59] = {
         .name = "b59",
@@ -11252,6 +19873,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 944,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B60] = {
         .name = "b60",
@@ -11259,6 +19882,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 960,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B61] = {
         .name = "b61",
@@ -11266,6 +19891,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 976,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B62] = {
         .name = "b62",
@@ -11273,6 +19900,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 992,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B63] = {
         .name = "b63",
@@ -11280,6 +19909,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1008,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B64] = {
         .name = "b64",
@@ -11287,6 +19918,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1024,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B65] = {
         .name = "b65",
@@ -11294,6 +19927,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1040,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B66] = {
         .name = "b66",
@@ -11301,6 +19936,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1056,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B67] = {
         .name = "b67",
@@ -11308,6 +19945,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1072,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B68] = {
         .name = "b68",
@@ -11315,6 +19954,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1088,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B69] = {
         .name = "b69",
@@ -11322,6 +19963,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1104,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B70] = {
         .name = "b70",
@@ -11329,6 +19972,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1120,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B71] = {
         .name = "b71",
@@ -11336,6 +19981,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1136,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B72] = {
         .name = "b72",
@@ -11343,6 +19990,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1152,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B73] = {
         .name = "b73",
@@ -11350,6 +19999,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1168,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B74] = {
         .name = "b74",
@@ -11357,6 +20008,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1184,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B75] = {
         .name = "b75",
@@ -11364,6 +20017,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1200,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B76] = {
         .name = "b76",
@@ -11371,6 +20026,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1216,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B77] = {
         .name = "b77",
@@ -11378,6 +20035,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1232,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B78] = {
         .name = "b78",
@@ -11385,6 +20044,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1248,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B79] = {
         .name = "b79",
@@ -11392,6 +20053,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1264,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B80] = {
         .name = "b80",
@@ -11399,6 +20062,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1280,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B81] = {
         .name = "b81",
@@ -11406,6 +20071,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1296,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B82] = {
         .name = "b82",
@@ -11413,6 +20080,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1312,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B83] = {
         .name = "b83",
@@ -11420,6 +20089,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1328,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B84] = {
         .name = "b84",
@@ -11427,6 +20098,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1344,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B85] = {
         .name = "b85",
@@ -11434,6 +20107,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1360,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B86] = {
         .name = "b86",
@@ -11441,6 +20116,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1376,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B87] = {
         .name = "b87",
@@ -11448,6 +20125,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1392,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B88] = {
         .name = "b88",
@@ -11455,6 +20134,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1408,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B89] = {
         .name = "b89",
@@ -11462,6 +20143,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1424,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B90] = {
         .name = "b90",
@@ -11469,6 +20152,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1440,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B91] = {
         .name = "b91",
@@ -11476,6 +20161,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1456,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B92] = {
         .name = "b92",
@@ -11483,6 +20170,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1472,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B93] = {
         .name = "b93",
@@ -11490,6 +20179,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1488,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B94] = {
         .name = "b94",
@@ -11497,6 +20188,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1504,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B95] = {
         .name = "b95",
@@ -11504,6 +20197,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1520,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B96] = {
         .name = "b96",
@@ -11511,6 +20206,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1536,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B97] = {
         .name = "b97",
@@ -11518,6 +20215,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1552,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B98] = {
         .name = "b98",
@@ -11525,6 +20224,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1568,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B99] = {
         .name = "b99",
@@ -11532,6 +20233,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1584,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B100] = {
         .name = "b100",
@@ -11539,6 +20242,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1600,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B101] = {
         .name = "b101",
@@ -11546,6 +20251,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1616,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B102] = {
         .name = "b102",
@@ -11553,6 +20260,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1632,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B103] = {
         .name = "b103",
@@ -11560,6 +20269,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1648,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B104] = {
         .name = "b104",
@@ -11567,6 +20278,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1664,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B105] = {
         .name = "b105",
@@ -11574,6 +20287,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1680,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B106] = {
         .name = "b106",
@@ -11581,6 +20296,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1696,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B107] = {
         .name = "b107",
@@ -11588,6 +20305,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1712,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B108] = {
         .name = "b108",
@@ -11595,6 +20314,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1728,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B109] = {
         .name = "b109",
@@ -11602,6 +20323,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1744,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B110] = {
         .name = "b110",
@@ -11609,6 +20332,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1760,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B111] = {
         .name = "b111",
@@ -11616,6 +20341,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1776,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B112] = {
         .name = "b112",
@@ -11623,6 +20350,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1792,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B113] = {
         .name = "b113",
@@ -11630,6 +20359,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1808,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B114] = {
         .name = "b114",
@@ -11637,6 +20368,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1824,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B115] = {
         .name = "b115",
@@ -11644,6 +20377,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1840,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B116] = {
         .name = "b116",
@@ -11651,6 +20386,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1856,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B117] = {
         .name = "b117",
@@ -11658,6 +20395,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1872,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B118] = {
         .name = "b118",
@@ -11665,6 +20404,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1888,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B119] = {
         .name = "b119",
@@ -11672,6 +20413,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1904,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B120] = {
         .name = "b120",
@@ -11679,6 +20422,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1920,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B121] = {
         .name = "b121",
@@ -11686,6 +20431,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1936,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B122] = {
         .name = "b122",
@@ -11693,6 +20440,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1952,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B123] = {
         .name = "b123",
@@ -11700,6 +20449,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1968,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B124] = {
         .name = "b124",
@@ -11707,6 +20458,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1984,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B125] = {
         .name = "b125",
@@ -11714,6 +20467,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 2000,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B126] = {
         .name = "b126",
@@ -11721,6 +20476,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 2016,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_B127] = {
         .name = "b127",
@@ -11728,6 +20485,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 128,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 2032,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A0] = {
         .name = "a0",
@@ -11735,6 +20494,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 0,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A1] = {
         .name = "a1",
@@ -11742,6 +20503,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 32,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A2] = {
         .name = "a2",
@@ -11749,6 +20512,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 64,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A3] = {
         .name = "a3",
@@ -11756,6 +20521,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 96,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A4] = {
         .name = "a4",
@@ -11763,6 +20530,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 128,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A5] = {
         .name = "a5",
@@ -11770,6 +20539,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 160,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A6] = {
         .name = "a6",
@@ -11777,6 +20548,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 192,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A7] = {
         .name = "a7",
@@ -11784,6 +20557,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 224,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A8] = {
         .name = "a8",
@@ -11791,6 +20566,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 256,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A9] = {
         .name = "a9",
@@ -11798,6 +20575,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 288,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A10] = {
         .name = "a10",
@@ -11805,6 +20584,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 320,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A11] = {
         .name = "a11",
@@ -11812,6 +20593,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 352,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A12] = {
         .name = "a12",
@@ -11819,6 +20602,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 384,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A13] = {
         .name = "a13",
@@ -11826,6 +20611,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 416,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A14] = {
         .name = "a14",
@@ -11833,6 +20620,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 448,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A15] = {
         .name = "a15",
@@ -11840,6 +20629,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 480,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A16] = {
         .name = "a16",
@@ -11847,6 +20638,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 512,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A17] = {
         .name = "a17",
@@ -11854,6 +20647,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 544,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A18] = {
         .name = "a18",
@@ -11861,6 +20656,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 576,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A19] = {
         .name = "a19",
@@ -11868,6 +20665,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 608,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A20] = {
         .name = "a20",
@@ -11875,6 +20674,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 640,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A21] = {
         .name = "a21",
@@ -11882,6 +20683,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 672,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A22] = {
         .name = "a22",
@@ -11889,6 +20692,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 704,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A23] = {
         .name = "a23",
@@ -11896,6 +20701,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 736,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A24] = {
         .name = "a24",
@@ -11903,6 +20710,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 768,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A25] = {
         .name = "a25",
@@ -11910,6 +20719,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 800,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A26] = {
         .name = "a26",
@@ -11917,6 +20728,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 832,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A27] = {
         .name = "a27",
@@ -11924,6 +20737,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 864,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A28] = {
         .name = "a28",
@@ -11931,6 +20746,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 896,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A29] = {
         .name = "a29",
@@ -11938,6 +20755,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 928,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A30] = {
         .name = "a30",
@@ -11945,6 +20764,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 960,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A31] = {
         .name = "a31",
@@ -11952,6 +20773,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 992,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A32] = {
         .name = "a32",
@@ -11959,6 +20782,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1024,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A33] = {
         .name = "a33",
@@ -11966,6 +20791,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1056,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A34] = {
         .name = "a34",
@@ -11973,6 +20800,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1088,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A35] = {
         .name = "a35",
@@ -11980,6 +20809,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1120,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A36] = {
         .name = "a36",
@@ -11987,6 +20818,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1152,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A37] = {
         .name = "a37",
@@ -11994,6 +20827,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1184,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A38] = {
         .name = "a38",
@@ -12001,6 +20836,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1216,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A39] = {
         .name = "a39",
@@ -12008,6 +20845,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1248,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A40] = {
         .name = "a40",
@@ -12015,6 +20854,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1280,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A41] = {
         .name = "a41",
@@ -12022,6 +20863,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1312,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A42] = {
         .name = "a42",
@@ -12029,6 +20872,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1344,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A43] = {
         .name = "a43",
@@ -12036,6 +20881,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1376,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A44] = {
         .name = "a44",
@@ -12043,6 +20890,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1408,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A45] = {
         .name = "a45",
@@ -12050,6 +20899,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1440,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A46] = {
         .name = "a46",
@@ -12057,6 +20908,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1472,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A47] = {
         .name = "a47",
@@ -12064,6 +20917,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1504,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A48] = {
         .name = "a48",
@@ -12071,6 +20926,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1536,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A49] = {
         .name = "a49",
@@ -12078,6 +20935,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1568,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A50] = {
         .name = "a50",
@@ -12085,6 +20944,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1600,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A51] = {
         .name = "a51",
@@ -12092,6 +20953,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1632,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A52] = {
         .name = "a52",
@@ -12099,6 +20962,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1664,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A53] = {
         .name = "a53",
@@ -12106,6 +20971,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1696,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A54] = {
         .name = "a54",
@@ -12113,6 +20980,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1728,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A55] = {
         .name = "a55",
@@ -12120,6 +20989,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1760,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A56] = {
         .name = "a56",
@@ -12127,6 +20998,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1792,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A57] = {
         .name = "a57",
@@ -12134,6 +21007,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1824,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A58] = {
         .name = "a58",
@@ -12141,6 +21016,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1856,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A59] = {
         .name = "a59",
@@ -12148,6 +21025,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1888,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A60] = {
         .name = "a60",
@@ -12155,6 +21034,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1920,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A61] = {
         .name = "a61",
@@ -12162,6 +21043,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1952,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A62] = {
         .name = "a62",
@@ -12169,6 +21052,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1984,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_A63] = {
         .name = "a63",
@@ -12176,6 +21061,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 256,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 2016,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_W0] = {
         .name = "w0",
@@ -12183,6 +21070,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 512,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 0,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_W1] = {
         .name = "w1",
@@ -12190,6 +21079,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 512,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 64,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_W2] = {
         .name = "w2",
@@ -12197,6 +21088,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 512,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 128,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_W3] = {
         .name = "w3",
@@ -12204,6 +21097,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 512,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 192,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_W4] = {
         .name = "w4",
@@ -12211,6 +21106,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 512,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 256,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_W5] = {
         .name = "w5",
@@ -12218,6 +21115,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 512,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 320,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_W6] = {
         .name = "w6",
@@ -12225,6 +21124,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 512,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 384,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_W7] = {
         .name = "w7",
@@ -12232,6 +21133,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 512,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 448,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_W8] = {
         .name = "w8",
@@ -12239,6 +21142,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 512,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 512,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_W9] = {
         .name = "w9",
@@ -12246,6 +21151,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 512,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 576,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_W10] = {
         .name = "w10",
@@ -12253,6 +21160,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 512,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 640,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_W11] = {
         .name = "w11",
@@ -12260,6 +21169,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 512,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 704,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_W12] = {
         .name = "w12",
@@ -12267,6 +21178,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 512,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 768,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_W13] = {
         .name = "w13",
@@ -12274,6 +21187,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 512,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 832,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_W14] = {
         .name = "w14",
@@ -12281,6 +21196,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 512,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 896,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_W15] = {
         .name = "w15",
@@ -12288,6 +21205,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 512,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 960,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_W16] = {
         .name = "w16",
@@ -12295,6 +21214,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 512,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1024,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_W17] = {
         .name = "w17",
@@ -12302,6 +21223,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 512,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1088,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_W18] = {
         .name = "w18",
@@ -12309,6 +21232,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 512,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1152,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_W19] = {
         .name = "w19",
@@ -12316,6 +21241,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 512,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1216,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_W20] = {
         .name = "w20",
@@ -12323,6 +21250,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 512,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1280,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_W21] = {
         .name = "w21",
@@ -12330,6 +21259,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 512,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1344,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_W22] = {
         .name = "w22",
@@ -12337,6 +21268,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 512,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1408,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_W23] = {
         .name = "w23",
@@ -12344,6 +21277,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 512,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1472,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_W24] = {
         .name = "w24",
@@ -12351,6 +21286,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 512,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1536,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_W25] = {
         .name = "w25",
@@ -12358,6 +21295,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 512,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1600,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_W26] = {
         .name = "w26",
@@ -12365,6 +21304,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 512,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1664,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_W27] = {
         .name = "w27",
@@ -12372,6 +21313,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 512,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1728,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_W28] = {
         .name = "w28",
@@ -12379,6 +21322,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 512,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1792,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_W29] = {
         .name = "w29",
@@ -12386,6 +21331,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 512,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1856,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_W30] = {
         .name = "w30",
@@ -12393,6 +21340,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 512,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1920,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_W31] = {
         .name = "w31",
@@ -12400,6 +21349,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 512,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1984,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_X0] = {
         .name = "x0",
@@ -12407,6 +21358,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 1024,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 0,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_X1] = {
         .name = "x1",
@@ -12414,6 +21367,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 1024,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 128,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_X2] = {
         .name = "x2",
@@ -12421,6 +21376,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 1024,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 256,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_X3] = {
         .name = "x3",
@@ -12428,6 +21385,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 1024,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 384,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_X4] = {
         .name = "x4",
@@ -12435,6 +21394,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 1024,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 512,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_X5] = {
         .name = "x5",
@@ -12442,6 +21403,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 1024,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 640,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_X6] = {
         .name = "x6",
@@ -12449,6 +21412,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 1024,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 768,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_X7] = {
         .name = "x7",
@@ -12456,6 +21421,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 1024,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 896,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_X8] = {
         .name = "x8",
@@ -12463,6 +21430,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 1024,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1024,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_X9] = {
         .name = "x9",
@@ -12470,6 +21439,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 1024,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1152,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_X10] = {
         .name = "x10",
@@ -12477,6 +21448,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 1024,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1280,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_X11] = {
         .name = "x11",
@@ -12484,6 +21457,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 1024,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1408,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_X12] = {
         .name = "x12",
@@ -12491,6 +21466,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 1024,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1536,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_X13] = {
         .name = "x13",
@@ -12498,6 +21475,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 1024,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1664,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_X14] = {
         .name = "x14",
@@ -12505,6 +21484,8 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 1024,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1792,
         .reset = 0x0,
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
     [REG_kv3_X15] = {
         .name = "x15",
@@ -12512,6463 +21493,661 @@ static const RegisterDescr REGISTERS[] = {
         .reg_width = 1024,
         .offset = offsetof(CPUArchState, storages.kv3_XRS) + 1920,
         .reset = 0x0,
-    },
-};
-
-typedef struct RegisterFieldDescr RegisterFieldDescr;
-struct RegisterFieldDescr {
-    const char *name; /* name (debug purpose mostly) */
-    Register reg; /* register containing this field */
-    int offset; /* offset of the field in bits */
-    int width; /* width of the field in bits */
-    int n_owners; /* number of fields */
-    const RegisterField *owners; /* owners (pl-sized field(s)) */
-    RegisterReadErrorType rerror; /* error on unprivileged read */
-    RegisterWriteErrorType werror; /* error on unprivileged write */
-};
-
-static const RegisterFieldDescr REGISTERFIELDS[] = {
-    [REGFIELD_kv3_MEN_MEN] = {
-        .name = "MEN_MEN",
-        .reg = REG_kv3_MEN,
-        .offset = 0,
-        .width = 16,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_MEN,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SYO_Q0] = {
-        .name = "SYO_Q0",
-        .reg = REG_kv3_SYO,
-        .offset = 0,
-        .width = 2,
-    },
-    [REGFIELD_kv3_SYO_Q1] = {
-        .name = "SYO_Q1",
-        .reg = REG_kv3_SYO,
-        .offset = 2,
-        .width = 2,
-    },
-    [REGFIELD_kv3_SYO_Q2] = {
-        .name = "SYO_Q2",
-        .reg = REG_kv3_SYO,
-        .offset = 4,
-        .width = 2,
-    },
-    [REGFIELD_kv3_SYO_Q3] = {
-        .name = "SYO_Q3",
-        .reg = REG_kv3_SYO,
-        .offset = 6,
-        .width = 2,
-    },
-    [REGFIELD_kv3_SYOW_Q0] = {
-        .name = "SYOW_Q0",
-        .reg = REG_kv3_SYOW,
-        .offset = 0,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_SYO_Q0,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SYOW_Q1] = {
-        .name = "SYOW_Q1",
-        .reg = REG_kv3_SYOW,
-        .offset = 2,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_SYO_Q1,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SYOW_Q2] = {
-        .name = "SYOW_Q2",
-        .reg = REG_kv3_SYOW,
-        .offset = 4,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_SYO_Q2,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SYOW_Q3] = {
-        .name = "SYOW_Q3",
-        .reg = REG_kv3_SYOW,
-        .offset = 6,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_SYO_Q3,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_HTO_OPC] = {
-        .name = "HTO_OPC",
-        .reg = REG_kv3_HTO,
-        .offset = 0,
-        .width = 2,
-    },
-    [REGFIELD_kv3_HTO_DMIS] = {
-        .name = "HTO_DMIS",
-        .reg = REG_kv3_HTO,
-        .offset = 2,
-        .width = 2,
-    },
-    [REGFIELD_kv3_HTO_PSYS] = {
-        .name = "HTO_PSYS",
-        .reg = REG_kv3_HTO,
-        .offset = 4,
-        .width = 2,
-    },
-    [REGFIELD_kv3_HTO_DSYS] = {
-        .name = "HTO_DSYS",
-        .reg = REG_kv3_HTO,
-        .offset = 6,
-        .width = 2,
-    },
-    [REGFIELD_kv3_HTO_DECCG] = {
-        .name = "HTO_DECCG",
-        .reg = REG_kv3_HTO,
-        .offset = 8,
-        .width = 2,
-    },
-    [REGFIELD_kv3_HTO_SECCG] = {
-        .name = "HTO_SECCG",
-        .reg = REG_kv3_HTO,
-        .offset = 10,
-        .width = 2,
-    },
-    [REGFIELD_kv3_HTO_NOMAP] = {
-        .name = "HTO_NOMAP",
-        .reg = REG_kv3_HTO,
-        .offset = 12,
-        .width = 2,
-    },
-    [REGFIELD_kv3_HTO_PROT] = {
-        .name = "HTO_PROT",
-        .reg = REG_kv3_HTO,
-        .offset = 14,
-        .width = 2,
-    },
-    [REGFIELD_kv3_HTO_W2CL] = {
-        .name = "HTO_W2CL",
-        .reg = REG_kv3_HTO,
-        .offset = 16,
-        .width = 2,
-    },
-    [REGFIELD_kv3_HTO_A2CL] = {
-        .name = "HTO_A2CL",
-        .reg = REG_kv3_HTO,
-        .offset = 18,
-        .width = 2,
-    },
-    [REGFIELD_kv3_HTO_DE] = {
-        .name = "HTO_DE",
-        .reg = REG_kv3_HTO,
-        .offset = 20,
-        .width = 2,
-    },
-    [REGFIELD_kv3_HTO_VSFR] = {
-        .name = "HTO_VSFR",
-        .reg = REG_kv3_HTO,
-        .offset = 22,
-        .width = 2,
-    },
-    [REGFIELD_kv3_HTO_PLO] = {
-        .name = "HTO_PLO",
-        .reg = REG_kv3_HTO,
-        .offset = 24,
-        .width = 2,
-    },
-    [REGFIELD_kv3_HTOW_OPC] = {
-        .name = "HTOW_OPC",
-        .reg = REG_kv3_HTOW,
-        .offset = 0,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_HTO_OPC,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_HTOW_DMIS] = {
-        .name = "HTOW_DMIS",
-        .reg = REG_kv3_HTOW,
-        .offset = 2,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_HTO_DMIS,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_HTOW_PSYS] = {
-        .name = "HTOW_PSYS",
-        .reg = REG_kv3_HTOW,
-        .offset = 4,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_HTO_PSYS,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_HTOW_DSYS] = {
-        .name = "HTOW_DSYS",
-        .reg = REG_kv3_HTOW,
-        .offset = 6,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_HTO_DSYS,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_HTOW_DECCG] = {
-        .name = "HTOW_DECCG",
-        .reg = REG_kv3_HTOW,
-        .offset = 8,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_HTO_DECCG,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_HTOW_SECCG] = {
-        .name = "HTOW_SECCG",
-        .reg = REG_kv3_HTOW,
-        .offset = 10,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_HTO_SECCG,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_HTOW_NOMAP] = {
-        .name = "HTOW_NOMAP",
-        .reg = REG_kv3_HTOW,
-        .offset = 12,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_HTO_NOMAP,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_HTOW_PROT] = {
-        .name = "HTOW_PROT",
-        .reg = REG_kv3_HTOW,
-        .offset = 14,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_HTO_PROT,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_HTOW_W2CL] = {
-        .name = "HTOW_W2CL",
-        .reg = REG_kv3_HTOW,
-        .offset = 16,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_HTO_W2CL,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_HTOW_A2CL] = {
-        .name = "HTOW_A2CL",
-        .reg = REG_kv3_HTOW,
-        .offset = 18,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_HTO_A2CL,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_HTOW_DE] = {
-        .name = "HTOW_DE",
-        .reg = REG_kv3_HTOW,
-        .offset = 20,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_HTO_DE,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_HTOW_VSFR] = {
-        .name = "HTOW_VSFR",
-        .reg = REG_kv3_HTOW,
-        .offset = 22,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_HTO_VSFR,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_HTOW_PLO] = {
-        .name = "HTOW_PLO",
-        .reg = REG_kv3_HTOW,
-        .offset = 24,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_HTO_PLO,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ITO_IT0] = {
-        .name = "ITO_IT0",
-        .reg = REG_kv3_ITO,
-        .offset = 0,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ITO_IT1] = {
-        .name = "ITO_IT1",
-        .reg = REG_kv3_ITO,
-        .offset = 2,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ITO_IT2] = {
-        .name = "ITO_IT2",
-        .reg = REG_kv3_ITO,
-        .offset = 4,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ITO_IT3] = {
-        .name = "ITO_IT3",
-        .reg = REG_kv3_ITO,
-        .offset = 6,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ITO_IT4] = {
-        .name = "ITO_IT4",
-        .reg = REG_kv3_ITO,
-        .offset = 8,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ITO_IT5] = {
-        .name = "ITO_IT5",
-        .reg = REG_kv3_ITO,
-        .offset = 10,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ITO_IT6] = {
-        .name = "ITO_IT6",
-        .reg = REG_kv3_ITO,
-        .offset = 12,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ITO_IT7] = {
-        .name = "ITO_IT7",
-        .reg = REG_kv3_ITO,
-        .offset = 14,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ITO_IT8] = {
-        .name = "ITO_IT8",
-        .reg = REG_kv3_ITO,
-        .offset = 16,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ITO_IT9] = {
-        .name = "ITO_IT9",
-        .reg = REG_kv3_ITO,
-        .offset = 18,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ITO_IT10] = {
-        .name = "ITO_IT10",
-        .reg = REG_kv3_ITO,
-        .offset = 20,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ITO_IT11] = {
-        .name = "ITO_IT11",
-        .reg = REG_kv3_ITO,
-        .offset = 22,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ITO_IT12] = {
-        .name = "ITO_IT12",
-        .reg = REG_kv3_ITO,
-        .offset = 24,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ITO_IT13] = {
-        .name = "ITO_IT13",
-        .reg = REG_kv3_ITO,
-        .offset = 26,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ITO_IT14] = {
-        .name = "ITO_IT14",
-        .reg = REG_kv3_ITO,
-        .offset = 28,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ITO_IT15] = {
-        .name = "ITO_IT15",
-        .reg = REG_kv3_ITO,
-        .offset = 30,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ITO_IT16] = {
-        .name = "ITO_IT16",
-        .reg = REG_kv3_ITO,
-        .offset = 32,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ITO_IT17] = {
-        .name = "ITO_IT17",
-        .reg = REG_kv3_ITO,
-        .offset = 34,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ITO_IT18] = {
-        .name = "ITO_IT18",
-        .reg = REG_kv3_ITO,
-        .offset = 36,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ITO_IT19] = {
-        .name = "ITO_IT19",
-        .reg = REG_kv3_ITO,
-        .offset = 38,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ITO_IT20] = {
-        .name = "ITO_IT20",
-        .reg = REG_kv3_ITO,
-        .offset = 40,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ITO_IT21] = {
-        .name = "ITO_IT21",
-        .reg = REG_kv3_ITO,
-        .offset = 42,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ITO_IT22] = {
-        .name = "ITO_IT22",
-        .reg = REG_kv3_ITO,
-        .offset = 44,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ITO_IT23] = {
-        .name = "ITO_IT23",
-        .reg = REG_kv3_ITO,
-        .offset = 46,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ITO_IT24] = {
-        .name = "ITO_IT24",
-        .reg = REG_kv3_ITO,
-        .offset = 48,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ITO_IT25] = {
-        .name = "ITO_IT25",
-        .reg = REG_kv3_ITO,
-        .offset = 50,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ITO_IT26] = {
-        .name = "ITO_IT26",
-        .reg = REG_kv3_ITO,
-        .offset = 52,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ITO_IT27] = {
-        .name = "ITO_IT27",
-        .reg = REG_kv3_ITO,
-        .offset = 54,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ITO_IT28] = {
-        .name = "ITO_IT28",
-        .reg = REG_kv3_ITO,
-        .offset = 56,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ITO_IT29] = {
-        .name = "ITO_IT29",
-        .reg = REG_kv3_ITO,
-        .offset = 58,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ITO_IT30] = {
-        .name = "ITO_IT30",
-        .reg = REG_kv3_ITO,
-        .offset = 60,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ITO_IT31] = {
-        .name = "ITO_IT31",
-        .reg = REG_kv3_ITO,
-        .offset = 62,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ILE_IT0] = {
-        .name = "ILE_IT0",
-        .reg = REG_kv3_ILE,
-        .offset = 0,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT0,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILE_IT1] = {
-        .name = "ILE_IT1",
-        .reg = REG_kv3_ILE,
-        .offset = 1,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT1,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILE_IT2] = {
-        .name = "ILE_IT2",
-        .reg = REG_kv3_ILE,
-        .offset = 2,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT2,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILE_IT3] = {
-        .name = "ILE_IT3",
-        .reg = REG_kv3_ILE,
-        .offset = 3,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT3,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILE_IT4] = {
-        .name = "ILE_IT4",
-        .reg = REG_kv3_ILE,
-        .offset = 4,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT4,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILE_IT5] = {
-        .name = "ILE_IT5",
-        .reg = REG_kv3_ILE,
-        .offset = 5,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT5,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILE_IT6] = {
-        .name = "ILE_IT6",
-        .reg = REG_kv3_ILE,
-        .offset = 6,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT6,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILE_IT7] = {
-        .name = "ILE_IT7",
-        .reg = REG_kv3_ILE,
-        .offset = 7,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT7,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILE_IT8] = {
-        .name = "ILE_IT8",
-        .reg = REG_kv3_ILE,
-        .offset = 8,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT8,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILE_IT9] = {
-        .name = "ILE_IT9",
-        .reg = REG_kv3_ILE,
-        .offset = 9,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT9,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILE_IT10] = {
-        .name = "ILE_IT10",
-        .reg = REG_kv3_ILE,
-        .offset = 10,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT10,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILE_IT11] = {
-        .name = "ILE_IT11",
-        .reg = REG_kv3_ILE,
-        .offset = 11,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT11,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILE_IT12] = {
-        .name = "ILE_IT12",
-        .reg = REG_kv3_ILE,
-        .offset = 12,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT12,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILE_IT13] = {
-        .name = "ILE_IT13",
-        .reg = REG_kv3_ILE,
-        .offset = 13,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT13,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILE_IT14] = {
-        .name = "ILE_IT14",
-        .reg = REG_kv3_ILE,
-        .offset = 14,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT14,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILE_IT15] = {
-        .name = "ILE_IT15",
-        .reg = REG_kv3_ILE,
-        .offset = 15,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT15,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILE_IT16] = {
-        .name = "ILE_IT16",
-        .reg = REG_kv3_ILE,
-        .offset = 16,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT16,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILE_IT17] = {
-        .name = "ILE_IT17",
-        .reg = REG_kv3_ILE,
-        .offset = 17,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT17,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILE_IT18] = {
-        .name = "ILE_IT18",
-        .reg = REG_kv3_ILE,
-        .offset = 18,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT18,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILE_IT19] = {
-        .name = "ILE_IT19",
-        .reg = REG_kv3_ILE,
-        .offset = 19,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT19,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILE_IT20] = {
-        .name = "ILE_IT20",
-        .reg = REG_kv3_ILE,
-        .offset = 20,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT20,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILE_IT21] = {
-        .name = "ILE_IT21",
-        .reg = REG_kv3_ILE,
-        .offset = 21,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT21,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILE_IT22] = {
-        .name = "ILE_IT22",
-        .reg = REG_kv3_ILE,
-        .offset = 22,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT22,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILE_IT23] = {
-        .name = "ILE_IT23",
-        .reg = REG_kv3_ILE,
-        .offset = 23,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT23,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILE_IT24] = {
-        .name = "ILE_IT24",
-        .reg = REG_kv3_ILE,
-        .offset = 24,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT24,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILE_IT25] = {
-        .name = "ILE_IT25",
-        .reg = REG_kv3_ILE,
-        .offset = 25,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT25,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILE_IT26] = {
-        .name = "ILE_IT26",
-        .reg = REG_kv3_ILE,
-        .offset = 26,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT26,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILE_IT27] = {
-        .name = "ILE_IT27",
-        .reg = REG_kv3_ILE,
-        .offset = 27,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT27,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILE_IT28] = {
-        .name = "ILE_IT28",
-        .reg = REG_kv3_ILE,
-        .offset = 28,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT28,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILE_IT29] = {
-        .name = "ILE_IT29",
-        .reg = REG_kv3_ILE,
-        .offset = 29,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT29,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILE_IT30] = {
-        .name = "ILE_IT30",
-        .reg = REG_kv3_ILE,
-        .offset = 30,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT30,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILE_IT31] = {
-        .name = "ILE_IT31",
-        .reg = REG_kv3_ILE,
-        .offset = 31,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT31,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILL_IT0] = {
-        .name = "ILL_IT0",
-        .reg = REG_kv3_ILL,
-        .offset = 0,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT0,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILL_IT1] = {
-        .name = "ILL_IT1",
-        .reg = REG_kv3_ILL,
-        .offset = 2,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT1,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILL_IT2] = {
-        .name = "ILL_IT2",
-        .reg = REG_kv3_ILL,
-        .offset = 4,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT2,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILL_IT3] = {
-        .name = "ILL_IT3",
-        .reg = REG_kv3_ILL,
-        .offset = 6,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT3,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILL_IT4] = {
-        .name = "ILL_IT4",
-        .reg = REG_kv3_ILL,
-        .offset = 8,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT4,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILL_IT5] = {
-        .name = "ILL_IT5",
-        .reg = REG_kv3_ILL,
-        .offset = 10,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT5,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILL_IT6] = {
-        .name = "ILL_IT6",
-        .reg = REG_kv3_ILL,
-        .offset = 12,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT6,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILL_IT7] = {
-        .name = "ILL_IT7",
-        .reg = REG_kv3_ILL,
-        .offset = 14,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT7,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILL_IT8] = {
-        .name = "ILL_IT8",
-        .reg = REG_kv3_ILL,
-        .offset = 16,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT8,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILL_IT9] = {
-        .name = "ILL_IT9",
-        .reg = REG_kv3_ILL,
-        .offset = 18,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT9,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILL_IT10] = {
-        .name = "ILL_IT10",
-        .reg = REG_kv3_ILL,
-        .offset = 20,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT10,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILL_IT11] = {
-        .name = "ILL_IT11",
-        .reg = REG_kv3_ILL,
-        .offset = 22,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT11,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILL_IT12] = {
-        .name = "ILL_IT12",
-        .reg = REG_kv3_ILL,
-        .offset = 24,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT12,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILL_IT13] = {
-        .name = "ILL_IT13",
-        .reg = REG_kv3_ILL,
-        .offset = 26,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT13,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILL_IT14] = {
-        .name = "ILL_IT14",
-        .reg = REG_kv3_ILL,
-        .offset = 28,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT14,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILL_IT15] = {
-        .name = "ILL_IT15",
-        .reg = REG_kv3_ILL,
-        .offset = 30,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT15,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILL_IT16] = {
-        .name = "ILL_IT16",
-        .reg = REG_kv3_ILL,
-        .offset = 32,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT16,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILL_IT17] = {
-        .name = "ILL_IT17",
-        .reg = REG_kv3_ILL,
-        .offset = 34,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT17,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILL_IT18] = {
-        .name = "ILL_IT18",
-        .reg = REG_kv3_ILL,
-        .offset = 36,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT18,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILL_IT19] = {
-        .name = "ILL_IT19",
-        .reg = REG_kv3_ILL,
-        .offset = 38,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT19,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILL_IT20] = {
-        .name = "ILL_IT20",
-        .reg = REG_kv3_ILL,
-        .offset = 40,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT20,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILL_IT21] = {
-        .name = "ILL_IT21",
-        .reg = REG_kv3_ILL,
-        .offset = 42,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT21,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILL_IT22] = {
-        .name = "ILL_IT22",
-        .reg = REG_kv3_ILL,
-        .offset = 44,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT22,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILL_IT23] = {
-        .name = "ILL_IT23",
-        .reg = REG_kv3_ILL,
-        .offset = 46,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT23,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILL_IT24] = {
-        .name = "ILL_IT24",
-        .reg = REG_kv3_ILL,
-        .offset = 48,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT24,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILL_IT25] = {
-        .name = "ILL_IT25",
-        .reg = REG_kv3_ILL,
-        .offset = 50,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT25,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILL_IT26] = {
-        .name = "ILL_IT26",
-        .reg = REG_kv3_ILL,
-        .offset = 52,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT26,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILL_IT27] = {
-        .name = "ILL_IT27",
-        .reg = REG_kv3_ILL,
-        .offset = 54,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT27,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILL_IT28] = {
-        .name = "ILL_IT28",
-        .reg = REG_kv3_ILL,
-        .offset = 56,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT28,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILL_IT29] = {
-        .name = "ILL_IT29",
-        .reg = REG_kv3_ILL,
-        .offset = 58,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT29,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILL_IT30] = {
-        .name = "ILL_IT30",
-        .reg = REG_kv3_ILL,
-        .offset = 60,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT30,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILL_IT31] = {
-        .name = "ILL_IT31",
-        .reg = REG_kv3_ILL,
-        .offset = 62,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT31,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILR_IT0] = {
-        .name = "ILR_IT0",
-        .reg = REG_kv3_ILR,
-        .offset = 0,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT0,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILR_IT1] = {
-        .name = "ILR_IT1",
-        .reg = REG_kv3_ILR,
-        .offset = 1,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT1,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILR_IT2] = {
-        .name = "ILR_IT2",
-        .reg = REG_kv3_ILR,
-        .offset = 2,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT2,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILR_IT3] = {
-        .name = "ILR_IT3",
-        .reg = REG_kv3_ILR,
-        .offset = 3,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT3,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILR_IT4] = {
-        .name = "ILR_IT4",
-        .reg = REG_kv3_ILR,
-        .offset = 4,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT4,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILR_IT5] = {
-        .name = "ILR_IT5",
-        .reg = REG_kv3_ILR,
-        .offset = 5,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT5,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILR_IT6] = {
-        .name = "ILR_IT6",
-        .reg = REG_kv3_ILR,
-        .offset = 6,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT6,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILR_IT7] = {
-        .name = "ILR_IT7",
-        .reg = REG_kv3_ILR,
-        .offset = 7,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT7,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILR_IT8] = {
-        .name = "ILR_IT8",
-        .reg = REG_kv3_ILR,
-        .offset = 8,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT8,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILR_IT9] = {
-        .name = "ILR_IT9",
-        .reg = REG_kv3_ILR,
-        .offset = 9,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT9,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILR_IT10] = {
-        .name = "ILR_IT10",
-        .reg = REG_kv3_ILR,
-        .offset = 10,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT10,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILR_IT11] = {
-        .name = "ILR_IT11",
-        .reg = REG_kv3_ILR,
-        .offset = 11,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT11,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILR_IT12] = {
-        .name = "ILR_IT12",
-        .reg = REG_kv3_ILR,
-        .offset = 12,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT12,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILR_IT13] = {
-        .name = "ILR_IT13",
-        .reg = REG_kv3_ILR,
-        .offset = 13,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT13,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILR_IT14] = {
-        .name = "ILR_IT14",
-        .reg = REG_kv3_ILR,
-        .offset = 14,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT14,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILR_IT15] = {
-        .name = "ILR_IT15",
-        .reg = REG_kv3_ILR,
-        .offset = 15,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT15,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILR_IT16] = {
-        .name = "ILR_IT16",
-        .reg = REG_kv3_ILR,
-        .offset = 16,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT16,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILR_IT17] = {
-        .name = "ILR_IT17",
-        .reg = REG_kv3_ILR,
-        .offset = 17,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT17,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILR_IT18] = {
-        .name = "ILR_IT18",
-        .reg = REG_kv3_ILR,
-        .offset = 18,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT18,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILR_IT19] = {
-        .name = "ILR_IT19",
-        .reg = REG_kv3_ILR,
-        .offset = 19,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT19,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILR_IT20] = {
-        .name = "ILR_IT20",
-        .reg = REG_kv3_ILR,
-        .offset = 20,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT20,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILR_IT21] = {
-        .name = "ILR_IT21",
-        .reg = REG_kv3_ILR,
-        .offset = 21,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT21,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILR_IT22] = {
-        .name = "ILR_IT22",
-        .reg = REG_kv3_ILR,
-        .offset = 22,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT22,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILR_IT23] = {
-        .name = "ILR_IT23",
-        .reg = REG_kv3_ILR,
-        .offset = 23,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT23,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILR_IT24] = {
-        .name = "ILR_IT24",
-        .reg = REG_kv3_ILR,
-        .offset = 24,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT24,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILR_IT25] = {
-        .name = "ILR_IT25",
-        .reg = REG_kv3_ILR,
-        .offset = 25,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT25,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILR_IT26] = {
-        .name = "ILR_IT26",
-        .reg = REG_kv3_ILR,
-        .offset = 26,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT26,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILR_IT27] = {
-        .name = "ILR_IT27",
-        .reg = REG_kv3_ILR,
-        .offset = 27,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT27,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILR_IT28] = {
-        .name = "ILR_IT28",
-        .reg = REG_kv3_ILR,
-        .offset = 28,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT28,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILR_IT29] = {
-        .name = "ILR_IT29",
-        .reg = REG_kv3_ILR,
-        .offset = 29,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT29,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILR_IT30] = {
-        .name = "ILR_IT30",
-        .reg = REG_kv3_ILR,
-        .offset = 30,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT30,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ILR_IT31] = {
-        .name = "ILR_IT31",
-        .reg = REG_kv3_ILR,
-        .offset = 31,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT31,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ITOW_IT0] = {
-        .name = "ITOW_IT0",
-        .reg = REG_kv3_ITOW,
-        .offset = 0,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT0,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ITOW_IT1] = {
-        .name = "ITOW_IT1",
-        .reg = REG_kv3_ITOW,
-        .offset = 2,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT1,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ITOW_IT2] = {
-        .name = "ITOW_IT2",
-        .reg = REG_kv3_ITOW,
-        .offset = 4,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT2,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ITOW_IT3] = {
-        .name = "ITOW_IT3",
-        .reg = REG_kv3_ITOW,
-        .offset = 6,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT3,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ITOW_IT4] = {
-        .name = "ITOW_IT4",
-        .reg = REG_kv3_ITOW,
-        .offset = 8,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT4,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ITOW_IT5] = {
-        .name = "ITOW_IT5",
-        .reg = REG_kv3_ITOW,
-        .offset = 10,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT5,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ITOW_IT6] = {
-        .name = "ITOW_IT6",
-        .reg = REG_kv3_ITOW,
-        .offset = 12,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT6,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ITOW_IT7] = {
-        .name = "ITOW_IT7",
-        .reg = REG_kv3_ITOW,
-        .offset = 14,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT7,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ITOW_IT8] = {
-        .name = "ITOW_IT8",
-        .reg = REG_kv3_ITOW,
-        .offset = 16,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT8,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ITOW_IT9] = {
-        .name = "ITOW_IT9",
-        .reg = REG_kv3_ITOW,
-        .offset = 18,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT9,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ITOW_IT10] = {
-        .name = "ITOW_IT10",
-        .reg = REG_kv3_ITOW,
-        .offset = 20,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT10,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ITOW_IT11] = {
-        .name = "ITOW_IT11",
-        .reg = REG_kv3_ITOW,
-        .offset = 22,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT11,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ITOW_IT12] = {
-        .name = "ITOW_IT12",
-        .reg = REG_kv3_ITOW,
-        .offset = 24,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT12,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ITOW_IT13] = {
-        .name = "ITOW_IT13",
-        .reg = REG_kv3_ITOW,
-        .offset = 26,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT13,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ITOW_IT14] = {
-        .name = "ITOW_IT14",
-        .reg = REG_kv3_ITOW,
-        .offset = 28,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT14,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ITOW_IT15] = {
-        .name = "ITOW_IT15",
-        .reg = REG_kv3_ITOW,
-        .offset = 30,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT15,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ITOW_IT16] = {
-        .name = "ITOW_IT16",
-        .reg = REG_kv3_ITOW,
-        .offset = 32,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT16,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ITOW_IT17] = {
-        .name = "ITOW_IT17",
-        .reg = REG_kv3_ITOW,
-        .offset = 34,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT17,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ITOW_IT18] = {
-        .name = "ITOW_IT18",
-        .reg = REG_kv3_ITOW,
-        .offset = 36,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT18,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ITOW_IT19] = {
-        .name = "ITOW_IT19",
-        .reg = REG_kv3_ITOW,
-        .offset = 38,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT19,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ITOW_IT20] = {
-        .name = "ITOW_IT20",
-        .reg = REG_kv3_ITOW,
-        .offset = 40,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT20,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ITOW_IT21] = {
-        .name = "ITOW_IT21",
-        .reg = REG_kv3_ITOW,
-        .offset = 42,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT21,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ITOW_IT22] = {
-        .name = "ITOW_IT22",
-        .reg = REG_kv3_ITOW,
-        .offset = 44,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT22,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ITOW_IT23] = {
-        .name = "ITOW_IT23",
-        .reg = REG_kv3_ITOW,
-        .offset = 46,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT23,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ITOW_IT24] = {
-        .name = "ITOW_IT24",
-        .reg = REG_kv3_ITOW,
-        .offset = 48,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT24,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ITOW_IT25] = {
-        .name = "ITOW_IT25",
-        .reg = REG_kv3_ITOW,
-        .offset = 50,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT25,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ITOW_IT26] = {
-        .name = "ITOW_IT26",
-        .reg = REG_kv3_ITOW,
-        .offset = 52,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT26,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ITOW_IT27] = {
-        .name = "ITOW_IT27",
-        .reg = REG_kv3_ITOW,
-        .offset = 54,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT27,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ITOW_IT28] = {
-        .name = "ITOW_IT28",
-        .reg = REG_kv3_ITOW,
-        .offset = 56,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT28,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ITOW_IT29] = {
-        .name = "ITOW_IT29",
-        .reg = REG_kv3_ITOW,
-        .offset = 58,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT29,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ITOW_IT30] = {
-        .name = "ITOW_IT30",
-        .reg = REG_kv3_ITOW,
-        .offset = 60,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT30,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ITOW_IT31] = {
-        .name = "ITOW_IT31",
-        .reg = REG_kv3_ITOW,
-        .offset = 62,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_ITO_IT31,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_DO_B0] = {
-        .name = "DO_B0",
-        .reg = REG_kv3_DO,
-        .offset = 0,
-        .width = 2,
-    },
-    [REGFIELD_kv3_DO_B1] = {
-        .name = "DO_B1",
-        .reg = REG_kv3_DO,
-        .offset = 2,
-        .width = 2,
-    },
-    [REGFIELD_kv3_DO_W0] = {
-        .name = "DO_W0",
-        .reg = REG_kv3_DO,
-        .offset = 4,
-        .width = 2,
-    },
-    [REGFIELD_kv3_DO_W1] = {
-        .name = "DO_W1",
-        .reg = REG_kv3_DO,
-        .offset = 6,
-        .width = 2,
-    },
-    [REGFIELD_kv3_DBA0_DBA0] = {
-        .name = "DBA0_DBA0",
-        .reg = REG_kv3_DBA0,
-        .offset = 0,
-        .width = 64,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_DO_B0,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_DBA1_DBA1] = {
-        .name = "DBA1_DBA1",
-        .reg = REG_kv3_DBA1,
-        .offset = 0,
-        .width = 64,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_DO_B1,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_DWA0_DWA0] = {
-        .name = "DWA0_DWA0",
-        .reg = REG_kv3_DWA0,
-        .offset = 0,
-        .width = 64,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_DO_W0,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_DWA1_DWA1] = {
-        .name = "DWA1_DWA1",
-        .reg = REG_kv3_DWA1,
-        .offset = 0,
-        .width = 64,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_DO_W1,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_DOW_B0] = {
-        .name = "DOW_B0",
-        .reg = REG_kv3_DOW,
-        .offset = 0,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_DO_B0,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_DOW_B1] = {
-        .name = "DOW_B1",
-        .reg = REG_kv3_DOW,
-        .offset = 2,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_DO_B1,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_DOW_W0] = {
-        .name = "DOW_W0",
-        .reg = REG_kv3_DOW,
-        .offset = 4,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_DO_W0,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_DOW_W1] = {
-        .name = "DOW_W1",
-        .reg = REG_kv3_DOW,
-        .offset = 6,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_DO_W1,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_MO_MMI] = {
-        .name = "MO_MMI",
-        .reg = REG_kv3_MO,
-        .offset = 0,
-        .width = 2,
-    },
-    [REGFIELD_kv3_MO_RFE] = {
-        .name = "MO_RFE",
-        .reg = REG_kv3_MO,
-        .offset = 2,
-        .width = 2,
-    },
-    [REGFIELD_kv3_MO_STOP] = {
-        .name = "MO_STOP",
-        .reg = REG_kv3_MO,
-        .offset = 4,
-        .width = 2,
-    },
-    [REGFIELD_kv3_MO_SYNC] = {
-        .name = "MO_SYNC",
-        .reg = REG_kv3_MO,
-        .offset = 6,
-        .width = 2,
-    },
-    [REGFIELD_kv3_MO_PCR] = {
-        .name = "MO_PCR",
-        .reg = REG_kv3_MO,
-        .offset = 8,
-        .width = 2,
-    },
-    [REGFIELD_kv3_MO_MSG] = {
-        .name = "MO_MSG",
-        .reg = REG_kv3_MO,
-        .offset = 10,
-        .width = 2,
-    },
-    [REGFIELD_kv3_MO_MEN] = {
-        .name = "MO_MEN",
-        .reg = REG_kv3_MO,
-        .offset = 12,
-        .width = 2,
-    },
-    [REGFIELD_kv3_MO_MES] = {
-        .name = "MO_MES",
-        .reg = REG_kv3_MO,
-        .offset = 14,
-        .width = 2,
-    },
-    [REGFIELD_kv3_MO_CSIT] = {
-        .name = "MO_CSIT",
-        .reg = REG_kv3_MO,
-        .offset = 16,
-        .width = 2,
-    },
-    [REGFIELD_kv3_MO_T0] = {
-        .name = "MO_T0",
-        .reg = REG_kv3_MO,
-        .offset = 18,
-        .width = 2,
-    },
-    [REGFIELD_kv3_MO_T1] = {
-        .name = "MO_T1",
-        .reg = REG_kv3_MO,
-        .offset = 20,
-        .width = 2,
-    },
-    [REGFIELD_kv3_MO_WD] = {
-        .name = "MO_WD",
-        .reg = REG_kv3_MO,
-        .offset = 22,
-        .width = 2,
-    },
-    [REGFIELD_kv3_MO_PM0] = {
-        .name = "MO_PM0",
-        .reg = REG_kv3_MO,
-        .offset = 24,
-        .width = 2,
-    },
-    [REGFIELD_kv3_MO_PM1] = {
-        .name = "MO_PM1",
-        .reg = REG_kv3_MO,
-        .offset = 26,
-        .width = 2,
-    },
-    [REGFIELD_kv3_MO_PM2] = {
-        .name = "MO_PM2",
-        .reg = REG_kv3_MO,
-        .offset = 28,
-        .width = 2,
-    },
-    [REGFIELD_kv3_MO_PM3] = {
-        .name = "MO_PM3",
-        .reg = REG_kv3_MO,
-        .offset = 30,
-        .width = 2,
-    },
-    [REGFIELD_kv3_MO_PMIT] = {
-        .name = "MO_PMIT",
-        .reg = REG_kv3_MO,
-        .offset = 32,
-        .width = 2,
-    },
-    [REGFIELD_kv3_MOW_MMI] = {
-        .name = "MOW_MMI",
-        .reg = REG_kv3_MOW,
-        .offset = 0,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
+        .mask = 0xffffffffffffffffull,
+        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
+    },
+    [REG_v2_PCR] = {
+        .name = "pcr",
+        .regfile = REGFILE_kv3_SFR,
+        .reg_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_PCR) + 0,
+        .reset = 0x0010000001000000,
+        .mask = (
+              0x00000000000000ff
+            | 0x000000000000ff00
+            | 0x0000000000ff0000
+            | 0x000000000f000000
+            | 0x00000000f0000000
+            | 0x000000ff00000000
+            | 0x00000f0000000000
+            | 0x000ff00000000000
+            | 0x0010000000000000
+            | 0x0020000000000000
+            | 0x0040000000000000
+        ),
+        .n_fields = 11,
+        .fields = (const RegisterField []) {
+            REGFIELD_kv3_PCR_PID,
+            REGFIELD_kv3_PCR_CID,
+            REGFIELD_kv3_PCR_MID,
+            REGFIELD_v2_PCR_CAR,
+            REGFIELD_kv3_PCR_CMA,
+            REGFIELD_kv3_PCR_SV,
+            REGFIELD_kv3_PCR_ST,
+            REGFIELD_kv3_PCR_BM,
+            REGFIELD_kv3_PCR_COE,
+            REGFIELD_kv3_PCR_L1CE,
+            REGFIELD_kv3_PCR_DSEM,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+        .raccess = REG_ACCESS_GET,
+        .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v2,
+    },
+    [REG_v2_PMC] = {
+        .name = "pmc",
+        .regfile = REGFILE_kv3_SFR,
+        .reg_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_PMC) + 0,
+        .reset = 0x0000000000408000,
+        .mask = (
+              0x000000000000003f
+            | 0x0000000000001f80
+            | 0x00000000000fc000
+            | 0x0000000007e00000
+            | 0x0000000030000000
+            | 0x0000000040000000
+            | 0x0000000100000000
+            | 0x0000000200000000
+            | 0x0000000400000000
+            | 0x0000000800000000
+            | 0x0000003000000000
+        ),
+        .n_fields = 11,
+        .fields = (const RegisterField []) {
+            REGFIELD_kv3_PMC_PM0C,
+            REGFIELD_kv3_PMC_PM1C,
+            REGFIELD_kv3_PMC_PM2C,
+            REGFIELD_kv3_PMC_PM3C,
+            REGFIELD_kv3_PMC_SAF,
+            REGFIELD_kv3_PMC_SAV,
+            REGFIELD_kv3_PMC_PM0IE,
+            REGFIELD_kv3_PMC_PM1IE,
+            REGFIELD_kv3_PMC_PM2IE,
+            REGFIELD_kv3_PMC_PM3IE,
+            REGFIELD_kv3_PMC_SAT,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+        .raccess = REG_ACCESS_GET,
+        .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v2,
+    },
+    [REG_v2_IXC] = {
+        .name = "ixc",
+        .regfile = REGFILE_kv3_SFR,
+        .reg_width = 32,
+        .offset = offsetof(CPUArchState, storages.v2_IXC) + 0,
+        .reset = 0x00010001,
+        .mask = (
+              0x0000000000000001
+            | 0x0000000000010000
+        ),
+        .n_fields = 2,
+        .fields = (const RegisterField []) {
+            REGFIELD_kv3_IXC_FCB,
+            REGFIELD_kv3_IXC_BCB,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+        .raccess = REG_ACCESS_GET,
+        .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v2,
+    },
+    [REG_v2_MO] = {
+        .name = "mo",
+        .regfile = REGFILE_kv3_SFR,
+        .reg_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_MO) + 0,
+        .reset = 0x0000000000000000,
+        .mask = (
+              0x0000000000000003
+            | 0x000000000000000c
+            | 0x0000000000000030
+            | 0x00000000000000c0
+            | 0x0000000000000300
+            | 0x0000000000000c00
+            | 0x0000000000003000
+            | 0x000000000000c000
+            | 0x0000000000030000
+            | 0x00000000000c0000
+            | 0x0000000000300000
+            | 0x0000000000c00000
+            | 0x0000000003000000
+            | 0x000000000c000000
+            | 0x0000000030000000
+            | 0x00000000c0000000
+            | 0x0000000300000000
+            | 0x0000000c00000000
+        ),
+        .n_fields = 18,
+        .fields = (const RegisterField []) {
             REGFIELD_kv3_MO_MMI,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_MOW_RFE] = {
-        .name = "MOW_RFE",
-        .reg = REG_kv3_MOW,
-        .offset = 2,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
             REGFIELD_kv3_MO_RFE,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_MOW_STOP] = {
-        .name = "MOW_STOP",
-        .reg = REG_kv3_MOW,
-        .offset = 4,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
             REGFIELD_kv3_MO_STOP,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_MOW_SYNC] = {
-        .name = "MOW_SYNC",
-        .reg = REG_kv3_MOW,
-        .offset = 6,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
             REGFIELD_kv3_MO_SYNC,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_MOW_PCR] = {
-        .name = "MOW_PCR",
-        .reg = REG_kv3_MOW,
-        .offset = 8,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
             REGFIELD_kv3_MO_PCR,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_MOW_MSG] = {
-        .name = "MOW_MSG",
-        .reg = REG_kv3_MOW,
-        .offset = 10,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
             REGFIELD_kv3_MO_MSG,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_MOW_MEN] = {
-        .name = "MOW_MEN",
-        .reg = REG_kv3_MOW,
-        .offset = 12,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
             REGFIELD_kv3_MO_MEN,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_MOW_MES] = {
-        .name = "MOW_MES",
-        .reg = REG_kv3_MOW,
-        .offset = 14,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
             REGFIELD_kv3_MO_MES,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_MOW_CSIT] = {
-        .name = "MOW_CSIT",
-        .reg = REG_kv3_MOW,
-        .offset = 16,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
             REGFIELD_kv3_MO_CSIT,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_MOW_T0] = {
-        .name = "MOW_T0",
-        .reg = REG_kv3_MOW,
-        .offset = 18,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
             REGFIELD_kv3_MO_T0,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_MOW_T1] = {
-        .name = "MOW_T1",
-        .reg = REG_kv3_MOW,
-        .offset = 20,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
             REGFIELD_kv3_MO_T1,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_MOW_WD] = {
-        .name = "MOW_WD",
-        .reg = REG_kv3_MOW,
-        .offset = 22,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
             REGFIELD_kv3_MO_WD,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_MOW_PM0] = {
-        .name = "MOW_PM0",
-        .reg = REG_kv3_MOW,
-        .offset = 24,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
             REGFIELD_kv3_MO_PM0,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_MOW_PM1] = {
-        .name = "MOW_PM1",
-        .reg = REG_kv3_MOW,
-        .offset = 26,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
             REGFIELD_kv3_MO_PM1,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_MOW_PM2] = {
-        .name = "MOW_PM2",
-        .reg = REG_kv3_MOW,
-        .offset = 28,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
             REGFIELD_kv3_MO_PM2,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_MOW_PM3] = {
-        .name = "MOW_PM3",
-        .reg = REG_kv3_MOW,
-        .offset = 30,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
             REGFIELD_kv3_MO_PM3,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_MOW_PMIT] = {
-        .name = "MOW_PMIT",
-        .reg = REG_kv3_MOW,
-        .offset = 32,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
             REGFIELD_kv3_MO_PMIT,
+            REGFIELD_kv3_MO_COMM,
+        },
+        .raccess = REG_ACCESS_GET,
+        .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v2,
+    },
+    [REG_v2_ES_PL0] = {
+        .name = "es_pl0",
+        .regfile = REGFILE_kv3_SFR,
+        .reg_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_ES_PL0) + 0,
+        .reset = 0x0000000000000004,
+        .mask = (
+              0x000000000000000f
+            | 0x0000000000000030
+            | 0xfffffffffffffff0
+            | 0x00000000000000c0
+            | 0x0000000000000300
+            | 0x0000000000000c00
+            | 0x0000000000003000
+            | 0x000000000001f000
+            | 0x000000000001f000
+            | 0x0000000000fff000
+            | 0x0000000000004000
+            | 0x0000000000008000
+            | 0x0000000000020000
+            | 0x0000000000060000
+            | 0x00000000001c0000
+            | 0x000000001ff80000
+            | 0x0000000007e00000
+            | 0x0000000ff8000000
+            | 0x0000001000000000
+            | 0x0000002000000000
+            | 0x0000004000000000
+            | 0x0000038000000000
+            | 0x0000040000000000
+            | 0x0000080000000000
+            | 0x0003f00000000000
+            | 0x003c000000000000
+            | 0x0fc0000000000000
+            | 0xf000000000000000
+        ),
+        .n_fields = 28,
+        .fields = (const RegisterField []) {
+            REGFIELD_kv3_ES_PL0_EC,
+            REGFIELD_kv3_ES_PL0_OAPL,
+            REGFIELD_kv3_ES_PL0_ED,
+            REGFIELD_kv3_ES_PL0_ORPL,
+            REGFIELD_kv3_ES_PL0_PTAPL,
+            REGFIELD_kv3_ES_PL0_PTRPL,
+            REGFIELD_kv3_ES_PL0_DC,
+            REGFIELD_kv3_ES_PL0_ITN,
+            REGFIELD_kv3_ES_PL0_HTC,
+            REGFIELD_kv3_ES_PL0_SN,
+            REGFIELD_kv3_ES_PL0_BN,
+            REGFIELD_kv3_ES_PL0_WN,
+            REGFIELD_kv3_ES_PL0_SFRT,
+            REGFIELD_kv3_ES_PL0_ITL,
+            REGFIELD_kv3_ES_PL0_SFRI,
+            REGFIELD_kv3_ES_PL0_ITI,
+            REGFIELD_kv3_ES_PL0_GPRP,
+            REGFIELD_kv3_ES_PL0_SFRP,
+            REGFIELD_kv3_ES_PL0_DHT,
+            REGFIELD_kv3_ES_PL0_DRX,
+            REGFIELD_kv3_ES_PL0_DAF,
+            REGFIELD_kv3_ES_PL0_RWX,
+            REGFIELD_kv3_ES_PL0_NTA,
+            REGFIELD_kv3_ES_PL0_UCA,
+            REGFIELD_kv3_ES_PL0_AS,
+            REGFIELD_kv3_ES_PL0_BS,
+            REGFIELD_kv3_ES_PL0_DRI,
+            REGFIELD_kv3_ES_PL0_PIC,
+        },
+        .raccess = REG_ACCESS_GET,
+        .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v2,
+    },
+    [REG_v2_ES_PL1] = {
+        .name = "es_pl1",
+        .regfile = REGFILE_kv3_SFR,
+        .reg_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_ES_PL1) + 0,
+        .reset = 0x0000000000000004,
+        .mask = (
+              0x000000000000000f
+            | 0x0000000000000030
+            | 0xfffffffffffffff0
+            | 0x00000000000000c0
+            | 0x0000000000000300
+            | 0x0000000000000c00
+            | 0x0000000000003000
+            | 0x000000000001f000
+            | 0x000000000001f000
+            | 0x0000000000fff000
+            | 0x0000000000004000
+            | 0x0000000000008000
+            | 0x0000000000020000
+            | 0x0000000000060000
+            | 0x00000000001c0000
+            | 0x000000001ff80000
+            | 0x0000000007e00000
+            | 0x0000000ff8000000
+            | 0x0000001000000000
+            | 0x0000002000000000
+            | 0x0000004000000000
+            | 0x0000038000000000
+            | 0x0000040000000000
+            | 0x0000080000000000
+            | 0x0003f00000000000
+            | 0x003c000000000000
+            | 0x0fc0000000000000
+            | 0xf000000000000000
+        ),
+        .n_fields = 28,
+        .fields = (const RegisterField []) {
+            REGFIELD_kv3_ES_PL1_EC,
+            REGFIELD_kv3_ES_PL1_OAPL,
+            REGFIELD_kv3_ES_PL1_ED,
+            REGFIELD_kv3_ES_PL1_ORPL,
+            REGFIELD_kv3_ES_PL1_PTAPL,
+            REGFIELD_kv3_ES_PL1_PTRPL,
+            REGFIELD_kv3_ES_PL1_DC,
+            REGFIELD_kv3_ES_PL1_ITN,
+            REGFIELD_kv3_ES_PL1_HTC,
+            REGFIELD_kv3_ES_PL1_SN,
+            REGFIELD_kv3_ES_PL1_BN,
+            REGFIELD_kv3_ES_PL1_WN,
+            REGFIELD_kv3_ES_PL1_SFRT,
+            REGFIELD_kv3_ES_PL1_ITL,
+            REGFIELD_kv3_ES_PL1_SFRI,
+            REGFIELD_kv3_ES_PL1_ITI,
+            REGFIELD_kv3_ES_PL1_GPRP,
+            REGFIELD_kv3_ES_PL1_SFRP,
+            REGFIELD_kv3_ES_PL1_DHT,
+            REGFIELD_kv3_ES_PL1_DRX,
+            REGFIELD_kv3_ES_PL1_DAF,
+            REGFIELD_kv3_ES_PL1_RWX,
+            REGFIELD_kv3_ES_PL1_NTA,
+            REGFIELD_kv3_ES_PL1_UCA,
+            REGFIELD_kv3_ES_PL1_AS,
+            REGFIELD_kv3_ES_PL1_BS,
+            REGFIELD_kv3_ES_PL1_DRI,
+            REGFIELD_kv3_ES_PL1_PIC,
+        },
+        .raccess = REG_ACCESS_GET,
+        .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v2,
+    },
+    [REG_v2_ES_PL2] = {
+        .name = "es_pl2",
+        .regfile = REGFILE_kv3_SFR,
+        .reg_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_ES_PL2) + 0,
+        .reset = 0x0000000000000004,
+        .mask = (
+              0x000000000000000f
+            | 0x0000000000000030
+            | 0xfffffffffffffff0
+            | 0x00000000000000c0
+            | 0x0000000000000300
+            | 0x0000000000000c00
+            | 0x0000000000003000
+            | 0x000000000001f000
+            | 0x000000000001f000
+            | 0x0000000000fff000
+            | 0x0000000000004000
+            | 0x0000000000008000
+            | 0x0000000000020000
+            | 0x0000000000060000
+            | 0x00000000001c0000
+            | 0x000000001ff80000
+            | 0x0000000007e00000
+            | 0x0000000ff8000000
+            | 0x0000001000000000
+            | 0x0000002000000000
+            | 0x0000004000000000
+            | 0x0000038000000000
+            | 0x0000040000000000
+            | 0x0000080000000000
+            | 0x0003f00000000000
+            | 0x003c000000000000
+            | 0x0fc0000000000000
+            | 0xf000000000000000
+        ),
+        .n_fields = 28,
+        .fields = (const RegisterField []) {
+            REGFIELD_kv3_ES_PL2_EC,
+            REGFIELD_kv3_ES_PL2_OAPL,
+            REGFIELD_kv3_ES_PL2_ED,
+            REGFIELD_kv3_ES_PL2_ORPL,
+            REGFIELD_kv3_ES_PL2_PTAPL,
+            REGFIELD_kv3_ES_PL2_PTRPL,
+            REGFIELD_kv3_ES_PL2_DC,
+            REGFIELD_kv3_ES_PL2_ITN,
+            REGFIELD_kv3_ES_PL2_HTC,
+            REGFIELD_kv3_ES_PL2_SN,
+            REGFIELD_kv3_ES_PL2_BN,
+            REGFIELD_kv3_ES_PL2_WN,
+            REGFIELD_kv3_ES_PL2_SFRT,
+            REGFIELD_kv3_ES_PL2_ITL,
+            REGFIELD_kv3_ES_PL2_SFRI,
+            REGFIELD_kv3_ES_PL2_ITI,
+            REGFIELD_kv3_ES_PL2_GPRP,
+            REGFIELD_kv3_ES_PL2_SFRP,
+            REGFIELD_kv3_ES_PL2_DHT,
+            REGFIELD_kv3_ES_PL2_DRX,
+            REGFIELD_kv3_ES_PL2_DAF,
+            REGFIELD_kv3_ES_PL2_RWX,
+            REGFIELD_kv3_ES_PL2_NTA,
+            REGFIELD_kv3_ES_PL2_UCA,
+            REGFIELD_kv3_ES_PL2_AS,
+            REGFIELD_kv3_ES_PL2_BS,
+            REGFIELD_kv3_ES_PL2_DRI,
+            REGFIELD_kv3_ES_PL2_PIC,
+        },
+        .raccess = REG_ACCESS_GET,
+        .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v2,
+    },
+    [REG_v2_ES_PL3] = {
+        .name = "es_pl3",
+        .regfile = REGFILE_kv3_SFR,
+        .reg_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_ES_PL3) + 0,
+        .reset = 0x0000000000000004,
+        .mask = (
+              0x000000000000000f
+            | 0x0000000000000030
+            | 0xfffffffffffffff0
+            | 0x00000000000000c0
+            | 0x0000000000000300
+            | 0x0000000000000c00
+            | 0x0000000000003000
+            | 0x000000000001f000
+            | 0x000000000001f000
+            | 0x0000000000fff000
+            | 0x0000000000004000
+            | 0x0000000000008000
+            | 0x0000000000020000
+            | 0x0000000000060000
+            | 0x00000000001c0000
+            | 0x000000001ff80000
+            | 0x0000000007e00000
+            | 0x0000000ff8000000
+            | 0x0000001000000000
+            | 0x0000002000000000
+            | 0x0000004000000000
+            | 0x0000038000000000
+            | 0x0000040000000000
+            | 0x0000080000000000
+            | 0x0003f00000000000
+            | 0x003c000000000000
+            | 0x0fc0000000000000
+            | 0xf000000000000000
+        ),
+        .n_fields = 28,
+        .fields = (const RegisterField []) {
+            REGFIELD_kv3_ES_PL3_EC,
+            REGFIELD_kv3_ES_PL3_OAPL,
+            REGFIELD_kv3_ES_PL3_ED,
+            REGFIELD_kv3_ES_PL3_ORPL,
+            REGFIELD_kv3_ES_PL3_PTAPL,
+            REGFIELD_kv3_ES_PL3_PTRPL,
+            REGFIELD_kv3_ES_PL3_DC,
+            REGFIELD_kv3_ES_PL3_ITN,
+            REGFIELD_kv3_ES_PL3_HTC,
+            REGFIELD_kv3_ES_PL3_SN,
+            REGFIELD_kv3_ES_PL3_BN,
+            REGFIELD_kv3_ES_PL3_WN,
+            REGFIELD_kv3_ES_PL3_SFRT,
+            REGFIELD_kv3_ES_PL3_ITL,
+            REGFIELD_kv3_ES_PL3_SFRI,
+            REGFIELD_kv3_ES_PL3_ITI,
+            REGFIELD_kv3_ES_PL3_GPRP,
+            REGFIELD_kv3_ES_PL3_SFRP,
+            REGFIELD_kv3_ES_PL3_DHT,
+            REGFIELD_kv3_ES_PL3_DRX,
+            REGFIELD_kv3_ES_PL3_DAF,
+            REGFIELD_kv3_ES_PL3_RWX,
+            REGFIELD_kv3_ES_PL3_NTA,
+            REGFIELD_kv3_ES_PL3_UCA,
+            REGFIELD_kv3_ES_PL3_AS,
+            REGFIELD_kv3_ES_PL3_BS,
+            REGFIELD_kv3_ES_PL3_DRI,
+            REGFIELD_kv3_ES_PL3_PIC,
+        },
+        .raccess = REG_ACCESS_GET,
+        .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v2,
+    },
+    [REG_v2_SID_PL0] = {
+        .name = "sid_pl0",
+        .regfile = REGFILE_kv3_SFR,
+        .reg_width = 32,
+        .offset = offsetof(CPUArchState, storages.v2_SID_PL0) + 0,
+        .reset = 0x00000000,
+        .mask = (
+              0x00000000000001ff
+        ),
+        .n_fields = 1,
+        .fields = (const RegisterField []) {
+            REGFIELD_kv3_SID_PL0_SID,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+        .raccess = REG_ACCESS_GET,
+        .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v2,
+    },
+    [REG_v2_SID_PL1] = {
+        .name = "sid_pl1",
+        .regfile = REGFILE_kv3_SFR,
+        .reg_width = 32,
+        .offset = offsetof(CPUArchState, storages.v2_SID_PL1) + 0,
+        .reset = 0x00000000,
+        .mask = (
+              0x00000000000001ff
+        ),
+        .n_fields = 1,
+        .fields = (const RegisterField []) {
+            REGFIELD_kv3_SID_PL1_SID,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+        .raccess = REG_ACCESS_GET,
+        .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v2,
+    },
+    [REG_v2_SID_PL2] = {
+        .name = "sid_pl2",
+        .regfile = REGFILE_kv3_SFR,
+        .reg_width = 32,
+        .offset = offsetof(CPUArchState, storages.v2_SID_PL2) + 0,
+        .reset = 0x00000000,
+        .mask = (
+              0x00000000000001ff
+        ),
+        .n_fields = 1,
+        .fields = (const RegisterField []) {
+            REGFIELD_kv3_SID_PL2_SID,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+        .raccess = REG_ACCESS_GET,
+        .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v2,
+    },
+    [REG_v2_SID_PL3] = {
+        .name = "sid_pl3",
+        .regfile = REGFILE_kv3_SFR,
+        .reg_width = 32,
+        .offset = offsetof(CPUArchState, storages.v2_SID_PL3) + 0,
+        .reset = 0x00000000,
+        .mask = (
+              0x00000000000001ff
+        ),
+        .n_fields = 1,
+        .fields = (const RegisterField []) {
+            REGFIELD_kv3_SID_PL3_SID,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+        .raccess = REG_ACCESS_GET,
+        .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v2,
+    },
+    [REG_v2_MOW] = {
+        .name = "mow",
+        .regfile = REGFILE_kv3_SFR,
+        .reg_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_MO) + 0,
+        .reset = 0x0000000000000000,
+        .mask = (
+              0x0000000000000003
+            | 0x000000000000000c
+            | 0x0000000000000030
+            | 0x00000000000000c0
+            | 0x0000000000000300
+            | 0x0000000000000c00
+            | 0x0000000000003000
+            | 0x000000000000c000
+            | 0x0000000000030000
+            | 0x00000000000c0000
+            | 0x0000000000300000
+            | 0x0000000000c00000
+            | 0x0000000003000000
+            | 0x000000000c000000
+            | 0x0000000030000000
+            | 0x00000000c0000000
+            | 0x0000000300000000
+            | 0x0000000c00000000
+        ),
+        .n_fields = 18,
+        .fields = (const RegisterField []) {
+            REGFIELD_kv3_MOW_MMI,
+            REGFIELD_kv3_MOW_RFE,
+            REGFIELD_kv3_MOW_STOP,
+            REGFIELD_kv3_MOW_SYNC,
+            REGFIELD_kv3_MOW_PCR,
+            REGFIELD_kv3_MOW_MSG,
+            REGFIELD_kv3_MOW_MEN,
+            REGFIELD_kv3_MOW_MES,
+            REGFIELD_kv3_MOW_CSIT,
+            REGFIELD_kv3_MOW_T0,
+            REGFIELD_kv3_MOW_T1,
+            REGFIELD_kv3_MOW_WD,
+            REGFIELD_kv3_MOW_PM0,
+            REGFIELD_kv3_MOW_PM1,
+            REGFIELD_kv3_MOW_PM2,
+            REGFIELD_kv3_MOW_PM3,
+            REGFIELD_kv3_MOW_PMIT,
+            REGFIELD_kv3_MOW_COMM,
         },
         .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PS_PL] = {
-        .name = "PS_PL",
-        .reg = REG_kv3_PS,
-        .offset = 0,
-        .width = 2,
-        .n_owners = 2,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_PL0,
-            REGFIELD_kv3_PSO_PL1,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PS_ET] = {
-        .name = "PS_ET",
-        .reg = REG_kv3_PS,
-        .offset = 2,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_ET,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PS_HTD] = {
-        .name = "PS_HTD",
-        .reg = REG_kv3_PS,
-        .offset = 3,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_HTD,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PS_IE] = {
-        .name = "PS_IE",
-        .reg = REG_kv3_PS,
-        .offset = 4,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_IE,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PS_HLE] = {
-        .name = "PS_HLE",
-        .reg = REG_kv3_PS,
-        .offset = 5,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_HLE,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PS_SRE] = {
-        .name = "PS_SRE",
-        .reg = REG_kv3_PS,
-        .offset = 6,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_SRE,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PS_DAUS] = {
-        .name = "PS_DAUS",
-        .reg = REG_kv3_PS,
-        .offset = 7,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_DAUS,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PS_ICE] = {
-        .name = "PS_ICE",
-        .reg = REG_kv3_PS,
-        .offset = 8,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_ICE,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PS_USE] = {
-        .name = "PS_USE",
-        .reg = REG_kv3_PS,
-        .offset = 9,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_USE,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PS_DCE] = {
-        .name = "PS_DCE",
-        .reg = REG_kv3_PS,
-        .offset = 10,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_DCE,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PS_MME] = {
-        .name = "PS_MME",
-        .reg = REG_kv3_PS,
-        .offset = 11,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_MME,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PS_IL] = {
-        .name = "PS_IL",
-        .reg = REG_kv3_PS,
-        .offset = 12,
-        .width = 2,
-        .n_owners = 2,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_IL0,
-            REGFIELD_kv3_PSO_IL1,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PS_VS] = {
-        .name = "PS_VS",
-        .reg = REG_kv3_PS,
-        .offset = 14,
-        .width = 2,
-        .n_owners = 2,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_VS0,
-            REGFIELD_kv3_PSO_VS1,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PS_V64] = {
-        .name = "PS_V64",
-        .reg = REG_kv3_PS,
-        .offset = 16,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_V64,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PS_L2E] = {
-        .name = "PS_L2E",
-        .reg = REG_kv3_PS,
-        .offset = 17,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_L2E,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PS_SME] = {
-        .name = "PS_SME",
-        .reg = REG_kv3_PS,
-        .offset = 18,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_SME,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PS_SMR] = {
-        .name = "PS_SMR",
-        .reg = REG_kv3_PS,
-        .offset = 19,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_SMR,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PS_PMJ] = {
-        .name = "PS_PMJ",
-        .reg = REG_kv3_PS,
-        .offset = 20,
-        .width = 4,
-        .n_owners = 4,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_PMJ0,
-            REGFIELD_kv3_PSO_PMJ1,
-            REGFIELD_kv3_PSO_PMJ2,
-            REGFIELD_kv3_PSO_PMJ3,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PS_MMUP] = {
-        .name = "PS_MMUP",
-        .reg = REG_kv3_PS,
-        .offset = 24,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_MMUP,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL] = {
-        .name = "SPS_PL",
-        .reg = REG_kv3_SPS,
-        .offset = 0,
-        .width = 2,
-        .n_owners = 2,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_PL0,
-            REGFIELD_kv3_PSO_PL1,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_ET] = {
-        .name = "SPS_ET",
-        .reg = REG_kv3_SPS,
-        .offset = 2,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_ET,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_HTD] = {
-        .name = "SPS_HTD",
-        .reg = REG_kv3_SPS,
-        .offset = 3,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_HTD,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_IE] = {
-        .name = "SPS_IE",
-        .reg = REG_kv3_SPS,
-        .offset = 4,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_IE,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_HLE] = {
-        .name = "SPS_HLE",
-        .reg = REG_kv3_SPS,
-        .offset = 5,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_HLE,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_SRE] = {
-        .name = "SPS_SRE",
-        .reg = REG_kv3_SPS,
-        .offset = 6,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_SRE,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_DAUS] = {
-        .name = "SPS_DAUS",
-        .reg = REG_kv3_SPS,
-        .offset = 7,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_DAUS,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_ICE] = {
-        .name = "SPS_ICE",
-        .reg = REG_kv3_SPS,
-        .offset = 8,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_ICE,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_USE] = {
-        .name = "SPS_USE",
-        .reg = REG_kv3_SPS,
-        .offset = 9,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_USE,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_DCE] = {
-        .name = "SPS_DCE",
-        .reg = REG_kv3_SPS,
-        .offset = 10,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_DCE,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_MME] = {
-        .name = "SPS_MME",
-        .reg = REG_kv3_SPS,
-        .offset = 11,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_MME,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_IL] = {
-        .name = "SPS_IL",
-        .reg = REG_kv3_SPS,
-        .offset = 12,
-        .width = 2,
-        .n_owners = 2,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_IL0,
-            REGFIELD_kv3_PSO_IL1,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_VS] = {
-        .name = "SPS_VS",
-        .reg = REG_kv3_SPS,
-        .offset = 14,
-        .width = 2,
-        .n_owners = 2,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_VS0,
-            REGFIELD_kv3_PSO_VS1,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_V64] = {
-        .name = "SPS_V64",
-        .reg = REG_kv3_SPS,
-        .offset = 16,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_V64,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_L2E] = {
-        .name = "SPS_L2E",
-        .reg = REG_kv3_SPS,
-        .offset = 17,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_L2E,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_SME] = {
-        .name = "SPS_SME",
-        .reg = REG_kv3_SPS,
-        .offset = 18,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_SME,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_SMR] = {
-        .name = "SPS_SMR",
-        .reg = REG_kv3_SPS,
-        .offset = 19,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_SMR,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PMJ] = {
-        .name = "SPS_PMJ",
-        .reg = REG_kv3_SPS,
-        .offset = 20,
-        .width = 4,
-        .n_owners = 4,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_PMJ0,
-            REGFIELD_kv3_PSO_PMJ1,
-            REGFIELD_kv3_PSO_PMJ2,
-            REGFIELD_kv3_PSO_PMJ3,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_MMUP] = {
-        .name = "SPS_MMUP",
-        .reg = REG_kv3_SPS,
-        .offset = 24,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_MMUP,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL0_PL] = {
-        .name = "SPS_PL0_PL",
-        .reg = REG_kv3_SPS_PL0,
-        .offset = 0,
-        .width = 2,
-        .n_owners = 2,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_PL0,
-            REGFIELD_kv3_PSO_PL1,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL0_ET] = {
-        .name = "SPS_PL0_ET",
-        .reg = REG_kv3_SPS_PL0,
-        .offset = 2,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_ET,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL0_HTD] = {
-        .name = "SPS_PL0_HTD",
-        .reg = REG_kv3_SPS_PL0,
-        .offset = 3,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_HTD,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL0_IE] = {
-        .name = "SPS_PL0_IE",
-        .reg = REG_kv3_SPS_PL0,
-        .offset = 4,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_IE,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL0_HLE] = {
-        .name = "SPS_PL0_HLE",
-        .reg = REG_kv3_SPS_PL0,
-        .offset = 5,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_HLE,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL0_SRE] = {
-        .name = "SPS_PL0_SRE",
-        .reg = REG_kv3_SPS_PL0,
-        .offset = 6,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_SRE,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL0_DAUS] = {
-        .name = "SPS_PL0_DAUS",
-        .reg = REG_kv3_SPS_PL0,
-        .offset = 7,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_DAUS,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL0_ICE] = {
-        .name = "SPS_PL0_ICE",
-        .reg = REG_kv3_SPS_PL0,
-        .offset = 8,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_ICE,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL0_USE] = {
-        .name = "SPS_PL0_USE",
-        .reg = REG_kv3_SPS_PL0,
-        .offset = 9,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_USE,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL0_DCE] = {
-        .name = "SPS_PL0_DCE",
-        .reg = REG_kv3_SPS_PL0,
-        .offset = 10,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_DCE,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL0_MME] = {
-        .name = "SPS_PL0_MME",
-        .reg = REG_kv3_SPS_PL0,
-        .offset = 11,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_MME,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL0_IL] = {
-        .name = "SPS_PL0_IL",
-        .reg = REG_kv3_SPS_PL0,
-        .offset = 12,
-        .width = 2,
-        .n_owners = 2,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_IL0,
-            REGFIELD_kv3_PSO_IL1,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL0_VS] = {
-        .name = "SPS_PL0_VS",
-        .reg = REG_kv3_SPS_PL0,
-        .offset = 14,
-        .width = 2,
-        .n_owners = 2,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_VS0,
-            REGFIELD_kv3_PSO_VS1,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL0_V64] = {
-        .name = "SPS_PL0_V64",
-        .reg = REG_kv3_SPS_PL0,
-        .offset = 16,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_V64,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL0_L2E] = {
-        .name = "SPS_PL0_L2E",
-        .reg = REG_kv3_SPS_PL0,
-        .offset = 17,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_L2E,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL0_SME] = {
-        .name = "SPS_PL0_SME",
-        .reg = REG_kv3_SPS_PL0,
-        .offset = 18,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_SME,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL0_SMR] = {
-        .name = "SPS_PL0_SMR",
-        .reg = REG_kv3_SPS_PL0,
-        .offset = 19,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_SMR,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL0_PMJ] = {
-        .name = "SPS_PL0_PMJ",
-        .reg = REG_kv3_SPS_PL0,
-        .offset = 20,
-        .width = 4,
-        .n_owners = 4,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_PMJ0,
-            REGFIELD_kv3_PSO_PMJ1,
-            REGFIELD_kv3_PSO_PMJ2,
-            REGFIELD_kv3_PSO_PMJ3,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL0_MMUP] = {
-        .name = "SPS_PL0_MMUP",
-        .reg = REG_kv3_SPS_PL0,
-        .offset = 24,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_MMUP,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL1_PL] = {
-        .name = "SPS_PL1_PL",
-        .reg = REG_kv3_SPS_PL1,
-        .offset = 0,
-        .width = 2,
-        .n_owners = 2,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_PL0,
-            REGFIELD_kv3_PSO_PL1,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL1_ET] = {
-        .name = "SPS_PL1_ET",
-        .reg = REG_kv3_SPS_PL1,
-        .offset = 2,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_ET,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL1_HTD] = {
-        .name = "SPS_PL1_HTD",
-        .reg = REG_kv3_SPS_PL1,
-        .offset = 3,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_HTD,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL1_IE] = {
-        .name = "SPS_PL1_IE",
-        .reg = REG_kv3_SPS_PL1,
-        .offset = 4,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_IE,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL1_HLE] = {
-        .name = "SPS_PL1_HLE",
-        .reg = REG_kv3_SPS_PL1,
-        .offset = 5,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_HLE,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL1_SRE] = {
-        .name = "SPS_PL1_SRE",
-        .reg = REG_kv3_SPS_PL1,
-        .offset = 6,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_SRE,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL1_DAUS] = {
-        .name = "SPS_PL1_DAUS",
-        .reg = REG_kv3_SPS_PL1,
-        .offset = 7,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_DAUS,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL1_ICE] = {
-        .name = "SPS_PL1_ICE",
-        .reg = REG_kv3_SPS_PL1,
-        .offset = 8,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_ICE,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL1_USE] = {
-        .name = "SPS_PL1_USE",
-        .reg = REG_kv3_SPS_PL1,
-        .offset = 9,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_USE,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL1_DCE] = {
-        .name = "SPS_PL1_DCE",
-        .reg = REG_kv3_SPS_PL1,
-        .offset = 10,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_DCE,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL1_MME] = {
-        .name = "SPS_PL1_MME",
-        .reg = REG_kv3_SPS_PL1,
-        .offset = 11,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_MME,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL1_IL] = {
-        .name = "SPS_PL1_IL",
-        .reg = REG_kv3_SPS_PL1,
-        .offset = 12,
-        .width = 2,
-        .n_owners = 2,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_IL0,
-            REGFIELD_kv3_PSO_IL1,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL1_VS] = {
-        .name = "SPS_PL1_VS",
-        .reg = REG_kv3_SPS_PL1,
-        .offset = 14,
-        .width = 2,
-        .n_owners = 2,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_VS0,
-            REGFIELD_kv3_PSO_VS1,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL1_V64] = {
-        .name = "SPS_PL1_V64",
-        .reg = REG_kv3_SPS_PL1,
-        .offset = 16,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_V64,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL1_L2E] = {
-        .name = "SPS_PL1_L2E",
-        .reg = REG_kv3_SPS_PL1,
-        .offset = 17,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_L2E,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL1_SME] = {
-        .name = "SPS_PL1_SME",
-        .reg = REG_kv3_SPS_PL1,
-        .offset = 18,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_SME,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL1_SMR] = {
-        .name = "SPS_PL1_SMR",
-        .reg = REG_kv3_SPS_PL1,
-        .offset = 19,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_SMR,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL1_PMJ] = {
-        .name = "SPS_PL1_PMJ",
-        .reg = REG_kv3_SPS_PL1,
-        .offset = 20,
-        .width = 4,
-        .n_owners = 4,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_PMJ0,
-            REGFIELD_kv3_PSO_PMJ1,
-            REGFIELD_kv3_PSO_PMJ2,
-            REGFIELD_kv3_PSO_PMJ3,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL1_MMUP] = {
-        .name = "SPS_PL1_MMUP",
-        .reg = REG_kv3_SPS_PL1,
-        .offset = 24,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_MMUP,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL2_PL] = {
-        .name = "SPS_PL2_PL",
-        .reg = REG_kv3_SPS_PL2,
-        .offset = 0,
-        .width = 2,
-        .n_owners = 2,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_PL0,
-            REGFIELD_kv3_PSO_PL1,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL2_ET] = {
-        .name = "SPS_PL2_ET",
-        .reg = REG_kv3_SPS_PL2,
-        .offset = 2,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_ET,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL2_HTD] = {
-        .name = "SPS_PL2_HTD",
-        .reg = REG_kv3_SPS_PL2,
-        .offset = 3,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_HTD,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL2_IE] = {
-        .name = "SPS_PL2_IE",
-        .reg = REG_kv3_SPS_PL2,
-        .offset = 4,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_IE,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL2_HLE] = {
-        .name = "SPS_PL2_HLE",
-        .reg = REG_kv3_SPS_PL2,
-        .offset = 5,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_HLE,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL2_SRE] = {
-        .name = "SPS_PL2_SRE",
-        .reg = REG_kv3_SPS_PL2,
-        .offset = 6,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_SRE,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL2_DAUS] = {
-        .name = "SPS_PL2_DAUS",
-        .reg = REG_kv3_SPS_PL2,
-        .offset = 7,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_DAUS,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL2_ICE] = {
-        .name = "SPS_PL2_ICE",
-        .reg = REG_kv3_SPS_PL2,
-        .offset = 8,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_ICE,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL2_USE] = {
-        .name = "SPS_PL2_USE",
-        .reg = REG_kv3_SPS_PL2,
-        .offset = 9,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_USE,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL2_DCE] = {
-        .name = "SPS_PL2_DCE",
-        .reg = REG_kv3_SPS_PL2,
-        .offset = 10,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_DCE,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL2_MME] = {
-        .name = "SPS_PL2_MME",
-        .reg = REG_kv3_SPS_PL2,
-        .offset = 11,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_MME,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL2_IL] = {
-        .name = "SPS_PL2_IL",
-        .reg = REG_kv3_SPS_PL2,
-        .offset = 12,
-        .width = 2,
-        .n_owners = 2,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_IL0,
-            REGFIELD_kv3_PSO_IL1,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL2_VS] = {
-        .name = "SPS_PL2_VS",
-        .reg = REG_kv3_SPS_PL2,
-        .offset = 14,
-        .width = 2,
-        .n_owners = 2,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_VS0,
-            REGFIELD_kv3_PSO_VS1,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL2_V64] = {
-        .name = "SPS_PL2_V64",
-        .reg = REG_kv3_SPS_PL2,
-        .offset = 16,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_V64,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL2_L2E] = {
-        .name = "SPS_PL2_L2E",
-        .reg = REG_kv3_SPS_PL2,
-        .offset = 17,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_L2E,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL2_SME] = {
-        .name = "SPS_PL2_SME",
-        .reg = REG_kv3_SPS_PL2,
-        .offset = 18,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_SME,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL2_SMR] = {
-        .name = "SPS_PL2_SMR",
-        .reg = REG_kv3_SPS_PL2,
-        .offset = 19,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_SMR,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL2_PMJ] = {
-        .name = "SPS_PL2_PMJ",
-        .reg = REG_kv3_SPS_PL2,
-        .offset = 20,
-        .width = 4,
-        .n_owners = 4,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_PMJ0,
-            REGFIELD_kv3_PSO_PMJ1,
-            REGFIELD_kv3_PSO_PMJ2,
-            REGFIELD_kv3_PSO_PMJ3,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL2_MMUP] = {
-        .name = "SPS_PL2_MMUP",
-        .reg = REG_kv3_SPS_PL2,
-        .offset = 24,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_MMUP,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL3_PL] = {
-        .name = "SPS_PL3_PL",
-        .reg = REG_kv3_SPS_PL3,
-        .offset = 0,
-        .width = 2,
-        .n_owners = 2,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_PL0,
-            REGFIELD_kv3_PSO_PL1,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL3_ET] = {
-        .name = "SPS_PL3_ET",
-        .reg = REG_kv3_SPS_PL3,
-        .offset = 2,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_ET,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL3_HTD] = {
-        .name = "SPS_PL3_HTD",
-        .reg = REG_kv3_SPS_PL3,
-        .offset = 3,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_HTD,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL3_IE] = {
-        .name = "SPS_PL3_IE",
-        .reg = REG_kv3_SPS_PL3,
-        .offset = 4,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_IE,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL3_HLE] = {
-        .name = "SPS_PL3_HLE",
-        .reg = REG_kv3_SPS_PL3,
-        .offset = 5,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_HLE,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL3_SRE] = {
-        .name = "SPS_PL3_SRE",
-        .reg = REG_kv3_SPS_PL3,
-        .offset = 6,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_SRE,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL3_DAUS] = {
-        .name = "SPS_PL3_DAUS",
-        .reg = REG_kv3_SPS_PL3,
-        .offset = 7,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_DAUS,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL3_ICE] = {
-        .name = "SPS_PL3_ICE",
-        .reg = REG_kv3_SPS_PL3,
-        .offset = 8,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_ICE,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL3_USE] = {
-        .name = "SPS_PL3_USE",
-        .reg = REG_kv3_SPS_PL3,
-        .offset = 9,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_USE,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL3_DCE] = {
-        .name = "SPS_PL3_DCE",
-        .reg = REG_kv3_SPS_PL3,
-        .offset = 10,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_DCE,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL3_MME] = {
-        .name = "SPS_PL3_MME",
-        .reg = REG_kv3_SPS_PL3,
-        .offset = 11,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_MME,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL3_IL] = {
-        .name = "SPS_PL3_IL",
-        .reg = REG_kv3_SPS_PL3,
-        .offset = 12,
-        .width = 2,
-        .n_owners = 2,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_IL0,
-            REGFIELD_kv3_PSO_IL1,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL3_VS] = {
-        .name = "SPS_PL3_VS",
-        .reg = REG_kv3_SPS_PL3,
-        .offset = 14,
-        .width = 2,
-        .n_owners = 2,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_VS0,
-            REGFIELD_kv3_PSO_VS1,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL3_V64] = {
-        .name = "SPS_PL3_V64",
-        .reg = REG_kv3_SPS_PL3,
-        .offset = 16,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_V64,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL3_L2E] = {
-        .name = "SPS_PL3_L2E",
-        .reg = REG_kv3_SPS_PL3,
-        .offset = 17,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_L2E,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL3_SME] = {
-        .name = "SPS_PL3_SME",
-        .reg = REG_kv3_SPS_PL3,
-        .offset = 18,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_SME,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL3_SMR] = {
-        .name = "SPS_PL3_SMR",
-        .reg = REG_kv3_SPS_PL3,
-        .offset = 19,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_SMR,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL3_PMJ] = {
-        .name = "SPS_PL3_PMJ",
-        .reg = REG_kv3_SPS_PL3,
-        .offset = 20,
-        .width = 4,
-        .n_owners = 4,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_PMJ0,
-            REGFIELD_kv3_PSO_PMJ1,
-            REGFIELD_kv3_PSO_PMJ2,
-            REGFIELD_kv3_PSO_PMJ3,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_SPS_PL3_MMUP] = {
-        .name = "SPS_PL3_MMUP",
-        .reg = REG_kv3_SPS_PL3,
-        .offset = 24,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_MMUP,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PSO_PL0] = {
-        .name = "PSO_PL0",
-        .reg = REG_kv3_PSO,
-        .offset = 0,
-        .width = 2,
-    },
-    [REGFIELD_kv3_PSO_PL1] = {
-        .name = "PSO_PL1",
-        .reg = REG_kv3_PSO,
-        .offset = 2,
-        .width = 2,
-    },
-    [REGFIELD_kv3_PSO_ET] = {
-        .name = "PSO_ET",
-        .reg = REG_kv3_PSO,
-        .offset = 4,
-        .width = 2,
-    },
-    [REGFIELD_kv3_PSO_HTD] = {
-        .name = "PSO_HTD",
-        .reg = REG_kv3_PSO,
-        .offset = 6,
-        .width = 2,
-    },
-    [REGFIELD_kv3_PSO_IE] = {
-        .name = "PSO_IE",
-        .reg = REG_kv3_PSO,
-        .offset = 8,
-        .width = 2,
-    },
-    [REGFIELD_kv3_PSO_HLE] = {
-        .name = "PSO_HLE",
-        .reg = REG_kv3_PSO,
-        .offset = 10,
-        .width = 2,
-    },
-    [REGFIELD_kv3_PSO_SRE] = {
-        .name = "PSO_SRE",
-        .reg = REG_kv3_PSO,
-        .offset = 12,
-        .width = 2,
-    },
-    [REGFIELD_kv3_PSO_DAUS] = {
-        .name = "PSO_DAUS",
-        .reg = REG_kv3_PSO,
-        .offset = 14,
-        .width = 2,
-    },
-    [REGFIELD_kv3_PSO_ICE] = {
-        .name = "PSO_ICE",
-        .reg = REG_kv3_PSO,
-        .offset = 16,
-        .width = 2,
-    },
-    [REGFIELD_kv3_PSO_USE] = {
-        .name = "PSO_USE",
-        .reg = REG_kv3_PSO,
-        .offset = 18,
-        .width = 2,
-    },
-    [REGFIELD_kv3_PSO_DCE] = {
-        .name = "PSO_DCE",
-        .reg = REG_kv3_PSO,
-        .offset = 20,
-        .width = 2,
-    },
-    [REGFIELD_kv3_PSO_MME] = {
-        .name = "PSO_MME",
-        .reg = REG_kv3_PSO,
-        .offset = 22,
-        .width = 2,
-    },
-    [REGFIELD_kv3_PSO_IL0] = {
-        .name = "PSO_IL0",
-        .reg = REG_kv3_PSO,
-        .offset = 24,
-        .width = 2,
-    },
-    [REGFIELD_kv3_PSO_IL1] = {
-        .name = "PSO_IL1",
-        .reg = REG_kv3_PSO,
-        .offset = 26,
-        .width = 2,
-    },
-    [REGFIELD_kv3_PSO_VS0] = {
-        .name = "PSO_VS0",
-        .reg = REG_kv3_PSO,
-        .offset = 28,
-        .width = 2,
-    },
-    [REGFIELD_kv3_PSO_VS1] = {
-        .name = "PSO_VS1",
-        .reg = REG_kv3_PSO,
-        .offset = 30,
-        .width = 2,
-    },
-    [REGFIELD_kv3_PSO_V64] = {
-        .name = "PSO_V64",
-        .reg = REG_kv3_PSO,
-        .offset = 32,
-        .width = 2,
-    },
-    [REGFIELD_kv3_PSO_L2E] = {
-        .name = "PSO_L2E",
-        .reg = REG_kv3_PSO,
-        .offset = 34,
-        .width = 2,
-    },
-    [REGFIELD_kv3_PSO_SME] = {
-        .name = "PSO_SME",
-        .reg = REG_kv3_PSO,
-        .offset = 36,
-        .width = 2,
-    },
-    [REGFIELD_kv3_PSO_SMR] = {
-        .name = "PSO_SMR",
-        .reg = REG_kv3_PSO,
-        .offset = 38,
-        .width = 2,
-    },
-    [REGFIELD_kv3_PSO_PMJ0] = {
-        .name = "PSO_PMJ0",
-        .reg = REG_kv3_PSO,
-        .offset = 40,
-        .width = 2,
-    },
-    [REGFIELD_kv3_PSO_PMJ1] = {
-        .name = "PSO_PMJ1",
-        .reg = REG_kv3_PSO,
-        .offset = 42,
-        .width = 2,
-    },
-    [REGFIELD_kv3_PSO_PMJ2] = {
-        .name = "PSO_PMJ2",
-        .reg = REG_kv3_PSO,
-        .offset = 44,
-        .width = 2,
-    },
-    [REGFIELD_kv3_PSO_PMJ3] = {
-        .name = "PSO_PMJ3",
-        .reg = REG_kv3_PSO,
-        .offset = 46,
-        .width = 2,
-    },
-    [REGFIELD_kv3_PSO_MMUP] = {
-        .name = "PSO_MMUP",
-        .reg = REG_kv3_PSO,
-        .offset = 48,
-        .width = 2,
-    },
-    [REGFIELD_kv3_PSOW_PL0] = {
-        .name = "PSOW_PL0",
-        .reg = REG_kv3_PSOW,
-        .offset = 0,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_PL0,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PSOW_PL1] = {
-        .name = "PSOW_PL1",
-        .reg = REG_kv3_PSOW,
-        .offset = 2,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_PL1,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PSOW_ET] = {
-        .name = "PSOW_ET",
-        .reg = REG_kv3_PSOW,
-        .offset = 4,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_ET,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PSOW_HTD] = {
-        .name = "PSOW_HTD",
-        .reg = REG_kv3_PSOW,
-        .offset = 6,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_HTD,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PSOW_IE] = {
-        .name = "PSOW_IE",
-        .reg = REG_kv3_PSOW,
-        .offset = 8,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_IE,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PSOW_HLE] = {
-        .name = "PSOW_HLE",
-        .reg = REG_kv3_PSOW,
-        .offset = 10,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_HLE,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PSOW_SRE] = {
-        .name = "PSOW_SRE",
-        .reg = REG_kv3_PSOW,
-        .offset = 12,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_SRE,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PSOW_DAUS] = {
-        .name = "PSOW_DAUS",
-        .reg = REG_kv3_PSOW,
-        .offset = 14,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_DAUS,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PSOW_ICE] = {
-        .name = "PSOW_ICE",
-        .reg = REG_kv3_PSOW,
-        .offset = 16,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_ICE,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PSOW_USE] = {
-        .name = "PSOW_USE",
-        .reg = REG_kv3_PSOW,
-        .offset = 18,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_USE,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PSOW_DCE] = {
-        .name = "PSOW_DCE",
-        .reg = REG_kv3_PSOW,
-        .offset = 20,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_DCE,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PSOW_MME] = {
-        .name = "PSOW_MME",
-        .reg = REG_kv3_PSOW,
-        .offset = 22,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_MME,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PSOW_IL0] = {
-        .name = "PSOW_IL0",
-        .reg = REG_kv3_PSOW,
-        .offset = 24,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_IL0,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PSOW_IL1] = {
-        .name = "PSOW_IL1",
-        .reg = REG_kv3_PSOW,
-        .offset = 26,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_IL1,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PSOW_VS0] = {
-        .name = "PSOW_VS0",
-        .reg = REG_kv3_PSOW,
-        .offset = 28,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_VS0,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PSOW_VS1] = {
-        .name = "PSOW_VS1",
-        .reg = REG_kv3_PSOW,
-        .offset = 30,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_VS1,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PSOW_V64] = {
-        .name = "PSOW_V64",
-        .reg = REG_kv3_PSOW,
-        .offset = 32,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_V64,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PSOW_L2E] = {
-        .name = "PSOW_L2E",
-        .reg = REG_kv3_PSOW,
-        .offset = 34,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_L2E,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PSOW_SME] = {
-        .name = "PSOW_SME",
-        .reg = REG_kv3_PSOW,
-        .offset = 36,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_SME,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PSOW_SMR] = {
-        .name = "PSOW_SMR",
-        .reg = REG_kv3_PSOW,
-        .offset = 38,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_SMR,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PSOW_PMJ0] = {
-        .name = "PSOW_PMJ0",
-        .reg = REG_kv3_PSOW,
-        .offset = 40,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_PMJ0,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PSOW_PMJ1] = {
-        .name = "PSOW_PMJ1",
-        .reg = REG_kv3_PSOW,
-        .offset = 42,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_PMJ1,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PSOW_PMJ2] = {
-        .name = "PSOW_PMJ2",
-        .reg = REG_kv3_PSOW,
-        .offset = 44,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_PMJ2,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PSOW_PMJ3] = {
-        .name = "PSOW_PMJ3",
-        .reg = REG_kv3_PSOW,
-        .offset = 46,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_PMJ3,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PSOW_MMUP] = {
-        .name = "PSOW_MMUP",
-        .reg = REG_kv3_PSOW,
-        .offset = 48,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_PSO_MMUP,
-        },
-        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_CS_IC] = {
-        .name = "CS_IC",
-        .reg = REG_kv3_CS,
-        .offset = 0,
-        .width = 1,
-    },
-    [REGFIELD_kv3_CS_IO] = {
-        .name = "CS_IO",
-        .reg = REG_kv3_CS,
-        .offset = 1,
-        .width = 1,
-    },
-    [REGFIELD_kv3_CS_DZ] = {
-        .name = "CS_DZ",
-        .reg = REG_kv3_CS,
-        .offset = 2,
-        .width = 1,
-    },
-    [REGFIELD_kv3_CS_OV] = {
-        .name = "CS_OV",
-        .reg = REG_kv3_CS,
-        .offset = 3,
-        .width = 1,
-    },
-    [REGFIELD_kv3_CS_UN] = {
-        .name = "CS_UN",
-        .reg = REG_kv3_CS,
-        .offset = 4,
-        .width = 1,
-    },
-    [REGFIELD_kv3_CS_IN] = {
-        .name = "CS_IN",
-        .reg = REG_kv3_CS,
-        .offset = 5,
-        .width = 1,
-    },
-    [REGFIELD_kv3_CS_XIO] = {
-        .name = "CS_XIO",
-        .reg = REG_kv3_CS,
-        .offset = 9,
-        .width = 1,
-    },
-    [REGFIELD_kv3_CS_XDZ] = {
-        .name = "CS_XDZ",
-        .reg = REG_kv3_CS,
-        .offset = 10,
-        .width = 1,
-    },
-    [REGFIELD_kv3_CS_XOV] = {
-        .name = "CS_XOV",
-        .reg = REG_kv3_CS,
-        .offset = 11,
-        .width = 1,
-    },
-    [REGFIELD_kv3_CS_XUN] = {
-        .name = "CS_XUN",
-        .reg = REG_kv3_CS,
-        .offset = 12,
-        .width = 1,
-    },
-    [REGFIELD_kv3_CS_XIN] = {
-        .name = "CS_XIN",
-        .reg = REG_kv3_CS,
-        .offset = 13,
-        .width = 1,
-    },
-    [REGFIELD_kv3_CS_RM] = {
-        .name = "CS_RM",
-        .reg = REG_kv3_CS,
-        .offset = 16,
-        .width = 2,
-    },
-    [REGFIELD_kv3_CS_XRM] = {
-        .name = "CS_XRM",
-        .reg = REG_kv3_CS,
-        .offset = 20,
-        .width = 2,
-    },
-    [REGFIELD_kv3_CS_XMF] = {
-        .name = "CS_XMF",
-        .reg = REG_kv3_CS,
-        .offset = 24,
-        .width = 1,
-    },
-    [REGFIELD_kv3_CS_CC] = {
-        .name = "CS_CC",
-        .reg = REG_kv3_CS,
-        .offset = 32,
-        .width = 16,
-    },
-    [REGFIELD_kv3_CS_XDROP] = {
-        .name = "CS_XDROP",
-        .reg = REG_kv3_CS,
-        .offset = 48,
-        .width = 6,
-    },
-    [REGFIELD_kv3_CS_XPOW2] = {
-        .name = "CS_XPOW2",
-        .reg = REG_kv3_CS,
-        .offset = 54,
-        .width = 6,
-    },
-    [REGFIELD_kv3_AESPC_AESPC] = {
-        .name = "AESPC_AESPC",
-        .reg = REG_kv3_AESPC,
-        .offset = 0,
-        .width = 64,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_CSIT,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_CSIT_ICIE] = {
-        .name = "CSIT_ICIE",
-        .reg = REG_kv3_CSIT,
-        .offset = 0,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_CSIT,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_CSIT_IOIE] = {
-        .name = "CSIT_IOIE",
-        .reg = REG_kv3_CSIT,
-        .offset = 1,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_CSIT,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_CSIT_DZIE] = {
-        .name = "CSIT_DZIE",
-        .reg = REG_kv3_CSIT,
-        .offset = 2,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_CSIT,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_CSIT_OVIE] = {
-        .name = "CSIT_OVIE",
-        .reg = REG_kv3_CSIT,
-        .offset = 3,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_CSIT,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_CSIT_UNIE] = {
-        .name = "CSIT_UNIE",
-        .reg = REG_kv3_CSIT,
-        .offset = 4,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_CSIT,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_CSIT_INIE] = {
-        .name = "CSIT_INIE",
-        .reg = REG_kv3_CSIT,
-        .offset = 5,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_CSIT,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_CSIT_XIOIE] = {
-        .name = "CSIT_XIOIE",
-        .reg = REG_kv3_CSIT,
-        .offset = 9,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_CSIT,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_CSIT_XDZIE] = {
-        .name = "CSIT_XDZIE",
-        .reg = REG_kv3_CSIT,
-        .offset = 10,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_CSIT,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_CSIT_XOVIE] = {
-        .name = "CSIT_XOVIE",
-        .reg = REG_kv3_CSIT,
-        .offset = 11,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_CSIT,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_CSIT_XUNIE] = {
-        .name = "CSIT_XUNIE",
-        .reg = REG_kv3_CSIT,
-        .offset = 12,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_CSIT,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_CSIT_XINIE] = {
-        .name = "CSIT_XINIE",
-        .reg = REG_kv3_CSIT,
-        .offset = 13,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_CSIT,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_CSIT_AEIR] = {
-        .name = "CSIT_AEIR",
-        .reg = REG_kv3_CSIT,
-        .offset = 16,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_CSIT,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_CSIT_AEC] = {
-        .name = "CSIT_AEC",
-        .reg = REG_kv3_CSIT,
-        .offset = 17,
-        .width = 3,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_CSIT,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_CSIT_SPCV] = {
-        .name = "CSIT_SPCV",
-        .reg = REG_kv3_CSIT,
-        .offset = 20,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_CSIT,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_ES_EC] = {
-        .name = "ES_EC",
-        .reg = REG_kv3_ES,
-        .offset = 0,
-        .width = 4,
-    },
-    [REGFIELD_kv3_ES_ED] = {
-        .name = "ES_ED",
-        .reg = REG_kv3_ES,
-        .offset = 4,
-        .width = 60,
-    },
-    [REGFIELD_kv3_ES_OAPL] = {
-        .name = "ES_OAPL",
-        .reg = REG_kv3_ES,
-        .offset = 4,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ES_ORPL] = {
-        .name = "ES_ORPL",
-        .reg = REG_kv3_ES,
-        .offset = 6,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ES_PTAPL] = {
-        .name = "ES_PTAPL",
-        .reg = REG_kv3_ES,
-        .offset = 8,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ES_PTRPL] = {
-        .name = "ES_PTRPL",
-        .reg = REG_kv3_ES,
-        .offset = 10,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ES_ITN] = {
-        .name = "ES_ITN",
-        .reg = REG_kv3_ES,
-        .offset = 12,
-        .width = 5,
-    },
-    [REGFIELD_kv3_ES_ITL] = {
-        .name = "ES_ITL",
-        .reg = REG_kv3_ES,
-        .offset = 17,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ES_ITI] = {
-        .name = "ES_ITI",
-        .reg = REG_kv3_ES,
-        .offset = 19,
-        .width = 10,
-    },
-    [REGFIELD_kv3_ES_SN] = {
-        .name = "ES_SN",
-        .reg = REG_kv3_ES,
-        .offset = 12,
-        .width = 12,
-    },
-    [REGFIELD_kv3_ES_HTC] = {
-        .name = "ES_HTC",
-        .reg = REG_kv3_ES,
-        .offset = 12,
-        .width = 5,
-    },
-    [REGFIELD_kv3_ES_SFRT] = {
-        .name = "ES_SFRT",
-        .reg = REG_kv3_ES,
-        .offset = 17,
-        .width = 1,
-    },
-    [REGFIELD_kv3_ES_SFRI] = {
-        .name = "ES_SFRI",
-        .reg = REG_kv3_ES,
-        .offset = 18,
-        .width = 3,
-    },
-    [REGFIELD_kv3_ES_GPRP] = {
-        .name = "ES_GPRP",
-        .reg = REG_kv3_ES,
-        .offset = 21,
-        .width = 6,
-    },
-    [REGFIELD_kv3_ES_SFRP] = {
-        .name = "ES_SFRP",
-        .reg = REG_kv3_ES,
-        .offset = 27,
-        .width = 9,
-    },
-    [REGFIELD_kv3_ES_DHT] = {
-        .name = "ES_DHT",
-        .reg = REG_kv3_ES,
-        .offset = 36,
-        .width = 1,
-    },
-    [REGFIELD_kv3_ES_RWX] = {
-        .name = "ES_RWX",
-        .reg = REG_kv3_ES,
-        .offset = 39,
-        .width = 3,
-    },
-    [REGFIELD_kv3_ES_NTA] = {
-        .name = "ES_NTA",
-        .reg = REG_kv3_ES,
-        .offset = 42,
-        .width = 1,
-    },
-    [REGFIELD_kv3_ES_UCA] = {
-        .name = "ES_UCA",
-        .reg = REG_kv3_ES,
-        .offset = 43,
-        .width = 1,
-    },
-    [REGFIELD_kv3_ES_AS] = {
-        .name = "ES_AS",
-        .reg = REG_kv3_ES,
-        .offset = 44,
-        .width = 6,
-    },
-    [REGFIELD_kv3_ES_BS] = {
-        .name = "ES_BS",
-        .reg = REG_kv3_ES,
-        .offset = 50,
-        .width = 4,
-    },
-    [REGFIELD_kv3_ES_DRI] = {
-        .name = "ES_DRI",
-        .reg = REG_kv3_ES,
-        .offset = 54,
-        .width = 6,
-    },
-    [REGFIELD_kv3_ES_PIC] = {
-        .name = "ES_PIC",
-        .reg = REG_kv3_ES,
-        .offset = 60,
-        .width = 4,
-    },
-    [REGFIELD_kv3_ES_DC] = {
-        .name = "ES_DC",
-        .reg = REG_kv3_ES,
-        .offset = 12,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ES_BN] = {
-        .name = "ES_BN",
-        .reg = REG_kv3_ES,
-        .offset = 14,
-        .width = 1,
-    },
-    [REGFIELD_kv3_ES_WN] = {
-        .name = "ES_WN",
-        .reg = REG_kv3_ES,
-        .offset = 15,
-        .width = 1,
-    },
-    [REGFIELD_kv3_ES_PL0_EC] = {
-        .name = "ES_PL0_EC",
-        .reg = REG_kv3_ES_PL0,
-        .offset = 0,
-        .width = 4,
-    },
-    [REGFIELD_kv3_ES_PL0_ED] = {
-        .name = "ES_PL0_ED",
-        .reg = REG_kv3_ES_PL0,
-        .offset = 4,
-        .width = 60,
-    },
-    [REGFIELD_kv3_ES_PL0_OAPL] = {
-        .name = "ES_PL0_OAPL",
-        .reg = REG_kv3_ES_PL0,
-        .offset = 4,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ES_PL0_ORPL] = {
-        .name = "ES_PL0_ORPL",
-        .reg = REG_kv3_ES_PL0,
-        .offset = 6,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ES_PL0_PTAPL] = {
-        .name = "ES_PL0_PTAPL",
-        .reg = REG_kv3_ES_PL0,
-        .offset = 8,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ES_PL0_PTRPL] = {
-        .name = "ES_PL0_PTRPL",
-        .reg = REG_kv3_ES_PL0,
-        .offset = 10,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ES_PL0_ITN] = {
-        .name = "ES_PL0_ITN",
-        .reg = REG_kv3_ES_PL0,
-        .offset = 12,
-        .width = 5,
-    },
-    [REGFIELD_kv3_ES_PL0_ITL] = {
-        .name = "ES_PL0_ITL",
-        .reg = REG_kv3_ES_PL0,
-        .offset = 17,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ES_PL0_ITI] = {
-        .name = "ES_PL0_ITI",
-        .reg = REG_kv3_ES_PL0,
-        .offset = 19,
-        .width = 10,
-    },
-    [REGFIELD_kv3_ES_PL0_SN] = {
-        .name = "ES_PL0_SN",
-        .reg = REG_kv3_ES_PL0,
-        .offset = 12,
-        .width = 12,
-    },
-    [REGFIELD_kv3_ES_PL0_HTC] = {
-        .name = "ES_PL0_HTC",
-        .reg = REG_kv3_ES_PL0,
-        .offset = 12,
-        .width = 5,
-    },
-    [REGFIELD_kv3_ES_PL0_SFRT] = {
-        .name = "ES_PL0_SFRT",
-        .reg = REG_kv3_ES_PL0,
-        .offset = 17,
-        .width = 1,
-    },
-    [REGFIELD_kv3_ES_PL0_SFRI] = {
-        .name = "ES_PL0_SFRI",
-        .reg = REG_kv3_ES_PL0,
-        .offset = 18,
-        .width = 3,
-    },
-    [REGFIELD_kv3_ES_PL0_GPRP] = {
-        .name = "ES_PL0_GPRP",
-        .reg = REG_kv3_ES_PL0,
-        .offset = 21,
-        .width = 6,
-    },
-    [REGFIELD_kv3_ES_PL0_SFRP] = {
-        .name = "ES_PL0_SFRP",
-        .reg = REG_kv3_ES_PL0,
-        .offset = 27,
-        .width = 9,
-    },
-    [REGFIELD_kv3_ES_PL0_DHT] = {
-        .name = "ES_PL0_DHT",
-        .reg = REG_kv3_ES_PL0,
-        .offset = 36,
-        .width = 1,
-    },
-    [REGFIELD_kv3_ES_PL0_RWX] = {
-        .name = "ES_PL0_RWX",
-        .reg = REG_kv3_ES_PL0,
-        .offset = 39,
-        .width = 3,
-    },
-    [REGFIELD_kv3_ES_PL0_NTA] = {
-        .name = "ES_PL0_NTA",
-        .reg = REG_kv3_ES_PL0,
-        .offset = 42,
-        .width = 1,
-    },
-    [REGFIELD_kv3_ES_PL0_UCA] = {
-        .name = "ES_PL0_UCA",
-        .reg = REG_kv3_ES_PL0,
-        .offset = 43,
-        .width = 1,
-    },
-    [REGFIELD_kv3_ES_PL0_AS] = {
-        .name = "ES_PL0_AS",
-        .reg = REG_kv3_ES_PL0,
-        .offset = 44,
-        .width = 6,
-    },
-    [REGFIELD_kv3_ES_PL0_BS] = {
-        .name = "ES_PL0_BS",
-        .reg = REG_kv3_ES_PL0,
-        .offset = 50,
-        .width = 4,
-    },
-    [REGFIELD_kv3_ES_PL0_DRI] = {
-        .name = "ES_PL0_DRI",
-        .reg = REG_kv3_ES_PL0,
-        .offset = 54,
-        .width = 6,
-    },
-    [REGFIELD_kv3_ES_PL0_PIC] = {
-        .name = "ES_PL0_PIC",
-        .reg = REG_kv3_ES_PL0,
-        .offset = 60,
-        .width = 4,
-    },
-    [REGFIELD_kv3_ES_PL0_DC] = {
-        .name = "ES_PL0_DC",
-        .reg = REG_kv3_ES_PL0,
-        .offset = 12,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ES_PL0_BN] = {
-        .name = "ES_PL0_BN",
-        .reg = REG_kv3_ES_PL0,
-        .offset = 14,
-        .width = 1,
-    },
-    [REGFIELD_kv3_ES_PL0_WN] = {
-        .name = "ES_PL0_WN",
-        .reg = REG_kv3_ES_PL0,
-        .offset = 15,
-        .width = 1,
-    },
-    [REGFIELD_kv3_ES_PL1_EC] = {
-        .name = "ES_PL1_EC",
-        .reg = REG_kv3_ES_PL1,
-        .offset = 0,
-        .width = 4,
-    },
-    [REGFIELD_kv3_ES_PL1_ED] = {
-        .name = "ES_PL1_ED",
-        .reg = REG_kv3_ES_PL1,
-        .offset = 4,
-        .width = 60,
-    },
-    [REGFIELD_kv3_ES_PL1_OAPL] = {
-        .name = "ES_PL1_OAPL",
-        .reg = REG_kv3_ES_PL1,
-        .offset = 4,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ES_PL1_ORPL] = {
-        .name = "ES_PL1_ORPL",
-        .reg = REG_kv3_ES_PL1,
-        .offset = 6,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ES_PL1_PTAPL] = {
-        .name = "ES_PL1_PTAPL",
-        .reg = REG_kv3_ES_PL1,
-        .offset = 8,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ES_PL1_PTRPL] = {
-        .name = "ES_PL1_PTRPL",
-        .reg = REG_kv3_ES_PL1,
-        .offset = 10,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ES_PL1_ITN] = {
-        .name = "ES_PL1_ITN",
-        .reg = REG_kv3_ES_PL1,
-        .offset = 12,
-        .width = 5,
-    },
-    [REGFIELD_kv3_ES_PL1_ITL] = {
-        .name = "ES_PL1_ITL",
-        .reg = REG_kv3_ES_PL1,
-        .offset = 17,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ES_PL1_ITI] = {
-        .name = "ES_PL1_ITI",
-        .reg = REG_kv3_ES_PL1,
-        .offset = 19,
-        .width = 10,
-    },
-    [REGFIELD_kv3_ES_PL1_SN] = {
-        .name = "ES_PL1_SN",
-        .reg = REG_kv3_ES_PL1,
-        .offset = 12,
-        .width = 12,
-    },
-    [REGFIELD_kv3_ES_PL1_HTC] = {
-        .name = "ES_PL1_HTC",
-        .reg = REG_kv3_ES_PL1,
-        .offset = 12,
-        .width = 5,
-    },
-    [REGFIELD_kv3_ES_PL1_SFRT] = {
-        .name = "ES_PL1_SFRT",
-        .reg = REG_kv3_ES_PL1,
-        .offset = 17,
-        .width = 1,
-    },
-    [REGFIELD_kv3_ES_PL1_SFRI] = {
-        .name = "ES_PL1_SFRI",
-        .reg = REG_kv3_ES_PL1,
-        .offset = 18,
-        .width = 3,
-    },
-    [REGFIELD_kv3_ES_PL1_GPRP] = {
-        .name = "ES_PL1_GPRP",
-        .reg = REG_kv3_ES_PL1,
-        .offset = 21,
-        .width = 6,
-    },
-    [REGFIELD_kv3_ES_PL1_SFRP] = {
-        .name = "ES_PL1_SFRP",
-        .reg = REG_kv3_ES_PL1,
-        .offset = 27,
-        .width = 9,
-    },
-    [REGFIELD_kv3_ES_PL1_DHT] = {
-        .name = "ES_PL1_DHT",
-        .reg = REG_kv3_ES_PL1,
-        .offset = 36,
-        .width = 1,
-    },
-    [REGFIELD_kv3_ES_PL1_RWX] = {
-        .name = "ES_PL1_RWX",
-        .reg = REG_kv3_ES_PL1,
-        .offset = 39,
-        .width = 3,
-    },
-    [REGFIELD_kv3_ES_PL1_NTA] = {
-        .name = "ES_PL1_NTA",
-        .reg = REG_kv3_ES_PL1,
-        .offset = 42,
-        .width = 1,
-    },
-    [REGFIELD_kv3_ES_PL1_UCA] = {
-        .name = "ES_PL1_UCA",
-        .reg = REG_kv3_ES_PL1,
-        .offset = 43,
-        .width = 1,
-    },
-    [REGFIELD_kv3_ES_PL1_AS] = {
-        .name = "ES_PL1_AS",
-        .reg = REG_kv3_ES_PL1,
-        .offset = 44,
-        .width = 6,
-    },
-    [REGFIELD_kv3_ES_PL1_BS] = {
-        .name = "ES_PL1_BS",
-        .reg = REG_kv3_ES_PL1,
-        .offset = 50,
-        .width = 4,
-    },
-    [REGFIELD_kv3_ES_PL1_DRI] = {
-        .name = "ES_PL1_DRI",
-        .reg = REG_kv3_ES_PL1,
-        .offset = 54,
-        .width = 6,
-    },
-    [REGFIELD_kv3_ES_PL1_PIC] = {
-        .name = "ES_PL1_PIC",
-        .reg = REG_kv3_ES_PL1,
-        .offset = 60,
-        .width = 4,
-    },
-    [REGFIELD_kv3_ES_PL1_DC] = {
-        .name = "ES_PL1_DC",
-        .reg = REG_kv3_ES_PL1,
-        .offset = 12,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ES_PL1_BN] = {
-        .name = "ES_PL1_BN",
-        .reg = REG_kv3_ES_PL1,
-        .offset = 14,
-        .width = 1,
-    },
-    [REGFIELD_kv3_ES_PL1_WN] = {
-        .name = "ES_PL1_WN",
-        .reg = REG_kv3_ES_PL1,
-        .offset = 15,
-        .width = 1,
-    },
-    [REGFIELD_kv3_ES_PL2_EC] = {
-        .name = "ES_PL2_EC",
-        .reg = REG_kv3_ES_PL2,
-        .offset = 0,
-        .width = 4,
-    },
-    [REGFIELD_kv3_ES_PL2_ED] = {
-        .name = "ES_PL2_ED",
-        .reg = REG_kv3_ES_PL2,
-        .offset = 4,
-        .width = 60,
-    },
-    [REGFIELD_kv3_ES_PL2_OAPL] = {
-        .name = "ES_PL2_OAPL",
-        .reg = REG_kv3_ES_PL2,
-        .offset = 4,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ES_PL2_ORPL] = {
-        .name = "ES_PL2_ORPL",
-        .reg = REG_kv3_ES_PL2,
-        .offset = 6,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ES_PL2_PTAPL] = {
-        .name = "ES_PL2_PTAPL",
-        .reg = REG_kv3_ES_PL2,
-        .offset = 8,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ES_PL2_PTRPL] = {
-        .name = "ES_PL2_PTRPL",
-        .reg = REG_kv3_ES_PL2,
-        .offset = 10,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ES_PL2_ITN] = {
-        .name = "ES_PL2_ITN",
-        .reg = REG_kv3_ES_PL2,
-        .offset = 12,
-        .width = 5,
-    },
-    [REGFIELD_kv3_ES_PL2_ITL] = {
-        .name = "ES_PL2_ITL",
-        .reg = REG_kv3_ES_PL2,
-        .offset = 17,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ES_PL2_ITI] = {
-        .name = "ES_PL2_ITI",
-        .reg = REG_kv3_ES_PL2,
-        .offset = 19,
-        .width = 10,
-    },
-    [REGFIELD_kv3_ES_PL2_SN] = {
-        .name = "ES_PL2_SN",
-        .reg = REG_kv3_ES_PL2,
-        .offset = 12,
-        .width = 12,
-    },
-    [REGFIELD_kv3_ES_PL2_HTC] = {
-        .name = "ES_PL2_HTC",
-        .reg = REG_kv3_ES_PL2,
-        .offset = 12,
-        .width = 5,
-    },
-    [REGFIELD_kv3_ES_PL2_SFRT] = {
-        .name = "ES_PL2_SFRT",
-        .reg = REG_kv3_ES_PL2,
-        .offset = 17,
-        .width = 1,
-    },
-    [REGFIELD_kv3_ES_PL2_SFRI] = {
-        .name = "ES_PL2_SFRI",
-        .reg = REG_kv3_ES_PL2,
-        .offset = 18,
-        .width = 3,
-    },
-    [REGFIELD_kv3_ES_PL2_GPRP] = {
-        .name = "ES_PL2_GPRP",
-        .reg = REG_kv3_ES_PL2,
-        .offset = 21,
-        .width = 6,
-    },
-    [REGFIELD_kv3_ES_PL2_SFRP] = {
-        .name = "ES_PL2_SFRP",
-        .reg = REG_kv3_ES_PL2,
-        .offset = 27,
-        .width = 9,
-    },
-    [REGFIELD_kv3_ES_PL2_DHT] = {
-        .name = "ES_PL2_DHT",
-        .reg = REG_kv3_ES_PL2,
-        .offset = 36,
-        .width = 1,
-    },
-    [REGFIELD_kv3_ES_PL2_RWX] = {
-        .name = "ES_PL2_RWX",
-        .reg = REG_kv3_ES_PL2,
-        .offset = 39,
-        .width = 3,
-    },
-    [REGFIELD_kv3_ES_PL2_NTA] = {
-        .name = "ES_PL2_NTA",
-        .reg = REG_kv3_ES_PL2,
-        .offset = 42,
-        .width = 1,
-    },
-    [REGFIELD_kv3_ES_PL2_UCA] = {
-        .name = "ES_PL2_UCA",
-        .reg = REG_kv3_ES_PL2,
-        .offset = 43,
-        .width = 1,
-    },
-    [REGFIELD_kv3_ES_PL2_AS] = {
-        .name = "ES_PL2_AS",
-        .reg = REG_kv3_ES_PL2,
-        .offset = 44,
-        .width = 6,
-    },
-    [REGFIELD_kv3_ES_PL2_BS] = {
-        .name = "ES_PL2_BS",
-        .reg = REG_kv3_ES_PL2,
-        .offset = 50,
-        .width = 4,
-    },
-    [REGFIELD_kv3_ES_PL2_DRI] = {
-        .name = "ES_PL2_DRI",
-        .reg = REG_kv3_ES_PL2,
-        .offset = 54,
-        .width = 6,
-    },
-    [REGFIELD_kv3_ES_PL2_PIC] = {
-        .name = "ES_PL2_PIC",
-        .reg = REG_kv3_ES_PL2,
-        .offset = 60,
-        .width = 4,
-    },
-    [REGFIELD_kv3_ES_PL2_DC] = {
-        .name = "ES_PL2_DC",
-        .reg = REG_kv3_ES_PL2,
-        .offset = 12,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ES_PL2_BN] = {
-        .name = "ES_PL2_BN",
-        .reg = REG_kv3_ES_PL2,
-        .offset = 14,
-        .width = 1,
-    },
-    [REGFIELD_kv3_ES_PL2_WN] = {
-        .name = "ES_PL2_WN",
-        .reg = REG_kv3_ES_PL2,
-        .offset = 15,
-        .width = 1,
-    },
-    [REGFIELD_kv3_ES_PL3_EC] = {
-        .name = "ES_PL3_EC",
-        .reg = REG_kv3_ES_PL3,
-        .offset = 0,
-        .width = 4,
-    },
-    [REGFIELD_kv3_ES_PL3_ED] = {
-        .name = "ES_PL3_ED",
-        .reg = REG_kv3_ES_PL3,
-        .offset = 4,
-        .width = 60,
-    },
-    [REGFIELD_kv3_ES_PL3_OAPL] = {
-        .name = "ES_PL3_OAPL",
-        .reg = REG_kv3_ES_PL3,
-        .offset = 4,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ES_PL3_ORPL] = {
-        .name = "ES_PL3_ORPL",
-        .reg = REG_kv3_ES_PL3,
-        .offset = 6,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ES_PL3_PTAPL] = {
-        .name = "ES_PL3_PTAPL",
-        .reg = REG_kv3_ES_PL3,
-        .offset = 8,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ES_PL3_PTRPL] = {
-        .name = "ES_PL3_PTRPL",
-        .reg = REG_kv3_ES_PL3,
-        .offset = 10,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ES_PL3_ITN] = {
-        .name = "ES_PL3_ITN",
-        .reg = REG_kv3_ES_PL3,
-        .offset = 12,
-        .width = 5,
-    },
-    [REGFIELD_kv3_ES_PL3_ITL] = {
-        .name = "ES_PL3_ITL",
-        .reg = REG_kv3_ES_PL3,
-        .offset = 17,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ES_PL3_ITI] = {
-        .name = "ES_PL3_ITI",
-        .reg = REG_kv3_ES_PL3,
-        .offset = 19,
-        .width = 10,
-    },
-    [REGFIELD_kv3_ES_PL3_SN] = {
-        .name = "ES_PL3_SN",
-        .reg = REG_kv3_ES_PL3,
-        .offset = 12,
-        .width = 12,
-    },
-    [REGFIELD_kv3_ES_PL3_HTC] = {
-        .name = "ES_PL3_HTC",
-        .reg = REG_kv3_ES_PL3,
-        .offset = 12,
-        .width = 5,
-    },
-    [REGFIELD_kv3_ES_PL3_SFRT] = {
-        .name = "ES_PL3_SFRT",
-        .reg = REG_kv3_ES_PL3,
-        .offset = 17,
-        .width = 1,
-    },
-    [REGFIELD_kv3_ES_PL3_SFRI] = {
-        .name = "ES_PL3_SFRI",
-        .reg = REG_kv3_ES_PL3,
-        .offset = 18,
-        .width = 3,
-    },
-    [REGFIELD_kv3_ES_PL3_GPRP] = {
-        .name = "ES_PL3_GPRP",
-        .reg = REG_kv3_ES_PL3,
-        .offset = 21,
-        .width = 6,
-    },
-    [REGFIELD_kv3_ES_PL3_SFRP] = {
-        .name = "ES_PL3_SFRP",
-        .reg = REG_kv3_ES_PL3,
-        .offset = 27,
-        .width = 9,
-    },
-    [REGFIELD_kv3_ES_PL3_DHT] = {
-        .name = "ES_PL3_DHT",
-        .reg = REG_kv3_ES_PL3,
-        .offset = 36,
-        .width = 1,
-    },
-    [REGFIELD_kv3_ES_PL3_RWX] = {
-        .name = "ES_PL3_RWX",
-        .reg = REG_kv3_ES_PL3,
-        .offset = 39,
-        .width = 3,
-    },
-    [REGFIELD_kv3_ES_PL3_NTA] = {
-        .name = "ES_PL3_NTA",
-        .reg = REG_kv3_ES_PL3,
-        .offset = 42,
-        .width = 1,
-    },
-    [REGFIELD_kv3_ES_PL3_UCA] = {
-        .name = "ES_PL3_UCA",
-        .reg = REG_kv3_ES_PL3,
-        .offset = 43,
-        .width = 1,
-    },
-    [REGFIELD_kv3_ES_PL3_AS] = {
-        .name = "ES_PL3_AS",
-        .reg = REG_kv3_ES_PL3,
-        .offset = 44,
-        .width = 6,
-    },
-    [REGFIELD_kv3_ES_PL3_BS] = {
-        .name = "ES_PL3_BS",
-        .reg = REG_kv3_ES_PL3,
-        .offset = 50,
-        .width = 4,
-    },
-    [REGFIELD_kv3_ES_PL3_DRI] = {
-        .name = "ES_PL3_DRI",
-        .reg = REG_kv3_ES_PL3,
-        .offset = 54,
-        .width = 6,
-    },
-    [REGFIELD_kv3_ES_PL3_PIC] = {
-        .name = "ES_PL3_PIC",
-        .reg = REG_kv3_ES_PL3,
-        .offset = 60,
-        .width = 4,
-    },
-    [REGFIELD_kv3_ES_PL3_DC] = {
-        .name = "ES_PL3_DC",
-        .reg = REG_kv3_ES_PL3,
-        .offset = 12,
-        .width = 2,
-    },
-    [REGFIELD_kv3_ES_PL3_BN] = {
-        .name = "ES_PL3_BN",
-        .reg = REG_kv3_ES_PL3,
-        .offset = 14,
-        .width = 1,
-    },
-    [REGFIELD_kv3_ES_PL3_WN] = {
-        .name = "ES_PL3_WN",
-        .reg = REG_kv3_ES_PL3,
-        .offset = 15,
-        .width = 1,
-    },
-    [REGFIELD_kv3_TCR_T0CE] = {
-        .name = "TCR_T0CE",
-        .reg = REG_kv3_TCR,
-        .offset = 16,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_T0,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_TCR_T1CE] = {
-        .name = "TCR_T1CE",
-        .reg = REG_kv3_TCR,
-        .offset = 17,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_T1,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_TCR_T0IE] = {
-        .name = "TCR_T0IE",
-        .reg = REG_kv3_TCR,
-        .offset = 18,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_T0,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_TCR_T1IE] = {
-        .name = "TCR_T1IE",
-        .reg = REG_kv3_TCR,
-        .offset = 19,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_T1,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_TCR_T0ST] = {
-        .name = "TCR_T0ST",
-        .reg = REG_kv3_TCR,
-        .offset = 20,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_T0,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_TCR_T1ST] = {
-        .name = "TCR_T1ST",
-        .reg = REG_kv3_TCR,
-        .offset = 21,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_T1,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_TCR_T0SI] = {
-        .name = "TCR_T0SI",
-        .reg = REG_kv3_TCR,
-        .offset = 22,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_T0,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_TCR_T1SI] = {
-        .name = "TCR_T1SI",
-        .reg = REG_kv3_TCR,
-        .offset = 23,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_T1,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_TCR_WCE] = {
-        .name = "TCR_WCE",
-        .reg = REG_kv3_TCR,
-        .offset = 24,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_WD,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_TCR_WIE] = {
-        .name = "TCR_WIE",
-        .reg = REG_kv3_TCR,
-        .offset = 25,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_WD,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_TCR_WUI] = {
-        .name = "TCR_WUI",
-        .reg = REG_kv3_TCR,
-        .offset = 26,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_WD,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_TCR_WUS] = {
-        .name = "TCR_WUS",
-        .reg = REG_kv3_TCR,
-        .offset = 27,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_WD,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_TCR_WSI] = {
-        .name = "TCR_WSI",
-        .reg = REG_kv3_TCR,
-        .offset = 28,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_WD,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PM0_PM0] = {
-        .name = "PM0_PM0",
-        .reg = REG_kv3_PM0,
-        .offset = 0,
-        .width = 64,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_PM0,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PM1_PM1] = {
-        .name = "PM1_PM1",
-        .reg = REG_kv3_PM1,
-        .offset = 0,
-        .width = 64,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_PM1,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PM2_PM2] = {
-        .name = "PM2_PM2",
-        .reg = REG_kv3_PM2,
-        .offset = 0,
-        .width = 64,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_PM2,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PM3_PM3] = {
-        .name = "PM3_PM3",
-        .reg = REG_kv3_PM3,
-        .offset = 0,
-        .width = 64,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_PM3,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PMSA_PMSA] = {
-        .name = "PMSA_PMSA",
-        .reg = REG_kv3_PMSA,
-        .offset = 0,
-        .width = 64,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_PMIT,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_T0V_T0V] = {
-        .name = "T0V_T0V",
-        .reg = REG_kv3_T0V,
-        .offset = 0,
-        .width = 64,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_T0,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_T1V_T1V] = {
-        .name = "T1V_T1V",
-        .reg = REG_kv3_T1V,
-        .offset = 0,
-        .width = 64,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_T1,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_T0R_T0R] = {
-        .name = "T0R_T0R",
-        .reg = REG_kv3_T0R,
-        .offset = 0,
-        .width = 64,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_T0,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_T1R_T1R] = {
-        .name = "T1R_T1R",
-        .reg = REG_kv3_T1R,
-        .offset = 0,
-        .width = 64,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_T1,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_WDV_WDV] = {
-        .name = "WDV_WDV",
-        .reg = REG_kv3_WDV,
-        .offset = 0,
-        .width = 64,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_WD,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_WDR_WDR] = {
-        .name = "WDR_WDR",
-        .reg = REG_kv3_WDR,
-        .offset = 0,
-        .width = 64,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_WD,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PMC_PM0C] = {
-        .name = "PMC_PM0C",
-        .reg = REG_kv3_PMC,
-        .offset = 0,
-        .width = 6,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_PM0,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PMC_PM1C] = {
-        .name = "PMC_PM1C",
-        .reg = REG_kv3_PMC,
-        .offset = 7,
-        .width = 6,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_PM1,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PMC_PM2C] = {
-        .name = "PMC_PM2C",
-        .reg = REG_kv3_PMC,
-        .offset = 14,
-        .width = 6,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_PM2,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PMC_PM3C] = {
-        .name = "PMC_PM3C",
-        .reg = REG_kv3_PMC,
-        .offset = 21,
-        .width = 6,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_PM3,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PMC_SAV] = {
-        .name = "PMC_SAV",
-        .reg = REG_kv3_PMC,
-        .offset = 30,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_PMIT,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PMC_PM0IE] = {
-        .name = "PMC_PM0IE",
-        .reg = REG_kv3_PMC,
-        .offset = 32,
-        .width = 1,
-        .n_owners = 2,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_PMIT,
-            REGFIELD_kv3_MO_PM0,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PMC_PM1IE] = {
-        .name = "PMC_PM1IE",
-        .reg = REG_kv3_PMC,
-        .offset = 33,
-        .width = 1,
-        .n_owners = 2,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_PMIT,
-            REGFIELD_kv3_MO_PM1,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PMC_PM2IE] = {
-        .name = "PMC_PM2IE",
-        .reg = REG_kv3_PMC,
-        .offset = 34,
-        .width = 1,
-        .n_owners = 2,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_PMIT,
-            REGFIELD_kv3_MO_PM2,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PMC_PM3IE] = {
-        .name = "PMC_PM3IE",
-        .reg = REG_kv3_PMC,
-        .offset = 35,
-        .width = 1,
-        .n_owners = 2,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_PMIT,
-            REGFIELD_kv3_MO_PM3,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PMC_SAT] = {
-        .name = "PMC_SAT",
-        .reg = REG_kv3_PMC,
-        .offset = 36,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_PMIT,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PCR_PID] = {
-        .name = "PCR_PID",
-        .reg = REG_kv3_PCR,
-        .offset = 0,
-        .width = 8,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_PCR,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PCR_CID] = {
-        .name = "PCR_CID",
-        .reg = REG_kv3_PCR,
-        .offset = 8,
-        .width = 8,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_PCR,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PCR_MID] = {
-        .name = "PCR_MID",
-        .reg = REG_kv3_PCR,
-        .offset = 16,
-        .width = 8,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_PCR,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PCR_CAR] = {
-        .name = "PCR_CAR",
-        .reg = REG_kv3_PCR,
-        .offset = 24,
-        .width = 4,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_PCR,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PCR_CMA] = {
-        .name = "PCR_CMA",
-        .reg = REG_kv3_PCR,
-        .offset = 28,
-        .width = 4,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_PCR,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PCR_SV] = {
-        .name = "PCR_SV",
-        .reg = REG_kv3_PCR,
-        .offset = 32,
-        .width = 8,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_PCR,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PCR_ST] = {
-        .name = "PCR_ST",
-        .reg = REG_kv3_PCR,
-        .offset = 40,
-        .width = 4,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_PCR,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PCR_BM] = {
-        .name = "PCR_BM",
-        .reg = REG_kv3_PCR,
-        .offset = 44,
-        .width = 8,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_PCR,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PCR_COE] = {
-        .name = "PCR_COE",
-        .reg = REG_kv3_PCR,
-        .offset = 52,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_PCR,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PCR_L1CE] = {
-        .name = "PCR_L1CE",
-        .reg = REG_kv3_PCR,
-        .offset = 53,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_PCR,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_PCR_DSEM] = {
-        .name = "PCR_DSEM",
-        .reg = REG_kv3_PCR,
-        .offset = 54,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_PCR,
-        },
-        .rerror = REG_READ_ERROR_READ,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_MMC_ASN] = {
-        .name = "MMC_ASN",
-        .reg = REG_kv3_MMC,
-        .offset = 0,
-        .width = 9,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_MSG,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_MMC_S] = {
-        .name = "MMC_S",
-        .reg = REG_kv3_MMC,
-        .offset = 9,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_MSG,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_MMC_SNE] = {
-        .name = "MMC_SNE",
-        .reg = REG_kv3_MMC,
-        .offset = 14,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_MSG,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_MMC_SPE] = {
-        .name = "MMC_SPE",
-        .reg = REG_kv3_MMC,
-        .offset = 15,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_MSG,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_MMC_PTC] = {
-        .name = "MMC_PTC",
-        .reg = REG_kv3_MMC,
-        .offset = 16,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_MSG,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_MMC_SW] = {
-        .name = "MMC_SW",
-        .reg = REG_kv3_MMC,
-        .offset = 18,
-        .width = 4,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_MSG,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_MMC_SS] = {
-        .name = "MMC_SS",
-        .reg = REG_kv3_MMC,
-        .offset = 22,
-        .width = 6,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_MSG,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_MMC_SB] = {
-        .name = "MMC_SB",
-        .reg = REG_kv3_MMC,
-        .offset = 28,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_MSG,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_MMC_PAR] = {
-        .name = "MMC_PAR",
-        .reg = REG_kv3_MMC,
-        .offset = 30,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_MSG,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_MMC_E] = {
-        .name = "MMC_E",
-        .reg = REG_kv3_MMC,
-        .offset = 31,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_MSG,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_TEL_ES] = {
-        .name = "TEL_ES",
-        .reg = REG_kv3_TEL,
-        .offset = 0,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_MSG,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_TEL_CP] = {
-        .name = "TEL_CP",
-        .reg = REG_kv3_TEL,
-        .offset = 2,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_MSG,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_TEL_PA] = {
-        .name = "TEL_PA",
-        .reg = REG_kv3_TEL,
-        .offset = 4,
-        .width = 4,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_MSG,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_TEL_PS] = {
-        .name = "TEL_PS",
-        .reg = REG_kv3_TEL,
-        .offset = 10,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_MSG,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_TEL_FN] = {
-        .name = "TEL_FN",
-        .reg = REG_kv3_TEL,
-        .offset = 12,
-        .width = 28,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_MSG,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_TEH_ASN] = {
-        .name = "TEH_ASN",
-        .reg = REG_kv3_TEH,
-        .offset = 0,
-        .width = 9,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_MSG,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_TEH_G] = {
-        .name = "TEH_G",
-        .reg = REG_kv3_TEH,
-        .offset = 9,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_MSG,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_TEH_VS] = {
-        .name = "TEH_VS",
-        .reg = REG_kv3_TEH,
-        .offset = 10,
-        .width = 2,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_MSG,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_TEH_PN] = {
-        .name = "TEH_PN",
-        .reg = REG_kv3_TEH,
-        .offset = 12,
-        .width = 29,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_MSG,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_DC_BE0] = {
-        .name = "DC_BE0",
-        .reg = REG_kv3_DC,
-        .offset = 0,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_DO_B0,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_DC_BR0] = {
-        .name = "DC_BR0",
-        .reg = REG_kv3_DC,
-        .offset = 1,
-        .width = 6,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_DO_B0,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_DC_BE1] = {
-        .name = "DC_BE1",
-        .reg = REG_kv3_DC,
-        .offset = 7,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_DO_B1,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_DC_BR1] = {
-        .name = "DC_BR1",
-        .reg = REG_kv3_DC,
-        .offset = 8,
-        .width = 6,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_DO_B1,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_DC_WE0] = {
-        .name = "DC_WE0",
-        .reg = REG_kv3_DC,
-        .offset = 14,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_DO_W0,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_DC_WR0] = {
-        .name = "DC_WR0",
-        .reg = REG_kv3_DC,
-        .offset = 15,
-        .width = 6,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_DO_W0,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_DC_WE1] = {
-        .name = "DC_WE1",
-        .reg = REG_kv3_DC,
-        .offset = 21,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_DO_W1,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_DC_WR1] = {
-        .name = "DC_WR1",
-        .reg = REG_kv3_DC,
-        .offset = 22,
-        .width = 6,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_DO_W1,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_MES_PSE] = {
-        .name = "MES_PSE",
-        .reg = REG_kv3_MES,
-        .offset = 0,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_MES,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_MES_PILSY] = {
-        .name = "MES_PILSY",
-        .reg = REG_kv3_MES,
-        .offset = 1,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_MES,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_MES_PILDE] = {
-        .name = "MES_PILDE",
-        .reg = REG_kv3_MES,
-        .offset = 2,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_MES,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_MES_PILPA] = {
-        .name = "MES_PILPA",
-        .reg = REG_kv3_MES,
-        .offset = 3,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_MES,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_MES_DSE] = {
-        .name = "MES_DSE",
-        .reg = REG_kv3_MES,
-        .offset = 4,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_MES,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_MES_DILSY] = {
-        .name = "MES_DILSY",
-        .reg = REG_kv3_MES,
-        .offset = 5,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_MES,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_MES_DILDE] = {
-        .name = "MES_DILDE",
-        .reg = REG_kv3_MES,
-        .offset = 6,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_MES,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_MES_DILPA] = {
-        .name = "MES_DILPA",
-        .reg = REG_kv3_MES,
-        .offset = 7,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_MES,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_MES_DDEE] = {
-        .name = "MES_DDEE",
-        .reg = REG_kv3_MES,
-        .offset = 8,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_MES,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_MES_DSYE] = {
-        .name = "MES_DSYE",
-        .reg = REG_kv3_MES,
-        .offset = 9,
-        .width = 1,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_MES,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_WS_WU0] = {
-        .name = "WS_WU0",
-        .reg = REG_kv3_WS,
-        .offset = 0,
-        .width = 1,
-    },
-    [REGFIELD_kv3_WS_WU1] = {
-        .name = "WS_WU1",
-        .reg = REG_kv3_WS,
-        .offset = 1,
-        .width = 1,
-    },
-    [REGFIELD_kv3_WS_WU2] = {
-        .name = "WS_WU2",
-        .reg = REG_kv3_WS,
-        .offset = 2,
-        .width = 1,
-    },
-    [REGFIELD_kv3_IPE_FE] = {
-        .name = "IPE_FE",
-        .reg = REG_kv3_IPE,
-        .offset = 0,
-        .width = 16,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_SYNC,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_IPE_BE] = {
-        .name = "IPE_BE",
-        .reg = REG_kv3_IPE,
-        .offset = 16,
-        .width = 16,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_SYNC,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_IPE_FM] = {
-        .name = "IPE_FM",
-        .reg = REG_kv3_IPE,
-        .offset = 32,
-        .width = 16,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_SYNC,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
-    },
-    [REGFIELD_kv3_IPE_BM] = {
-        .name = "IPE_BM",
-        .reg = REG_kv3_IPE,
-        .offset = 48,
-        .width = 16,
-        .n_owners = 1,
-        .owners = (const RegisterField []) {
-            REGFIELD_kv3_MO_SYNC,
-        },
-        .rerror = REG_READ_ERROR_READ0,
-        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+        .raccess = REG_ACCESS_NONE,
+        .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v2,
+    },
+    [REG_v2_ES] = {
+        .name = "es",
+        .regfile = REGFILE_kv3_SFR,
+        .reg_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_ES) + 0,
+        .reset = 0x0000000000000004,
+        .mask = (
+              0x000000000000000f
+            | 0x0000000000000030
+            | 0xfffffffffffffff0
+            | 0x00000000000000c0
+            | 0x0000000000000300
+            | 0x0000000000000c00
+            | 0x0000000000003000
+            | 0x000000000001f000
+            | 0x000000000001f000
+            | 0x0000000000fff000
+            | 0x0000000000004000
+            | 0x0000000000008000
+            | 0x0000000000020000
+            | 0x0000000000060000
+            | 0x00000000001c0000
+            | 0x000000001ff80000
+            | 0x0000000007e00000
+            | 0x0000000ff8000000
+            | 0x0000001000000000
+            | 0x0000002000000000
+            | 0x0000004000000000
+            | 0x0000038000000000
+            | 0x0000040000000000
+            | 0x0000080000000000
+            | 0x0003f00000000000
+            | 0x003c000000000000
+            | 0x0fc0000000000000
+            | 0xf000000000000000
+        ),
+        .n_fields = 28,
+        .fields = (const RegisterField []) {
+            REGFIELD_kv3_ES_EC,
+            REGFIELD_kv3_ES_OAPL,
+            REGFIELD_kv3_ES_ED,
+            REGFIELD_kv3_ES_ORPL,
+            REGFIELD_kv3_ES_PTAPL,
+            REGFIELD_kv3_ES_PTRPL,
+            REGFIELD_kv3_ES_DC,
+            REGFIELD_kv3_ES_ITN,
+            REGFIELD_kv3_ES_HTC,
+            REGFIELD_kv3_ES_SN,
+            REGFIELD_kv3_ES_BN,
+            REGFIELD_kv3_ES_WN,
+            REGFIELD_kv3_ES_SFRT,
+            REGFIELD_kv3_ES_ITL,
+            REGFIELD_kv3_ES_SFRI,
+            REGFIELD_kv3_ES_ITI,
+            REGFIELD_kv3_ES_GPRP,
+            REGFIELD_kv3_ES_SFRP,
+            REGFIELD_kv3_ES_DHT,
+            REGFIELD_kv3_ES_DRX,
+            REGFIELD_kv3_ES_DAF,
+            REGFIELD_kv3_ES_RWX,
+            REGFIELD_kv3_ES_NTA,
+            REGFIELD_kv3_ES_UCA,
+            REGFIELD_kv3_ES_AS,
+            REGFIELD_kv3_ES_BS,
+            REGFIELD_kv3_ES_DRI,
+            REGFIELD_kv3_ES_PIC,
+        },
+        .raccess = REG_ACCESS_GET,
+        .waccess = REG_ACCESS_WFX,
+        .cpu_models = CPU_MODEL_v2,
+    },
+    [REG_v2_SID] = {
+        .name = "sid",
+        .regfile = REGFILE_kv3_SFR,
+        .reg_width = 32,
+        .offset = offsetof(CPUArchState, storages.v2_SID) + 0,
+        .reset = 0x00000000,
+        .mask = (
+              0x00000000000001ff
+        ),
+        .n_fields = 1,
+        .fields = (const RegisterField []) {
+            REGFIELD_kv3_SID_SID,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+        .raccess = REG_ACCESS_GET,
+        .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v2,
     },
 };
 
@@ -18989,7 +22168,7 @@ static const RegisterFile REGFILE_MAPPING[] = {
             REG_kv3_PM3, REG_kv3_PMSA, REG_kv3_TCR, REG_kv3_T0V,
             REG_kv3_T1V, REG_kv3_T0R, REG_kv3_T1R, REG_kv3_WDV,
             REG_kv3_WDR, REG_kv3_ILE, REG_kv3_ILL, REG_kv3_ILR,
-            REG_kv3_MMC, REG_kv3_TEL, REG_kv3_TEH, REG_kv3_RES31,
+            REG_kv3_MMC, REG_kv3_TEL, REG_kv3_TEH, REG_kv3_IXC,
             REG_kv3_SYO, REG_kv3_HTO, REG_kv3_ITO, REG_kv3_DO,
             REG_kv3_MO, REG_kv3_PSO, REG_kv3_RES38, REG_kv3_RES39,
             REG_kv3_DC, REG_kv3_DBA0, REG_kv3_DBA1, REG_kv3_DWA0,
@@ -19004,7 +22183,7 @@ static const RegisterFile REGFILE_MAPPING[] = {
             REG_kv3_EV_PL0, REG_kv3_EV_PL1, REG_kv3_EV_PL2, REG_kv3_EV_PL3,
             REG_kv3_SR_PL0, REG_kv3_SR_PL1, REG_kv3_SR_PL2, REG_kv3_SR_PL3,
             REG_kv3_ES_PL0, REG_kv3_ES_PL1, REG_kv3_ES_PL2, REG_kv3_ES_PL3,
-            REG_kv3_RES88, REG_kv3_RES89, REG_kv3_RES90, REG_kv3_RES91,
+            REG_kv3_SID_PL0, REG_kv3_SID_PL1, REG_kv3_SID_PL2, REG_kv3_SID_PL3,
             REG_kv3_RES92, REG_kv3_RES93, REG_kv3_RES94, REG_kv3_RES95,
             REG_kv3_SYOW, REG_kv3_HTOW, REG_kv3_ITOW, REG_kv3_DOW,
             REG_kv3_MOW, REG_kv3_PSOW, REG_kv3_RES102, REG_kv3_RES103,
@@ -19020,7 +22199,7 @@ static const RegisterFile REGFILE_MAPPING[] = {
             REG_kv3_EV, REG_kv3_RES141, REG_kv3_RES142, REG_kv3_RES143,
             REG_kv3_SR, REG_kv3_RES145, REG_kv3_RES146, REG_kv3_RES147,
             REG_kv3_ES, REG_kv3_RES149, REG_kv3_RES150, REG_kv3_RES151,
-            REG_kv3_RES152, REG_kv3_RES153, REG_kv3_RES154, REG_kv3_RES155,
+            REG_kv3_SID, REG_kv3_RES153, REG_kv3_RES154, REG_kv3_RES155,
             REG_kv3_RES156, REG_kv3_RES157, REG_kv3_RES158, REG_kv3_RES159,
             REG_kv3_RES160, REG_kv3_RES161, REG_kv3_RES162, REG_kv3_RES163,
             REG_kv3_RES164, REG_kv3_RES165, REG_kv3_RES166, REG_kv3_RES167,
@@ -19306,55 +22485,6 @@ static const RegisterFile REGFILE_MAPPING[] = {
     },
 };
 
-typedef enum RegClass RegClass;
-enum RegClass {
-    REGCLASS_kv3_systemReg,
-    REGCLASS_kv3_singleReg,
-    REGCLASS_kv3_pairedReg,
-    REGCLASS_kv3_pairedReg_0,
-    REGCLASS_kv3_pairedReg_1,
-    REGCLASS_kv3_quadReg,
-    REGCLASS_kv3_quadReg_0,
-    REGCLASS_kv3_quadReg_1,
-    REGCLASS_kv3_quadReg_2,
-    REGCLASS_kv3_quadReg_3,
-    REGCLASS_kv3_coproReg,
-    REGCLASS_kv3_blockReg,
-    REGCLASS_kv3_blockReg_0,
-    REGCLASS_kv3_blockReg_1,
-    REGCLASS_kv3_vectorReg,
-    REGCLASS_kv3_vectorReg_0,
-    REGCLASS_kv3_vectorReg_1,
-    REGCLASS_kv3_vectorReg_2,
-    REGCLASS_kv3_vectorReg_3,
-    REGCLASS_kv3_wideReg,
-    REGCLASS_kv3_wideReg_0,
-    REGCLASS_kv3_wideReg_1,
-    REGCLASS_kv3_matrixReg,
-    REGCLASS_kv3_matrixReg_0,
-    REGCLASS_kv3_matrixReg_1,
-    REGCLASS_kv3_matrixReg_2,
-    REGCLASS_kv3_matrixReg_3,
-    REGCLASS_kv3_aloneReg,
-    REGCLASS_kv3_onlyraReg,
-    REGCLASS_kv3_onlygetReg,
-    REGCLASS_kv3_onlysetReg,
-    REGCLASS_kv3_onlyfxReg,
-    REGCLASS_kv3_onlyswapReg,
-    REGCLASS_kv3_vectorRegE,
-    REGCLASS_kv3_vectorRegO,
-    REGCLASS_kv3_blockRegE,
-    REGCLASS_kv3_blockRegO,
-    REGCLASS_kv3_blockReg0M4,
-    REGCLASS_kv3_blockReg1M4,
-    REGCLASS_kv3_blockReg2M4,
-    REGCLASS_kv3_blockReg3M4,
-    REGCLASS_kv3_coproReg0M4,
-    REGCLASS_kv3_coproReg1M4,
-    REGCLASS_kv3_coproReg2M4,
-    REGCLASS_kv3_coproReg3M4,
-};
-
 static const RegFile REGCLASS_MAPPING[] = {
     [REGCLASS_kv3_systemReg] = REGFILE_kv3_SFR,
     [REGCLASS_kv3_singleReg] = REGFILE_kv3_GPR,
@@ -19401,5 +22531,11 @@ static const RegFile REGCLASS_MAPPING[] = {
     [REGCLASS_kv3_coproReg1M4] = REGFILE_kv3_XCR,
     [REGCLASS_kv3_coproReg2M4] = REGFILE_kv3_XCR,
     [REGCLASS_kv3_coproReg3M4] = REGFILE_kv3_XCR,
+    [REGCLASS_v2_systemReg] = REGFILE_kv3_SFR,
+    [REGCLASS_v2_aloneReg] = REGFILE_kv3_SFR,
+    [REGCLASS_v2_onlygetReg] = REGFILE_kv3_SFR,
+    [REGCLASS_v2_onlysetReg] = REGFILE_kv3_SFR,
+    [REGCLASS_v2_onlyfxReg] = REGFILE_kv3_SFR,
+    [REGCLASS_v2_onlyswapReg] = REGFILE_kv3_SFR,
 };
 

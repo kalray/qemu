@@ -512,7 +512,7 @@ void gen_effect_MEM_store_tcg64_s64_bigint_u64(DisasContext *ctx, TCGv_i64 addre
 void gen_apply_MEM_cas(DisasContext *ctx,
                        MDSTypeBinding ret_type, TCGv_i64 ret,
                        TCGv_i64 address, int64_t size, TCGv_i64 update,
-                       TCGv_i64 expect, int64_t boolcas, uint64_t dri)
+                       TCGv_i64 expect, uint64_t boolcas, uint64_t dri)
 {
     /* TODO: Implement this as an atomic operation */
     TCGv_i64 size_tcg, syndrome, tmp;
@@ -541,6 +541,15 @@ void gen_apply_MEM_cas_tcg64_tcg64_s64_tcg64_bigint_s64_u64(DisasContext *ctx,
                                                             MDSTypeBinding ret_type, TCGv_i64 ret,
                                                             TCGv_i64 address, int64_t size, TCGv_i64 update,
                                                             MDSTCGBigInt * expect, int64_t boolcas, uint64_t dri)
+{
+    gen_apply_MEM_cas(ctx, ret_type, ret, address, size,
+                      update, expect->val[0], boolcas, dri);
+}
+
+void gen_apply_MEM_cas_tcg64_tcg64_s64_tcg64_bigint_u64_u64(DisasContext *ctx,
+                                                            MDSTypeBinding ret_type, TCGv_i64 ret,
+                                                            TCGv_i64 address, int64_t size, TCGv_i64 update,
+                                                            MDSTCGBigInt * expect, uint64_t boolcas, uint64_t dri)
 {
     gen_apply_MEM_cas(ctx, ret_type, ret, address, size,
                       update, expect->val[0], boolcas, dri);
@@ -1292,9 +1301,9 @@ void gen_apply_sat_32_8_x8_tcg64_bigint(DisasContext *ctx,
  * Floating point helpers
  */
 
-void gen_apply_fsinv_64(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret, TCGv_i64 arg0)
+void gen_apply_fsrec_64(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret, TCGv_i64 arg0)
 {
-    gen_helper_fsinv_64(ret, arg0);
+    gen_helper_fsrec_64(ret, arg0);
 }
 
 void gen_apply_fdivbyzero(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret)
@@ -1340,11 +1349,11 @@ void gen_apply_fnarrow_32_16_x4_tcg64_tcg64_bigint(DisasContext *ctx,
     gen_helper_fnarrow_32_16_x4(ret, rm, arg0->val[0], arg0->val[1]);
 }
 
-void gen_apply_fsisr_64(DisasContext *ctx,
+void gen_apply_fsrsr_64(DisasContext *ctx,
                         MDSTypeBinding ret_type, TCGv_i64 ret,
                         TCGv_i64 arg0)
 {
-    gen_helper_fsisr_64(ret, arg0);
+    gen_helper_fsrsr_64(ret, arg0);
 }
 
 void gen_apply_fwiden_32_64(DisasContext *ctx, MDSTypeBinding ret_type,
@@ -1359,31 +1368,31 @@ void gen_apply_fnarrow_64_32(DisasContext *ctx, MDSTypeBinding ret_type,
     gen_helper_fnarrow_64_32(ret, arg0, arg1);
 }
 
-void gen_apply_finv_32(DisasContext *ctx,
+void gen_apply_frec_32(DisasContext *ctx,
                        MDSTypeBinding ret_type, TCGv_i64 ret,
                        TCGv_i64 arg0, TCGv_i64 arg1)
 {
-    gen_helper_finv_32(ret, arg0, arg1);
+    gen_helper_frec_32(ret, arg0, arg1);
 }
 
-void gen_apply_fisr_32(DisasContext *ctx,
+void gen_apply_frsq_32(DisasContext *ctx,
                        MDSTypeBinding ret_type, TCGv_i64 ret,
                        TCGv_i64 arg0, TCGv_i64 arg1)
 {
-    gen_helper_fisr_32(ret, arg0, arg1);
+    gen_helper_frsq_32(ret, arg0, arg1);
 }
 
-void gen_apply_fsinv_32(DisasContext *ctx,
+void gen_apply_fsrec_32(DisasContext *ctx,
                         MDSTypeBinding ret_type, TCGv_i64 ret,
                         TCGv_i64 arg0)
 {
-    gen_helper_fsinv_32(ret, arg0);
+    gen_helper_fsrec_32(ret, arg0);
 }
 
-void gen_apply_fsisr_32(DisasContext *ctx, MDSTypeBinding ret_type,
+void gen_apply_fsrsr_32(DisasContext *ctx, MDSTypeBinding ret_type,
                         TCGv_i64 ret, TCGv_i64 arg0)
 {
-    gen_helper_fsisr_32(ret, arg0);
+    gen_helper_fsrsr_32(ret, arg0);
 }
 
 void gen_apply_fwiden_16_32(DisasContext *ctx, MDSTypeBinding ret_type,
@@ -1398,16 +1407,16 @@ void gen_apply_fnarrow_32_16(DisasContext *ctx, MDSTypeBinding ret_type,
     gen_helper_fnarrow_32_16(ret, arg0, arg1);
 }
 
-void gen_apply_fsinv_32_x2(DisasContext *ctx, MDSTypeBinding ret_type,
+void gen_apply_fsrec_32_x2(DisasContext *ctx, MDSTypeBinding ret_type,
                            TCGv_i64 ret, TCGv_i64 arg0)
 {
-    gen_helper_fsinv_32_x2(ret, arg0);
+    gen_helper_fsrec_32_x2(ret, arg0);
 }
 
-void gen_apply_fsisr_32_x2(DisasContext *ctx, MDSTypeBinding ret_type,
+void gen_apply_fsrsr_32_x2(DisasContext *ctx, MDSTypeBinding ret_type,
                            TCGv_i64 ret, TCGv_i64 arg0)
 {
-    gen_helper_fsisr_32_x2(ret, arg0);
+    gen_helper_fsrsr_32_x2(ret, arg0);
 }
 
 void gen_apply_fwiden_16_32_x2(DisasContext *ctx, MDSTypeBinding ret_type,
@@ -1751,6 +1760,17 @@ void gen_apply_fmul_32_32_x4_bigint_tcg64_bigint_bigint(DisasContext *ctx,
     LOAD_HELPER_RESULT(ret, 2);
 }
 
+void gen_apply_fmul_16_16_x8_bigint_tcg64_bigint_bigint(DisasContext *ctx,
+                                                        MDSTypeBinding ret_type, MDSTCGBigInt * ret,
+                                                        TCGv_i64 arg0, MDSTCGBigInt * arg1, MDSTCGBigInt * arg2)
+{
+    g_assert(mds_tcg_bigint_get_size(ret) == 128);
+
+    gen_helper_fmul_16_16_x8(cpu_env, arg0, BI_EXPAND(arg1, 2), BI_EXPAND(arg2, 2));
+
+    LOAD_HELPER_RESULT(ret, 2);
+}
+
 void gen_apply_fmulc_32_32(DisasContext *ctx, MDSTypeBinding ret_type,
                            TCGv_i64 ret, TCGv_i64 arg0, TCGv_i64 arg1,
                            TCGv_i64 arg2)
@@ -1835,6 +1855,89 @@ void gen_apply_fadd_16_16_x4(DisasContext *ctx, MDSTypeBinding ret_type,
     gen_helper_fadd_16_16_x4(ret, arg0, arg1, arg2);
 }
 
+void gen_apply_fadd_16_16_x8_bigint_tcg64_bigint_bigint(DisasContext *ctx, MDSTypeBinding ret_type,
+                                                        MDSTCGBigInt * ret, TCGv_i64 arg0,
+                                                        MDSTCGBigInt * arg1, MDSTCGBigInt * arg2)
+{
+    g_assert(mds_tcg_bigint_get_size(ret) == 128);
+
+    gen_helper_fadd_16_16_x8(cpu_env, arg0, BI_EXPAND(arg1, 2), BI_EXPAND(arg2, 2));
+
+    LOAD_HELPER_RESULT(ret, 2);
+}
+
+void gen_apply_ffma_16_16_x8_bigint_tcg64_bigint_bigint_bigint(DisasContext *ctx,
+                                                               MDSTypeBinding ret_type,
+                                                               MDSTCGBigInt * ret,
+                                                               TCGv_i64 arg0,
+                                                               MDSTCGBigInt * arg1,
+                                                               MDSTCGBigInt * arg2,
+                                                               MDSTCGBigInt * arg3)
+{
+    g_assert(mds_tcg_bigint_get_size(ret) == 128);
+
+    tcg_gen_st_i64(arg3->val[0], cpu_env, offsetof(CPUKVXState, scratch[0]));
+    tcg_gen_st_i64(arg3->val[1], cpu_env, offsetof(CPUKVXState, scratch[1]));
+
+    gen_helper_ffma_16_16_x8(cpu_env, arg0, BI_EXPAND(arg1, 2), BI_EXPAND(arg2, 2));
+
+    LOAD_HELPER_RESULT(ret, 2);
+}
+
+void gen_apply_ffma_32_32_x4_bigint_tcg64_bigint_bigint_bigint(DisasContext *ctx,
+                                                               MDSTypeBinding ret_type,
+                                                               MDSTCGBigInt * ret,
+                                                               TCGv_i64 arg0,
+                                                               MDSTCGBigInt * arg1,
+                                                               MDSTCGBigInt * arg2,
+                                                               MDSTCGBigInt * arg3)
+{
+    g_assert(mds_tcg_bigint_get_size(ret) == 128);
+
+    tcg_gen_st_i64(arg3->val[0], cpu_env, offsetof(CPUKVXState, scratch[0]));
+    tcg_gen_st_i64(arg3->val[1], cpu_env, offsetof(CPUKVXState, scratch[1]));
+
+    gen_helper_ffma_32_32_x4(cpu_env, arg0, BI_EXPAND(arg1, 2), BI_EXPAND(arg2, 2));
+
+    LOAD_HELPER_RESULT(ret, 2);
+}
+
+void gen_apply_ffms_16_16_x8_bigint_tcg64_bigint_bigint_bigint(DisasContext *ctx,
+                                                               MDSTypeBinding ret_type,
+                                                               MDSTCGBigInt * ret,
+                                                               TCGv_i64 arg0,
+                                                               MDSTCGBigInt * arg1,
+                                                               MDSTCGBigInt * arg2,
+                                                               MDSTCGBigInt * arg3)
+{
+    g_assert(mds_tcg_bigint_get_size(ret) == 128);
+
+    tcg_gen_st_i64(arg3->val[0], cpu_env, offsetof(CPUKVXState, scratch[0]));
+    tcg_gen_st_i64(arg3->val[1], cpu_env, offsetof(CPUKVXState, scratch[1]));
+
+    gen_helper_ffms_16_16_x8(cpu_env, arg0, BI_EXPAND(arg1, 2), BI_EXPAND(arg2, 2));
+
+    LOAD_HELPER_RESULT(ret, 2);
+}
+
+void gen_apply_ffms_32_32_x4_bigint_tcg64_bigint_bigint_bigint(DisasContext *ctx,
+                                                               MDSTypeBinding ret_type,
+                                                               MDSTCGBigInt * ret,
+                                                               TCGv_i64 arg0,
+                                                               MDSTCGBigInt * arg1,
+                                                               MDSTCGBigInt * arg2,
+                                                               MDSTCGBigInt * arg3)
+{
+    g_assert(mds_tcg_bigint_get_size(ret) == 128);
+
+    tcg_gen_st_i64(arg3->val[0], cpu_env, offsetof(CPUKVXState, scratch[0]));
+    tcg_gen_st_i64(arg3->val[1], cpu_env, offsetof(CPUKVXState, scratch[1]));
+
+    gen_helper_ffms_32_32_x4(cpu_env, arg0, BI_EXPAND(arg1, 2), BI_EXPAND(arg2, 2));
+
+    LOAD_HELPER_RESULT(ret, 2);
+}
+
 void gen_apply_fadd_64_64_x2_bigint_tcg64_bigint_bigint(DisasContext *ctx,
                                                         MDSTypeBinding ret_type, MDSTCGBigInt *ret,
                                                         TCGv_i64 arg0, MDSTCGBigInt *arg1, MDSTCGBigInt *arg2)
@@ -1905,6 +2008,17 @@ void gen_apply_fsbf_16_16_x4(DisasContext *ctx, MDSTypeBinding ret_type,
                              TCGv_i64 arg2)
 {
     gen_helper_fsbf_16_16_x4(ret, arg0, arg1, arg2);
+}
+
+void gen_apply_fsbf_16_16_x8_bigint_tcg64_bigint_bigint(DisasContext *ctx,
+                                                        MDSTypeBinding ret_type, MDSTCGBigInt * ret,
+                                                        TCGv_i64 arg0, MDSTCGBigInt * arg1, MDSTCGBigInt * arg2)
+{
+    g_assert(mds_tcg_bigint_get_size(ret) == 128);
+
+    gen_helper_fsbf_16_16_x8(cpu_env, arg0, BI_EXPAND(arg1, 2), BI_EXPAND(arg2, 2));
+
+    LOAD_HELPER_RESULT(ret, 2);
 }
 
 void gen_apply_fsbf_64_64_x2_bigint_tcg64_bigint_bigint(DisasContext *ctx,
@@ -2418,9 +2532,13 @@ void gen_effect_syncgroup(DisasContext *ctx,
 }
 
 void gen_effect_barrier(DisasContext *ctx) {}
-void gen_effect_MEM_dtouchl(DisasContext *ctx, TCGv_i64 arg0, int64_t arg1) {}
-void gen_effect_MEM_dinvall(DisasContext *ctx, TCGv_i64 arg0, int64_t arg1) {}
-void gen_effect_MEM_iinvals(DisasContext *ctx, TCGv_i64 arg0, int64_t arg1) {}
+void gen_effect_MEM_dtouchl(DisasContext *ctx, TCGv_i64 arg0, uint64_t arg1) {}
+void gen_effect_MEM_dinvall(DisasContext *ctx, TCGv_i64 arg0, uint64_t arg1) {}
+void gen_effect_MEM_iinvals(DisasContext *ctx, TCGv_i64 arg0, uint64_t arg1) {}
 void gen_effect_MEM_dinval(DisasContext *ctx) {}
 void gen_effect_MEM_iinval(DisasContext *ctx) {}
 void gen_effect_MEM_fence(DisasContext *ctx) {}
+
+void gen_apply_recvv_bigint_u64(DisasContext *ctx, MDSTypeBinding ret_type, MDSTCGBigInt * ret, uint64_t arg0) {}
+void gen_effect_break(DisasContext *ctx, uint64_t arg0) {}
+void gen_effect_sendv_bigint_u64(DisasContext *ctx, MDSTCGBigInt * arg0, uint64_t arg1) {}

@@ -46,7 +46,7 @@ typedef struct StorageAccessInfo {
     size_t offset;
     size_t sub_offset;
 
-    uint64_t write_mask_out;
+    uint64_t write_mask;
 
     bool is_sysreg;
     Register reg;
@@ -570,8 +570,8 @@ static inline void gen_store_fixup_value(TCGv_i64 val,
         tcg_gen_shli_i64(val, val, info->sub_offset);
     }
 
-    if (info->write_mask_out) {
-        tcg_gen_andi_i64(val, val, ~info->write_mask_out);
+    if (info->write_mask != UINT64_MAX) {
+        tcg_gen_andi_i64(val, val, info->write_mask);
     }
 }
 
@@ -1018,7 +1018,7 @@ static inline void get_register_access_info_common(Register reg_id,
     ret->data_size = reg->reg_width * len;
     ret->offset = reg->offset;
     ret->sub_offset = 0;
-    ret->write_mask_out = reg->mask_n;
+    ret->write_mask = reg->mask;
     ret->is_sysreg = (reg->regfile == REGFILE_kv3_SFR);
     ret->reg = reg_id;
 
@@ -1060,7 +1060,7 @@ static inline void get_storage_access_info(Storage sto, size_t addr, size_t len,
      * must be handled above or detected in load/store
      * code after (NPC is).
      */
-    ret->write_mask_out = 0;
+    ret->write_mask = UINT64_MAX;
     ret->is_sysreg = false;
     ret->reg = -1;
 

@@ -129,16 +129,35 @@ enum Modifier_kv3_column {
     COLUMN_C3 = 3,
 };
 
-typedef enum Modifier_kv3_scaling Modifier_kv3_scaling;
-enum Modifier_kv3_scaling {
-    SCALING_EMPTY = 0,
-    SCALING_XS = 1,
+typedef enum Modifier_kv3_doscale Modifier_kv3_doscale;
+enum Modifier_kv3_doscale {
+    DOSCALE_EMPTY = 0,
+    DOSCALE_XS = 1,
 };
 
 typedef enum Modifier_kv3_splat32 Modifier_kv3_splat32;
 enum Modifier_kv3_splat32 {
     SPLAT32_EMPTY = 0,
     SPLAT32_AT = 1,
+};
+
+typedef enum Modifier_kv3_cachelev Modifier_kv3_cachelev;
+enum Modifier_kv3_cachelev {
+    CACHELEV_EMPTY = 0,
+    CACHELEV_L2 = 1,
+    CACHELEV_L1L2 = 2,
+};
+
+typedef enum Modifier_kv3_boolcas Modifier_kv3_boolcas;
+enum Modifier_kv3_boolcas {
+    BOOLCAS_V = 0,
+    BOOLCAS_EMPTY = 1,
+};
+
+typedef enum Modifier_kv3_channel Modifier_kv3_channel;
+enum Modifier_kv3_channel {
+    CHANNEL_F = 0,
+    CHANNEL_B = 1,
 };
 
 #endif

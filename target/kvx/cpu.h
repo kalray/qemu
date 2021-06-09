@@ -26,6 +26,8 @@
 #include "hw/irq.h"
 #include "sysemu/cpus.h"
 
+#include "gen/cpu-models.h"
+
 #define TYPE_KVX_CPU "kvx-cpu"
 
 #define KVX_CPU_TYPE_SUFFIX "-" TYPE_KVX_CPU
@@ -201,11 +203,11 @@ static inline uint64_t kvx_regfield_read(CPUArchState *env,
 }
 
 #define KVX_FIELD_MASK(reg_, field_) \
-    (R_ ## reg_ ## _ ## field_ ## _MASK)
+    (REGISTERFIELDS[REGFIELD_ ## reg_ ## _ ## field_].mask)
 #define KVX_FIELD_LENGTH(reg_, field_) \
-    (R_ ## reg_ ## _ ## field_ ## _LENGTH)
+    (REGISTERFIELDS[REGFIELD_ ## reg_ ## _ ## field_].width)
 #define KVX_FIELD_SHIFT(reg_, field_) \
-    (R_ ## reg_ ## _ ## field_ ## _SHIFT)
+    (REGISTERFIELDS[REGFIELD_ ## reg_ ## _ ## field_].offset)
 
 #define KVX_FIELD_EX64(val_, reg_, field_)    \
     extract64((val_),                         \

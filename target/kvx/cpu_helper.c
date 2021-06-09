@@ -1114,7 +1114,7 @@ void kvx_register_write(KVXCPU *cpu, Register reg, uint64_t val)
     if (rdescr->reg_width < 64) {
         val &= (1llu << rdescr->reg_width) - 1;
     }
-    val &= ~rdescr->mask_n;
+    val &= rdescr->mask;
 
     /* handle address sign extension and alignment */
     if (info->addr_store_mask) {

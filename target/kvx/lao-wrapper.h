@@ -30,7 +30,7 @@ void lao_gcm_bt_64_128(uint64_t *res_l, uint64_t *res_h, uint64_t arg0, uint64_t
 void lao_gcm_tt_64_128(uint64_t *res_l, uint64_t *res_h, uint64_t arg0, uint64_t arg1);
 
 uint64_t lao_fnarrow_64_32_x2(uint64_t rm, uint64_t arg0_l, uint64_t arg0_h);
-uint64_t lao_fsinv_64(uint64_t arg0);
+uint64_t lao_fsrec_64(uint64_t arg0);
 uint64_t lao_fdivbyzero(void);
 uint64_t lao_finexact(void);
 uint64_t lao_finvalid(void);
@@ -56,17 +56,17 @@ void lao_round_32_x8(uint64_t *ret_0, uint64_t *ret_1, uint64_t *ret_2, uint64_t
 uint64_t lao_satu_32_8_x8(uint64_t arg0, uint64_t arg1, uint64_t arg2, uint64_t arg3);
 uint64_t lao_sat_32_8_x8(uint64_t arg0, uint64_t arg1, uint64_t arg2, uint64_t arg3);
 uint64_t lao_fnarrow_32_16_x4(uint64_t arg0, uint64_t arg1, uint64_t arg2);
-uint64_t lao_fsisr_64(uint64_t arg0);
+uint64_t lao_fsrsr_64(uint64_t arg0);
 uint64_t lao_fwiden_32_64(uint64_t arg0);
 uint64_t lao_fnarrow_64_32(uint64_t arg0, uint64_t arg1);
-uint64_t lao_finv_32(uint64_t arg0, uint64_t arg1);
-uint64_t lao_fisr_32(uint64_t arg0, uint64_t arg1);
-uint64_t lao_fsinv_32(uint64_t arg0);
-uint64_t lao_fsisr_32(uint64_t arg0);
+uint64_t lao_frec_32(uint64_t arg0, uint64_t arg1);
+uint64_t lao_frsq_32(uint64_t arg0, uint64_t arg1);
+uint64_t lao_fsrec_32(uint64_t arg0);
+uint64_t lao_fsrsr_32(uint64_t arg0);
 uint64_t lao_fwiden_16_32(uint64_t arg0);
 uint64_t lao_fnarrow_32_16(uint64_t arg0, uint64_t arg1);
-uint64_t lao_fsinv_32_x2(uint64_t arg0);
-uint64_t lao_fsisr_32_x2(uint64_t arg0);
+uint64_t lao_fsrec_32_x2(uint64_t arg0);
+uint64_t lao_fsrsr_32_x2(uint64_t arg0);
 uint64_t lao_fwiden_16_32_x2(uint64_t arg0);
 uint64_t lao_fsdiv_64(uint64_t arg0, uint64_t arg1);
 uint64_t lao_fcdiv_64(uint64_t arg0, uint64_t arg1);
@@ -141,17 +141,24 @@ void lao_fnarrow_32_16_x8_part0(uint64_t *ret_0, uint64_t *ret_1, uint64_t *ret_
 void lao_fnarrow_32_16_x8_part1(uint64_t *ret_0, uint64_t *ret_1, uint64_t *ret_2, uint64_t *ret_3,
                                 uint64_t arg0, uint64_t arg1_0, uint64_t arg1_1, uint64_t arg1_2, uint64_t arg1_3);
 
+void lao_fmul_16_16_x8(uint64_t *ret_l, uint64_t *ret_h, uint64_t arg0, uint64_t arg1_l, uint64_t arg1_h, uint64_t arg2_l, uint64_t arg2_h);
 void lao_fmul_32_32_x4(uint64_t *ret_l, uint64_t *ret_h, uint64_t arg0, uint64_t arg1_l, uint64_t arg1_h, uint64_t arg2_l, uint64_t arg2_h);
+void lao_fadd_16_16_x8(uint64_t *ret_l, uint64_t *ret_h, uint64_t arg0, uint64_t arg1_l, uint64_t arg1_h, uint64_t arg2_l, uint64_t arg2_h);
 void lao_fadd_64_64_x2(uint64_t *ret_l, uint64_t *ret_h, uint64_t arg0, uint64_t arg1_l, uint64_t arg1_h, uint64_t arg2_l, uint64_t arg2_h);
 void lao_fadd_32_32_x4(uint64_t *ret_l, uint64_t *ret_h, uint64_t arg0, uint64_t arg1_l, uint64_t arg1_h, uint64_t arg2_l, uint64_t arg2_h);
 void lao_faddcc_32_32_x2(uint64_t *ret_l, uint64_t *ret_h, uint64_t arg0, uint64_t arg1_l, uint64_t arg1_h, uint64_t arg2_l, uint64_t arg2_h);
 void lao_faddcc_64_64(uint64_t *ret_l, uint64_t *ret_h, uint64_t arg0, uint64_t arg1_l, uint64_t arg1_h, uint64_t arg2_l, uint64_t arg2_h);
+void lao_fsbf_16_16_x8(uint64_t *ret_l, uint64_t *ret_h, uint64_t arg0, uint64_t arg1_l, uint64_t arg1_h, uint64_t arg2_l, uint64_t arg2_h);
 void lao_fsbf_64_64_x2(uint64_t *ret_l, uint64_t *ret_h, uint64_t arg0, uint64_t arg1_l, uint64_t arg1_h, uint64_t arg2_l, uint64_t arg2_h);
 void lao_fsbf_32_32_x4(uint64_t *ret_l, uint64_t *ret_h, uint64_t arg0, uint64_t arg1_l, uint64_t arg1_h, uint64_t arg2_l, uint64_t arg2_h);
 void lao_fsbfcc_32_32_x2(uint64_t *ret_l, uint64_t *ret_h, uint64_t arg0, uint64_t arg1_l, uint64_t arg1_h, uint64_t arg2_l, uint64_t arg2_h);
 void lao_fsbfcc_64_64(uint64_t *ret_l, uint64_t *ret_h, uint64_t arg0, uint64_t arg1_l, uint64_t arg1_h, uint64_t arg2_l, uint64_t arg2_h);
 void lao_ffma_32_64_x2(uint64_t *ret_l, uint64_t *ret_h, uint64_t arg0, uint64_t arg1_l, uint64_t arg1_h, uint64_t arg2, uint64_t arg3);
 void lao_ffma_16_32_x4(uint64_t *ret_l, uint64_t *ret_h, uint64_t arg0, uint64_t arg1_l, uint64_t arg1_h, uint64_t arg2, uint64_t arg3);
+void lao_ffma_16_16_x8(uint64_t *ret_l, uint64_t *ret_h, uint64_t arg0, uint64_t arg1_l, uint64_t arg1_h, uint64_t arg2_l, uint64_t arg2_h, uint64_t arg3_l, uint64_t arg3_h);
+void lao_ffma_32_32_x4(uint64_t *ret_l, uint64_t *ret_h, uint64_t arg0, uint64_t arg1_l, uint64_t arg1_h, uint64_t arg2_l, uint64_t arg2_h, uint64_t arg3_l, uint64_t arg3_h);
+void lao_ffms_16_16_x8(uint64_t *ret_l, uint64_t *ret_h, uint64_t arg0, uint64_t arg1_l, uint64_t arg1_h, uint64_t arg2_l, uint64_t arg2_h, uint64_t arg3_l, uint64_t arg3_h);
+void lao_ffms_32_32_x4(uint64_t *ret_l, uint64_t *ret_h, uint64_t arg0, uint64_t arg1_l, uint64_t arg1_h, uint64_t arg2_l, uint64_t arg2_h, uint64_t arg3_l, uint64_t arg3_h);
 void lao_ffms_32_64_x2(uint64_t *ret_l, uint64_t *ret_h, uint64_t arg0, uint64_t arg1_l, uint64_t arg1_h, uint64_t arg2, uint64_t arg3);
 void lao_ffms_16_32_x4(uint64_t *ret_l, uint64_t *ret_h, uint64_t arg0, uint64_t arg1_l, uint64_t arg1_h, uint64_t arg2, uint64_t arg3);
 void lao_fdot2_32_32_x2(uint64_t *ret_l, uint64_t *ret_h, uint64_t arg0, uint64_t arg1_l, uint64_t arg1_h, uint64_t arg2_l, uint64_t arg2_h);

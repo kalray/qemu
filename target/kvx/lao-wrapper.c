@@ -81,7 +81,7 @@ uint64_t lao_fnarrow_64_32_x2(uint64_t rm, uint64_t arg0_l, uint64_t arg0_h)
                                                      Int256_fromUInt64(rm), arg0_256));
 }
 
-uint64_t lao_fsinv_64(uint64_t arg0)
+uint64_t lao_fsrec_64(uint64_t arg0)
 {
     return Int256_toUInt64(Behavior_fsrec_64(NULL, Int256_fromUInt64(arg0)));
 }
@@ -233,7 +233,7 @@ uint64_t lao_fnarrow_32_16_x4(uint64_t arg0, uint64_t arg1_l, uint64_t arg1_h)
     return Int256_toUInt64(Behavior_fnarrow_32_16_x4(NULL, Int256_fromUInt64(arg0), arg1));
 }
 
-uint64_t lao_fsisr_64(uint64_t arg0)
+uint64_t lao_fsrsr_64(uint64_t arg0)
 {
     return Int256_toUInt64(Behavior_fsrsr_64(NULL, Int256_fromUInt64(arg0)));
 }
@@ -248,22 +248,22 @@ uint64_t lao_fnarrow_64_32(uint64_t arg0, uint64_t arg1)
     return Int256_toUInt64(Behavior_fnarrow_64_32(NULL, Int256_fromUInt64(arg0), Int256_fromUInt64(arg1)));
 }
 
-uint64_t lao_finv_32(uint64_t arg0, uint64_t arg1)
+uint64_t lao_frec_32(uint64_t arg0, uint64_t arg1)
 {
     return Int256_toUInt64(Behavior_frec_32(NULL, Int256_fromUInt64(arg0), Int256_fromUInt64(arg1)));
 }
 
-uint64_t lao_fisr_32(uint64_t arg0, uint64_t arg1)
+uint64_t lao_frsq_32(uint64_t arg0, uint64_t arg1)
 {
     return Int256_toUInt64(Behavior_frsq_32(NULL, Int256_fromUInt64(arg0), Int256_fromUInt64(arg1)));
 }
 
-uint64_t lao_fsinv_32(uint64_t arg0)
+uint64_t lao_fsrec_32(uint64_t arg0)
 {
     return Int256_toUInt64(Behavior_fsrec_32(NULL, Int256_fromUInt64(arg0)));
 }
 
-uint64_t lao_fsisr_32(uint64_t arg0)
+uint64_t lao_fsrsr_32(uint64_t arg0)
 {
     return Int256_toUInt64(Behavior_fsrsr_32(NULL, Int256_fromUInt64(arg0)));
 }
@@ -278,12 +278,12 @@ uint64_t lao_fnarrow_32_16(uint64_t arg0, uint64_t arg1)
     return Int256_toUInt64(Behavior_fnarrow_32_16(NULL, Int256_fromUInt64(arg0), Int256_fromUInt64(arg1)));
 }
 
-uint64_t lao_fsinv_32_x2(uint64_t arg0)
+uint64_t lao_fsrec_32_x2(uint64_t arg0)
 {
     return Int256_toUInt64(Behavior_fsrec_32_x2(NULL, Int256_fromUInt64(arg0)));
 }
 
-uint64_t lao_fsisr_32_x2(uint64_t arg0)
+uint64_t lao_fsrsr_32_x2(uint64_t arg0)
 {
     return Int256_toUInt64(Behavior_fsrsr_32_x2(NULL, Int256_fromUInt64(arg0)));
 }
@@ -717,6 +717,21 @@ void lao_fnarrow_32_16_x8_part1(uint64_t *ret_0, uint64_t *ret_1, uint64_t *ret_
 }
 
 
+void lao_fmul_16_16_x8(uint64_t *ret_l, uint64_t *ret_h, uint64_t arg0, uint64_t arg1_l, uint64_t arg1_h, uint64_t arg2_l, uint64_t arg2_h)
+{
+    Int256_ ret;
+    Int256_ arg1 = Int256_fromUInt64(arg1_l);
+    Int256_ arg2 = Int256_fromUInt64(arg2_l);
+
+    arg1.dwords[1] = arg1_h;
+    arg2.dwords[1] = arg2_h;
+
+    ret = Behavior_fmul_16_16_x8(NULL, Int256_fromUInt64(arg0), arg1, arg2);
+
+    *ret_l = ret.dwords[0];
+    *ret_h = ret.dwords[1];
+}
+
 void lao_fmul_32_32_x4(uint64_t *ret_l, uint64_t *ret_h, uint64_t arg0, uint64_t arg1_l, uint64_t arg1_h, uint64_t arg2_l, uint64_t arg2_h)
 {
     Int256_ ret;
@@ -727,6 +742,21 @@ void lao_fmul_32_32_x4(uint64_t *ret_l, uint64_t *ret_h, uint64_t arg0, uint64_t
     arg2.dwords[1] = arg2_h;
 
     ret = Behavior_fmul_32_32_x4(NULL, Int256_fromUInt64(arg0), arg1, arg2);
+
+    *ret_l = ret.dwords[0];
+    *ret_h = ret.dwords[1];
+}
+
+void lao_fadd_16_16_x8(uint64_t *ret_l, uint64_t *ret_h, uint64_t arg0, uint64_t arg1_l, uint64_t arg1_h, uint64_t arg2_l, uint64_t arg2_h)
+{
+    Int256_ ret;
+    Int256_ arg1 = Int256_fromUInt64(arg1_l);
+    Int256_ arg2 = Int256_fromUInt64(arg2_l);
+
+    arg1.dwords[1] = arg1_h;
+    arg2.dwords[1] = arg2_h;
+
+    ret = Behavior_fadd_16_16_x8(NULL, Int256_fromUInt64(arg0), arg1, arg2);
 
     *ret_l = ret.dwords[0];
     *ret_h = ret.dwords[1];
@@ -787,6 +817,21 @@ void lao_faddcc_64_64(uint64_t *ret_l, uint64_t *ret_h, uint64_t arg0, uint64_t 
     arg2.dwords[1] = arg2_h;
 
     ret = Behavior_faddcc_64_64(NULL, Int256_fromUInt64(arg0), arg1, arg2);
+
+    *ret_l = ret.dwords[0];
+    *ret_h = ret.dwords[1];
+}
+
+void lao_fsbf_16_16_x8(uint64_t *ret_l, uint64_t *ret_h, uint64_t arg0, uint64_t arg1_l, uint64_t arg1_h, uint64_t arg2_l, uint64_t arg2_h)
+{
+    Int256_ ret;
+    Int256_ arg1 = Int256_fromUInt64(arg1_l);
+    Int256_ arg2 = Int256_fromUInt64(arg2_l);
+
+    arg1.dwords[1] = arg1_h;
+    arg2.dwords[1] = arg2_h;
+
+    ret = Behavior_fsbf_16_16_x8(NULL, Int256_fromUInt64(arg0), arg1, arg2);
 
     *ret_l = ret.dwords[0];
     *ret_h = ret.dwords[1];
@@ -873,6 +918,74 @@ void lao_ffma_16_32_x4(uint64_t *ret_l, uint64_t *ret_h, uint64_t arg0, uint64_t
     arg1.dwords[1] = arg1_h;
 
     ret = Behavior_ffma_16_32_x4(NULL, Int256_fromUInt64(arg0), arg1, Int256_fromUInt64(arg2), Int256_fromUInt64(arg3));
+
+    *ret_l = ret.dwords[0];
+    *ret_h = ret.dwords[1];
+}
+
+void lao_ffma_16_16_x8(uint64_t *ret_l, uint64_t *ret_h, uint64_t arg0, uint64_t arg1_l, uint64_t arg1_h, uint64_t arg2_l, uint64_t arg2_h, uint64_t arg3_l, uint64_t arg3_h)
+{
+    Int256_ ret;
+    Int256_ arg1 = Int256_fromUInt64(arg1_l);
+    Int256_ arg2 = Int256_fromUInt64(arg2_l);
+    Int256_ arg3 = Int256_fromUInt64(arg3_l);
+
+    arg1.dwords[1] = arg1_h;
+    arg2.dwords[1] = arg2_h;
+    arg3.dwords[1] = arg3_h;
+
+    ret = Behavior_ffma_16_16_x8(NULL, Int256_fromUInt64(arg0), arg1, arg2, arg3);
+
+    *ret_l = ret.dwords[0];
+    *ret_h = ret.dwords[1];
+}
+
+void lao_ffma_32_32_x4(uint64_t *ret_l, uint64_t *ret_h, uint64_t arg0, uint64_t arg1_l, uint64_t arg1_h, uint64_t arg2_l, uint64_t arg2_h, uint64_t arg3_l, uint64_t arg3_h)
+{
+    Int256_ ret;
+    Int256_ arg1 = Int256_fromUInt64(arg1_l);
+    Int256_ arg2 = Int256_fromUInt64(arg2_l);
+    Int256_ arg3 = Int256_fromUInt64(arg3_l);
+
+    arg1.dwords[1] = arg1_h;
+    arg2.dwords[1] = arg2_h;
+    arg3.dwords[1] = arg3_h;
+
+    ret = Behavior_ffma_32_32_x4(NULL, Int256_fromUInt64(arg0), arg1, arg2, arg3);
+
+    *ret_l = ret.dwords[0];
+    *ret_h = ret.dwords[1];
+}
+
+void lao_ffms_16_16_x8(uint64_t *ret_l, uint64_t *ret_h, uint64_t arg0, uint64_t arg1_l, uint64_t arg1_h, uint64_t arg2_l, uint64_t arg2_h, uint64_t arg3_l, uint64_t arg3_h)
+{
+    Int256_ ret;
+    Int256_ arg1 = Int256_fromUInt64(arg1_l);
+    Int256_ arg2 = Int256_fromUInt64(arg2_l);
+    Int256_ arg3 = Int256_fromUInt64(arg3_l);
+
+    arg1.dwords[1] = arg1_h;
+    arg2.dwords[1] = arg2_h;
+    arg3.dwords[1] = arg3_h;
+
+    ret = Behavior_ffms_16_16_x8(NULL, Int256_fromUInt64(arg0), arg1, arg2, arg3);
+
+    *ret_l = ret.dwords[0];
+    *ret_h = ret.dwords[1];
+}
+
+void lao_ffms_32_32_x4(uint64_t *ret_l, uint64_t *ret_h, uint64_t arg0, uint64_t arg1_l, uint64_t arg1_h, uint64_t arg2_l, uint64_t arg2_h, uint64_t arg3_l, uint64_t arg3_h)
+{
+    Int256_ ret;
+    Int256_ arg1 = Int256_fromUInt64(arg1_l);
+    Int256_ arg2 = Int256_fromUInt64(arg2_l);
+    Int256_ arg3 = Int256_fromUInt64(arg3_l);
+
+    arg1.dwords[1] = arg1_h;
+    arg2.dwords[1] = arg2_h;
+    arg3.dwords[1] = arg3_h;
+
+    ret = Behavior_ffms_32_32_x4(NULL, Int256_fromUInt64(arg0), arg1, arg2, arg3);
 
     *ret_l = ret.dwords[0];
     *ret_h = ret.dwords[1];
