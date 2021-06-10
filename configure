@@ -4489,7 +4489,7 @@ EOF
     if test x"$lao_prefix" != x"" ; then
         lao_cflags="-Wno-error -I$lao_prefix/kalray_internal/include -I$lao_prefix/kalray_internal/include/lao"
         lao_libs="-L$lao_prefix/lib/lao -lBSL"
-        lao_ldflags="$QEMU_LDFLAGS -Wl,-rpath=$lao_prefix/lib/lao"
+        lao_ldflags="$QEMU_LDFLAGS -Wl,-rpath=\\\$\$ORIGIN/../lib/lao:$lao_prefix/lib/lao"
     fi
 
     if compile_prog "$lao_cflags" "$lao_libs"; then
