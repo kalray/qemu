@@ -27,11 +27,17 @@ typedef struct KvxBootInfo {
     uint64_t dtb_load_addr;
     uint64_t ddr_base;
     uint64_t ddr_size;
+    bool gen_mppa_argarea;
 
     /* Resulting info when bootloading is done */
     bool kernel_loaded;
+    bool kernel_is_64bits;
     uint64_t kernel_entry;
     bool dtb_loaded;
+
+    uint64_t mppa_argarea_start_addr;
+    char * mppa_argarea_buf;
+    size_t mppa_argarea_size;
 } KvxBootInfo;
 
 void kvx_boot(KvxBootInfo *info);
