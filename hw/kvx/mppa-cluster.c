@@ -16,23 +16,19 @@
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libfdt.h>
-
 #include "qemu/osdep.h"
 #include "qemu/units.h"
 #include "qemu/error-report.h"
-#include "qemu/datadir.h"
 #include "qapi/error.h"
 #include "hw/boards.h"
 #include "exec/address-spaces.h"
 #include "target/kvx/cpu.h"
-#include "hw/loader.h"
 #include "hw/qdev-properties.h"
-#include "elf.h"
 #include "sysemu/sysemu.h"
 #include "sysemu/reset.h"
-#include "sysemu/device_tree.h"
 #include "hw/char/serial.h"
+
+#include "hw/kvx/boot.h"
 #include "hw/kvx/pwr-ctrl.h"
 #include "hw/kvx/ipi-ctrl.h"
 #include "hw/kvx/apic-gic.h"
@@ -78,10 +74,7 @@ typedef struct MppaClusterMachineState {
     MemoryRegion ddr;
     MemoryRegion ddr_32bits_alias;
 
-    bool kernel_loaded;
-    uint64_t kernel_entry;
-    bool dtb_loaded;
-
+    KvxBootInfo boot_info;
 } MppaClusterMachineState;
 
 enum {
@@ -145,11 +138,11 @@ static void mppa_cluster_rm_reset(void *opaque)
 
     cpu_reset(cpu);
 
-    if (s->kernel_loaded) {
-        cpu_set_pc(cpu, s->kernel_entry);
+    if (s->boot_info.kernel_loaded) {
+        cpu_set_pc(cpu, s->boot_info.kernel_entry);
     }
 
-    if (s->dtb_loaded) {
+    if (s->boot_info.dtb_loaded) {
         CPUKVXState *env = &KVX_CPU(cpu)->env;
         kvx_register_write_u64(env, REG_kv3_R0, MPPA_CLUSTER_LINUX_BOOT_MAGIC);
         kvx_register_write_u64(env, REG_kv3_R1, MPPA_CLUSTER_DTB_LOAD_ADDR);
@@ -417,96 +410,15 @@ static inline void devices_realize(MppaClusterMachineState *s)
     sysbus_realize(SYS_BUS_DEVICE(&s->itgen1), &error_abort);
 }
 
-static void fdt_set_memory_node(MppaClusterMachineState *s, void *fdt)
+static void boot_cluster(MppaClusterMachineState *s)
 {
-    char *nodename;
-    uint32_t acells, scells;
-    uint64_t ddr_base = mppa_cluster_memmap[MPPA_CLUSTER_DDR];
-    uint64_t ddr_size = s->parent.ram_size;
+    kvx_boot_fill_info_from_machine(&s->boot_info, MACHINE(s));
 
-    acells = qemu_fdt_getprop_cell(fdt, "/", "#address-cells",
-                                   NULL, &error_fatal);
-    scells = qemu_fdt_getprop_cell(fdt, "/", "#size-cells",
-                                   NULL, &error_fatal);
+    s->boot_info.ddr_base = mppa_cluster_memmap[MPPA_CLUSTER_DDR];
+    s->boot_info.ddr_size = MACHINE(s)->ram_size;
+    s->boot_info.dtb_load_addr = MPPA_CLUSTER_DTB_LOAD_ADDR;
 
-    nodename = g_strdup_printf("/memory@%" PRIx64, ddr_base);
-
-    qemu_fdt_setprop_sized_cells(fdt, nodename, "reg",
-                                 acells, ddr_base,
-                                 scells, ddr_size);
-    g_free(nodename);
-}
-
-static void fdt_set_bootargs(MppaClusterMachineState *s, void *fdt)
-{
-    MachineState *machine = MACHINE(s);
-
-    if (!machine->kernel_cmdline || !*machine->kernel_cmdline) {
-        return;
-    }
-
-    if (fdt_path_offset(fdt, "/chosen") < 0) {
-        qemu_fdt_add_subnode(fdt, "/chosen");
-    }
-
-    qemu_fdt_setprop_string(fdt, "/chosen", "bootargs",
-                            machine->kernel_cmdline);
-}
-
-static void load_and_setup_dtb(MppaClusterMachineState *s)
-{
-    MachineState *machine = MACHINE(s);
-    char *filename;
-    void *fdt;
-    int size;
-
-    if (!machine->dtb) {
-        return;
-    }
-
-    filename = qemu_find_file(QEMU_FILE_TYPE_BIOS, machine->dtb);
-    if (!filename) {
-        error_report("could not open dtb file %s\n", machine->dtb);
-        exit(1);
-    }
-
-    fdt = load_device_tree(filename, &size);
-    if (!fdt) {
-        error_report("could not open dtb file %s\n", filename);
-        g_free(filename);
-        exit(1);
-    }
-
-    g_free(filename);
-
-    fdt_set_memory_node(s, fdt);
-    fdt_set_bootargs(s, fdt);
-
-    rom_add_blob_fixed("dtb", fdt, size, MPPA_CLUSTER_DTB_LOAD_ADDR);
-    g_free(fdt);
-
-    s->dtb_loaded = true;
-}
-
-static void setup_boot(MppaClusterMachineState *s)
-{
-    MachineState *machine = MACHINE(s);
-
-    if (machine->kernel_filename) {
-        uint64_t kernel_entry, kernel_high;
-
-        if (load_elf(machine->kernel_filename, NULL, NULL, NULL,
-                     &kernel_entry, NULL, &kernel_high, NULL,
-                     0, EM_KVX, 1, 0) <= 0) {
-            error_report("could not load kernel '%s'", machine->kernel_filename);
-            exit(1);
-        }
-
-        s->kernel_loaded = true;
-        s->kernel_entry = kernel_entry;
-    }
-
-    load_and_setup_dtb(s);
+    kvx_boot(&s->boot_info);
 }
 
 static void mppa_cluster_init(MachineState *machine)
@@ -515,7 +427,7 @@ static void mppa_cluster_init(MachineState *machine)
 
     devices_init(s);
     devices_realize(s);
-    setup_boot(s);
+    boot_cluster(s);
 }
 
 static void mppa_cluster_machine_class_init(ObjectClass *klass, void *data)
