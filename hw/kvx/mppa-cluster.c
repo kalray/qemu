@@ -54,6 +54,8 @@ typedef struct MppaClusterMachineState {
     MachineState parent;
 
     /*< public >*/
+    bool gen_mppa_argarea;
+
     KVXCPU rm_core;
     KVXCPU pe_cores[MPPA_CLUSTER_NUM_PE_CORES];
     KvxIpeHelper ipe_helper;
@@ -417,6 +419,7 @@ static void boot_cluster(MppaClusterMachineState *s)
     s->boot_info.ddr_base = mppa_cluster_memmap[MPPA_CLUSTER_DDR];
     s->boot_info.ddr_size = MACHINE(s)->ram_size;
     s->boot_info.dtb_load_addr = MPPA_CLUSTER_DTB_LOAD_ADDR;
+    s->boot_info.gen_mppa_argarea = s->gen_mppa_argarea;
 
     kvx_boot(&s->boot_info);
 }
@@ -444,12 +447,42 @@ static void mppa_cluster_machine_class_init(ObjectClass *klass, void *data)
     mc->is_default = true;
 }
 
+static bool mppa_cluster_get_gen_argarea(Object *obj, Error **errp)
+{
+    MppaClusterMachineState *s = MPPA_CLUSTER(obj);
+
+    return s->gen_mppa_argarea;
+}
+
+static void mppa_cluster_set_gen_argarea(Object *obj, bool value, Error **errp)
+{
+    MppaClusterMachineState *s = MPPA_CLUSTER(obj);
+
+    s->gen_mppa_argarea = value;
+}
+
+static void mppa_cluster_instance_init(Object *obj)
+{
+    MppaClusterMachineState *s = MPPA_CLUSTER(obj);
+
+    s->gen_mppa_argarea = true;
+    object_property_add_bool(obj, "generate-mppa-argarea",
+                             mppa_cluster_get_gen_argarea,
+                             mppa_cluster_set_gen_argarea);
+    object_property_set_description(obj, "generate-mppa-argarea",
+                                    "Set on/off to enable/disable generation "
+                                    "of the .mppa_arg section when one is "
+                                    "detected in the loaded kernel "
+                                    "(default is on)");
+}
+
 static const TypeInfo mppa_cluster_machine_type_info[] = {
     {
         .name = TYPE_MPPA_CLUSTER_MACHINE,
         .parent = TYPE_MACHINE,
         .instance_size = sizeof(MppaClusterMachineState),
         .class_init = mppa_cluster_machine_class_init,
+        .instance_init = mppa_cluster_instance_init,
     },
 };
 
