@@ -680,7 +680,7 @@ void lao_frelu_32_32_x8(uint64_t *ret_0, uint64_t *ret_1, uint64_t *ret_2, uint6
     *ret_3 = ret.dwords[3];
 }
 
-void lao_fnarrow_32_16_x8_part0(uint64_t *ret_0, uint64_t *ret_1, uint64_t *ret_2, uint64_t *ret_3,
+void lao_fnarrow_32_16_x8_reset(uint64_t *ret_0, uint64_t *ret_1, uint64_t *ret_2, uint64_t *ret_3,
                                 uint64_t arg0, uint64_t arg1_0, uint64_t arg1_1, uint64_t arg1_2, uint64_t arg1_3)
 {
     Int256_ ret;
@@ -690,7 +690,7 @@ void lao_fnarrow_32_16_x8_part0(uint64_t *ret_0, uint64_t *ret_1, uint64_t *ret_
     arg1.dwords[2] = arg1_2;
     arg1.dwords[3] = arg1_3;
 
-    ret = Behavior_fnarrow_32_16_x8_part0(NULL, Int256_fromUInt64(arg0), arg1);
+    ret = Behavior_fnarrow_32_16_x8_reset(NULL, Int256_fromUInt64(arg0), arg1);
 
     *ret_0 = ret.dwords[0];
     *ret_1 = ret.dwords[1];
@@ -698,7 +698,7 @@ void lao_fnarrow_32_16_x8_part0(uint64_t *ret_0, uint64_t *ret_1, uint64_t *ret_
     *ret_3 = ret.dwords[3];
 }
 
-void lao_fnarrow_32_16_x8_part1(uint64_t *ret_0, uint64_t *ret_1, uint64_t *ret_2, uint64_t *ret_3,
+void lao_fnarrow_32_16_x8_noreset(uint64_t *ret_0, uint64_t *ret_1, uint64_t *ret_2, uint64_t *ret_3,
                                 uint64_t arg0, uint64_t arg1_0, uint64_t arg1_1, uint64_t arg1_2, uint64_t arg1_3)
 {
     Int256_ ret;
@@ -708,7 +708,7 @@ void lao_fnarrow_32_16_x8_part1(uint64_t *ret_0, uint64_t *ret_1, uint64_t *ret_
     arg1.dwords[2] = arg1_2;
     arg1.dwords[3] = arg1_3;
 
-    ret = Behavior_fnarrow_32_16_x8_part1(NULL, Int256_fromUInt64(arg0), arg1);
+    ret = Behavior_fnarrow_32_16_x8_noreset(NULL, Int256_fromUInt64(arg0), arg1);
 
     *ret_0 = ret.dwords[0];
     *ret_1 = ret.dwords[1];

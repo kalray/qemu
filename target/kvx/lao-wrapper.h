@@ -136,9 +136,9 @@ uint64_t lao_fdot4add_16_32_noreset(uint64_t arg0, uint64_t arg1, uint64_t arg2,
 void lao_fpow2scale_32_32_x8(uint64_t *ret_0, uint64_t *ret_1, uint64_t *ret_2, uint64_t *ret_3, uint64_t arg0, uint64_t arg1, uint64_t arg2, uint64_t arg3, uint64_t arg4, uint64_t arg5);
 void lao_frelu_32_32_x8(uint64_t *ret_0, uint64_t *ret_1, uint64_t *ret_2, uint64_t *ret_3,
                         uint64_t arg0_0, uint64_t arg0_1, uint64_t arg0_2, uint64_t arg0_3);
-void lao_fnarrow_32_16_x8_part0(uint64_t *ret_0, uint64_t *ret_1, uint64_t *ret_2, uint64_t *ret_3,
+void lao_fnarrow_32_16_x8_reset(uint64_t *ret_0, uint64_t *ret_1, uint64_t *ret_2, uint64_t *ret_3,
                                 uint64_t arg0, uint64_t arg1_0, uint64_t arg1_1, uint64_t arg1_2, uint64_t arg1_3);
-void lao_fnarrow_32_16_x8_part1(uint64_t *ret_0, uint64_t *ret_1, uint64_t *ret_2, uint64_t *ret_3,
+void lao_fnarrow_32_16_x8_noreset(uint64_t *ret_0, uint64_t *ret_1, uint64_t *ret_2, uint64_t *ret_3,
                                 uint64_t arg0, uint64_t arg1_0, uint64_t arg1_1, uint64_t arg1_2, uint64_t arg1_3);
 
 void lao_fmul_16_16_x8(uint64_t *ret_l, uint64_t *ret_h, uint64_t arg0, uint64_t arg1_l, uint64_t arg1_h, uint64_t arg2_l, uint64_t arg2_h);

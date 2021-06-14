@@ -582,20 +582,20 @@ void HELPER(frelu_32_32_x8)(CPUKVXState *env, uint64_t arg0, uint64_t arg1, uint
                        arg0, arg1, arg2, arg3);
 }
 
-void HELPER(fnarrow_32_16_x8_part0)(CPUKVXState *env, uint64_t arg0,
+void HELPER(fnarrow_32_16_x8_reset)(CPUKVXState *env, uint64_t arg0,
                                         uint64_t arg1_0, uint64_t arg1_1,
                                         uint64_t arg1_2, uint64_t arg1_3)
 {
-    lao_fnarrow_32_16_x8_part0(&env->scratch[0], &env->scratch[1],
+    lao_fnarrow_32_16_x8_reset(&env->scratch[0], &env->scratch[1],
                                &env->scratch[2], &env->scratch[3],
                                arg0, arg1_0, arg1_1, arg1_2, arg1_3);
 }
 
-void HELPER(fnarrow_32_16_x8_part1)(CPUKVXState *env, uint64_t arg0,
+void HELPER(fnarrow_32_16_x8_noreset)(CPUKVXState *env, uint64_t arg0,
                                         uint64_t arg1_0, uint64_t arg1_1,
                                         uint64_t arg1_2, uint64_t arg1_3)
 {
-    lao_fnarrow_32_16_x8_part1(&env->scratch[0], &env->scratch[1],
+    lao_fnarrow_32_16_x8_noreset(&env->scratch[0], &env->scratch[1],
                                &env->scratch[2], &env->scratch[3],
                                arg0, arg1_0, arg1_1, arg1_2, arg1_3);
 }

@@ -2360,26 +2360,26 @@ void gen_apply_frelu_32_32_x8_noreset_bigint_bigint(DisasContext *ctx,
     LOAD_HELPER_RESULT(ret, 4);
 }
 
-void gen_apply_fnarrow_32_16_x8_part0_bigint_tcg64_bigint(DisasContext *ctx,
+void gen_apply_fnarrow_32_16_x8_reset_bigint_tcg64_bigint(DisasContext *ctx,
                                                           MDSTypeBinding ret_type, MDSTCGBigInt *ret,
                                                           TCGv_i64 arg0, MDSTCGBigInt *arg1)
 {
     g_assert(mds_tcg_bigint_get_size(arg1) == 256);
     g_assert(mds_tcg_bigint_get_size(ret) == 128);
 
-    gen_helper_fnarrow_32_16_x8_part0(cpu_env, arg0, BI_EXPAND(arg1, 4));
+    gen_helper_fnarrow_32_16_x8_reset(cpu_env, arg0, BI_EXPAND(arg1, 4));
 
     LOAD_HELPER_RESULT(ret, 2);
 }
 
-void gen_apply_fnarrow_32_16_x8_part1_bigint_tcg64_bigint(DisasContext *ctx,
+void gen_apply_fnarrow_32_16_x8_noreset_bigint_tcg64_bigint(DisasContext *ctx,
                                                           MDSTypeBinding ret_type, MDSTCGBigInt * ret,
                                                           TCGv_i64 arg0, MDSTCGBigInt *arg1)
 {
     g_assert(mds_tcg_bigint_get_size(arg1) == 256);
     g_assert(mds_tcg_bigint_get_size(ret) == 128);
 
-    gen_helper_fnarrow_32_16_x8_part1(cpu_env, arg0, BI_EXPAND(arg1, 4));
+    gen_helper_fnarrow_32_16_x8_noreset(cpu_env, arg0, BI_EXPAND(arg1, 4));
 
     LOAD_HELPER_RESULT(ret, 2);
 }
