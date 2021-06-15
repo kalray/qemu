@@ -47,7 +47,6 @@
 #define MPPA_CLUSTER_DDR_32BITS_ALIAS_SIZE (2 * GiB)
 
 #define MPPA_CLUSTER_LINUX_BOOT_MAGIC 0x31564752414e494cull
-#define MPPA_CLUSTER_DTB_LOAD_ADDR (0x101000000ull)
 
 typedef struct MppaClusterMachineState {
     /*< private >*/
@@ -147,7 +146,7 @@ static void mppa_cluster_rm_reset(void *opaque)
     if (s->boot_info.dtb_loaded) {
         CPUKVXState *env = &KVX_CPU(cpu)->env;
         kvx_register_write_u64(env, REG_kv3_R0, MPPA_CLUSTER_LINUX_BOOT_MAGIC);
-        kvx_register_write_u64(env, REG_kv3_R1, MPPA_CLUSTER_DTB_LOAD_ADDR);
+        kvx_register_write_u64(env, REG_kv3_R1, s->boot_info.dtb_load_addr);
     }
 }
 
@@ -418,7 +417,6 @@ static void boot_cluster(MppaClusterMachineState *s)
 
     s->boot_info.ddr_base = mppa_cluster_memmap[MPPA_CLUSTER_DDR];
     s->boot_info.ddr_size = MACHINE(s)->ram_size;
-    s->boot_info.dtb_load_addr = MPPA_CLUSTER_DTB_LOAD_ADDR;
     s->boot_info.gen_mppa_argarea = s->gen_mppa_argarea;
 
     kvx_boot(&s->boot_info);

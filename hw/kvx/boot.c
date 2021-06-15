@@ -19,6 +19,7 @@
 #include <libfdt.h>
 
 #include "qemu/osdep.h"
+#include "qemu/units.h"
 #include "qemu-common.h"
 #include "qemu/error-report.h"
 #include "qemu/datadir.h"
@@ -126,6 +127,10 @@ static void load_and_setup_dtb(KvxBootInfo *info)
 
     fdt_set_memory_node(info, fdt);
     fdt_set_bootargs(info, fdt);
+
+    info->dtb_load_addr = info->kernel_loaded
+        ? ROUND_UP(info->kernel_high, 4 * MiB)
+        : info->ddr_base;
 
     rom_add_blob_fixed("dtb", fdt, size, info->dtb_load_addr);
     g_free(fdt);
@@ -311,6 +316,7 @@ static void load_kernel(KvxBootInfo *info)
 
         info->kernel_loaded = true;
         info->kernel_entry = kernel_entry;
+        info->kernel_high = kernel_high;
 
         if (info->gen_mppa_argarea && mppa_argarea_start_found) {
             info->mppa_argarea_start_addr = mppa_argarea_start_addr;

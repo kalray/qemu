@@ -24,7 +24,6 @@ typedef struct KvxBootInfo {
     const char *kernel_filename;
     const char *kernel_cmdline;
     const char *dtb_filename;
-    uint64_t dtb_load_addr;
     uint64_t ddr_base;
     uint64_t ddr_size;
     bool gen_mppa_argarea;
@@ -33,7 +32,9 @@ typedef struct KvxBootInfo {
     bool kernel_loaded;
     bool kernel_is_64bits;
     uint64_t kernel_entry;
+    uint64_t kernel_high;
     bool dtb_loaded;
+    uint64_t dtb_load_addr;
 
     uint64_t mppa_argarea_start_addr;
     char * mppa_argarea_buf;
