@@ -221,7 +221,7 @@ static void kvx_cpu_init(Object *obj)
                              "watchdog-interrupt", 1);
 }
 
-static void kv3_cpu_init(Object *obj)
+static void kv3_v1_cpu_init(Object *obj)
 {
 }
 
@@ -409,7 +409,7 @@ static void kvx_ipe_helper_init(Object *obj)
 #define DEFINE_CPU(type_name, init_fn) \
     {                                  \
         .name = type_name,             \
-        .parent = TYPE_KVX_CPU,         \
+        .parent = TYPE_KVX_CPU,        \
         .instance_init = init_fn       \
     }
 
@@ -428,7 +428,7 @@ static const TypeInfo kvx_cpu_type_infos[] = {
         .class_size = sizeof(KVXCPUClass),
         .class_init = kvx_cpu_class_init,
     },
-    DEFINE_CPU(TYPE_KVX_CPU_KV3, kv3_cpu_init),
+    DEFINE_CPU(TYPE_KVX_CPU_KV3_V1, kv3_v1_cpu_init),
 };
 
 DEFINE_TYPES(kvx_cpu_type_infos)

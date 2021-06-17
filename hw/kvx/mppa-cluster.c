@@ -441,7 +441,7 @@ static void mppa_cluster_machine_class_init(ObjectClass *klass, void *data)
     mc->default_cpus = MPPA_CLUSTER_NUM_CPUS;
     mc->max_cpus = MPPA_CLUSTER_NUM_CPUS;
     mc->min_cpus = MPPA_CLUSTER_NUM_CPUS;
-    mc->default_cpu_type = TYPE_KVX_CPU_KV3;
+    mc->default_cpu_type = TYPE_KVX_CPU_KV3_V1;
     mc->is_default = true;
 }
 
