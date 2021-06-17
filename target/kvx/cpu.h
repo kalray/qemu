@@ -35,6 +35,7 @@
 #define CPU_RESOLVING_TYPE TYPE_KVX_CPU
 
 #define TYPE_KVX_CPU_KV3_V1 KVX_CPU_TYPE_NAME("kv3-1")
+#define TYPE_KVX_CPU_KV3_V2 KVX_CPU_TYPE_NAME("kv3-2")
 
 typedef struct CPUKVXState CPUKVXState;
 

@@ -234,6 +234,13 @@ static void kv3_v1_cpu_init(Object *obj)
     cpu->model = CPU_MODEL_v1;
 }
 
+static void kv3_v2_cpu_init(Object *obj)
+{
+    KVXCPU *cpu = KVX_CPU(obj);
+
+    cpu->model = CPU_MODEL_v2;
+}
+
 /*
  * @return true if the core is in one of the three sleep states (await, sleep,
  * stop), and the corresponding bit in WS is set.
@@ -440,6 +447,7 @@ static const TypeInfo kvx_cpu_type_infos[] = {
         .class_init = kvx_cpu_class_init,
     },
     DEFINE_CPU(TYPE_KVX_CPU_KV3_V1, kv3_v1_cpu_init),
+    DEFINE_CPU(TYPE_KVX_CPU_KV3_V2, kv3_v2_cpu_init),
 };
 
 DEFINE_TYPES(kvx_cpu_type_infos)

@@ -236,12 +236,14 @@ void gen_test_get_check_access(DisasContext *ctx, MDSTypeBinding ret_type,
     tcg_gen_extrl_i64_i32(sfr_idx32, sfr_idx);
     switch (ctx->cur_opcode->insn) {
         case kv3_GET:
+        case v2_GET:
             sfri = ES_SFRI_GET;
             break;
         case kv3_IGET:
             sfri = ES_SFRI_IGET;
             break;
         case kv3_RSWAP:
+        case v2_RSWAP:
             sfri = ES_SFRI_RSWAP;
             break;
         default:
@@ -283,9 +285,11 @@ void gen_test_set_check_access(DisasContext *ctx, MDSTypeBinding ret_type,
 
     switch (ctx->cur_opcode->insn) {
         case kv3_SET:
+        case v2_SET:
             sfri = ES_SFRI_SET;
             break;
         case kv3_RSWAP:
+        case v2_RSWAP:
             sfri = ES_SFRI_RSWAP;
             break;
         default:

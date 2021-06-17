@@ -255,6 +255,12 @@ bool trans_v1_LOOPDO_registerZ_pcrel17_simple(DisasContext *ctx,
     return true;
 }
 
+bool trans_v2_LOOPDO_registerZ_pcrel17_simple(DisasContext *ctx,
+                                              struct ops_kv3_registerZ_kv3_pcrel17 *fmt)
+{
+    return trans_v1_LOOPDO_registerZ_pcrel17_simple(ctx, fmt);
+}
+
 /*
  * Overridden because we need to know the waitit operand. It needs to be stored
  * in the CPU state to be written when the CPU wakes up from IRQ.
@@ -291,4 +297,9 @@ bool trans_v1_WAITIT_registerZ_simple(DisasContext *ctx, struct ops_kv3_register
     tcg_temp_free_i64(and_mask);
 
     return true;
+}
+
+bool trans_v2_WAITIT_registerZ_simple(DisasContext *ctx, struct ops_kv3_registerZ *fmt)
+{
+    return trans_v1_WAITIT_registerZ_simple(ctx, fmt);
 }

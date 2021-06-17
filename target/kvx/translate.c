@@ -144,6 +144,12 @@ static const DecodeFuncs DECODE_FUNCS[] = {
         .double_ = decode_v1_double,
         .triple = decode_v1_triple,
     },
+
+    [CPU_MODEL_v2] = {
+        .simple = decode_v2_simple,
+        .double_ = decode_v2_double,
+        .triple = decode_v2_triple,
+    },
 };
 
 static void decode_opcode(DisasContext *ctx, Opcode *opcode)
