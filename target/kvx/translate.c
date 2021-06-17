@@ -30,8 +30,10 @@
 static void kvx_tr_init_disas_context(DisasContextBase *dcbase, CPUState *cs)
 {
     DisasContext *ctx = container_of(dcbase, DisasContext, base);
+    KVXCPU *cpu = KVX_CPU(cs);
     CPUKVXState *env = cs->env_ptr;
 
+    ctx->model = cpu->model;
     ctx->mem_index = ctx->base.tb->flags & R_TB_STATE_MMU_IDX_MASK;
     ctx->bundle.len = 0;
     ctx->hardware_loop_enabled = kvx_hardware_loop_enabled(env);
@@ -141,23 +143,40 @@ static void check_arithmetic_irq(DisasContext *ctx)
     end_tb(ctx, DISAS_UPDATE);
 }
 
+typedef bool (*DecodeFunc)(DisasContext *ctx, const uint32_t *buf);
+typedef struct DecodeFuncs {
+    DecodeFunc simple;
+    DecodeFunc double_;
+    DecodeFunc triple;
+} DecodeFuncs;
+
+static const DecodeFuncs DECODE_FUNCS[] = {
+    [CPU_MODEL_v1] = {
+        .simple = decode_v1_simple,
+        .double_ = decode_v1_double,
+        .triple = decode_v1_triple,
+    },
+};
+
 static void decode_opcode(DisasContext *ctx, Opcode *opcode)
 {
+    const DecodeFuncs *decode = &DECODE_FUNCS[ctx->model];
+
     switch (opcode->len) {
     default:
-        if (decode_v1_triple(ctx, opcode->val)) {
+        if (decode->triple(ctx, opcode->val)) {
             return;
         }
 
         /* fall through */
     case 2:
-        if (decode_v1_double(ctx, opcode->val)) {
+        if (decode->double_(ctx, opcode->val)) {
             return;
         }
 
         /* fall through */
     case 1:
-        if (decode_v1_simple(ctx, opcode->val)) {
+        if (decode->simple(ctx, opcode->val)) {
             return;
         }
     }

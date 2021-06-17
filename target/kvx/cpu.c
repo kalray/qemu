@@ -199,7 +199,13 @@ static void kvx_cpu_reset(DeviceState *dev)
     memset(&env->storages, 0, sizeof(env->storages));
 
     for (i = 0; i < ARRAY_SIZE(REGISTERS); i++) {
-        uint64_t reset = REGISTERS[i].reset;
+        uint64_t reset;
+
+        if (!(cpu->model & REGISTERS[i].cpu_models)) {
+            continue;
+        }
+
+        reset = REGISTERS[i].reset;
 
         if (reset) {
             kvx_register_write_u64(env, i, reset);
@@ -223,6 +229,9 @@ static void kvx_cpu_init(Object *obj)
 
 static void kv3_v1_cpu_init(Object *obj)
 {
+    KVXCPU *cpu = KVX_CPU(obj);
+
+    cpu->model = CPU_MODEL_v1;
 }
 
 /*

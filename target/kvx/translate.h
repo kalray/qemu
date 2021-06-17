@@ -131,6 +131,8 @@ typedef struct Bundle {
 typedef struct DisasContext {
     DisasContextBase base;
 
+    ProcessorModel model;
+
     int mem_index;
 
     Bundle bundle;

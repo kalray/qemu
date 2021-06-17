@@ -317,6 +317,8 @@ struct KVXCPU {
     CPUState parent_obj;
     /*< public >*/
 
+    ProcessorModel model;
+
     CPUNegativeOffsetState neg;
     CPUKVXState env;
 
