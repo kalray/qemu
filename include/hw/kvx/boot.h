@@ -28,6 +28,7 @@ typedef struct KvxBootInfo {
     uint64_t ddr_base;
     uint64_t ddr_size;
     bool gen_mppa_argarea;
+    uint64_t frequency;
 
     /* Resulting info when bootloading is done */
     bool kernel_loaded;

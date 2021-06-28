@@ -264,7 +264,7 @@ static void setup_argarea(KvxBootInfo *info)
     set_descr_field(spawn_type, cpu_to_le32(MPPA_RUNNER_SPAWN));
     set_descr_field(spawner_id, cpu_to_le32(0));
     set_descr_field(remote_console_enable, cpu_to_le32(0));
-    set_descr_field(frequency, cpu_to_le32(0)); /* TODO */
+    set_descr_field(frequency, cpu_to_le32(info->frequency));
     set_descr_field(argc, cpu_to_le32(num_args + 1));
     set_descr_field(envc, cpu_to_le32(0));
     set_descr_field(argv_ptr, cpu_to_le_ptr(((uint64_t) buf) + descr_size + addend));

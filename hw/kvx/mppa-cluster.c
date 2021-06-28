@@ -59,6 +59,7 @@ typedef struct MppaClusterMachineState {
 
     /*< public >*/
     bool gen_mppa_argarea;
+    uint64_t frequency;
     int fdt_size;
 
     KVXCPU rm_core;
@@ -123,7 +124,7 @@ static uint64_t get_ddr_size(MachineState *m)
 
 static uint64_t get_core_clk_freq(MachineState *m)
 {
-    return 1000000;
+    return MPPA_CLUSTER(m)->frequency;
 }
 
 static void fdt_node_uart(MachineState *m, void *fdt,
@@ -929,6 +930,7 @@ static void boot_cluster(MppaClusterMachineState *s)
     s->boot_info.ddr_base = periph_mmio_base(mppa_cluster_periphs, MPPA_CLUSTER_DDR);
     s->boot_info.ddr_size = MACHINE(s)->ram_size;
     s->boot_info.gen_mppa_argarea = s->gen_mppa_argarea;
+    s->boot_info.frequency = s->frequency;
 
     kvx_boot(&s->boot_info);
 }
@@ -984,6 +986,13 @@ static void mppa_cluster_instance_init(Object *obj)
                                     "of the .mppa_arg section when one is "
                                     "detected in the loaded kernel "
                                     "(default is on)");
+
+    /* Default to 1MHz */
+    s->frequency = 1000000;
+    object_property_add_uint64_ptr(obj, "frequency", &s->frequency,
+                                   OBJ_PROP_FLAG_READWRITE);
+    object_property_set_description(obj, "frequency",
+                                    "Cluster frequency in Hz (default is 1MHz)");
 }
 
 static const TypeInfo mppa_cluster_machine_type_info[] = {
