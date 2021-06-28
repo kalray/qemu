@@ -68,74 +68,59 @@ typedef struct MppaArgArea64 {
     uint64_t envp_ptr;
 } MppaArgArea64 __attribute__((aligned(8)));
 
-static void fdt_set_memory_node(KvxBootInfo *info, void *fdt)
+static void fdt_set_memory_node(KvxBootInfo *info)
 {
     char *nodename;
     uint32_t acells, scells;
 
-    acells = qemu_fdt_getprop_cell(fdt, "/", "#address-cells",
+    acells = qemu_fdt_getprop_cell(info->fdt, "/", "#address-cells",
                                    NULL, &error_fatal);
-    scells = qemu_fdt_getprop_cell(fdt, "/", "#size-cells",
+    scells = qemu_fdt_getprop_cell(info->fdt, "/", "#size-cells",
                                    NULL, &error_fatal);
 
     nodename = g_strdup_printf("/memory@%" PRIx64, info->ddr_base);
 
-    qemu_fdt_setprop_sized_cells(fdt, nodename, "reg",
+    qemu_fdt_setprop_sized_cells(info->fdt, nodename, "reg",
                                  acells, info->ddr_base,
                                  scells, info->ddr_size);
     g_free(nodename);
 }
 
-static void fdt_set_bootargs(KvxBootInfo *info, void *fdt)
+static void fdt_set_bootargs(KvxBootInfo *info)
 {
     if (!info->kernel_cmdline || !*info->kernel_cmdline) {
         return;
     }
 
-    if (fdt_path_offset(fdt, "/chosen") < 0) {
-        qemu_fdt_add_subnode(fdt, "/chosen");
+    if (fdt_path_offset(info->fdt, "/chosen") < 0) {
+        qemu_fdt_add_subnode(info->fdt, "/chosen");
     }
 
-    qemu_fdt_setprop_string(fdt, "/chosen", "bootargs",
+    qemu_fdt_setprop_string(info->fdt, "/chosen", "bootargs",
                             info->kernel_cmdline);
 }
 
-static void load_and_setup_dtb(KvxBootInfo *info)
+static void setup_and_load_dtb(KvxBootInfo *info)
 {
-    char *filename;
-    void *fdt;
-    int size;
-
-    if (!info->dtb_filename) {
+    if (info->fdt == NULL) {
         return;
     }
 
-    filename = qemu_find_file(QEMU_FILE_TYPE_BIOS, info->dtb_filename);
-    if (!filename) {
-        error_report("could not open dtb file %s\n", info->dtb_filename);
-        exit(1);
-    }
-
-    fdt = load_device_tree(filename, &size);
-    if (!fdt) {
-        error_report("could not open dtb file %s\n", filename);
-        g_free(filename);
-        exit(1);
-    }
-
-    g_free(filename);
-
-    fdt_set_memory_node(info, fdt);
-    fdt_set_bootargs(info, fdt);
+    fdt_set_memory_node(info);
+    fdt_set_bootargs(info);
 
     info->dtb_load_addr = info->kernel_loaded
         ? ROUND_UP(info->kernel_high, 4 * MiB)
         : info->ddr_base;
 
-    rom_add_blob_fixed("dtb", fdt, size, info->dtb_load_addr);
-    g_free(fdt);
+    /*
+     * Here we're loading the DTB outside of the ELF load area. We can use
+     * rom_add_blob_fixed.
+     */
+    rom_add_blob_fixed("dtb", info->fdt, info->fdt_size,
+                       info->dtb_load_addr);
 
-    info->dtb_loaded = true;
+    qemu_fdt_dumpdtb(info->fdt, info->fdt_size);
 }
 
 static void do_argarea_reset(void *opaque)
@@ -328,12 +313,5 @@ static void load_kernel(KvxBootInfo *info)
 void kvx_boot(KvxBootInfo *info)
 {
     load_kernel(info);
-    load_and_setup_dtb(info);
-}
-
-void kvx_boot_fill_info_from_machine(KvxBootInfo *info, MachineState *machine)
-{
-    info->kernel_filename = machine->kernel_filename;
-    info->kernel_cmdline = machine->kernel_cmdline;
-    info->dtb_filename = machine->dtb;
+    setup_and_load_dtb(info);
 }

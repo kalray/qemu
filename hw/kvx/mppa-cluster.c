@@ -26,6 +26,7 @@
 #include "hw/qdev-properties.h"
 #include "sysemu/sysemu.h"
 #include "sysemu/reset.h"
+#include "sysemu/device_tree.h"
 #include "hw/char/serial.h"
 
 #include "hw/kvx/boot.h"
@@ -48,12 +49,19 @@
 
 #define MPPA_CLUSTER_LINUX_BOOT_MAGIC 0x31564752414e494cull
 
+/*
+ * ClusterOS has a dedicated ELF section for the DTB to be stored into. Its
+ * size is very limited.
+ */
+#define FDT_MAX_SIZE 0x8000
+
 typedef struct MppaClusterMachineState {
     /*< private >*/
     MachineState parent;
 
     /*< public >*/
     bool gen_mppa_argarea;
+    int fdt_size;
 
     KVXCPU rm_core;
     KVXCPU pe_cores[MPPA_CLUSTER_NUM_PE_CORES];
@@ -143,7 +151,7 @@ static void mppa_cluster_rm_reset(void *opaque)
         cpu_set_pc(cpu, s->boot_info.kernel_entry);
     }
 
-    if (s->boot_info.dtb_loaded) {
+    if (s->boot_info.fdt) {
         CPUKVXState *env = &KVX_CPU(cpu)->env;
         kvx_register_write_u64(env, REG_kv3_R0, MPPA_CLUSTER_LINUX_BOOT_MAGIC);
         kvx_register_write_u64(env, REG_kv3_R1, s->boot_info.dtb_load_addr);
@@ -411,10 +419,32 @@ static inline void devices_realize(MppaClusterMachineState *s)
     sysbus_realize(SYS_BUS_DEVICE(&s->itgen1), &error_abort);
 }
 
+static void create_fdt(MppaClusterMachineState *s)
+{
+    MachineState *m = MACHINE(s);
+
+    if (m->dtb) {
+        /* A DTB file has been provided by the user */
+        int size;
+
+        m->fdt = load_device_tree(m->dtb, &size);
+
+        if (!m->fdt) {
+            error_report("could not open dtb file %s\n", m->dtb);
+            exit(1);
+        }
+
+        s->fdt_size = size;
+        return;
+    }
+}
+
 static void boot_cluster(MppaClusterMachineState *s)
 {
-    kvx_boot_fill_info_from_machine(&s->boot_info, MACHINE(s));
-
+    s->boot_info.kernel_filename = MACHINE(s)->kernel_filename;
+    s->boot_info.kernel_cmdline = MACHINE(s)->kernel_cmdline;
+    s->boot_info.fdt = MACHINE(s)->fdt;
+    s->boot_info.fdt_size = s->fdt_size;
     s->boot_info.ddr_base = mppa_cluster_memmap[MPPA_CLUSTER_DDR];
     s->boot_info.ddr_size = MACHINE(s)->ram_size;
     s->boot_info.gen_mppa_argarea = s->gen_mppa_argarea;
@@ -428,6 +458,7 @@ static void mppa_cluster_init(MachineState *machine)
 
     devices_init(s);
     devices_realize(s);
+    create_fdt(s);
     boot_cluster(s);
 }
 
