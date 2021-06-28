@@ -26,6 +26,7 @@
 #include "qemu/units.h"
 #include "qemu/log.h"
 #include "hw/registerfields.h"
+#include "hw/qdev-properties.h"
 #include "hw/kvx/dsu-clock.h"
 #include "cpu.h"
 #include "trace.h"
@@ -41,7 +42,8 @@ static uint64_t kvx_dsu_clock_read(void *opaque, hwaddr offset,
      * The clock rate is 1MHz. Let's return a tick value from the virtual clock
      * in us.
      */
-    uint64_t val = qemu_clock_get_us(QEMU_CLOCK_VIRTUAL)
+    uint64_t val = s->initial_val
+        + qemu_clock_get_us(QEMU_CLOCK_VIRTUAL)
         - s->reset_val;
 
     return val;
@@ -86,11 +88,17 @@ static void kvx_dsu_clock_init(Object *obj)
     sysbus_init_mmio(SYS_BUS_DEVICE(s), &s->iomem);
 }
 
+static Property kvx_dsu_clock_properties[] = {
+    DEFINE_PROP_UINT64("initial-value", KvxDsuClockState, initial_val, 0),
+    DEFINE_PROP_END_OF_LIST()
+};
+
 static void kvx_dsu_clock_class_init(ObjectClass *klass, void *data)
 {
     DeviceClass *dc = DEVICE_CLASS(klass);
 
     dc->reset = kvx_dsu_clock_reset;
+    device_class_set_props(dc, kvx_dsu_clock_properties);
 }
 
 static TypeInfo kvx_dsu_clock_info = {
