@@ -60,6 +60,7 @@ typedef struct MppaClusterMachineState {
     /*< public >*/
     bool gen_mppa_argarea;
     uint64_t frequency;
+    uint64_t initial_dsu_clock;
     int fdt_size;
 
     KVXCPU rm_core;
@@ -853,6 +854,7 @@ static inline void devices_realize(MppaClusterMachineState *s)
     sysbus_realize(SYS_BUS_DEVICE(&s->pwr_ctrl), &error_abort);
 
     /* DSU clock */
+    qdev_prop_set_uint64(DEVICE(&s->dsu_clock), "initial-value", s->initial_dsu_clock);
     sysbus_realize(SYS_BUS_DEVICE(&s->dsu_clock), &error_abort);
 
     /* IPI controller */
@@ -993,6 +995,12 @@ static void mppa_cluster_instance_init(Object *obj)
                                    OBJ_PROP_FLAG_READWRITE);
     object_property_set_description(obj, "frequency",
                                     "Cluster frequency in Hz (default is 1MHz)");
+
+    s->initial_dsu_clock = 0;
+    object_property_add_uint64_ptr(obj, "initial-dsu-clock", &s->initial_dsu_clock,
+                                   OBJ_PROP_FLAG_READWRITE);
+    object_property_set_description(obj, "initial-dsu-clock",
+                                    "Initial value of the DSU clock  (default is 0)");
 }
 
 static const TypeInfo mppa_cluster_machine_type_info[] = {
