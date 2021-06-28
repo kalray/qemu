@@ -36,6 +36,7 @@ typedef struct KvxDsuClockState {
     SysBusDevice parent;
 
     /*< public >*/
+    uint64_t reset_val;
     MemoryRegion iomem;
 } KvxDsuClockState;
 

@@ -35,11 +35,16 @@ REG64(CLOCK, 0x0)
 static uint64_t kvx_dsu_clock_read(void *opaque, hwaddr offset,
                                unsigned size)
 {
+    KvxDsuClockState *s = KVX_DSU_CLOCK(opaque);
+
     /*
      * The clock rate is 1MHz. Let's return a tick value from the virtual clock
      * in us.
      */
-    return qemu_clock_get_us(QEMU_CLOCK_VIRTUAL);
+    uint64_t val = qemu_clock_get_us(QEMU_CLOCK_VIRTUAL)
+        - s->reset_val;
+
+    return val;
 }
 
 static void kvx_dsu_clock_write(void *opaque, hwaddr offset,
@@ -65,6 +70,13 @@ static const MemoryRegionOps kvx_dsu_clock_ops = {
     },
 };
 
+static void kvx_dsu_clock_reset(DeviceState *dev)
+{
+    KvxDsuClockState *s = KVX_DSU_CLOCK(dev);
+
+    s->reset_val = qemu_clock_get_us(QEMU_CLOCK_VIRTUAL);
+}
+
 static void kvx_dsu_clock_init(Object *obj)
 {
     KvxDsuClockState *s = KVX_DSU_CLOCK(obj);
@@ -74,11 +86,19 @@ static void kvx_dsu_clock_init(Object *obj)
     sysbus_init_mmio(SYS_BUS_DEVICE(s), &s->iomem);
 }
 
+static void kvx_dsu_clock_class_init(ObjectClass *klass, void *data)
+{
+    DeviceClass *dc = DEVICE_CLASS(klass);
+
+    dc->reset = kvx_dsu_clock_reset;
+}
+
 static TypeInfo kvx_dsu_clock_info = {
     .name          = TYPE_KVX_DSU_CLOCK,
     .parent        = TYPE_SYS_BUS_DEVICE,
     .instance_size = sizeof(KvxDsuClockState),
     .instance_init = kvx_dsu_clock_init,
+    .class_init    = kvx_dsu_clock_class_init,
 };
 
 static void kvx_dsu_clock_register_types(void)
