@@ -29,6 +29,7 @@
 #include "sysemu/device_tree.h"
 #include "hw/char/serial.h"
 
+#include "machine-descr.h"
 #include "hw/kvx/boot.h"
 #include "hw/kvx/pwr-ctrl.h"
 #include "hw/kvx/ipi-ctrl.h"
@@ -43,9 +44,6 @@
 
 #define MPPA_CLUSTER_NUM_PE_CORES 16
 #define MPPA_CLUSTER_NUM_CPUS   (MPPA_CLUSTER_NUM_PE_CORES + 1)
-
-#define MPPA_CLUSTER_SMEM_SIZE  (4 * MiB)
-#define MPPA_CLUSTER_DDR_32BITS_ALIAS_SIZE (2 * GiB)
 
 #define MPPA_CLUSTER_LINUX_BOOT_MAGIC 0x31564752414e494cull
 
@@ -87,7 +85,13 @@ typedef struct MppaClusterMachineState {
 } MppaClusterMachineState;
 
 enum {
-    MPPA_CLUSTER_SMEM,
+    MPPA_CLUSTER_ROOT,
+    MPPA_CLUSTER_BUS_AXI,
+    MPPA_CLUSTER_RM_CORE,
+    MPPA_CLUSTER_PE_CORES,
+
+    /* Leave room for the 16 cores */
+    MPPA_CLUSTER_SMEM = MPPA_CLUSTER_PE_CORES + MPPA_CLUSTER_NUM_PE_CORES,
     MPPA_CLUSTER_APIC_MAILBOX,
     MPPA_CLUSTER_APIC_GIC,
     MPPA_CLUSTER_PWR_CTRL,
@@ -103,41 +107,503 @@ enum {
     MPPA_CLUSTER_ITGEN1,
     MPPA_CLUSTER_DDR,
     MPPA_CLUSTER_DDR_32BITS_ALIAS,
+
+    MPPA_CLUSTER_CORE_INTC,
+    MPPA_CLUSTER_CORE_TIMER,
+    MPPA_CLUSTER_CORE_WATCHDOG,
+
+    FIXED_CLOCK_CORE,
+    FIXED_CLOCK_REF,
 };
 
-typedef struct MemmapEntry MemmapEntry;
+static uint64_t get_ddr_size(MachineState *m)
+{
+    return m->ram_size;
+}
 
-struct MemmapEntry {
-    hwaddr base;
-    hwaddr size;
-};
+static uint64_t get_core_clk_freq(MachineState *m)
+{
+    return 1000000;
+}
 
-static const uint64_t mppa_cluster_memmap[] = {
-    [MPPA_CLUSTER_SMEM]             = 0x0,
-    [MPPA_CLUSTER_APIC_MAILBOX]     = 0xa00000,
-    [MPPA_CLUSTER_APIC_GIC]         = 0xa20000,
-    [MPPA_CLUSTER_PWR_CTRL]         = 0xa40000,
-    [MPPA_CLUSTER_DSU_CLOCK]        = 0xa44180,
-    [MPPA_CLUSTER_IPI_CTRL]         = 0xad0000,
-    [MPPA_CLUSTER_UART0]            = 0x20210000,
-    [MPPA_CLUSTER_UART1]            = 0x20211000,
-    [MPPA_CLUSTER_UART2]            = 0x20212000,
-    [MPPA_CLUSTER_UART3]            = 0x20213000,
-    [MPPA_CLUSTER_UART4]            = 0x20214000,
-    [MPPA_CLUSTER_UART5]            = 0x20215000,
-    [MPPA_CLUSTER_ITGEN0]           = 0x27000000,
-    [MPPA_CLUSTER_ITGEN1]           = 0x27010000,
-    [MPPA_CLUSTER_DDR_32BITS_ALIAS] = 0x40000000,
-    [MPPA_CLUSTER_DDR]              = 0x100000000,
-};
+static void fdt_node_uart(MachineState *m, void *fdt,
+                          const char *node, size_t id, int idx)
+{
+    qemu_fdt_setprop_cell(fdt, node, "reg-io-width", 4);
+    qemu_fdt_setprop_cell(fdt, node, "reg-shift", 2);
+}
 
-static const int mppa_cluster_irqmap[] = {
-    [MPPA_CLUSTER_UART0]            = 41,
-    [MPPA_CLUSTER_UART1]            = 42,
-    [MPPA_CLUSTER_UART2]            = 43,
-    [MPPA_CLUSTER_UART3]            = 44,
-    [MPPA_CLUSTER_UART4]            = 45,
-    [MPPA_CLUSTER_UART5]            = 46,
+static void fdt_node_cpu(MachineState *m, void *fdt,
+                         const char *node, size_t id, int idx)
+{
+    if (idx == 0) {
+        /* Add clock and power ctrl information on CPU 0 */
+        qemu_fdt_setprop_cell(fdt, node, "clocks",
+                              periph_fdt_get_phandle(FIXED_CLOCK_CORE));
+        qemu_fdt_setprop_cell(fdt, node, "power-controller",
+                              periph_fdt_get_phandle(MPPA_CLUSTER_PWR_CTRL));
+    }
+}
+
+static const PeriphEntry mppa_cluster_periphs[] = {
+    [MPPA_CLUSTER_ROOT] = {
+        .fdt = {
+            .node = "/",
+            .compatible = "kalray,coolidge",
+        },
+
+        .bus = {
+            .valid = true,
+            .fdt_size_cells = 2,
+            .fdt_address_cells = 2,
+        },
+    },
+
+    [MPPA_CLUSTER_BUS_AXI] = {
+        .fdt = {
+            .node = "/axi",
+            .compatible = "simple-bus",
+        },
+
+        .bus = {
+            .valid = true,
+            .fdt_size_cells = 2,
+            .fdt_address_cells = 2,
+        },
+    },
+
+    [FIXED_CLOCK_CORE] = {
+        .fdt = {
+            .node = "/clocks/core_clk",
+            .compatible = "fixed-clock",
+        },
+
+        .fixed_clock = {
+            .valid = true,
+            .freq_cb = get_core_clk_freq,
+        },
+    },
+
+    [FIXED_CLOCK_REF] = {
+        .fdt = {
+            .node = "/clocks/ref_clk",
+            .compatible = "fixed-clock",
+        },
+
+        .fixed_clock = {
+            .valid = true,
+            .freq = 100000000,
+        },
+    },
+
+    [MPPA_CLUSTER_PE_CORES] = {
+        .count = 16,
+
+        .fdt = {
+            .node = "/cpus/cpu",
+            .compatible = "kalray,kvx-pe",
+            .cb = fdt_node_cpu,
+        },
+    },
+
+    [MPPA_CLUSTER_SMEM] = {
+        .fdt = {
+            .node = "/memory",
+            .compatible = "memory",
+        },
+
+        .mmio_map = {
+            .valid = true,
+            .base = 0x0,
+            .size = 4 * MiB,
+        },
+    },
+
+    [MPPA_CLUSTER_DDR] = {
+        .fdt = {
+            .node = "/memory",
+            .compatible = "memory",
+        },
+
+        .mmio_map = {
+            .valid = true,
+            .base = 0x100000000ull,
+            .get_size_cb = get_ddr_size,
+        },
+    },
+
+    [MPPA_CLUSTER_DDR_32BITS_ALIAS] = {
+        .mmio_map = {
+            .valid = true,
+            .base = 0x40000000,
+            .size = 2 * GiB,
+        },
+    },
+
+    [MPPA_CLUSTER_UART0] = {
+        .fdt = {
+            .node = "/axi/uart0",
+            .compatible = "snps,dw-apb-uart",
+            .cb = fdt_node_uart,
+        },
+
+        .mmio_map = {
+            .valid = true,
+            .base = 0x20210000,
+            .size = 0x100,
+        },
+
+        .irq_map = {
+            .valid = true,
+            .parent = MPPA_CLUSTER_ITGEN0,
+            .mapping = IRQS( IRQ_FLAG(41, 0x4) ),
+        },
+
+        .clock_map = {
+            .valid = true,
+            .clocks = CLOCKS(FIXED_CLOCK_REF),
+        },
+    },
+
+    [MPPA_CLUSTER_UART1] = {
+        .fdt = {
+            .node = "/axi/uart1",
+            .compatible = "snps,dw-apb-uart",
+            .cb = fdt_node_uart,
+        },
+
+        .mmio_map = {
+            .valid = true,
+            .base = 0x20211000,
+            .size = 0x100,
+        },
+
+        .irq_map = {
+            .valid = true,
+            .parent = MPPA_CLUSTER_ITGEN0,
+            .mapping = IRQS( IRQ_FLAG(42, 0x4) ),
+        },
+
+        .clock_map = {
+            .valid = true,
+            .clocks = CLOCKS(FIXED_CLOCK_REF),
+        },
+    },
+
+    [MPPA_CLUSTER_UART2] = {
+        .fdt = {
+            .node = "/axi/uart2",
+            .compatible = "snps,dw-apb-uart",
+            .cb = fdt_node_uart,
+        },
+
+        .mmio_map = {
+            .valid = true,
+            .base = 0x20212000,
+            .size = 0x100,
+        },
+
+        .irq_map = {
+            .valid = true,
+            .parent = MPPA_CLUSTER_ITGEN0,
+            .mapping = IRQS( IRQ_FLAG(43, 0x4) ),
+        },
+
+        .clock_map = {
+            .valid = true,
+            .clocks = CLOCKS(FIXED_CLOCK_REF),
+        },
+    },
+
+    [MPPA_CLUSTER_UART3] = {
+        .fdt = {
+            .node = "/axi/uart3",
+            .compatible = "snps,dw-apb-uart",
+            .cb = fdt_node_uart,
+        },
+
+        .mmio_map = {
+            .valid = true,
+            .base = 0x20213000,
+            .size = 0x100,
+        },
+
+        .irq_map = {
+            .valid = true,
+            .parent = MPPA_CLUSTER_ITGEN0,
+            .mapping = IRQS( IRQ_FLAG(44, 0x4) ),
+        },
+
+        .clock_map = {
+            .valid = true,
+            .clocks = CLOCKS(FIXED_CLOCK_REF),
+        },
+    },
+
+    [MPPA_CLUSTER_UART4] = {
+        .fdt = {
+            .node = "/axi/uart4",
+            .compatible = "snps,dw-apb-uart",
+            .cb = fdt_node_uart,
+        },
+
+        .mmio_map = {
+            .valid = true,
+            .base = 0x20214000,
+            .size = 0x100,
+        },
+
+        .irq_map = {
+            .valid = true,
+            .parent = MPPA_CLUSTER_ITGEN0,
+            .mapping = IRQS( IRQ_FLAG(45, 0x4) ),
+        },
+
+        .clock_map = {
+            .valid = true,
+            .clocks = CLOCKS(FIXED_CLOCK_REF),
+        },
+    },
+
+    [MPPA_CLUSTER_UART5] = {
+        .fdt = {
+            .node = "/axi/uart5",
+            .compatible = "snps,dw-apb-uart",
+            .cb = fdt_node_uart,
+        },
+
+        .mmio_map = {
+            .valid = true,
+            .base = 0x20215000,
+            .size = 0x100,
+        },
+
+        .irq_map = {
+            .valid = true,
+            .parent = MPPA_CLUSTER_ITGEN0,
+            .mapping = IRQS( IRQ_FLAG(46, 0x4) ),
+        },
+
+        .clock_map = {
+            .valid = true,
+            .clocks = CLOCKS(FIXED_CLOCK_REF),
+        },
+    },
+
+    [MPPA_CLUSTER_ITGEN0] = {
+        .fdt = {
+            .node = "/axi/itgen_soc_periph0",
+            .compatible = "kalray,kvx-itgen",
+        },
+
+        .mmio_map = {
+            .valid = true,
+            .base = 0x27000000,
+            .size = 0x1104,
+        },
+
+        .irq_ctrl = {
+            .valid = true,
+            .fdt_interrupt_cells = 2,
+        },
+
+        .msi_map = {
+            .valid = true,
+            .parent = MPPA_CLUSTER_APIC_MAILBOX,
+        },
+    },
+
+    [MPPA_CLUSTER_ITGEN1] = {
+        .fdt = {
+            .node = "/axi/itgen_soc_periph1",
+            .compatible = "kalray,kvx-itgen",
+        },
+
+        .mmio_map = {
+            .valid = true,
+            .base = 0x27010000,
+            .size = 0x1104,
+        },
+
+        .irq_ctrl = {
+            .valid = true,
+            .fdt_interrupt_cells = 2,
+        },
+
+        .msi_map = {
+            .valid = true,
+            .parent = MPPA_CLUSTER_APIC_MAILBOX,
+        },
+    },
+
+    [MPPA_CLUSTER_APIC_MAILBOX] = {
+        .fdt = {
+            .node = "/apic_mailbox",
+            .compatible = "kalray,kvx-apic-mailbox",
+        },
+
+        .mmio_map = {
+            .valid = true,
+            .base = 0xa00000,
+            .size = 0xf200,
+        },
+
+        .msi_ctrl = {
+            .valid = true,
+        },
+
+        .irq_ctrl = {
+            .valid = true,
+        },
+
+        .irq_map = {
+            .valid = true,
+            .parent = MPPA_CLUSTER_APIC_GIC,
+            .mapping = IRQS( IRQ(0), IRQ(1), IRQ(2), IRQ(3), IRQ(4), IRQ(5),
+                             IRQ(6), IRQ(7), IRQ(8), IRQ(9), IRQ(10), IRQ(11),
+                             IRQ(12), IRQ(13), IRQ(14), IRQ(15), IRQ(16), IRQ(17),
+                             IRQ(18), IRQ(19), IRQ(20), IRQ(21), IRQ(22), IRQ(23),
+                             IRQ(24), IRQ(25), IRQ(26), IRQ(27), IRQ(28), IRQ(29),
+                             IRQ(30), IRQ(31), IRQ(32), IRQ(33), IRQ(34), IRQ(35),
+                             IRQ(36), IRQ(37), IRQ(38), IRQ(39), IRQ(40), IRQ(41),
+                             IRQ(42), IRQ(43), IRQ(44), IRQ(45), IRQ(46), IRQ(47),
+                             IRQ(48), IRQ(49), IRQ(50), IRQ(51), IRQ(52), IRQ(53),
+                             IRQ(54), IRQ(55), IRQ(56), IRQ(57), IRQ(58), IRQ(59),
+                             IRQ(60), IRQ(61), IRQ(62), IRQ(63), IRQ(64), IRQ(65),
+                             IRQ(66), IRQ(67), IRQ(68), IRQ(69), IRQ(70), IRQ(71),
+                             IRQ(72), IRQ(73), IRQ(74), IRQ(75), IRQ(76), IRQ(77),
+                             IRQ(78), IRQ(79), IRQ(80), IRQ(81), IRQ(82), IRQ(83),
+                             IRQ(84), IRQ(85), IRQ(86), IRQ(87), IRQ(88), IRQ(89),
+                             IRQ(90), IRQ(91), IRQ(92), IRQ(93), IRQ(94), IRQ(95),
+                             IRQ(96), IRQ(97), IRQ(98), IRQ(99), IRQ(100), IRQ(101),
+                             IRQ(102), IRQ(103), IRQ(104), IRQ(105), IRQ(106), IRQ(107),
+                             IRQ(108), IRQ(109), IRQ(110), IRQ(111), IRQ(112), IRQ(113),
+                             IRQ(114), IRQ(115), IRQ(116), IRQ(117), IRQ(118), IRQ(119),
+                             IRQ(120) ),
+        },
+    },
+
+    [MPPA_CLUSTER_APIC_GIC] = {
+        .fdt = {
+            .node = "/apic_gic",
+            .compatible = "kalray,kvx-apic-gic",
+        },
+
+        .mmio_map = {
+            .valid = true,
+            .base = 0xa20000,
+            .size = 0x12000,
+        },
+
+        .irq_ctrl = {
+            .valid = true,
+            .fdt_interrupt_cells = 1,
+        },
+
+        .irq_map = {
+            .valid = true,
+            .parent = MPPA_CLUSTER_CORE_INTC,
+            .mapping = IRQS( IRQ(4), IRQ(5), IRQ(6), IRQ(7) ),
+        },
+    },
+
+    [MPPA_CLUSTER_PWR_CTRL] = {
+        .fdt = {
+            .node = "/pwr_ctrl",
+            .compatible = "kalray,kvx-pwr-ctrl",
+        },
+
+        .mmio_map = {
+            .valid = true,
+            .base = 0xa40000,
+            .size = 0x4158,
+        },
+    },
+
+    [MPPA_CLUSTER_DSU_CLOCK] = {
+        .fdt = {
+            .node = "/dsu_clock",
+            .compatible = "kalray,kvx-dsu-clock",
+        },
+
+        .mmio_map = {
+            .valid = true,
+            .base = 0xa44180,
+            .size = 0x8,
+        },
+
+        .clock_map = {
+            .valid = true,
+            .clocks = CLOCKS( FIXED_CLOCK_CORE ),
+        },
+    },
+
+    [MPPA_CLUSTER_IPI_CTRL] = {
+        .fdt = {
+            .node = "/ipi_ctrl",
+            .compatible = "kalray,kvx-ipi-ctrl",
+        },
+
+        .mmio_map = {
+            .valid = true,
+            .base = 0xad0000,
+            .size = 0x1000,
+        },
+
+        .irq_map = {
+            .valid = true,
+            .parent = MPPA_CLUSTER_CORE_INTC,
+            .mapping = IRQS( IRQ(24) ),
+        },
+    },
+
+    [MPPA_CLUSTER_CORE_INTC] = {
+        .fdt = {
+            .node = "/core_intc",
+            .compatible = "kalray,kvx-core-intc",
+        },
+
+        .irq_ctrl = {
+            .valid = true,
+            .fdt_interrupt_cells = 1,
+        },
+    },
+
+    [MPPA_CLUSTER_CORE_TIMER] = {
+        .fdt = {
+            .node = "/core_timer",
+            .compatible = "kalray,kvx-core-timer",
+        },
+
+        .irq_map = {
+            .valid = true,
+            .parent = MPPA_CLUSTER_CORE_INTC,
+            .mapping = IRQS( IRQ(0) ),
+        },
+
+        .clock_map = {
+            .valid = true,
+            .clocks = CLOCKS(FIXED_CLOCK_CORE),
+        },
+    },
+
+    [MPPA_CLUSTER_CORE_WATCHDOG] = {
+        .fdt = {
+            .node = "/core_watchdog",
+            .compatible = "kalray,kvx-core-watchdog",
+        },
+
+        .irq_map = {
+            .valid = true,
+            .parent = MPPA_CLUSTER_CORE_INTC,
+            .mapping = IRQS( IRQ(2) ),
+        },
+
+        .clock_map = {
+            .valid = true,
+            .clocks = CLOCKS(FIXED_CLOCK_CORE),
+        },
+    },
 };
 
 static void mppa_cluster_rm_reset(void *opaque)
@@ -284,35 +750,35 @@ static inline void devices_init(MppaClusterMachineState *s)
     object_initialize_child(OBJECT(s), "apic-mailbox", &s->apic_mailbox,
                             TYPE_KVX_APIC_MAILBOX);
     memory_region_add_subregion(&s->cluster_region,
-                                mppa_cluster_memmap[MPPA_CLUSTER_APIC_MAILBOX],
+                                periph_mmio_base(mppa_cluster_periphs, MPPA_CLUSTER_APIC_MAILBOX),
                                 sysbus_mmio_get_region(SYS_BUS_DEVICE(&s->apic_mailbox), 0));
 
     /* APIC GIC */
     object_initialize_child(OBJECT(s), "apic-gic", &s->apic_gic,
                             TYPE_KVX_APIC_GIC);
     memory_region_add_subregion(&s->cluster_region,
-                                mppa_cluster_memmap[MPPA_CLUSTER_APIC_GIC],
+                                periph_mmio_base(mppa_cluster_periphs, MPPA_CLUSTER_APIC_GIC),
                                 sysbus_mmio_get_region(SYS_BUS_DEVICE(&s->apic_gic), 0));
 
     /* Power controller */
     object_initialize_child(OBJECT(s), "pwr-ctrl", &s->pwr_ctrl,
                             TYPE_KVX_PWR_CTRL);
     memory_region_add_subregion(&s->cluster_region,
-                                mppa_cluster_memmap[MPPA_CLUSTER_PWR_CTRL],
+                                periph_mmio_base(mppa_cluster_periphs, MPPA_CLUSTER_PWR_CTRL),
                                 sysbus_mmio_get_region(SYS_BUS_DEVICE(&s->pwr_ctrl), 0));
 
     /* DSU clock */
     object_initialize_child(OBJECT(s), "dsu-clock", &s->dsu_clock,
                             TYPE_KVX_DSU_CLOCK);
     memory_region_add_subregion(&s->cluster_region,
-                                mppa_cluster_memmap[MPPA_CLUSTER_DSU_CLOCK],
+                                periph_mmio_base(mppa_cluster_periphs, MPPA_CLUSTER_DSU_CLOCK),
                                 sysbus_mmio_get_region(SYS_BUS_DEVICE(&s->dsu_clock), 0));
 
     /* IPI controller */
     object_initialize_child(OBJECT(s), "ipi-ctrl", &s->ipi_ctrl,
                             TYPE_KVX_IPI_CTRL);
     memory_region_add_subregion(&s->cluster_region,
-                                mppa_cluster_memmap[MPPA_CLUSTER_IPI_CTRL],
+                                periph_mmio_base(mppa_cluster_periphs, MPPA_CLUSTER_IPI_CTRL),
                                 sysbus_mmio_get_region(SYS_BUS_DEVICE(&s->ipi_ctrl), 0));
 
     /* UARTs */
@@ -324,20 +790,20 @@ static inline void devices_init(MppaClusterMachineState *s)
     /* itgen IRQ controllers */
     object_initialize_child(OBJECT(s), "itgen0", &s->itgen0, TYPE_KVX_ITGEN);
     memory_region_add_subregion(get_system_memory(),
-                                mppa_cluster_memmap[MPPA_CLUSTER_ITGEN0],
+                                periph_mmio_base(mppa_cluster_periphs, MPPA_CLUSTER_ITGEN0),
                                 sysbus_mmio_get_region(SYS_BUS_DEVICE(&s->itgen0), 0));
 
     object_initialize_child(OBJECT(s), "itgen1", &s->itgen1, TYPE_KVX_ITGEN);
     memory_region_add_subregion(get_system_memory(),
-                                mppa_cluster_memmap[MPPA_CLUSTER_ITGEN1],
+                                periph_mmio_base(mppa_cluster_periphs, MPPA_CLUSTER_ITGEN1),
                                 sysbus_mmio_get_region(SYS_BUS_DEVICE(&s->itgen1), 0));
 
     /* SMEM */
     memory_region_init_ram(&s->smem, NULL, "mppa-cluster.smem",
-                           MPPA_CLUSTER_SMEM_SIZE,
+                           periph_mmio_size(mppa_cluster_periphs, MPPA_CLUSTER_SMEM),
                            &error_fatal);
     memory_region_add_subregion(&s->cluster_region,
-                                mppa_cluster_memmap[MPPA_CLUSTER_SMEM],
+                                periph_mmio_base(mppa_cluster_periphs, MPPA_CLUSTER_SMEM),
                                 &s->smem);
 
     /* DDR */
@@ -345,15 +811,15 @@ static inline void devices_init(MppaClusterMachineState *s)
                            ram_size,
                            &error_fatal);
     memory_region_add_subregion(system_memory,
-                                mppa_cluster_memmap[MPPA_CLUSTER_DDR],
+                                periph_mmio_base(mppa_cluster_periphs, MPPA_CLUSTER_DDR),
                                 &s->ddr);
 
     memory_region_init_alias(&s->ddr_32bits_alias, NULL,
                              "mppa-cluster.ddr-32bits-alias",
                              &s->ddr, 0,
-                             MPPA_CLUSTER_DDR_32BITS_ALIAS_SIZE);
+                             periph_mmio_size(mppa_cluster_periphs, MPPA_CLUSTER_DDR_32BITS_ALIAS));
     memory_region_add_subregion(system_memory,
-                                mppa_cluster_memmap[MPPA_CLUSTER_DDR_32BITS_ALIAS],
+                                periph_mmio_base(mppa_cluster_periphs, MPPA_CLUSTER_DDR_32BITS_ALIAS),
                                 &s->ddr_32bits_alias);
 }
 
@@ -398,8 +864,8 @@ static inline void devices_realize(MppaClusterMachineState *s)
 
     /* UARTs */
     for (i = 0; i < ARRAY_SIZE(s->uart); i++) {
-        uint64_t addr = mppa_cluster_memmap[MPPA_CLUSTER_UART0 + i];
-        int irq_num = mppa_cluster_irqmap[MPPA_CLUSTER_UART0 + i];
+        uint64_t addr = periph_mmio_base(mppa_cluster_periphs, MPPA_CLUSTER_UART0 + i);
+        int irq_num = periph_irq_mapping_idx(mppa_cluster_periphs, MPPA_CLUSTER_UART0 + i, 0);
         DeviceState *dev = DEVICE(&s->uart[i]);
         SysBusDevice *sbd = SYS_BUS_DEVICE(&s->uart[i]);
 
@@ -421,6 +887,7 @@ static inline void devices_realize(MppaClusterMachineState *s)
 
 static void create_fdt(MppaClusterMachineState *s)
 {
+    void *fdt;
     MachineState *m = MACHINE(s);
 
     if (m->dtb) {
@@ -437,6 +904,20 @@ static void create_fdt(MppaClusterMachineState *s)
         s->fdt_size = size;
         return;
     }
+
+    m->fdt = fdt = create_device_tree_with_size(FDT_MAX_SIZE);
+    s->fdt_size = FDT_MAX_SIZE;
+
+    machine_populate_fdt(m, mppa_cluster_periphs, ARRAY_SIZE(mppa_cluster_periphs));
+
+    qemu_fdt_setprop_string(fdt, "/", "model", "Kalray Coolidge processor (QEMU)");
+
+    const char * const compatible[] = { "kalray,coolidge", "kalray,iss" };
+    qemu_fdt_setprop_string_array(fdt, "/", "compatible",
+                                  (char**) compatible, ARRAY_SIZE(compatible));
+
+    qemu_fdt_add_subnode(fdt, "/chosen");
+    qemu_fdt_setprop_string(fdt, "/chosen", "stdout-path", "/axi/uart0@20210000");
 }
 
 static void boot_cluster(MppaClusterMachineState *s)
@@ -445,7 +926,7 @@ static void boot_cluster(MppaClusterMachineState *s)
     s->boot_info.kernel_cmdline = MACHINE(s)->kernel_cmdline;
     s->boot_info.fdt = MACHINE(s)->fdt;
     s->boot_info.fdt_size = s->fdt_size;
-    s->boot_info.ddr_base = mppa_cluster_memmap[MPPA_CLUSTER_DDR];
+    s->boot_info.ddr_base = periph_mmio_base(mppa_cluster_periphs, MPPA_CLUSTER_DDR);
     s->boot_info.ddr_size = MACHINE(s)->ram_size;
     s->boot_info.gen_mppa_argarea = s->gen_mppa_argarea;
 
