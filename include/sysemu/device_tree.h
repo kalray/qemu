@@ -15,6 +15,7 @@
 #define DEVICE_TREE_H
 
 void *create_device_tree(int *sizep);
+void *create_device_tree_with_size(int size);
 void *load_device_tree(const char *filename_path, int *sizep);
 #ifdef CONFIG_LINUX
 /**

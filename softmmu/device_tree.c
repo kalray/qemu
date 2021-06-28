@@ -31,14 +31,13 @@
 
 #define FDT_MAX_SIZE  0x100000
 
-void *create_device_tree(int *sizep)
+void *create_device_tree_with_size(int size)
 {
     void *fdt;
     int ret;
 
-    *sizep = FDT_MAX_SIZE;
-    fdt = g_malloc0(FDT_MAX_SIZE);
-    ret = fdt_create(fdt, FDT_MAX_SIZE);
+    fdt = g_malloc0(size);
+    ret = fdt_create(fdt, size);
     if (ret < 0) {
         goto fail;
     }
@@ -58,7 +57,7 @@ void *create_device_tree(int *sizep)
     if (ret < 0) {
         goto fail;
     }
-    ret = fdt_open_into(fdt, fdt, *sizep);
+    ret = fdt_open_into(fdt, fdt, size);
     if (ret) {
         error_report("Unable to copy device tree in memory");
         exit(1);
@@ -68,6 +67,12 @@ void *create_device_tree(int *sizep)
 fail:
     error_report("%s Couldn't create dt: %s", __func__, fdt_strerror(ret));
     exit(1);
+}
+
+void *create_device_tree(int *sizep)
+{
+    *sizep = FDT_MAX_SIZE;
+    return create_device_tree_with_size(*sizep);
 }
 
 void *load_device_tree(const char *filename_path, int *sizep)
