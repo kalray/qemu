@@ -109,21 +109,37 @@ static void setup_and_load_dtb(KvxBootInfo *info)
     fdt_set_memory_node(info);
     fdt_set_bootargs(info);
 
-    info->dtb_load_addr = info->kernel_loaded
-        ? ROUND_UP(info->kernel_high, 4 * MiB)
-        : info->ddr_base;
+    if (!info->found_dtb_start) {
+        info->dtb_load_addr = info->kernel_loaded
+            ? ROUND_UP(info->kernel_high, 4 * MiB)
+            : info->ddr_base;
 
-    /*
-     * Here we're loading the DTB outside of the ELF load area. We can use
-     * rom_add_blob_fixed.
-     */
-    rom_add_blob_fixed("dtb", info->fdt, info->fdt_size,
-                       info->dtb_load_addr);
+        /*
+         * Here we're loading the DTB outside of the ELF load area. We can use
+         * rom_add_blob_fixed.
+         */
+        rom_add_blob_fixed("dtb", info->fdt, info->fdt_size,
+                           info->dtb_load_addr);
+    } else {
+        if (info->fdt_size > info->dtb_max_size) {
+            error_report("The DTB is too big to fit into the .dtb section\n");
+        } else {
+            void *fdt = rom_ptr(info->dtb_load_addr, info->dtb_max_size);
+
+            /*
+             * We found __dtb_start and __dtb_size. rom_ptr() should really
+             * not return NULL.
+             */
+            g_assert(fdt != NULL);
+
+            memcpy(fdt, info->fdt, info->fdt_size);
+        }
+    }
 
     qemu_fdt_dumpdtb(info->fdt, info->fdt_size);
 }
 
-static void do_argarea_reset(void *opaque)
+static void do_bootloader_reset(void *opaque)
 {
     KvxBootInfo *info = (KvxBootInfo *) opaque;
     AddressSpace *as = &address_space_memory;
@@ -257,7 +273,7 @@ static void setup_argarea(KvxBootInfo *info)
     info->mppa_argarea_buf = buf;
     info->mppa_argarea_size = buf_size;
 
-    qemu_register_reset(do_argarea_reset, info);
+    qemu_register_reset(do_bootloader_reset, info);
 }
 
 #undef cpu_to_le_ptr
@@ -267,12 +283,28 @@ static void setup_argarea(KvxBootInfo *info)
 static bool mppa_argarea_start_found;
 static uint64_t mppa_argarea_start_addr;
 
-static void find_mppa_argarea_sym(const char *st_name, int st_info,
-                                  uint64_t st_value, uint64_t st_size)
+static bool dtb_start_found;
+static uint64_t dtb_start_addr;
+
+static bool dtb_size_found;
+static uint64_t dtb_size_val;
+
+static void find_cos_syms(const char *st_name, int st_info,
+                          uint64_t st_value, uint64_t st_size)
 {
     if (!strcmp(st_name, "MPPA_ARGAREA_START")) {
         mppa_argarea_start_found = true;
         mppa_argarea_start_addr = st_value;
+    }
+
+    if (!strcmp(st_name, "__dtb_start")) {
+        dtb_start_found = true;
+        dtb_start_addr = st_value;
+    }
+
+    if (!strcmp(st_name, "__dtb_size")) {
+        dtb_size_found = true;
+        dtb_size_val = st_value;
     }
 }
 
@@ -283,6 +315,8 @@ static void load_kernel(KvxBootInfo *info)
         Error *err = NULL;
 
         mppa_argarea_start_found = false;
+        dtb_start_found = false;
+        dtb_size_found = false;
 
         load_elf_hdr(info->kernel_filename, NULL,
                      &info->kernel_is_64bits, &err);
@@ -295,7 +329,7 @@ static void load_kernel(KvxBootInfo *info)
         if (load_elf_ram_sym(info->kernel_filename, NULL, NULL, NULL,
                              &kernel_entry, NULL, &kernel_high, NULL,
                              0, EM_KVX, 1, 0, NULL, true,
-                             find_mppa_argarea_sym) <= 0) {
+                             find_cos_syms) <= 0) {
             return;
         }
 
@@ -306,6 +340,12 @@ static void load_kernel(KvxBootInfo *info)
         if (info->gen_mppa_argarea && mppa_argarea_start_found) {
             info->mppa_argarea_start_addr = mppa_argarea_start_addr;
             setup_argarea(info);
+
+            if (dtb_start_found && dtb_size_found) {
+                info->found_dtb_start = true;
+                info->dtb_load_addr = dtb_start_addr;
+                info->dtb_max_size = dtb_size_val;
+            }
         }
     }
 }

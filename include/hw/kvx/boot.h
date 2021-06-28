@@ -34,7 +34,9 @@ typedef struct KvxBootInfo {
     bool kernel_is_64bits;
     uint64_t kernel_entry;
     uint64_t kernel_high;
+    bool found_dtb_start;   /* Found __dtb_start symbol in kernel */
     uint64_t dtb_load_addr;
+    uint64_t dtb_max_size;  /* set with __dtb_size symbol value when found */
 
     uint64_t mppa_argarea_start_addr;
     char * mppa_argarea_buf;
