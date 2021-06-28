@@ -10,6 +10,7 @@ kvx_ss.add(files(
   'itgen.c',
   'mppa-cluster.c',
   'pwr-ctrl.c',
+  'machine-descr.c',
 ))
 
 hw_arch += {'kvx': kvx_ss}
