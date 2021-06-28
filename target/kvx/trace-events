@@ -9,3 +9,7 @@ kvx_irq_ack(int irq, int pl, int il) "irq %d level %d.%d"
 kvx_irq_update(uint64_t old, uint64_t new) "old_ilr 0x%"PRIx64" new_ilr 0x%"PRIx64
 kvx_ipe_event(int cpu, char dir, int idx) "cpu: %d, dir:%cwd, idx:%d"
 kvx_ipe_send_event(uint16_t fwd_mask, uint16_t bwd_mask) "fwd mask: %" PRIx16 ", bwd mask:%" PRIx16
+
+# semihosting.c
+kvx_semihosting_syscall(uint64_t syscall) ": %" PRIu64
+kvx_semihosting_unimp_syscall(uint64_t syscall) ": %" PRIu64
