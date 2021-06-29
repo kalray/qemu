@@ -59,6 +59,7 @@ typedef struct MppaClusterMachineState {
 
     /*< public >*/
     bool gen_mppa_argarea;
+    bool gen_dtb;
     uint64_t frequency;
     uint64_t initial_dsu_clock;
     int fdt_size;
@@ -908,6 +909,10 @@ static void create_fdt(MppaClusterMachineState *s)
         return;
     }
 
+    if (!s->gen_dtb) {
+        return;
+    }
+
     m->fdt = fdt = create_device_tree_with_size(FDT_MAX_SIZE);
     s->fdt_size = FDT_MAX_SIZE;
 
@@ -975,6 +980,20 @@ static void mppa_cluster_set_gen_argarea(Object *obj, bool value, Error **errp)
     s->gen_mppa_argarea = value;
 }
 
+static bool mppa_cluster_get_gen_dtb(Object *obj, Error **errp)
+{
+    MppaClusterMachineState *s = MPPA_CLUSTER(obj);
+
+    return s->gen_dtb;
+}
+
+static void mppa_cluster_set_gen_dtb(Object *obj, bool value, Error **errp)
+{
+    MppaClusterMachineState *s = MPPA_CLUSTER(obj);
+
+    s->gen_dtb = value;
+}
+
 static void mppa_cluster_instance_init(Object *obj)
 {
     MppaClusterMachineState *s = MPPA_CLUSTER(obj);
@@ -987,6 +1006,15 @@ static void mppa_cluster_instance_init(Object *obj)
                                     "Set on/off to enable/disable generation "
                                     "of the .mppa_arg section when one is "
                                     "detected in the loaded kernel "
+                                    "(default is on)");
+
+    s->gen_dtb = true;
+    object_property_add_bool(obj, "generate-dtb",
+                             mppa_cluster_get_gen_dtb,
+                             mppa_cluster_set_gen_dtb);
+    object_property_set_description(obj, "generate-dtb",
+                                    "Set on/off to enable/disable generation "
+                                    "of the device tree"
                                     "(default is on)");
 
     /* Default to 1MHz */
