@@ -215,6 +215,24 @@ struct ops_kv3_comparison_kv3_registerW_kv3_registerZ_kv3_upper27_lower5 {
     uint64_t kv3_upper27_lower5;
 };
 
+struct ops_kv3_conjugate_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerP_kv3_registerO {
+    uint64_t kv3_conjugate;
+    uint64_t kv3_rounding;
+    uint64_t kv3_silent;
+    uint64_t kv3_registerM;
+    uint64_t kv3_registerP;
+    uint64_t kv3_registerO;
+};
+
+struct ops_kv3_conjugate_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY {
+    uint64_t kv3_conjugate;
+    uint64_t kv3_rounding;
+    uint64_t kv3_silent;
+    uint64_t kv3_registerW;
+    uint64_t kv3_registerZ;
+    uint64_t kv3_registerY;
+};
+
 struct ops_kv3_doscale_kv3_registerW_kv3_registerY_kv3_registerZ {
     uint64_t kv3_doscale;
     uint64_t kv3_registerW;
@@ -426,6 +444,15 @@ struct ops_kv3_lsucond_kv3_registerY_kv3_registerZ_kv3_registerV {
     uint64_t kv3_registerY;
     uint64_t kv3_registerZ;
     uint64_t kv3_registerV;
+};
+
+struct ops_kv3_multransm_multransl_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerP_kv3_registerO {
+    uint64_t kv3_multransm_multransl;
+    uint64_t kv3_rounding;
+    uint64_t kv3_silent;
+    uint64_t kv3_registerM;
+    uint64_t kv3_registerP;
+    uint64_t kv3_registerO;
 };
 
 struct ops_kv3_pcrel27 {
@@ -771,12 +798,28 @@ struct ops_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerP_kv3_registerO {
     uint64_t kv3_registerO;
 };
 
+struct ops_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerQ_kv3_registerR {
+    uint64_t kv3_rounding;
+    uint64_t kv3_silent;
+    uint64_t kv3_registerM;
+    uint64_t kv3_registerQ;
+    uint64_t kv3_registerR;
+};
+
 struct ops_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerZ_kv3_registerY {
     uint64_t kv3_rounding;
     uint64_t kv3_silent;
     uint64_t kv3_registerM;
     uint64_t kv3_registerZ;
     uint64_t kv3_registerY;
+};
+
+struct ops_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerP_kv3_registerO {
+    uint64_t kv3_rounding;
+    uint64_t kv3_silent;
+    uint64_t kv3_registerW;
+    uint64_t kv3_registerP;
+    uint64_t kv3_registerO;
 };
 
 struct ops_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY {

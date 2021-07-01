@@ -538,7 +538,7 @@ static void decode_kv3_channel_kv3_registerA(DisasContext *ctx, const uint32_t *
     {
         uint64_t field = 0;
         uint64_t decoded = 0;
-        field |= (WORDS[0] >> 27) & (((uint32_t)1 << 1) - 1);
+        field |= (WORDS[0] >> 24) & (((uint32_t)1 << 1) - 1);
         decoded = field;
         a->kv3_channel = decoded;
     }
@@ -1063,6 +1063,100 @@ static void decode_kv3_comparison_kv3_registerW_kv3_registerZ_kv3_upper27_lower5
         field |= (WORDS[0] >> 6) & (((uint32_t)1 << 5) - 1);
         decoded = field;
         a->kv3_upper27_lower5 = decoded;
+    }
+}
+
+static void decode_kv3_conjugate_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerP_kv3_registerO(DisasContext *ctx, const uint32_t *codeWords, struct ops_kv3_conjugate_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerP_kv3_registerO *a)
+{
+        const uint32_t *restrict WORDS = codeWords;
+    {
+        uint64_t field = 0;
+        uint64_t decoded = 0;
+        field |= (WORDS[0] >> 24) & (((uint32_t)1 << 1) - 1);
+        decoded = field;
+        a->kv3_conjugate = decoded;
+    }
+    {
+        uint64_t field = 0;
+        uint64_t decoded = 0;
+        field |= (WORDS[0] >> 12) & (((uint32_t)1 << 3) - 1);
+        decoded = field;
+        a->kv3_rounding = decoded;
+    }
+    {
+        uint64_t field = 0;
+        uint64_t decoded = 0;
+        field |= (WORDS[0] >> 15) & (((uint32_t)1 << 1) - 1);
+        decoded = field;
+        a->kv3_silent = decoded;
+    }
+    {
+        uint64_t field = 0;
+        uint64_t decoded = 0;
+        field |= (WORDS[0] >> 19) & (((uint32_t)1 << 5) - 1);
+        decoded = field;
+        a->kv3_registerM = decoded;
+    }
+    {
+        uint64_t field = 0;
+        uint64_t decoded = 0;
+        field |= (WORDS[0] >> 1) & (((uint32_t)1 << 5) - 1);
+        decoded = field;
+        a->kv3_registerP = decoded;
+    }
+    {
+        uint64_t field = 0;
+        uint64_t decoded = 0;
+        field |= (WORDS[0] >> 7) & (((uint32_t)1 << 5) - 1);
+        decoded = field;
+        a->kv3_registerO = decoded;
+    }
+}
+
+static void decode_kv3_conjugate_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY(DisasContext *ctx, const uint32_t *codeWords, struct ops_kv3_conjugate_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY *a)
+{
+        const uint32_t *restrict WORDS = codeWords;
+    {
+        uint64_t field = 0;
+        uint64_t decoded = 0;
+        field |= (WORDS[0] >> 24) & (((uint32_t)1 << 1) - 1);
+        decoded = field;
+        a->kv3_conjugate = decoded;
+    }
+    {
+        uint64_t field = 0;
+        uint64_t decoded = 0;
+        field |= (WORDS[0] >> 12) & (((uint32_t)1 << 3) - 1);
+        decoded = field;
+        a->kv3_rounding = decoded;
+    }
+    {
+        uint64_t field = 0;
+        uint64_t decoded = 0;
+        field |= (WORDS[0] >> 15) & (((uint32_t)1 << 1) - 1);
+        decoded = field;
+        a->kv3_silent = decoded;
+    }
+    {
+        uint64_t field = 0;
+        uint64_t decoded = 0;
+        field |= (WORDS[0] >> 18) & (((uint32_t)1 << 6) - 1);
+        decoded = field;
+        a->kv3_registerW = decoded;
+    }
+    {
+        uint64_t field = 0;
+        uint64_t decoded = 0;
+        field |= (WORDS[0] >> 0) & (((uint32_t)1 << 6) - 1);
+        decoded = field;
+        a->kv3_registerZ = decoded;
+    }
+    {
+        uint64_t field = 0;
+        uint64_t decoded = 0;
+        field |= (WORDS[0] >> 6) & (((uint32_t)1 << 6) - 1);
+        decoded = field;
+        a->kv3_registerY = decoded;
     }
 }
 
@@ -2132,6 +2226,55 @@ static void decode_kv3_lsucond_kv3_registerY_kv3_registerZ_kv3_registerV(DisasCo
         field |= (WORDS[0] >> 20) & (((uint32_t)1 << 4) - 1);
         decoded = field;
         a->kv3_registerV = decoded;
+    }
+}
+
+static void decode_kv3_multransm_multransl_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerP_kv3_registerO(DisasContext *ctx, const uint32_t *codeWords, struct ops_kv3_multransm_multransl_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerP_kv3_registerO *a)
+{
+        const uint32_t *restrict WORDS = codeWords;
+    {
+        uint64_t field = 0;
+        uint64_t decoded = 0;
+        field |= (WORDS[0] >> 18) & (((uint32_t)1 << 1) - 1);
+        field <<= 1;
+        field |= (WORDS[0] >> 6) & (((uint32_t)1 << 1) - 1);
+        decoded = field;
+        a->kv3_multransm_multransl = decoded;
+    }
+    {
+        uint64_t field = 0;
+        uint64_t decoded = 0;
+        field |= (WORDS[0] >> 12) & (((uint32_t)1 << 3) - 1);
+        decoded = field;
+        a->kv3_rounding = decoded;
+    }
+    {
+        uint64_t field = 0;
+        uint64_t decoded = 0;
+        field |= (WORDS[0] >> 15) & (((uint32_t)1 << 1) - 1);
+        decoded = field;
+        a->kv3_silent = decoded;
+    }
+    {
+        uint64_t field = 0;
+        uint64_t decoded = 0;
+        field |= (WORDS[0] >> 19) & (((uint32_t)1 << 5) - 1);
+        decoded = field;
+        a->kv3_registerM = decoded;
+    }
+    {
+        uint64_t field = 0;
+        uint64_t decoded = 0;
+        field |= (WORDS[0] >> 1) & (((uint32_t)1 << 5) - 1);
+        decoded = field;
+        a->kv3_registerP = decoded;
+    }
+    {
+        uint64_t field = 0;
+        uint64_t decoded = 0;
+        field |= (WORDS[0] >> 7) & (((uint32_t)1 << 5) - 1);
+        decoded = field;
+        a->kv3_registerO = decoded;
     }
 }
 
@@ -3700,6 +3843,46 @@ static void decode_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerP_kv3_regis
     }
 }
 
+static void decode_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerQ_kv3_registerR(DisasContext *ctx, const uint32_t *codeWords, struct ops_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerQ_kv3_registerR *a)
+{
+        const uint32_t *restrict WORDS = codeWords;
+    {
+        uint64_t field = 0;
+        uint64_t decoded = 0;
+        field |= (WORDS[0] >> 12) & (((uint32_t)1 << 3) - 1);
+        decoded = field;
+        a->kv3_rounding = decoded;
+    }
+    {
+        uint64_t field = 0;
+        uint64_t decoded = 0;
+        field |= (WORDS[0] >> 15) & (((uint32_t)1 << 1) - 1);
+        decoded = field;
+        a->kv3_silent = decoded;
+    }
+    {
+        uint64_t field = 0;
+        uint64_t decoded = 0;
+        field |= (WORDS[0] >> 19) & (((uint32_t)1 << 5) - 1);
+        decoded = field;
+        a->kv3_registerM = decoded;
+    }
+    {
+        uint64_t field = 0;
+        uint64_t decoded = 0;
+        field |= (WORDS[0] >> 8) & (((uint32_t)1 << 4) - 1);
+        decoded = field;
+        a->kv3_registerQ = decoded;
+    }
+    {
+        uint64_t field = 0;
+        uint64_t decoded = 0;
+        field |= (WORDS[0] >> 2) & (((uint32_t)1 << 4) - 1);
+        decoded = field;
+        a->kv3_registerR = decoded;
+    }
+}
+
 static void decode_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerZ_kv3_registerY(DisasContext *ctx, const uint32_t *codeWords, struct ops_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerZ_kv3_registerY *a)
 {
         const uint32_t *restrict WORDS = codeWords;
@@ -3737,6 +3920,46 @@ static void decode_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerZ_kv3_regis
         field |= (WORDS[0] >> 6) & (((uint32_t)1 << 6) - 1);
         decoded = field;
         a->kv3_registerY = decoded;
+    }
+}
+
+static void decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerP_kv3_registerO(DisasContext *ctx, const uint32_t *codeWords, struct ops_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerP_kv3_registerO *a)
+{
+        const uint32_t *restrict WORDS = codeWords;
+    {
+        uint64_t field = 0;
+        uint64_t decoded = 0;
+        field |= (WORDS[0] >> 12) & (((uint32_t)1 << 3) - 1);
+        decoded = field;
+        a->kv3_rounding = decoded;
+    }
+    {
+        uint64_t field = 0;
+        uint64_t decoded = 0;
+        field |= (WORDS[0] >> 15) & (((uint32_t)1 << 1) - 1);
+        decoded = field;
+        a->kv3_silent = decoded;
+    }
+    {
+        uint64_t field = 0;
+        uint64_t decoded = 0;
+        field |= (WORDS[0] >> 18) & (((uint32_t)1 << 6) - 1);
+        decoded = field;
+        a->kv3_registerW = decoded;
+    }
+    {
+        uint64_t field = 0;
+        uint64_t decoded = 0;
+        field |= (WORDS[0] >> 1) & (((uint32_t)1 << 5) - 1);
+        decoded = field;
+        a->kv3_registerP = decoded;
+    }
+    {
+        uint64_t field = 0;
+        uint64_t decoded = 0;
+        field |= (WORDS[0] >> 7) & (((uint32_t)1 << 5) - 1);
+        decoded = field;
+        a->kv3_registerO = decoded;
     }
 }
 
@@ -6112,6 +6335,8 @@ union decode_formats {
     struct ops_kv3_comparison_kv3_registerW_kv3_registerZ_kv3_signed10 kv3_comparison_kv3_registerW_kv3_registerZ_kv3_signed10;
     struct ops_kv3_comparison_kv3_registerW_kv3_registerZ_kv3_upper27_lower10 kv3_comparison_kv3_registerW_kv3_registerZ_kv3_upper27_lower10;
     struct ops_kv3_comparison_kv3_registerW_kv3_registerZ_kv3_upper27_lower5 kv3_comparison_kv3_registerW_kv3_registerZ_kv3_upper27_lower5;
+    struct ops_kv3_conjugate_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerP_kv3_registerO kv3_conjugate_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerP_kv3_registerO;
+    struct ops_kv3_conjugate_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY kv3_conjugate_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY;
     struct ops_kv3_doscale_kv3_registerW_kv3_registerY_kv3_registerZ kv3_doscale_kv3_registerW_kv3_registerY_kv3_registerZ;
     struct ops_kv3_doscale_kv3_registerY_kv3_registerZ_kv3_registerE kv3_doscale_kv3_registerY_kv3_registerZ_kv3_registerE;
     struct ops_kv3_doscale_kv3_registerY_kv3_registerZ_kv3_registerT kv3_doscale_kv3_registerY_kv3_registerZ_kv3_registerT;
@@ -6142,6 +6367,7 @@ union decode_formats {
     struct ops_kv3_lsucond_kv3_registerY_kv3_registerZ_kv3_registerT kv3_lsucond_kv3_registerY_kv3_registerZ_kv3_registerT;
     struct ops_kv3_lsucond_kv3_registerY_kv3_registerZ_kv3_registerU kv3_lsucond_kv3_registerY_kv3_registerZ_kv3_registerU;
     struct ops_kv3_lsucond_kv3_registerY_kv3_registerZ_kv3_registerV kv3_lsucond_kv3_registerY_kv3_registerZ_kv3_registerV;
+    struct ops_kv3_multransm_multransl_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerP_kv3_registerO kv3_multransm_multransl_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerP_kv3_registerO;
     struct ops_kv3_pcrel27 kv3_pcrel27;
     struct ops_kv3_registerA0_kv3_registerBp_kv3_registerC_kv3_registerD kv3_registerA0_kv3_registerBp_kv3_registerC_kv3_registerD;
     struct ops_kv3_registerA1_kv3_registerBp_kv3_registerC_kv3_registerD kv3_registerA1_kv3_registerBp_kv3_registerC_kv3_registerD;
@@ -6200,7 +6426,9 @@ union decode_formats {
     struct ops_kv3_rounding2_kv3_silent2_kv3_registerW_kv3_registerP kv3_rounding2_kv3_silent2_kv3_registerW_kv3_registerP;
     struct ops_kv3_rounding2_kv3_silent2_kv3_registerW_kv3_registerZ kv3_rounding2_kv3_silent2_kv3_registerW_kv3_registerZ;
     struct ops_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerP_kv3_registerO kv3_rounding_kv3_silent_kv3_registerM_kv3_registerP_kv3_registerO;
+    struct ops_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerQ_kv3_registerR kv3_rounding_kv3_silent_kv3_registerM_kv3_registerQ_kv3_registerR;
     struct ops_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerZ_kv3_registerY kv3_rounding_kv3_silent_kv3_registerM_kv3_registerZ_kv3_registerY;
+    struct ops_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerP_kv3_registerO kv3_rounding_kv3_silent_kv3_registerW_kv3_registerP_kv3_registerO;
     struct ops_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY;
     struct ops_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6 kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6;
     struct ops_kv3_roundint_kv3_saturate_kv3_registerAh_kv3_registerBq kv3_roundint_kv3_saturate_kv3_registerAh_kv3_registerBq;
@@ -20432,14 +20660,46 @@ bool decode_v2_simple(DisasContext *ctx, const uint32_t *buffer)
     }
     return false;
   case 0x00000004:
-    switch ((codeWord_0 >> 24) & 0x0000000f) {
+    switch ((codeWord_0 >> 25) & 0x00000007) {
     case 0x00000000:
       switch ((codeWord_0 >> 16) & 0x00000003) {
       case 0x00000000:
-        decode_kv3_registerW_kv3_registerZ_kv3_signed10(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
-        ctx->cur_opcode->format = kv3_MAU_DDDI0;
-        ctx->cur_opcode->insn = kv3_MADDD;
-        return trans_v2_MADDD_registerW_registerZ_signed10_simple(ctx, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
+        switch ((codeWord_0 >> 24) & 0x00000001) {
+        case 0x00000000:
+          decode_kv3_registerW_kv3_registerZ_kv3_signed10(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
+          ctx->cur_opcode->format = kv3_MAU_DDDI0;
+          ctx->cur_opcode->insn = kv3_MADDD;
+          return trans_v2_MADDD_registerW_registerZ_signed10_simple(ctx, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
+        case 0x00000001:
+          decode_kv3_registerW_kv3_registerZ_kv3_signed10(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
+          ctx->cur_opcode->format = kv3_MAU_DDDI0;
+          ctx->cur_opcode->insn = kv3_MADDWP;
+          return trans_v2_MADDWP_registerW_registerZ_signed10_simple(ctx, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
+          break;
+        }
+        return false;
+      case 0x00000001:
+        decode_kv3_conjugate_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY(ctx, codeWords, &u.kv3_conjugate_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY);
+        ctx->cur_opcode->format = kv3_MAU_FMULCS;
+        ctx->cur_opcode->insn = v2_FMULWC;
+        return trans_v2_FMULWC_conjugate_rounding_silent_registerW_registerZ_registerY_simple(ctx, &u.kv3_conjugate_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY);
+      case 0x00000002:
+        switch ((codeWord_0 >> 6) & 0x00000001) {
+        case 0x00000000:
+          switch ((codeWord_0 >> 18) & 0x00000001) {
+          case 0x00000000:
+            decode_kv3_conjugate_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerP_kv3_registerO(ctx, codeWords, &u.kv3_conjugate_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerP_kv3_registerO);
+            ctx->cur_opcode->format = kv3_MAU_FMULCP;
+            ctx->cur_opcode->insn = kv3_FMULWCP;
+            return trans_v2_FMULWCP_conjugate_rounding_silent_registerM_registerP_registerO_simple(ctx, &u.kv3_conjugate_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerP_kv3_registerO);
+          default:
+            break;
+          }
+          return false;
+        default:
+          break;
+        }
+        return false;
       default:
         break;
       }
@@ -20447,10 +20707,72 @@ bool decode_v2_simple(DisasContext *ctx, const uint32_t *buffer)
     case 0x00000001:
       switch ((codeWord_0 >> 16) & 0x00000003) {
       case 0x00000000:
-        decode_kv3_registerW_kv3_registerZ_kv3_signed10(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
-        ctx->cur_opcode->format = kv3_MAU_DDDI0;
-        ctx->cur_opcode->insn = kv3_MADDWP;
-        return trans_v2_MADDWP_registerW_registerZ_signed10_simple(ctx, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
+        switch ((codeWord_0 >> 24) & 0x00000001) {
+        case 0x00000000:
+          decode_kv3_registerW_kv3_registerZ_kv3_signed10(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
+          ctx->cur_opcode->format = kv3_MAU_DDDI0;
+          ctx->cur_opcode->insn = kv3_MADDHQ;
+          return trans_v2_MADDHQ_registerW_registerZ_signed10_simple(ctx, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
+        default:
+          break;
+        }
+        return false;
+      case 0x00000001:
+        switch ((codeWord_0 >> 24) & 0x00000001) {
+        case 0x00000000:
+          decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY);
+          ctx->cur_opcode->format = kv3_MAU_FDMAS;
+          ctx->cur_opcode->insn = kv3_FFDMAW;
+          return trans_v2_FFDMAW_rounding_silent_registerW_registerZ_registerY_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY);
+        case 0x00000001:
+          decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY);
+          ctx->cur_opcode->format = kv3_MAU_FDMAS;
+          ctx->cur_opcode->insn = kv3_FFDMSW;
+          return trans_v2_FFDMSW_rounding_silent_registerW_registerZ_registerY_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY);
+          break;
+        }
+        return false;
+      case 0x00000002:
+        switch ((codeWord_0 >> 6) & 0x00000001) {
+        case 0x00000000:
+          switch ((codeWord_0 >> 24) & 0x00000001) {
+          case 0x00000000:
+            decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerP_kv3_registerO(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerP_kv3_registerO);
+            ctx->cur_opcode->format = kv3_MAU_FDMAP;
+            ctx->cur_opcode->insn = kv3_FFDMAWP;
+            return trans_v2_FFDMAWP_rounding_silent_registerW_registerP_registerO_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerP_kv3_registerO);
+          case 0x00000001:
+            decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerP_kv3_registerO(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerP_kv3_registerO);
+            ctx->cur_opcode->format = kv3_MAU_FDMAP;
+            ctx->cur_opcode->insn = kv3_FFDMSWP;
+            return trans_v2_FFDMSWP_rounding_silent_registerW_registerP_registerO_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerP_kv3_registerO);
+            break;
+          }
+          return false;
+        case 0x00000001:
+          switch ((codeWord_0 >> 18) & 0x00000001) {
+          case 0x00000000:
+            switch ((codeWord_0 >> 24) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerQ_kv3_registerR(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerM_kv3_registerQ_kv3_registerR);
+              ctx->cur_opcode->format = kv3_MAU_FDMAQ;
+              ctx->cur_opcode->insn = kv3_FFDMAWQ;
+              return trans_v2_FFDMAWQ_rounding_silent_registerM_registerQ_registerR_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerM_kv3_registerQ_kv3_registerR);
+            case 0x00000001:
+              decode_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerQ_kv3_registerR(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerM_kv3_registerQ_kv3_registerR);
+              ctx->cur_opcode->format = kv3_MAU_FDMAQ;
+              ctx->cur_opcode->insn = kv3_FFDMSWQ;
+              return trans_v2_FFDMSWQ_rounding_silent_registerM_registerQ_registerR_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerM_kv3_registerQ_kv3_registerR);
+              break;
+            }
+            return false;
+          default:
+            break;
+          }
+          return false;
+          break;
+        }
+        return false;
       default:
         break;
       }
@@ -20458,247 +20780,473 @@ bool decode_v2_simple(DisasContext *ctx, const uint32_t *buffer)
     case 0x00000002:
       switch ((codeWord_0 >> 16) & 0x00000003) {
       case 0x00000000:
-        decode_kv3_registerW_kv3_registerZ_kv3_signed10(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
-        ctx->cur_opcode->format = kv3_MAU_DDDI0;
-        ctx->cur_opcode->insn = kv3_MADDHQ;
-        return trans_v2_MADDHQ_registerW_registerZ_signed10_simple(ctx, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
-      default:
+        switch ((codeWord_0 >> 24) & 0x00000001) {
+        case 0x00000000:
+          decode_kv3_registerW_kv3_registerZ_kv3_signed10(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
+          ctx->cur_opcode->format = kv3_MAU_DDI;
+          ctx->cur_opcode->insn = kv3_MULD;
+          return trans_v2_MULD_registerW_registerZ_signed10_simple(ctx, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
+        case 0x00000001:
+          decode_kv3_registerW_kv3_registerZ_kv3_signed10(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
+          ctx->cur_opcode->format = kv3_MAU_DDI;
+          ctx->cur_opcode->insn = kv3_MULWP;
+          return trans_v2_MULWP_registerW_registerZ_signed10_simple(ctx, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
+          break;
+        }
+        return false;
+      case 0x00000001:
+        switch ((codeWord_0 >> 24) & 0x00000001) {
+        case 0x00000000:
+          decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY);
+          ctx->cur_opcode->format = kv3_MAU_FDMDAS;
+          ctx->cur_opcode->insn = kv3_FFDMDAW;
+          return trans_v2_FFDMDAW_rounding_silent_registerW_registerZ_registerY_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY);
+        case 0x00000001:
+          decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY);
+          ctx->cur_opcode->format = kv3_MAU_FDMDAS;
+          ctx->cur_opcode->insn = kv3_FFDMSAW;
+          return trans_v2_FFDMSAW_rounding_silent_registerW_registerZ_registerY_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY);
+          break;
+        }
+        return false;
+      case 0x00000002:
+        switch ((codeWord_0 >> 6) & 0x00000001) {
+        case 0x00000000:
+          switch ((codeWord_0 >> 24) & 0x00000001) {
+          case 0x00000000:
+            decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerP_kv3_registerO(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerP_kv3_registerO);
+            ctx->cur_opcode->format = kv3_MAU_FDMDAP;
+            ctx->cur_opcode->insn = kv3_FFDMDAWP;
+            return trans_v2_FFDMDAWP_rounding_silent_registerW_registerP_registerO_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerP_kv3_registerO);
+          case 0x00000001:
+            decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerP_kv3_registerO(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerP_kv3_registerO);
+            ctx->cur_opcode->format = kv3_MAU_FDMDAP;
+            ctx->cur_opcode->insn = kv3_FFDMSAWP;
+            return trans_v2_FFDMSAWP_rounding_silent_registerW_registerP_registerO_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerP_kv3_registerO);
+            break;
+          }
+          return false;
+        case 0x00000001:
+          switch ((codeWord_0 >> 18) & 0x00000001) {
+          case 0x00000000:
+            switch ((codeWord_0 >> 24) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerQ_kv3_registerR(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerM_kv3_registerQ_kv3_registerR);
+              ctx->cur_opcode->format = kv3_MAU_FDMDAQ;
+              ctx->cur_opcode->insn = kv3_FFDMDAWQ;
+              return trans_v2_FFDMDAWQ_rounding_silent_registerM_registerQ_registerR_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerM_kv3_registerQ_kv3_registerR);
+            case 0x00000001:
+              decode_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerQ_kv3_registerR(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerM_kv3_registerQ_kv3_registerR);
+              ctx->cur_opcode->format = kv3_MAU_FDMDAQ;
+              ctx->cur_opcode->insn = kv3_FFDMSAWQ;
+              return trans_v2_FFDMSAWQ_rounding_silent_registerM_registerQ_registerR_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerM_kv3_registerQ_kv3_registerR);
+              break;
+            }
+            return false;
+          default:
+            break;
+          }
+          return false;
+          break;
+        }
+        return false;
+      case 0x00000003:
+        switch ((codeWord_0 >> 24) & 0x00000001) {
+        case 0x00000000:
+          decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
+          ctx->cur_opcode->format = kv3_MAU_FDD;
+          ctx->cur_opcode->insn = kv3_FLOATD;
+          return trans_v2_FLOATD_rounding_silent_registerW_registerZ_unsigned6_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
+        case 0x00000001:
+          decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
+          ctx->cur_opcode->format = kv3_MAU_FDD;
+          ctx->cur_opcode->insn = kv3_FLOATUD;
+          return trans_v2_FLOATUD_rounding_silent_registerW_registerZ_unsigned6_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
+          break;
+        }
+        return false;
+        break;
+      }
+      return false;
+    case 0x00000003:
+      switch ((codeWord_0 >> 16) & 0x00000003) {
+      case 0x00000000:
+        switch ((codeWord_0 >> 24) & 0x00000001) {
+        case 0x00000000:
+          decode_kv3_registerW_kv3_registerZ_kv3_signed10(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
+          ctx->cur_opcode->format = kv3_MAU_DDI;
+          ctx->cur_opcode->insn = kv3_MULHQ;
+          return trans_v2_MULHQ_registerW_registerZ_signed10_simple(ctx, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
+        case 0x00000001:
+          decode_kv3_registerW_kv3_registerZ_kv3_signed10(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
+          ctx->cur_opcode->format = kv3_MAU_DDI;
+          ctx->cur_opcode->insn = kv3_MULWC;
+          return trans_v2_MULWC_registerW_registerZ_signed10_simple(ctx, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
+          break;
+        }
+        return false;
+      case 0x00000001:
+        switch ((codeWord_0 >> 24) & 0x00000001) {
+        case 0x00000000:
+          decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY);
+          ctx->cur_opcode->format = kv3_MAU_FDMDAS;
+          ctx->cur_opcode->insn = kv3_FFDMDSW;
+          return trans_v2_FFDMDSW_rounding_silent_registerW_registerZ_registerY_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY);
+        case 0x00000001:
+          decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY);
+          ctx->cur_opcode->format = kv3_MAU_FDMDAS;
+          ctx->cur_opcode->insn = kv3_FFDMASW;
+          return trans_v2_FFDMASW_rounding_silent_registerW_registerZ_registerY_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY);
+          break;
+        }
+        return false;
+      case 0x00000002:
+        switch ((codeWord_0 >> 6) & 0x00000001) {
+        case 0x00000000:
+          switch ((codeWord_0 >> 24) & 0x00000001) {
+          case 0x00000000:
+            decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerP_kv3_registerO(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerP_kv3_registerO);
+            ctx->cur_opcode->format = kv3_MAU_FDMDAP;
+            ctx->cur_opcode->insn = kv3_FFDMDSWP;
+            return trans_v2_FFDMDSWP_rounding_silent_registerW_registerP_registerO_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerP_kv3_registerO);
+          case 0x00000001:
+            decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerP_kv3_registerO(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerP_kv3_registerO);
+            ctx->cur_opcode->format = kv3_MAU_FDMDAP;
+            ctx->cur_opcode->insn = kv3_FFDMASWP;
+            return trans_v2_FFDMASWP_rounding_silent_registerW_registerP_registerO_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerP_kv3_registerO);
+            break;
+          }
+          return false;
+        case 0x00000001:
+          switch ((codeWord_0 >> 18) & 0x00000001) {
+          case 0x00000000:
+            switch ((codeWord_0 >> 24) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerQ_kv3_registerR(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerM_kv3_registerQ_kv3_registerR);
+              ctx->cur_opcode->format = kv3_MAU_FDMDAQ;
+              ctx->cur_opcode->insn = kv3_FFDMDSWQ;
+              return trans_v2_FFDMDSWQ_rounding_silent_registerM_registerQ_registerR_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerM_kv3_registerQ_kv3_registerR);
+            case 0x00000001:
+              decode_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerQ_kv3_registerR(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerM_kv3_registerQ_kv3_registerR);
+              ctx->cur_opcode->format = kv3_MAU_FDMDAQ;
+              ctx->cur_opcode->insn = kv3_FFDMASWQ;
+              return trans_v2_FFDMASWQ_rounding_silent_registerM_registerQ_registerR_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerM_kv3_registerQ_kv3_registerR);
+              break;
+            }
+            return false;
+          default:
+            break;
+          }
+          return false;
+          break;
+        }
+        return false;
+      case 0x00000003:
+        switch ((codeWord_0 >> 24) & 0x00000001) {
+        case 0x00000000:
+          decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
+          ctx->cur_opcode->format = kv3_MAU_FDD;
+          ctx->cur_opcode->insn = kv3_FIXEDD;
+          return trans_v2_FIXEDD_rounding_silent_registerW_registerZ_unsigned6_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
+        case 0x00000001:
+          decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
+          ctx->cur_opcode->format = kv3_MAU_FDD;
+          ctx->cur_opcode->insn = kv3_FIXEDUD;
+          return trans_v2_FIXEDUD_rounding_silent_registerW_registerZ_unsigned6_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
+          break;
+        }
+        return false;
         break;
       }
       return false;
     case 0x00000004:
       switch ((codeWord_0 >> 16) & 0x00000003) {
       case 0x00000000:
-        decode_kv3_registerW_kv3_registerZ_kv3_signed10(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
-        ctx->cur_opcode->format = kv3_MAU_DDI;
-        ctx->cur_opcode->insn = kv3_MULD;
-        return trans_v2_MULD_registerW_registerZ_signed10_simple(ctx, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
+        switch ((codeWord_0 >> 18) & 0x00000001) {
+        case 0x00000000:
+          switch ((codeWord_0 >> 24) & 0x00000001) {
+          case 0x00000000:
+            decode_kv3_registerM_kv3_registerZ_kv3_signed10(ctx, codeWords, &u.kv3_registerM_kv3_registerZ_kv3_signed10);
+            ctx->cur_opcode->format = kv3_MAU_QQDI;
+            ctx->cur_opcode->insn = kv3_MADDDT;
+            return trans_v2_MADDDT_registerM_registerZ_signed10_simple(ctx, &u.kv3_registerM_kv3_registerZ_kv3_signed10);
+          case 0x00000001:
+            decode_kv3_registerM_kv3_registerZ_kv3_signed10(ctx, codeWords, &u.kv3_registerM_kv3_registerZ_kv3_signed10);
+            ctx->cur_opcode->format = kv3_MAU_QQDI;
+            ctx->cur_opcode->insn = kv3_MADDUDT;
+            return trans_v2_MADDUDT_registerM_registerZ_signed10_simple(ctx, &u.kv3_registerM_kv3_registerZ_kv3_signed10);
+            break;
+          }
+          return false;
+        case 0x00000001:
+          switch ((codeWord_0 >> 24) & 0x00000001) {
+          case 0x00000000:
+            decode_kv3_registerM_kv3_registerZ_kv3_signed10(ctx, codeWords, &u.kv3_registerM_kv3_registerZ_kv3_signed10);
+            ctx->cur_opcode->format = kv3_MAU_QDI;
+            ctx->cur_opcode->insn = kv3_MULDT;
+            return trans_v2_MULDT_registerM_registerZ_signed10_simple(ctx, &u.kv3_registerM_kv3_registerZ_kv3_signed10);
+          case 0x00000001:
+            decode_kv3_registerM_kv3_registerZ_kv3_signed10(ctx, codeWords, &u.kv3_registerM_kv3_registerZ_kv3_signed10);
+            ctx->cur_opcode->format = kv3_MAU_QDI;
+            ctx->cur_opcode->insn = kv3_MULUDT;
+            return trans_v2_MULUDT_registerM_registerZ_signed10_simple(ctx, &u.kv3_registerM_kv3_registerZ_kv3_signed10);
+            break;
+          }
+          return false;
+          break;
+        }
+        return false;
+      case 0x00000001:
+        decode_kv3_conjugate_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY(ctx, codeWords, &u.kv3_conjugate_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY);
+        ctx->cur_opcode->format = kv3_MAU_FMACS;
+        ctx->cur_opcode->insn = kv3_FFMAWC;
+        return trans_v2_FFMAWC_conjugate_rounding_silent_registerW_registerZ_registerY_simple(ctx, &u.kv3_conjugate_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY);
+      case 0x00000002:
+        switch ((codeWord_0 >> 6) & 0x00000001) {
+        case 0x00000000:
+          switch ((codeWord_0 >> 18) & 0x00000001) {
+          case 0x00000000:
+            decode_kv3_conjugate_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerP_kv3_registerO(ctx, codeWords, &u.kv3_conjugate_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerP_kv3_registerO);
+            ctx->cur_opcode->format = kv3_MAU_FMACP;
+            ctx->cur_opcode->insn = kv3_FFMAWCP;
+            return trans_v2_FFMAWCP_conjugate_rounding_silent_registerM_registerP_registerO_simple(ctx, &u.kv3_conjugate_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerP_kv3_registerO);
+          default:
+            break;
+          }
+          return false;
+        default:
+          break;
+        }
+        return false;
       case 0x00000003:
-        decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
-        ctx->cur_opcode->format = kv3_MAU_FDD;
-        ctx->cur_opcode->insn = kv3_FLOATD;
-        return trans_v2_FLOATD_rounding_silent_registerW_registerZ_unsigned6_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
-      default:
+        switch ((codeWord_0 >> 24) & 0x00000001) {
+        case 0x00000000:
+          decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
+          ctx->cur_opcode->format = kv3_MAU_FDD;
+          ctx->cur_opcode->insn = kv3_FLOATW;
+          return trans_v2_FLOATW_rounding_silent_registerW_registerZ_unsigned6_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
+        case 0x00000001:
+          decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
+          ctx->cur_opcode->format = kv3_MAU_FDD;
+          ctx->cur_opcode->insn = kv3_FLOATUW;
+          return trans_v2_FLOATUW_rounding_silent_registerW_registerZ_unsigned6_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
+          break;
+        }
+        return false;
         break;
       }
       return false;
     case 0x00000005:
       switch ((codeWord_0 >> 16) & 0x00000003) {
       case 0x00000000:
-        decode_kv3_registerW_kv3_registerZ_kv3_signed10(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
-        ctx->cur_opcode->format = kv3_MAU_DDI;
-        ctx->cur_opcode->insn = kv3_MULWP;
-        return trans_v2_MULWP_registerW_registerZ_signed10_simple(ctx, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
+        switch ((codeWord_0 >> 18) & 0x00000001) {
+        case 0x00000000:
+          switch ((codeWord_0 >> 24) & 0x00000001) {
+          case 0x00000000:
+            decode_kv3_registerM_kv3_registerZ_kv3_signed10(ctx, codeWords, &u.kv3_registerM_kv3_registerZ_kv3_signed10);
+            ctx->cur_opcode->format = kv3_MAU_QQDI;
+            ctx->cur_opcode->insn = kv3_MADDSUDT;
+            return trans_v2_MADDSUDT_registerM_registerZ_signed10_simple(ctx, &u.kv3_registerM_kv3_registerZ_kv3_signed10);
+          case 0x00000001:
+            decode_kv3_registerM_kv3_registerZ_kv3_signed10(ctx, codeWords, &u.kv3_registerM_kv3_registerZ_kv3_signed10);
+            ctx->cur_opcode->format = kv3_MAU_QQDI;
+            ctx->cur_opcode->insn = kv3_MADDUZDT;
+            return trans_v2_MADDUZDT_registerM_registerZ_signed10_simple(ctx, &u.kv3_registerM_kv3_registerZ_kv3_signed10);
+            break;
+          }
+          return false;
+        case 0x00000001:
+          switch ((codeWord_0 >> 24) & 0x00000001) {
+          case 0x00000000:
+            decode_kv3_registerM_kv3_registerZ_kv3_signed10(ctx, codeWords, &u.kv3_registerM_kv3_registerZ_kv3_signed10);
+            ctx->cur_opcode->format = kv3_MAU_QDI;
+            ctx->cur_opcode->insn = kv3_MULSUDT;
+            return trans_v2_MULSUDT_registerM_registerZ_signed10_simple(ctx, &u.kv3_registerM_kv3_registerZ_kv3_signed10);
+          case 0x00000001:
+            decode_kv3_registerM_kv3_registerZ_kv3_signed10(ctx, codeWords, &u.kv3_registerM_kv3_registerZ_kv3_signed10);
+            ctx->cur_opcode->format = kv3_MAU_QDI;
+            ctx->cur_opcode->insn = kv3_CMULDT;
+            return trans_v2_CMULDT_registerM_registerZ_signed10_simple(ctx, &u.kv3_registerM_kv3_registerZ_kv3_signed10);
+            break;
+          }
+          return false;
+          break;
+        }
+        return false;
+      case 0x00000001:
+        decode_kv3_conjugate_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY(ctx, codeWords, &u.kv3_conjugate_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY);
+        ctx->cur_opcode->format = kv3_MAU_FMACS;
+        ctx->cur_opcode->insn = kv3_FFMSWC;
+        return trans_v2_FFMSWC_conjugate_rounding_silent_registerW_registerZ_registerY_simple(ctx, &u.kv3_conjugate_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY);
+      case 0x00000002:
+        switch ((codeWord_0 >> 6) & 0x00000001) {
+        case 0x00000000:
+          switch ((codeWord_0 >> 18) & 0x00000001) {
+          case 0x00000000:
+            decode_kv3_conjugate_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerP_kv3_registerO(ctx, codeWords, &u.kv3_conjugate_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerP_kv3_registerO);
+            ctx->cur_opcode->format = kv3_MAU_FMACP;
+            ctx->cur_opcode->insn = kv3_FFMSWCP;
+            return trans_v2_FFMSWCP_conjugate_rounding_silent_registerM_registerP_registerO_simple(ctx, &u.kv3_conjugate_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerP_kv3_registerO);
+          default:
+            break;
+          }
+          return false;
+        default:
+          break;
+        }
+        return false;
       case 0x00000003:
-        decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
-        ctx->cur_opcode->format = kv3_MAU_FDD;
-        ctx->cur_opcode->insn = kv3_FLOATUD;
-        return trans_v2_FLOATUD_rounding_silent_registerW_registerZ_unsigned6_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
-      default:
+        switch ((codeWord_0 >> 24) & 0x00000001) {
+        case 0x00000000:
+          decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
+          ctx->cur_opcode->format = kv3_MAU_FDD;
+          ctx->cur_opcode->insn = kv3_FIXEDW;
+          return trans_v2_FIXEDW_rounding_silent_registerW_registerZ_unsigned6_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
+        case 0x00000001:
+          decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
+          ctx->cur_opcode->format = kv3_MAU_FDD;
+          ctx->cur_opcode->insn = kv3_FIXEDUW;
+          return trans_v2_FIXEDUW_rounding_silent_registerW_registerZ_unsigned6_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
+          break;
+        }
+        return false;
         break;
       }
       return false;
     case 0x00000006:
       switch ((codeWord_0 >> 16) & 0x00000003) {
       case 0x00000000:
-        decode_kv3_registerW_kv3_registerZ_kv3_signed10(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
-        ctx->cur_opcode->format = kv3_MAU_DDI;
-        ctx->cur_opcode->insn = kv3_MULHQ;
-        return trans_v2_MULHQ_registerW_registerZ_signed10_simple(ctx, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
+        switch ((codeWord_0 >> 24) & 0x00000001) {
+        case 0x00000000:
+          decode_kv3_registerW_kv3_registerZ_kv3_signed10(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
+          ctx->cur_opcode->format = kv3_MAU_DPI;
+          ctx->cur_opcode->insn = kv3_DOT2WD;
+          return trans_v2_DOT2WD_registerW_registerZ_signed10_simple(ctx, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
+        case 0x00000001:
+          decode_kv3_registerW_kv3_registerZ_kv3_signed10(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
+          ctx->cur_opcode->format = kv3_MAU_DPI;
+          ctx->cur_opcode->insn = kv3_DOT2UWD;
+          return trans_v2_DOT2UWD_registerW_registerZ_signed10_simple(ctx, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
+          break;
+        }
+        return false;
+      case 0x00000001:
+        switch ((codeWord_0 >> 18) & 0x00000001) {
+        case 0x00000000:
+          switch ((codeWord_0 >> 24) & 0x00000001) {
+          case 0x00000000:
+            decode_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerZ_kv3_registerY(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerM_kv3_registerZ_kv3_registerY);
+            ctx->cur_opcode->format = kv3_MAU_FMMS;
+            ctx->cur_opcode->insn = v2_FMM212W;
+            return trans_v2_FMM212W_rounding_silent_registerM_registerZ_registerY_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerM_kv3_registerZ_kv3_registerY);
+          default:
+            break;
+          }
+          return false;
+        default:
+          break;
+        }
+        return false;
+      case 0x00000002:
+        switch ((codeWord_0 >> 24) & 0x00000001) {
+        case 0x00000000:
+          decode_kv3_multransm_multransl_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerP_kv3_registerO(ctx, codeWords, &u.kv3_multransm_multransl_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerP_kv3_registerO);
+          ctx->cur_opcode->format = kv3_MAU_FMMP;
+          ctx->cur_opcode->insn = kv3_FMM222W;
+          return trans_v2_FMM222W_multransm_multransl_rounding_silent_registerM_registerP_registerO_simple(ctx, &u.kv3_multransm_multransl_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerP_kv3_registerO);
+        default:
+          break;
+        }
+        return false;
       case 0x00000003:
-        decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
-        ctx->cur_opcode->format = kv3_MAU_FDD;
-        ctx->cur_opcode->insn = kv3_FIXEDD;
-        return trans_v2_FIXEDD_rounding_silent_registerW_registerZ_unsigned6_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
-      default:
+        switch ((codeWord_0 >> 24) & 0x00000001) {
+        case 0x00000000:
+          decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
+          ctx->cur_opcode->format = kv3_MAU_FDD;
+          ctx->cur_opcode->insn = kv3_FLOATWP;
+          return trans_v2_FLOATWP_rounding_silent_registerW_registerZ_unsigned6_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
+        case 0x00000001:
+          decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
+          ctx->cur_opcode->format = kv3_MAU_FDD;
+          ctx->cur_opcode->insn = kv3_FLOATUWP;
+          return trans_v2_FLOATUWP_rounding_silent_registerW_registerZ_unsigned6_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
+          break;
+        }
+        return false;
         break;
       }
       return false;
     case 0x00000007:
       switch ((codeWord_0 >> 16) & 0x00000003) {
       case 0x00000000:
-        decode_kv3_registerW_kv3_registerZ_kv3_signed10(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
-        ctx->cur_opcode->format = kv3_MAU_DDI;
-        ctx->cur_opcode->insn = kv3_MULWC;
-        return trans_v2_MULWC_registerW_registerZ_signed10_simple(ctx, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
-      case 0x00000003:
-        decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
-        ctx->cur_opcode->format = kv3_MAU_FDD;
-        ctx->cur_opcode->insn = kv3_FIXEDUD;
-        return trans_v2_FIXEDUD_rounding_silent_registerW_registerZ_unsigned6_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
-      default:
-        break;
-      }
-      return false;
-    case 0x00000008:
-      switch ((codeWord_0 >> 16) & 0x00000003) {
-      case 0x00000000:
+        switch ((codeWord_0 >> 24) & 0x00000001) {
+        case 0x00000000:
+          decode_kv3_registerW_kv3_registerZ_kv3_signed10(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
+          ctx->cur_opcode->format = kv3_MAU_DPI;
+          ctx->cur_opcode->insn = kv3_DOT2SUWD;
+          return trans_v2_DOT2SUWD_registerW_registerZ_signed10_simple(ctx, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
+        case 0x00000001:
+          decode_kv3_registerW_kv3_registerZ_kv3_signed10(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
+          ctx->cur_opcode->format = kv3_MAU_DPI;
+          ctx->cur_opcode->insn = kv3_DOT2W;
+          return trans_v2_DOT2W_registerW_registerZ_signed10_simple(ctx, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
+          break;
+        }
+        return false;
+      case 0x00000001:
         switch ((codeWord_0 >> 18) & 0x00000001) {
         case 0x00000000:
-          decode_kv3_registerM_kv3_registerZ_kv3_signed10(ctx, codeWords, &u.kv3_registerM_kv3_registerZ_kv3_signed10);
-          ctx->cur_opcode->format = kv3_MAU_QQDI;
-          ctx->cur_opcode->insn = kv3_MADDDT;
-          return trans_v2_MADDDT_registerM_registerZ_signed10_simple(ctx, &u.kv3_registerM_kv3_registerZ_kv3_signed10);
+          switch ((codeWord_0 >> 24) & 0x00000001) {
+          case 0x00000000:
+            decode_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerZ_kv3_registerY(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerM_kv3_registerZ_kv3_registerY);
+            ctx->cur_opcode->format = kv3_MAU_FMMAS;
+            ctx->cur_opcode->insn = v2_FMMA212W;
+            return trans_v2_FMMA212W_rounding_silent_registerM_registerZ_registerY_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerM_kv3_registerZ_kv3_registerY);
+          case 0x00000001:
+            decode_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerZ_kv3_registerY(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerM_kv3_registerZ_kv3_registerY);
+            ctx->cur_opcode->format = kv3_MAU_FMMAS;
+            ctx->cur_opcode->insn = v2_FMMS212W;
+            return trans_v2_FMMS212W_rounding_silent_registerM_registerZ_registerY_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerM_kv3_registerZ_kv3_registerY);
+            break;
+          }
+          return false;
+        default:
+          break;
+        }
+        return false;
+      case 0x00000002:
+        switch ((codeWord_0 >> 24) & 0x00000001) {
+        case 0x00000000:
+          decode_kv3_multransm_multransl_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerP_kv3_registerO(ctx, codeWords, &u.kv3_multransm_multransl_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerP_kv3_registerO);
+          ctx->cur_opcode->format = kv3_MAU_FMMAP;
+          ctx->cur_opcode->insn = kv3_FMMA222W;
+          return trans_v2_FMMA222W_multransm_multransl_rounding_silent_registerM_registerP_registerO_simple(ctx, &u.kv3_multransm_multransl_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerP_kv3_registerO);
         case 0x00000001:
-          decode_kv3_registerM_kv3_registerZ_kv3_signed10(ctx, codeWords, &u.kv3_registerM_kv3_registerZ_kv3_signed10);
-          ctx->cur_opcode->format = kv3_MAU_QDI;
-          ctx->cur_opcode->insn = kv3_MULDT;
-          return trans_v2_MULDT_registerM_registerZ_signed10_simple(ctx, &u.kv3_registerM_kv3_registerZ_kv3_signed10);
+          decode_kv3_multransm_multransl_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerP_kv3_registerO(ctx, codeWords, &u.kv3_multransm_multransl_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerP_kv3_registerO);
+          ctx->cur_opcode->format = kv3_MAU_FMMAP;
+          ctx->cur_opcode->insn = kv3_FMMS222W;
+          return trans_v2_FMMS222W_multransm_multransl_rounding_silent_registerM_registerP_registerO_simple(ctx, &u.kv3_multransm_multransl_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerP_kv3_registerO);
           break;
         }
         return false;
       case 0x00000003:
-        decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
-        ctx->cur_opcode->format = kv3_MAU_FDD;
-        ctx->cur_opcode->insn = kv3_FLOATW;
-        return trans_v2_FLOATW_rounding_silent_registerW_registerZ_unsigned6_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
-      default:
-        break;
-      }
-      return false;
-    case 0x00000009:
-      switch ((codeWord_0 >> 16) & 0x00000003) {
-      case 0x00000000:
-        switch ((codeWord_0 >> 18) & 0x00000001) {
+        switch ((codeWord_0 >> 24) & 0x00000001) {
         case 0x00000000:
-          decode_kv3_registerM_kv3_registerZ_kv3_signed10(ctx, codeWords, &u.kv3_registerM_kv3_registerZ_kv3_signed10);
-          ctx->cur_opcode->format = kv3_MAU_QQDI;
-          ctx->cur_opcode->insn = kv3_MADDUDT;
-          return trans_v2_MADDUDT_registerM_registerZ_signed10_simple(ctx, &u.kv3_registerM_kv3_registerZ_kv3_signed10);
+          decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
+          ctx->cur_opcode->format = kv3_MAU_FDD;
+          ctx->cur_opcode->insn = kv3_FIXEDWP;
+          return trans_v2_FIXEDWP_rounding_silent_registerW_registerZ_unsigned6_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
         case 0x00000001:
-          decode_kv3_registerM_kv3_registerZ_kv3_signed10(ctx, codeWords, &u.kv3_registerM_kv3_registerZ_kv3_signed10);
-          ctx->cur_opcode->format = kv3_MAU_QDI;
-          ctx->cur_opcode->insn = kv3_MULUDT;
-          return trans_v2_MULUDT_registerM_registerZ_signed10_simple(ctx, &u.kv3_registerM_kv3_registerZ_kv3_signed10);
+          decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
+          ctx->cur_opcode->format = kv3_MAU_FDD;
+          ctx->cur_opcode->insn = kv3_FIXEDUWP;
+          return trans_v2_FIXEDUWP_rounding_silent_registerW_registerZ_unsigned6_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
           break;
         }
         return false;
-      case 0x00000003:
-        decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
-        ctx->cur_opcode->format = kv3_MAU_FDD;
-        ctx->cur_opcode->insn = kv3_FLOATUW;
-        return trans_v2_FLOATUW_rounding_silent_registerW_registerZ_unsigned6_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
-      default:
         break;
       }
       return false;
-    case 0x0000000a:
-      switch ((codeWord_0 >> 16) & 0x00000003) {
-      case 0x00000000:
-        switch ((codeWord_0 >> 18) & 0x00000001) {
-        case 0x00000000:
-          decode_kv3_registerM_kv3_registerZ_kv3_signed10(ctx, codeWords, &u.kv3_registerM_kv3_registerZ_kv3_signed10);
-          ctx->cur_opcode->format = kv3_MAU_QQDI;
-          ctx->cur_opcode->insn = kv3_MADDSUDT;
-          return trans_v2_MADDSUDT_registerM_registerZ_signed10_simple(ctx, &u.kv3_registerM_kv3_registerZ_kv3_signed10);
-        case 0x00000001:
-          decode_kv3_registerM_kv3_registerZ_kv3_signed10(ctx, codeWords, &u.kv3_registerM_kv3_registerZ_kv3_signed10);
-          ctx->cur_opcode->format = kv3_MAU_QDI;
-          ctx->cur_opcode->insn = kv3_MULSUDT;
-          return trans_v2_MULSUDT_registerM_registerZ_signed10_simple(ctx, &u.kv3_registerM_kv3_registerZ_kv3_signed10);
-          break;
-        }
-        return false;
-      case 0x00000003:
-        decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
-        ctx->cur_opcode->format = kv3_MAU_FDD;
-        ctx->cur_opcode->insn = kv3_FIXEDW;
-        return trans_v2_FIXEDW_rounding_silent_registerW_registerZ_unsigned6_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
-      default:
-        break;
-      }
-      return false;
-    case 0x0000000b:
-      switch ((codeWord_0 >> 16) & 0x00000003) {
-      case 0x00000000:
-        switch ((codeWord_0 >> 18) & 0x00000001) {
-        case 0x00000000:
-          decode_kv3_registerM_kv3_registerZ_kv3_signed10(ctx, codeWords, &u.kv3_registerM_kv3_registerZ_kv3_signed10);
-          ctx->cur_opcode->format = kv3_MAU_QQDI;
-          ctx->cur_opcode->insn = kv3_MADDUZDT;
-          return trans_v2_MADDUZDT_registerM_registerZ_signed10_simple(ctx, &u.kv3_registerM_kv3_registerZ_kv3_signed10);
-        case 0x00000001:
-          decode_kv3_registerM_kv3_registerZ_kv3_signed10(ctx, codeWords, &u.kv3_registerM_kv3_registerZ_kv3_signed10);
-          ctx->cur_opcode->format = kv3_MAU_QDI;
-          ctx->cur_opcode->insn = kv3_CMULDT;
-          return trans_v2_CMULDT_registerM_registerZ_signed10_simple(ctx, &u.kv3_registerM_kv3_registerZ_kv3_signed10);
-          break;
-        }
-        return false;
-      case 0x00000003:
-        decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
-        ctx->cur_opcode->format = kv3_MAU_FDD;
-        ctx->cur_opcode->insn = kv3_FIXEDUW;
-        return trans_v2_FIXEDUW_rounding_silent_registerW_registerZ_unsigned6_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
-      default:
-        break;
-      }
-      return false;
-    case 0x0000000c:
-      switch ((codeWord_0 >> 16) & 0x00000003) {
-      case 0x00000000:
-        decode_kv3_registerW_kv3_registerZ_kv3_signed10(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
-        ctx->cur_opcode->format = kv3_MAU_DPI;
-        ctx->cur_opcode->insn = kv3_DOT2WD;
-        return trans_v2_DOT2WD_registerW_registerZ_signed10_simple(ctx, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
-      case 0x00000003:
-        decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
-        ctx->cur_opcode->format = kv3_MAU_FDD;
-        ctx->cur_opcode->insn = kv3_FLOATWP;
-        return trans_v2_FLOATWP_rounding_silent_registerW_registerZ_unsigned6_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
-      default:
-        break;
-      }
-      return false;
-    case 0x0000000d:
-      switch ((codeWord_0 >> 16) & 0x00000003) {
-      case 0x00000000:
-        decode_kv3_registerW_kv3_registerZ_kv3_signed10(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
-        ctx->cur_opcode->format = kv3_MAU_DPI;
-        ctx->cur_opcode->insn = kv3_DOT2UWD;
-        return trans_v2_DOT2UWD_registerW_registerZ_signed10_simple(ctx, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
-      case 0x00000003:
-        decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
-        ctx->cur_opcode->format = kv3_MAU_FDD;
-        ctx->cur_opcode->insn = kv3_FLOATUWP;
-        return trans_v2_FLOATUWP_rounding_silent_registerW_registerZ_unsigned6_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
-      default:
-        break;
-      }
-      return false;
-    case 0x0000000e:
-      switch ((codeWord_0 >> 16) & 0x00000003) {
-      case 0x00000000:
-        decode_kv3_registerW_kv3_registerZ_kv3_signed10(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
-        ctx->cur_opcode->format = kv3_MAU_DPI;
-        ctx->cur_opcode->insn = kv3_DOT2SUWD;
-        return trans_v2_DOT2SUWD_registerW_registerZ_signed10_simple(ctx, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
-      case 0x00000003:
-        decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
-        ctx->cur_opcode->format = kv3_MAU_FDD;
-        ctx->cur_opcode->insn = kv3_FIXEDWP;
-        return trans_v2_FIXEDWP_rounding_silent_registerW_registerZ_unsigned6_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
-      default:
-        break;
-      }
-      return false;
-    case 0x0000000f:
-      switch ((codeWord_0 >> 16) & 0x00000003) {
-      case 0x00000000:
-        decode_kv3_registerW_kv3_registerZ_kv3_signed10(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
-        ctx->cur_opcode->format = kv3_MAU_DPI;
-        ctx->cur_opcode->insn = kv3_DOT2W;
-        return trans_v2_DOT2W_registerW_registerZ_signed10_simple(ctx, &u.kv3_registerW_kv3_registerZ_kv3_signed10);
-      case 0x00000003:
-        decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
-        ctx->cur_opcode->format = kv3_MAU_FDD;
-        ctx->cur_opcode->insn = kv3_FIXEDUWP;
-        return trans_v2_FIXEDUWP_rounding_silent_registerW_registerZ_unsigned6_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_unsigned6);
-      default:
-        break;
-      }
-      return false;
-    default:
       break;
     }
     return false;
@@ -20876,11 +21424,7 @@ bool decode_v2_simple(DisasContext *ctx, const uint32_t *buffer)
           ctx->cur_opcode->format = kv3_MAU_FQQDD;
           ctx->cur_opcode->insn = v2_FFMSWDP;
           return trans_v2_FFMSWDP_rounding_silent_registerM_registerZ_registerY_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerM_kv3_registerZ_kv3_registerY);
-        case 0x00000001:
-          decode_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerZ_kv3_registerY(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerM_kv3_registerZ_kv3_registerY);
-          ctx->cur_opcode->format = kv3_MAU_FQDD;
-          ctx->cur_opcode->insn = v2_FMULWDC;
-          return trans_v2_FMULWDC_rounding_silent_registerM_registerZ_registerY_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerM_kv3_registerZ_kv3_registerY);
+        default:
           break;
         }
         return false;
@@ -20927,11 +21471,7 @@ bool decode_v2_simple(DisasContext *ctx, const uint32_t *buffer)
           ctx->cur_opcode->format = kv3_MAU_FQQDD;
           ctx->cur_opcode->insn = v2_FFMSHWQ;
           return trans_v2_FFMSHWQ_rounding_silent_registerM_registerZ_registerY_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerM_kv3_registerZ_kv3_registerY);
-        case 0x00000001:
-          decode_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerZ_kv3_registerY(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerM_kv3_registerZ_kv3_registerY);
-          ctx->cur_opcode->format = kv3_MAU_FQDD;
-          ctx->cur_opcode->insn = v2_FMULCWDC;
-          return trans_v2_FMULCWDC_rounding_silent_registerM_registerZ_registerY_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerM_kv3_registerZ_kv3_registerY);
+        default:
           break;
         }
         return false;
@@ -20981,21 +21521,7 @@ bool decode_v2_simple(DisasContext *ctx, const uint32_t *buffer)
         ctx->cur_opcode->format = kv3_MAU_FDDD1;
         ctx->cur_opcode->insn = v2_FSBFD;
         return trans_v2_FSBFD_rounding_silent_registerW_registerZ_registerY_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY);
-      case 0x00000003:
-        switch ((codeWord_0 >> 18) & 0x00000001) {
-        case 0x00000000:
-          decode_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerZ_kv3_registerY(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerM_kv3_registerZ_kv3_registerY);
-          ctx->cur_opcode->format = kv3_MAU_FQQDD;
-          ctx->cur_opcode->insn = kv3_FMMA212W;
-          return trans_v2_FMMA212W_rounding_silent_registerM_registerZ_registerY_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerM_kv3_registerZ_kv3_registerY);
-        case 0x00000001:
-          decode_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerZ_kv3_registerY(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerM_kv3_registerZ_kv3_registerY);
-          ctx->cur_opcode->format = kv3_MAU_FQDD;
-          ctx->cur_opcode->insn = kv3_FMM212W;
-          return trans_v2_FMM212W_rounding_silent_registerM_registerZ_registerY_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerM_kv3_registerZ_kv3_registerY);
-          break;
-        }
-        return false;
+      default:
         break;
       }
       return false;
@@ -21101,16 +21627,12 @@ bool decode_v2_simple(DisasContext *ctx, const uint32_t *buffer)
         return trans_v2_FSBFHQ_rounding_silent_registerW_registerZ_registerY_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY);
       case 0x00000003:
         switch ((codeWord_0 >> 18) & 0x00000001) {
-        case 0x00000000:
-          decode_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerZ_kv3_registerY(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerM_kv3_registerZ_kv3_registerY);
-          ctx->cur_opcode->format = kv3_MAU_FQQDD;
-          ctx->cur_opcode->insn = kv3_FMMS212W;
-          return trans_v2_FMMS212W_rounding_silent_registerM_registerZ_registerY_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerM_kv3_registerZ_kv3_registerY);
         case 0x00000001:
           decode_kv3_rounding_kv3_silent_kv3_registerM_kv3_registerP_kv3_registerO(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerM_kv3_registerP_kv3_registerO);
           ctx->cur_opcode->format = kv3_MAU_FQQQ2;
           ctx->cur_opcode->insn = kv3_FADDHO;
           return trans_v2_FADDHO_rounding_silent_registerM_registerP_registerO_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerM_kv3_registerP_kv3_registerO);
+        default:
           break;
         }
         return false;
@@ -21598,11 +22120,6 @@ bool decode_v2_simple(DisasContext *ctx, const uint32_t *buffer)
           break;
         }
         return false;
-      case 0x00000001:
-        decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY);
-        ctx->cur_opcode->format = kv3_MAU_FDDD;
-        ctx->cur_opcode->insn = v2_FMULWC;
-        return trans_v2_FMULWC_rounding_silent_registerW_registerZ_registerY_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY);
       case 0x00000002:
         decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY);
         ctx->cur_opcode->format = kv3_MAU_FSSS;
@@ -21623,6 +22140,7 @@ bool decode_v2_simple(DisasContext *ctx, const uint32_t *buffer)
           break;
         }
         return false;
+      default:
         break;
       }
       return false;
@@ -21664,11 +22182,6 @@ bool decode_v2_simple(DisasContext *ctx, const uint32_t *buffer)
           break;
         }
         return false;
-      case 0x00000001:
-        decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY);
-        ctx->cur_opcode->format = kv3_MAU_FDDD;
-        ctx->cur_opcode->insn = v2_FMULCWC;
-        return trans_v2_FMULCWC_rounding_silent_registerW_registerZ_registerY_simple(ctx, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY);
       case 0x00000002:
         decode_kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY(ctx, codeWords, &u.kv3_rounding_kv3_silent_kv3_registerW_kv3_registerZ_kv3_registerY);
         ctx->cur_opcode->format = kv3_MAU_FSSS;
@@ -21685,6 +22198,7 @@ bool decode_v2_simple(DisasContext *ctx, const uint32_t *buffer)
           break;
         }
         return false;
+      default:
         break;
       }
       return false;
@@ -23661,7 +24175,7 @@ bool decode_v2_simple(DisasContext *ctx, const uint32_t *buffer)
         }
         return false;
       case 0x0000000f:
-        switch ((codeWord_0 >> 24) & 0x00000007) {
+        switch ((codeWord_0 >> 25) & 0x00000007) {
         case 0x00000000:
           decode_kv3_channel_kv3_registerA(ctx, codeWords, &u.kv3_channel_kv3_registerA);
           ctx->cur_opcode->format = kv3_ALU_CSC;
@@ -23673,7 +24187,7 @@ bool decode_v2_simple(DisasContext *ctx, const uint32_t *buffer)
           ctx->cur_opcode->insn = kv3_RECVV;
           return trans_v2_RECVV_channel_registerA_simple(ctx, &u.kv3_channel_kv3_registerA);
         case 0x00000007:
-          switch ((codeWord_0 >> 27) & 0x00000001) {
+          switch ((codeWord_0 >> 24) & 0x00000001) {
           case 0x00000001:
             ctx->cur_opcode->format = kv3_ALU_NOP;
             ctx->cur_opcode->insn = kv3_NOP;

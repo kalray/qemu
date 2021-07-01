@@ -160,4 +160,18 @@ enum Modifier_kv3_channel {
     CHANNEL_B = 1,
 };
 
+typedef enum Modifier_kv3_conjugate Modifier_kv3_conjugate;
+enum Modifier_kv3_conjugate {
+    CONJUGATE_EMPTY = 0,
+    CONJUGATE_C = 1,
+};
+
+typedef enum Modifier_kv3_transpose Modifier_kv3_transpose;
+enum Modifier_kv3_transpose {
+    TRANSPOSE_EMPTY = 0,
+    TRANSPOSE_TN = 1,
+    TRANSPOSE_NT = 2,
+    TRANSPOSE_TT = 3,
+};
+
 #endif
