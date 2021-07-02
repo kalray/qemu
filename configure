@@ -4488,13 +4488,11 @@ EOF
 
     if test x"$lao_prefix" != x"" ; then
         lao_cflags="-Wno-error -I$lao_prefix/kalray_internal/include -I$lao_prefix/kalray_internal/include/lao"
-        lao_libs="-L$lao_prefix/lib/lao -lBSL"
-        lao_ldflags="$QEMU_LDFLAGS -Wl,-rpath=\\\$\$ORIGIN/../lib/lao:$lao_prefix/lib/lao"
+        lao_lib_dir="$lao_prefix/lib/lao"
     fi
 
-    if compile_prog "$lao_cflags" "$lao_libs"; then
+    if compile_prog "$lao_cflags" "-L$lao_lib_dir -lBSL"; then
         lao=yes
-        QEMU_LDFLAGS="$lao_ldflags"
     else
         error_exit "LAO is required to build the kvx-softmmu target but was not found.
 Specify LAO prefix with --with-lao="
@@ -4736,6 +4734,7 @@ if test "$lao" = "yes"; then
   echo "CONFIG_LAO=y" >> $config_host_mak
   echo "LAO_CFLAGS=$lao_cflags" >> $config_host_mak
   echo "LAO_LIBS=$lao_libs" >> $config_host_mak
+  echo "LAO_LIB_DIR=$lao_lib_dir" >> $config_host_mak
 fi
 
 # XXX: suppress that
