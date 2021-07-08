@@ -110,6 +110,7 @@ enum {
     MPPA_CLUSTER_ITGEN1,
     MPPA_CLUSTER_DDR,
     MPPA_CLUSTER_DDR_32BITS_ALIAS,
+    MPPA_CLUSTER_L2_CTRL,
 
     MPPA_CLUSTER_CORE_INTC,
     MPPA_CLUSTER_CORE_TIMER,
@@ -146,6 +147,13 @@ static void fdt_node_cpu(MachineState *m, void *fdt,
         qemu_fdt_setprop_cell(fdt, node, "power-controller",
                               periph_fdt_get_phandle(MPPA_CLUSTER_PWR_CTRL));
     }
+}
+
+static void fdt_node_l2_cache(MachineState *m, void *fdt,
+                              const char *node, size_t id, int idx)
+{
+    qemu_fdt_setprop(fdt, node, "kalray,is-qemu", NULL, 0);
+    qemu_fdt_setprop_string(fdt, node, "status", "disabled");
 }
 
 static const PeriphEntry mppa_cluster_periphs[] = {
@@ -557,6 +565,14 @@ static const PeriphEntry mppa_cluster_periphs[] = {
             .valid = true,
             .parent = MPPA_CLUSTER_CORE_INTC,
             .mapping = IRQS( IRQ(24) ),
+        },
+    },
+
+    [MPPA_CLUSTER_L2_CTRL] = {
+        .fdt = {
+            .node = "/l2_cache",
+            .compatible = "kalray,kvx-l2-cache",
+            .cb = fdt_node_l2_cache,
         },
     },
 
