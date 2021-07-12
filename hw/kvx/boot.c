@@ -242,7 +242,8 @@ static void setup_argarea(KvxBootInfo *info)
         ? sizeof(MppaArgArea64)
         : sizeof(MppaArgArea32);
 
-    argv_size = (num_args + 1) * (info->kernel_is_64bits
+    /* num_args + 2 -> one for argv[0], and one for the NULL termination */
+    argv_size = (num_args + 2) * (info->kernel_is_64bits
                                   ? sizeof(uint64_t)
                                   : sizeof(uint32_t));
 
