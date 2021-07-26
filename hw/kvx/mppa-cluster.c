@@ -628,16 +628,17 @@ static const PeriphEntry mppa_cluster_periphs[] = {
 static void mppa_cluster_rm_reset(void *opaque)
 {
     CPUState *cpu = CPU(opaque);
+    CPUKVXState *env = &KVX_CPU(cpu)->env;
     MppaClusterMachineState *s = MPPA_CLUSTER(qdev_get_machine());
 
     cpu_reset(cpu);
 
     if (s->boot_info.kernel_loaded) {
         cpu_set_pc(cpu, s->boot_info.kernel_entry);
+        kvx_register_write_field(env, PS, V64, 1);
     }
 
     if (s->boot_info.fdt) {
-        CPUKVXState *env = &KVX_CPU(cpu)->env;
         kvx_register_write_u64(env, REG_kv3_R0, MPPA_CLUSTER_LINUX_BOOT_MAGIC);
         kvx_register_write_u64(env, REG_kv3_R1, s->boot_info.dtb_load_addr);
     }
