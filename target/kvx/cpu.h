@@ -65,11 +65,8 @@ struct CPUKVXState {
     /* Used by helpers that need to return more than 64 bits */
     uint64_t scratch[4];
 
-    /*
-     * Last le register value (indexed by mmu_index value).
-     * Used to invalidate the corresponding TB
-     */
-    target_ulong prev_le[16];
+    /* LE was written since last call to update_hardware_loop */
+    bool le_is_dirty;
 
     /*
      * Filled when raising an exception. Used by kvx_cpu_do_interrupt to build

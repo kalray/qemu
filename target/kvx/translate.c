@@ -42,9 +42,10 @@ static void kvx_tr_init_disas_context(DisasContextBase *dcbase, CPUState *cs)
     ctx->wu = FIELD_EX64(ctx->base.tb->flags, TB_STATE, WU);
     ctx->arith_irq_enabled = FIELD_EX64(ctx->base.tb->flags, TB_STATE, ARITH_IRQ);
     ctx->cs_mask = 0;
+    ctx->jump_cond_flag_valid = false;
 
     if (ctx->gen_hardware_loop) {
-        ctx->hardware_loop_pc = env->prev_le[ctx->mem_index];
+        ctx->hardware_loop_pc = kvx_register_read_u64(env, REG_kv3_LE);
     }
 
     ctx->step_mode_enabled = FIELD_EX64(ctx->base.tb->flags, TB_STATE, SME);
@@ -75,8 +76,6 @@ static void kvx_tr_insn_start(DisasContextBase *dcbase, CPUState *cpu)
 
 static inline void gen_hardware_loop(DisasContext *ctx)
 {
-    TCGv_i64 lc, ls, dec, zero;
-
     if (!ctx->gen_hardware_loop) {
         return;
     }
@@ -85,36 +84,25 @@ static inline void gen_hardware_loop(DisasContext *ctx)
         return;
     }
 
-    lc = tcg_temp_new_i64();
-    gen_load_register(ctx, lc, REG_kv3_LC);
+    TCGv_i64 hw_loop_pc = tcg_const_i64(ctx->hardware_loop_pc);
 
-    /* Decrement lc only if it's not 0 */
-    zero = tcg_const_i64(0);
-    dec = tcg_const_i64(1);
-    tcg_gen_movcond_i64(TCG_COND_EQ, dec, lc, zero, zero, dec);
-    tcg_temp_free_i64(zero);
+    if (ctx->jump_cond_flag_valid) {
+        gen_helper_check_hw_loop(cpu_env, hw_loop_pc, ctx->jump_cond_flag);
+        tcg_temp_free_i64(ctx->jump_cond_flag);
+        ctx->jump_cond_flag_valid = false;
+    } else {
+        TCGv_i64 tcg_skip_jmp;
+        bool skip_jmp;
 
-    tcg_gen_sub_i64(lc, lc, dec);
-    tcg_temp_free_i64(dec);
-
-    gen_store_register_no_delay(ctx, lc, REG_kv3_LC);
-    tcg_temp_free_i64(lc);
-
-    /*
-     * If we have a branch in the current bundle, the hardware loop jump is not
-     * generated, but lc is still decremented.
-     * Note: if the branch is conditional, PC's value defaults to ls if the
-     * condition is false. This is taken care of by gen_store_next_default_pc()
-     * and does not need to be handled here.
-     */
-    if (ctx->base.is_jmp != DISAS_EXIT) {
-        ls = tcg_temp_new_i64();
-        gen_load_register(ctx, ls, REG_kv3_LS);
-        gen_store_register_no_delay(ctx, ls, REG_kv3_PC);
-        tcg_temp_free_i64(ls);
-
-        end_tb(ctx, DISAS_EXIT);
+        skip_jmp = (ctx->base.is_jmp == DISAS_JUMP) || (ctx->base.is_jmp == DISAS_EXIT);
+        tcg_skip_jmp = tcg_const_i64(skip_jmp);
+        gen_helper_check_hw_loop(cpu_env, hw_loop_pc, tcg_skip_jmp);
+        tcg_temp_free_i64(tcg_skip_jmp);
     }
+
+    end_tb(ctx, DISAS_EXIT);
+
+    tcg_temp_free_i64(hw_loop_pc);
 }
 
 static void check_arithmetic_irq(DisasContext *ctx)

@@ -875,3 +875,46 @@ void HELPER(check_atomic_access)(CPUKVXState *env, uint64_t addr,
         kvx_raise_exception(env, KVX_EXCP_HW_TRAP, 0);
     }
 }
+
+/*
+ * Hardware loop helper. Called when the translator encoutered the last bundle
+ * of an hardware loop. We must check dynamically if LE still match this
+ * hardware loop.
+ *
+ * @param hw_loop_pc  PC of the end of the loop (the first bundle after the loop)
+ * @param skip_jmp  If true, the helper should not write PC. It means that a
+ *                  jump is present in the last bundle of the loop. If false,
+ *                  the helper must write PC, even if the loop condition is
+ *                  false (the TB is ended with DISAS_EXIT).
+ */
+void HELPER(check_hw_loop)(CPUKVXState *env, uint64_t hw_loop_pc, uint64_t skip_jmp)
+{
+    uint64_t le = kvx_register_read_u64(env, REG_kv3_LE);
+    uint64_t lc, ls;
+
+    if (le != hw_loop_pc) {
+        if (!skip_jmp) {
+            /*
+             * hw_loop_pc is also the next bundle PC. When this generated
+             * hardware loop does not match the current LE value, but skip_jmp
+             * is false, we must set PC to the next bundle.
+             */
+            kvx_register_write_u64(env, REG_kv3_PC, hw_loop_pc);
+        }
+        return;
+    }
+
+    lc = kvx_register_read_u64(env, REG_kv3_LC);
+
+    if (lc) {
+        /* LC is only decremented when not 0 */
+        kvx_register_write_u64(env, REG_kv3_LC, lc - 1);
+    }
+
+    if (skip_jmp) {
+        return;
+    }
+
+    ls = kvx_register_read_u64(env, REG_kv3_LS);
+    kvx_register_write_u64(env, REG_kv3_PC, ls);
+}

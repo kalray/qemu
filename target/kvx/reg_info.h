@@ -130,15 +130,12 @@ static const RegisterInfo REG_INFO[] = {
         .addr_store_mask = STORE_MASK_PC,
     },
 
-    /* Hardware Loop registers (Start, Exit, Count) */
+    /* Hardware Loop registers (start, end) */
     [REG_kv3_LS] = {
         .addr_store_mask = STORE_MASK_PC,
     },
     [REG_kv3_LE] = {
         .addr_store_mask = STORE_MASK_PC,
-        .write = kvx_reg_write_lc_le,
-    },
-    [REG_kv3_LC] = {
         .write = kvx_reg_write_lc_le,
     },
 

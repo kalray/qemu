@@ -11,6 +11,8 @@ DEF_HELPER_1(check_step_mode_ready, void, env)
 
 DEF_HELPER_3(check_arith_irq, void, env, i64, i64)
 
+DEF_HELPER_3(check_hw_loop, void, env, i64, i64)
+
 DEF_HELPER_2(test_stop_owner, i64, env, i64)
 DEF_HELPER_2(test_syncgroup_owner, i64, env, i64)
 DEF_HELPER_2(test_mmi_owner, i64, env, i64)

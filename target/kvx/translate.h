@@ -145,6 +145,8 @@ typedef struct DisasContext {
     bool hardware_loop_enabled;
     bool gen_hardware_loop;
     target_ulong hardware_loop_pc;
+    TCGv_i64 jump_cond_flag;
+    bool jump_cond_flag_valid;
 
     bool v64;
     uint8_t wu;
@@ -748,28 +750,6 @@ static inline void store_buffer_push_imm(DisasContext *ctx, uint64_t val,
     store_buffer_entry_add_val_imm(entry, val);
 }
 
-
-
-/*
- * Store to PC its next value if a conditional jump is not taken. Usually,
- * it is the next bundle PC, but can be the hardware loop start PC value if we
- * are in an hardware loop context and lc matches the next bundle address.
- */
-static inline void gen_store_next_default_pc(DisasContext *ctx)
-{
-    if (ctx->gen_hardware_loop &&
-        ctx->next_bundle_pc == ctx->hardware_loop_pc) {
-        TCGv_i64 ls;
-
-        ls = tcg_temp_new_i64();
-        gen_load_register(ctx, ls, REG_kv3_LS);
-        gen_store_register_no_delay(ctx, ls, REG_kv3_PC);
-        tcg_temp_free_i64(ls);
-    } else {
-        gen_save_pc(ctx, ctx->next_bundle_pc);
-    }
-}
-
 static inline bool store_buffer_do_pc_imm_entry(DisasContext *ctx,
                                                 StoreBufferEntry *entry)
 {
@@ -836,7 +816,15 @@ static inline void store_buffer_do_entry(DisasContext *ctx, StoreBufferEntry *en
     if (entry->cond) {
         skip = gen_new_label();
         tcg_gen_brcondi_i64(TCG_COND_EQ, entry->valid, 0, skip);
-        tcg_temp_free_i64(entry->valid);
+
+        if (is_pc && ctx->gen_hardware_loop
+            && ctx->next_bundle_pc == ctx->hardware_loop_pc) {
+            /* Keep the condition flag to feed it to the hardware loop helper */
+            ctx->jump_cond_flag = entry->valid;
+            ctx->jump_cond_flag_valid = true;
+        } else {
+            tcg_temp_free_i64(entry->valid);
+        }
     }
 
     info.access_size = MIN(info.access_size, 64);
@@ -859,7 +847,7 @@ static inline void store_buffer_do_entry(DisasContext *ctx, StoreBufferEntry *en
             end = gen_new_label();
             tcg_gen_br(end);
             gen_set_label(skip);
-            gen_store_next_default_pc(ctx);
+            gen_save_pc(ctx, ctx->next_bundle_pc);
             gen_set_label(end);
         } else {
             gen_set_label(skip);

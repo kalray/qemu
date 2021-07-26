@@ -736,38 +736,17 @@ static void tb_invalidate_bundle(CPUKVXState *env, target_ulong vaddr)
 
 static void update_hardware_loop(CPUKVXState *env)
 {
-    uint64_t le;
-    int mmu_idx;
 
     if (!kvx_in_hardware_loop_ctx(env)) {
         return;
     }
 
-    mmu_idx = kvx_cpu_mmu_index(env, true);
-    le = kvx_register_read_u64(env, REG_kv3_LE);
+    if (env->le_is_dirty) {
+        uint64_t le = kvx_register_read_u64(env, REG_kv3_LE);
 
-    if (le != env->prev_le[mmu_idx]) {
-        /*
-         * When the le value changes, we must invalidate TBs corresponding to
-         * the old and new value of le. We take "le - 4" because the actual
-         * hardware loop handling code is generated at the end of the bundle
-         * just before le.
-         *
-         * Note: le == 0 is not a valid value and means that hardware loops are
-         * disabled.
-         */
-
-        if (env->prev_le[mmu_idx] != 0) {
-            tb_invalidate_bundle(env, env->prev_le[mmu_idx] - 4);
-        }
-
-        if (le != 0) {
-            tb_invalidate_bundle(env, le - 4);
-        }
-
-        env->prev_le[mmu_idx] = le;
+        tb_invalidate_bundle(env, le - 4);
+        env->le_is_dirty = false;
     }
-
 }
 
 void kvx_update_cpu_state(CPUKVXState *env, uint64_t ps_mask, uint64_t sps_mask)
@@ -910,6 +889,7 @@ void kvx_reg_write_csit(KVXCPU *cpu, Register reg, uint64_t val)
 void kvx_reg_write_lc_le(KVXCPU *cpu, Register reg, uint64_t val)
 {
     kvx_register_write_u64(&cpu->env, reg, val);
+    cpu->env.le_is_dirty = true;
     update_hardware_loop(&cpu->env);
 }
 

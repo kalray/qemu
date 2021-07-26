@@ -213,8 +213,7 @@ static void kvx_cpu_reset(DeviceState *dev)
     }
 
     kvx_register_write_field(env, PCR, PID, cpu->cfg.pid);
-
-    memset(env->prev_le, 0, sizeof(env->prev_le));
+    env->le_is_dirty = false;
 }
 
 static void kvx_cpu_init(Object *obj)
