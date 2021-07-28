@@ -759,15 +759,15 @@ void kvx_update_cpu_state(CPUKVXState *env, uint64_t ps_mask, uint64_t sps_mask)
     prev_ps = cur_ps ^ ps_mask;
 
     cur_sps = kvx_register_read_aliased_u64(env, REG_kv3_SPS);
-    prev_sps = cur_sps ^ cur_sps;
+    prev_sps = cur_sps ^ sps_mask;
 
     prev_mmu_ps = KVX_FIELD_EX64(prev_ps, kv3_PS, DAUS)
-        ? prev_ps
-        : prev_sps;
+        ? prev_sps
+        : prev_ps;
 
     cur_mmu_ps = KVX_FIELD_EX64(cur_ps, kv3_PS, DAUS)
-        ? cur_ps
-        : cur_sps;
+        ? cur_sps
+        : cur_ps;
 
     if ((prev_mmu_ps ^ cur_mmu_ps) & KVX_FIELD_MASK(kv3_PS, MME)) {
         tlb_flush(env_cpu(env));
