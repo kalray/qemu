@@ -38,7 +38,7 @@ static void kvx_tr_init_disas_context(DisasContextBase *dcbase, CPUState *cs)
     ctx->bundle.len = 0;
     ctx->hardware_loop_enabled = kvx_hardware_loop_enabled(env);
     ctx->gen_hardware_loop = kvx_in_hardware_loop_ctx(env);
-    ctx->v64 = FIELD_EX64(ctx->base.tb->flags, TB_STATE, MMU_IDX_V64);
+    ctx->v64 = FIELD_EX64(ctx->base.tb->flags, TB_STATE, V64);
     ctx->wu = FIELD_EX64(ctx->base.tb->flags, TB_STATE, WU);
     ctx->arith_irq_enabled = FIELD_EX64(ctx->base.tb->flags, TB_STATE, ARITH_IRQ);
     ctx->cs_mask = 0;

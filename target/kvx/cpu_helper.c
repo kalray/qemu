@@ -769,7 +769,7 @@ void kvx_update_cpu_state(CPUKVXState *env, uint64_t ps_mask, uint64_t sps_mask)
         ? cur_sps
         : cur_ps;
 
-    if ((prev_mmu_ps ^ cur_mmu_ps) & KVX_FIELD_MASK(kv3_PS, MME)) {
+    if ((prev_mmu_ps ^ cur_mmu_ps) & KVX_FIELD_MASK(kv3_PS, V64)) {
         tlb_flush(env_cpu(env));
     }
 

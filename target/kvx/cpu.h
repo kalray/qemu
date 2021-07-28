@@ -470,7 +470,7 @@ static inline bool kvx_step_mode_enabled(CPUKVXState *env)
 FIELD(TB_STATE, MMU_IDX, 0, 4)
 FIELD(TB_STATE, MMU_IDX_MMUP, 0, 1)
 FIELD(TB_STATE, MMU_IDX_VS, 1, 2)
-FIELD(TB_STATE, MMU_IDX_V64, 3, 1)
+FIELD(TB_STATE, MMU_IDX_MME, 3, 1)
 
 /* PS.HLE == 1 */
 FIELD(TB_STATE, HLE, 4, 1)
@@ -495,6 +495,9 @@ FIELD(TB_STATE, SME, 11, 1)
 
 /* Data Cache Enabled */
 FIELD(TB_STATE, DCE, 12, 1)
+
+/* PS.V64 == 1 */
+FIELD(TB_STATE, V64, 13, 1)
 
 static inline void cpu_get_tb_cpu_state(CPUKVXState *env, target_ulong *pc,
                                         target_ulong *cs_base, uint32_t *flags)
@@ -521,6 +524,9 @@ static inline void cpu_get_tb_cpu_state(CPUKVXState *env, target_ulong *pc,
 
     *flags = FIELD_DP64(*flags, TB_STATE, DCE,
                         kvx_register_read_field(env, PS, DCE));
+
+    *flags = FIELD_DP64(*flags, TB_STATE, V64,
+                        kvx_register_read_field(env, PS, V64));
 }
 
 #include "exec/cpu-all.h"

@@ -33,13 +33,13 @@ static inline uint64_t sign_extend_vaddr(uint64_t vaddr)
 int kvx_cpu_mmu_index(CPUKVXState *env, bool ifetch)
 {
     int vs, mmu_idx = 0;
-    bool mmup, v64;
+    bool mmup, mme;
     uint64_t ps = get_mmu_ps(env, ifetch);
 
-    v64 = KVX_FIELD_EX64(ps, kv3_PS, V64);
-    mmu_idx = FIELD_DP64(mmu_idx, TB_STATE, MMU_IDX_V64, v64);
+    mme = KVX_FIELD_EX64(ps, kv3_PS, MME);
+    mmu_idx = FIELD_DP64(mmu_idx, TB_STATE, MMU_IDX_MME, mme);
 
-    if (!KVX_FIELD_EX64(ps, kv3_PS, MME)) {
+    if (!mme) {
         /* MMU disabled. Do not take into account MMU related flags. */
         return mmu_idx;
     }
