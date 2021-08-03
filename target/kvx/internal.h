@@ -22,7 +22,7 @@
 #include "sysemu/cpu-timers.h"
 
 /* we use 20us period (50KHz frequency) in case we are not in icount mode. */
-#define KVX_CPU_DEFAULT_CLOCK_PERIOD_NS 20000
+#define KVX_CPU_DEFAULT_CLOCK_PERIOD_NS 1000
 
 typedef enum {
     TLB_LOOKUP_SUCCESS = 0,
