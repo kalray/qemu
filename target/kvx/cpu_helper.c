@@ -483,6 +483,7 @@ void kvx_cpu_do_interrupt(CPUState *cs)
 
     prim_pl = kvx_get_exception_target_pl(env, excp, cur_pl, hw_trap_disabled);
     target_pl = prim_pl;
+    cur_sps = kvx_register_read_u64(env, REG_kv3_SPS_PLx(target_pl));
 
 retry_excp:
     /* Note: previous calls should guarantee this */
@@ -516,8 +517,6 @@ retry_excp:
     }
 
     if (!hw_trap_disabled) {
-        cur_sps = kvx_register_read_u64(env, REG_kv3_SPS_PLx(target_pl));
-
         /*
          * PS <- SPS_PL<j> except for the PL field and the FOE0/1 bits set by
          * hardware
@@ -533,9 +532,6 @@ retry_excp:
         /* We do the real swap here so that previous call can still use the env */
         kvx_register_write_u64(env, REG_kv3_SPS_PLx(target_pl), new_sps);
         kvx_register_write_u64(env, REG_kv3_PS, new_ps);
-    } else {
-        new_ps = cur_ps;
-        new_sps = cur_sps = 0;
     }
 
     /*
@@ -574,7 +570,7 @@ retry_excp:
     kvx_register_write_u64(env, REG_kv3_EA_PLx(target_pl),
                            compute_exception_address(env, excp));
 
-    kvx_update_cpu_state(env, cur_ps ^ new_ps, cur_sps ^ new_sps);
+    kvx_update_cpu_state(env, cur_ps, cur_sps);
 }
 
 static inline void kvx_ipe_helper_transaction_begin(KVXCPU *cpu)
@@ -749,17 +745,16 @@ static void update_hardware_loop(CPUKVXState *env)
     }
 }
 
-void kvx_update_cpu_state(CPUKVXState *env, uint64_t ps_mask, uint64_t sps_mask)
+void kvx_update_cpu_state(CPUKVXState *env, uint64_t prev_ps, uint64_t prev_sps)
 {
-    uint64_t prev_ps, cur_ps;
-    uint64_t prev_sps, cur_sps;
+    uint64_t cur_ps, ps_mask;
+    uint64_t cur_sps;
     uint64_t prev_mmu_ps, cur_mmu_ps;
 
     cur_ps = kvx_register_read_u64(env, REG_kv3_PS);
-    prev_ps = cur_ps ^ ps_mask;
+    ps_mask = prev_ps ^ cur_ps;
 
     cur_sps = kvx_register_read_aliased_u64(env, REG_kv3_SPS);
-    prev_sps = cur_sps ^ sps_mask;
 
     prev_mmu_ps = KVX_FIELD_EX64(prev_ps, kv3_PS, DAUS)
         ? prev_sps
@@ -859,12 +854,13 @@ bool kvx_reg_apply_rpl_owners(CPUKVXState *env, Register reg, uint64_t *val,
 void kvx_reg_write_ps(KVXCPU *cpu, Register reg, uint64_t val)
 {
     CPUKVXState *env = &cpu->env;
-    uint64_t cur;
+    uint64_t cur, cur_sps;
 
     cur = kvx_register_read_u64(env, REG_kv3_PS);
+    cur_sps = kvx_register_read_aliased_u64(env, REG_kv3_SPS);
     kvx_register_write_u64(env, REG_kv3_PS, val);
 
-    kvx_update_cpu_state(env, cur ^ val, 0);
+    kvx_update_cpu_state(env, cur, cur_sps);
 }
 
 void kvx_reg_write_sps(KVXCPU *cpu, Register reg, uint64_t val)
@@ -873,11 +869,12 @@ void kvx_reg_write_sps(KVXCPU *cpu, Register reg, uint64_t val)
     int cur_pl = kvx_get_current_pl(env);
     int reg_pl = reg - REG_kv3_SPS_PL0;
     uint64_t cur = kvx_register_read_u64(env, reg);
+    uint64_t cur_ps = kvx_register_read_u64(env, REG_kv3_PS);
 
     kvx_register_write_u64(env, reg, val);
 
     if (cur_pl == reg_pl) {
-        kvx_update_cpu_state(env, 0, cur ^ val);
+        kvx_update_cpu_state(env, cur_ps, cur);
     }
 }
 

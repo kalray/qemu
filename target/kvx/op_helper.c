@@ -195,15 +195,13 @@ void HELPER(rfe)(CPUKVXState *env, uint64_t syndrome)
         new_sps = cur_sps & mask;
         new_sps |= cur_ps & ~mask;
         kvx_register_write_u64(env, REG_kv3_SPS_PLx(cur_pl), new_sps);
-    } else {
-        new_sps = cur_sps;
     }
 
     /* PC <- SPC_PL<i> */
     new_pc = kvx_register_read_u64(env, REG_kv3_SPC_PLx(cur_pl));
     kvx_register_write_u64(env, REG_kv3_PC, new_pc);
 
-    kvx_update_cpu_state(env, cur_ps ^ new_ps, cur_sps ^ new_sps);
+    kvx_update_cpu_state(env, cur_ps, cur_sps);
 }
 
 void HELPER(idle)(CPUKVXState *env, uint64_t lvl)
