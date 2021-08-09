@@ -159,6 +159,7 @@ bool kvx_cpu_exec_interrupt(CPUState *cs, int interrupt_request)
         CPUKVXState *env = &cpu->env;
         int irq;
 
+        kvx_sync_ilr(env);
         irq = kvx_irq_get_pending(env);
         if (irq >= 0) {
             /* Acknowledge it */
@@ -925,6 +926,14 @@ void kvx_reg_write_ilr(KVXCPU *cpu, Register reg, uint64_t val)
             cpu_reset_interrupt(cs, CPU_INTERRUPT_HARD);
         }
     }
+}
+
+uint64_t kvx_reg_read_ilr(KVXCPU *cpu, Register reg)
+{
+    CPUKVXState *env = &cpu->env;
+
+    kvx_sync_ilr(env);
+    return kvx_register_read_u64(env, reg);
 }
 
 void kvx_reg_write_tcr(KVXCPU *cpu, Register reg, uint64_t val)

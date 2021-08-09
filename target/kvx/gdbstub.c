@@ -20,6 +20,7 @@
 #include "exec/gdbstub.h"
 #include "cpu.h"
 #include "gen/gdbstub.inc.c"
+#include "internal.h"
 
 int kvx_cpu_gdb_read_register(CPUState *cs, GByteArray *mem_buf, int n)
 {
@@ -37,6 +38,9 @@ int kvx_cpu_gdb_read_register(CPUState *cs, GByteArray *mem_buf, int n)
         res = gdb_get_reg32(mem_buf, kvx_register_read(cpu, reg));
         break;
     case 64:
+        if (reg == REG_kv3_ILR) {
+            kvx_sync_ilr(&cpu->env);
+        }
         res = gdb_get_reg64(mem_buf, kvx_register_read(cpu, reg));
         break;
     default:

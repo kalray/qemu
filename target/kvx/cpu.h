@@ -76,6 +76,9 @@ struct CPUKVXState {
     uint64_t excp_address;
     int excp_target_pl;
 
+    /* Pending IRQs waiting to be handled */
+    uint64_t pending_ilr;
+
     /*
      * CPU HW breakpoints
      * Note: We cannot uses standard breakpoint because they do not

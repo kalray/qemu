@@ -183,4 +183,17 @@ static inline int kvx_get_wp_pl(CPUKVXState *env, int n)
              : kvx_register_read_field(env, DO, W0);
 }
 
+/*
+ * Synchronize ILR with the content of env->pending_ilr. Must be called with
+ * the BQL held.
+ */
+static inline void kvx_sync_ilr(CPUKVXState *env)
+{
+    if (env->pending_ilr) {
+        uint64_t *ilr = kvx_register_ptr_u64(env, REG_kv3_ILR);
+        *ilr |= env->pending_ilr;
+        env->pending_ilr = 0;
+    }
+}
+
 #endif

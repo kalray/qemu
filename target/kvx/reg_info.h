@@ -76,6 +76,7 @@ void kvx_reg_write_ps(KVXCPU *cpu, Register reg, uint64_t val);
 void kvx_reg_write_sps(KVXCPU *cpu, Register reg, uint64_t val);
 void kvx_reg_write_mmc(KVXCPU *cpu, Register reg, uint64_t val);
 void kvx_reg_write_ilr(KVXCPU *cpu, Register reg, uint64_t val);
+uint64_t kvx_reg_read_ilr(KVXCPU *cpu, Register reg);
 
 void kvx_reg_write_shouldnothappen(KVXCPU *cpu, Register reg, uint64_t val);
 uint64_t kvx_reg_read_shouldnothappen(KVXCPU *cpu, Register reg);
@@ -198,6 +199,7 @@ static const RegisterInfo REG_INFO[] = {
         .io = true, /* this register is protected by mutex_iothread */
         .it = true,
         .write = kvx_reg_write_ilr,
+        .read = kvx_reg_read_ilr,
     },
 
     /* Memory Translation register */

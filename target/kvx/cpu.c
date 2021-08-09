@@ -39,7 +39,7 @@ static void kvx_cpu_irq_request(void *opaque, int irq, int level)
     CPUKVXState *env = &cpu->env;
     CPUState *cs = CPU(cpu);
     bool locked = false;
-    uint64_t *ilr, old;
+    uint64_t old;
 
     g_assert(irq >= 0 && irq < 32);
 
@@ -53,19 +53,19 @@ static void kvx_cpu_irq_request(void *opaque, int irq, int level)
         qemu_mutex_lock_iothread();
     }
 
-    ilr = kvx_register_ptr_u64(env, REG_kv3_ILR);
-    old = *ilr;
+    old = env->pending_ilr;
+
     /*
-     * According to MPPA cluster doc 2.7.2 each core has:
-     * + 32 edge-triggered interrupt inputs
+     * Do not write the ILR register directly. Let kvx_cpu_exec_interrupt do
+     * the update to avoid race conditions.
      */
-    *ilr |= ((uint64_t) 0x1) << irq;
+    env->pending_ilr |= ((uint64_t) 0x1) << irq;
 
     /* WS.WU0 and WS.WU1 are set unconditionally */
     kvx_register_write_field(env, WS, WU0, true);
     kvx_register_write_field(env, WS, WU1, true);
 
-    trace_kvx_irq_request(cpu->cfg.pid, irq, old, *ilr);
+    trace_kvx_irq_request(cpu->cfg.pid, irq, old, env->pending_ilr);
     cpu_interrupt(cs, CPU_INTERRUPT_HARD);
 
     if (locked) {
@@ -214,6 +214,7 @@ static void kvx_cpu_reset(DeviceState *dev)
 
     kvx_register_write_field(env, PCR, PID, cpu->cfg.pid);
     env->le_is_dirty = false;
+    env->pending_ilr = 0;
 }
 
 static void kvx_cpu_init(Object *obj)
@@ -257,6 +258,8 @@ static bool kvx_cpu_has_work(CPUState *cs)
 {
     KVXCPU *cpu = KVX_CPU(cs);
     CPUKVXState *env = &cpu->env;
+
+    kvx_sync_ilr(env);
 
     return (env->sleep_state == KVX_RUNNING)
         || kvx_must_wakeup(env)
