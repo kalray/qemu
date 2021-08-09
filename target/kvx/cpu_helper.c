@@ -111,6 +111,7 @@ static inline uint64_t refine_waitit_pending_irqs(CPUKVXState *env, uint64_t mas
 
 int kvx_irq_get_pending(CPUKVXState *env)
 {
+    KVXCPU *cpu = KVX_CPU(env_cpu(env));
     int pl, il, cur_aipl, ie, irq = -1;
     uint64_t pending_mask = kvx_irq_get_pending_mask(env);
 
@@ -146,7 +147,7 @@ int kvx_irq_get_pending(CPUKVXState *env)
         }
     }
 
-    trace_kvx_irq_get_pending(pl, il, ie, irq);
+    trace_kvx_irq_get_pending(cpu->cfg.pid, pl, il, ie, irq);
 
     return irq;
 }
@@ -163,7 +164,9 @@ bool kvx_cpu_exec_interrupt(CPUState *cs, int interrupt_request)
             /* Acknowledge it */
             uint64_t es, ilr;
 
-            trace_kvx_irq_ack(irq, kvx_get_irq_pl(env, irq), kvx_get_irq_ll(env, irq));
+            trace_kvx_irq_ack(cpu->cfg.pid, irq,
+                              kvx_get_irq_pl(env, irq),
+                              kvx_get_irq_ll(env, irq));
 
             /* Acknowledge the interrupt */
             ilr = kvx_register_read_u64(env, REG_kv3_ILR);
@@ -913,7 +916,7 @@ void kvx_reg_write_ilr(KVXCPU *cpu, Register reg, uint64_t val)
     kvx_register_write_u64(env, REG_kv3_ILR, val);
 
     if (old ^ val) {
-        trace_kvx_irq_update(old, val);
+        trace_kvx_irq_update(cpu->cfg.pid, old, val);
         /* Value changed, recompute pending irqs */
         CPUState *cs = CPU(cpu);
         if (val) {
