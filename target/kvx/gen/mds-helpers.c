@@ -852,7 +852,7 @@ __attribute__((weak)) void gen_apply_fconj_32_32(DisasContext *ctx, MDSTypeBindi
 {
     qemu_log("Warning: %s: not implemented\n", __func__);
 }
-__attribute__((weak)) void gen_apply_fconj_32_32_x2_tcg64_bigint(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret, MDSTCGBigInt * arg0)
+__attribute__((weak)) void gen_apply_fconj_32_32_x2_bigint_bigint(DisasContext *ctx, MDSTypeBinding ret_type, MDSTCGBigInt * ret, MDSTCGBigInt * arg0)
 {
     qemu_log("Warning: %s: not implemented\n", __func__);
 }

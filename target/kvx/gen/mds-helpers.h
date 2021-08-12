@@ -215,7 +215,7 @@ void gen_apply_ffms_32_32_x4_bigint_tcg64_bigint_bigint_bigint(DisasContext *ctx
 void gen_apply_ffms_16_16_x8_bigint_tcg64_bigint_bigint_bigint(DisasContext *ctx, MDSTypeBinding ret_type, MDSTCGBigInt * ret, TCGv_i64 arg0, MDSTCGBigInt * arg1, MDSTCGBigInt * arg2, MDSTCGBigInt * arg3);
 void gen_apply_fmul_16_16_x8_bigint_tcg64_bigint_bigint(DisasContext *ctx, MDSTypeBinding ret_type, MDSTCGBigInt * ret, TCGv_i64 arg0, MDSTCGBigInt * arg1, MDSTCGBigInt * arg2);
 void gen_apply_fconj_32_32(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret, TCGv_i64 arg0);
-void gen_apply_fconj_32_32_x2_tcg64_bigint(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret, MDSTCGBigInt * arg0);
+void gen_apply_fconj_32_32_x2_bigint_bigint(DisasContext *ctx, MDSTypeBinding ret_type, MDSTCGBigInt * ret, MDSTCGBigInt * arg0);
 void gen_apply_fmulc_32_32_x2_tcg64_tcg64_bigint_bigint(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret, TCGv_i64 arg0, MDSTCGBigInt * arg1, MDSTCGBigInt * arg2);
 void gen_apply_ffdma_32_32(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret, TCGv_i64 arg0, TCGv_i64 arg1, TCGv_i64 arg2);
 void gen_apply_ffdma_32_32_x2_tcg64_tcg64_bigint_bigint(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret, TCGv_i64 arg0, MDSTCGBigInt * arg1, MDSTCGBigInt * arg2);
