@@ -487,9 +487,10 @@ void kvx_cpu_do_interrupt(CPUState *cs)
 
     prim_pl = kvx_get_exception_target_pl(env, excp, cur_pl, hw_trap_disabled);
     target_pl = prim_pl;
-    cur_sps = kvx_register_read_u64(env, REG_kv3_SPS_PLx(target_pl));
 
 retry_excp:
+    cur_sps = kvx_register_read_u64(env, REG_kv3_SPS_PLx(target_pl));
+
     /* Note: previous calls should guarantee this */
     g_assert(cur_pl >= target_pl);
 
