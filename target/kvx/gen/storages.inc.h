@@ -22,8 +22,12 @@ struct Storages {
     uint64_t kv3_CS[1]; /* Compute Status */
     uint64_t kv3_DBA0[1]; /* Debug Breakpoint Address 0 */
     uint64_t kv3_DBA1[1]; /* Debug Breakpoint Address 1 */
+    uint64_t kv3_DBA2[1]; /* Debug Breakpoint Address 2 */
+    uint64_t kv3_DBA3[1]; /* Debug Breakpoint Address 3 */
     uint64_t kv3_DWA0[1]; /* Debug Watchpoint address 0 */
     uint64_t kv3_DWA1[1]; /* Debug Watchpoint address 1 */
+    uint64_t kv3_DWA2[1]; /* Debug Watchpoint address 2 */
+    uint64_t kv3_DWA3[1]; /* Debug Watchpoint address 3 */
     uint64_t kv3_CSIT[1]; /* Compute Status arithmetic Interrupt */
     uint64_t kv3_ES[1]; /* Exception Syndrome */
     uint64_t kv3_ES_PL0[1]; /* Exception Syndrome for Privilege Level 0 */
@@ -39,6 +43,10 @@ struct Storages {
     uint64_t kv3_TEL[1]; /* TLB Entry Low */
     uint64_t kv3_TEH[1]; /* TLB Entry High */
     uint64_t kv3_DC[1]; /* Debug Control */
+    uint64_t kv3_DCV2_0[1]; /* Debug Control watchpoint/breakpoint 0 */
+    uint64_t kv3_DCV2_1[1]; /* Debug Control watchpoint/breakpoint 1 */
+    uint64_t kv3_DCV2_2[1]; /* Debug Control watchpoint/breakpoint 2 */
+    uint64_t kv3_DCV2_3[1]; /* Debug Control watchpoint/breakpoint 3 */
     uint64_t kv3_SRS[512]; /* System Register Storage */
     uint64_t kv3_GRS[64]; /* General Register Storage */
     uint64_t kv3_XRS[256]; /* Extension Register Storage */
@@ -52,6 +60,7 @@ struct Storages {
     uint64_t kv3_ILE[1]; /* Interrupt Owners */
     uint64_t kv3_ILL[1]; /* Interrupt Owners */
     uint64_t kv3_ILR[1]; /* Interrupt Owners */
+    uint64_t kv3_IPE[1]; /* Inter Process Event */
     uint64_t kv3_DO[1]; /* Debug Owners */
     uint64_t kv3_MO[1]; /* Miscellaneous Owners */
     uint64_t kv3_PSO[1]; /* Processor Status register Owners */
@@ -64,5 +73,6 @@ struct Storages {
     uint64_t v2_SID_PL2[1]; /* Coolidge 1, Stream ID for Privilege Level 2 */
     uint64_t v2_SID_PL3[1]; /* Coolidge 1, Stream ID for Privilege Level 3 */
     uint64_t v2_IXC[1]; /* Coolidge 1, Inter-Extension Communications */
+    uint64_t v2_DC[1]; /* Debug Control */
 } storages;
 
