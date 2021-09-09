@@ -22293,8 +22293,8 @@ static const RegisterDescr REGISTERS[] = {
         .offset = offsetof(CPUArchState, storages.v2_DC) + 0,
         .reset = 0x0000000000000000,
         .mask = 0xffffffffffffffffull,
-        .raccess = REG_ACCESS_GET,
-        .waccess = REG_ACCESS_WFX,
+        .raccess = REG_ACCESS_NONE,
+        .waccess = REG_ACCESS_NONE,
         .cpu_models = CPU_MODEL_v2,
     },
     [REG_v2_DC0] = {

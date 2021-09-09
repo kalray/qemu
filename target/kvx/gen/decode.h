@@ -537,12 +537,6 @@ struct ops_kv3_registerAl_kv3_registerZ_kv3_registerY {
     uint64_t kv3_registerY;
 };
 
-struct ops_kv3_registerAp_kv3_registerB_kv3_registerC {
-    uint64_t kv3_registerAp;
-    uint64_t kv3_registerB;
-    uint64_t kv3_registerC;
-};
-
 struct ops_kv3_registerAp_kv3_registerBp_kv3_registerC_kv3_registerD {
     uint64_t kv3_registerAp;
     uint64_t kv3_registerBp;
@@ -550,10 +544,16 @@ struct ops_kv3_registerAp_kv3_registerBp_kv3_registerC_kv3_registerD {
     uint64_t kv3_registerD;
 };
 
-struct ops_kv3_registerAq_kv3_registerB_kv3_registerC {
+struct ops_kv3_registerAp_kv3_registerBp_kv3_registerDp {
+    uint64_t kv3_registerAp;
+    uint64_t kv3_registerBp;
+    uint64_t kv3_registerDp;
+};
+
+struct ops_kv3_registerAq_kv3_registerB_kv3_registerD {
     uint64_t kv3_registerAq;
     uint64_t kv3_registerB;
-    uint64_t kv3_registerC;
+    uint64_t kv3_registerD;
 };
 
 struct ops_kv3_registerAq_kv3_registerBq {
@@ -1256,28 +1256,20 @@ struct ops_kv3_xrounding_kv3_silent2_kv3_registerA_kv3_registerBp {
     uint64_t kv3_registerBp;
 };
 
-struct ops_v2_registerA0_kv3_registerB_kv3_registerC {
-    uint64_t v2_registerA0;
-    uint64_t kv3_registerB;
-    uint64_t kv3_registerC;
+struct ops_kv3_xrounding_kv3_silent2_kv3_registerAe_kv3_registerBp_kv3_registerDp {
+    uint64_t kv3_xrounding;
+    uint64_t kv3_silent2;
+    uint64_t kv3_registerAe;
+    uint64_t kv3_registerBp;
+    uint64_t kv3_registerDp;
 };
 
-struct ops_v2_registerA1_kv3_registerB_kv3_registerC {
-    uint64_t v2_registerA1;
-    uint64_t kv3_registerB;
-    uint64_t kv3_registerC;
-};
-
-struct ops_v2_registerA2_kv3_registerB_kv3_registerC {
-    uint64_t v2_registerA2;
-    uint64_t kv3_registerB;
-    uint64_t kv3_registerC;
-};
-
-struct ops_v2_registerA3_kv3_registerB_kv3_registerC {
-    uint64_t v2_registerA3;
-    uint64_t kv3_registerB;
-    uint64_t kv3_registerC;
+struct ops_kv3_xrounding_kv3_silent2_kv3_registerAo_kv3_registerBp_kv3_registerDp {
+    uint64_t kv3_xrounding;
+    uint64_t kv3_silent2;
+    uint64_t kv3_registerAo;
+    uint64_t kv3_registerBp;
+    uint64_t kv3_registerDp;
 };
 
 struct ops_v2_systemAlone_kv3_registerZ {
