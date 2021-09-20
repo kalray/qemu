@@ -33,9 +33,12 @@ typedef struct KvxPwrCtrlState {
     SysBusDevice parent;
 
     /*< public >*/
-    uint64_t reg_global;
+    uint64_t reg_pe_control[16];
+    uint64_t reg_vector_proc_control_wup;
+    uint64_t reg_vector_proc_control_reset_on_wakeup;
     uint64_t reg_reset_pc;
-    uint64_t reg_vec;
+    uint64_t reg_global_config;
+    uint64_t reg_rm_control;
 
     MemoryRegion iomem;
 } KvxPwrCtrlState;
