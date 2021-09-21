@@ -26,7 +26,7 @@
     OBJECT_CHECK(KvxPwrCtrlState, (obj), TYPE_KVX_PWR_CTRL)
 
 /* according to the device tree */
-#define KVX_PWR_CTRL_MMIO_LEN 0x4158
+#define KVX_PWR_CTRL_MMIO_LEN 0x4188
 
 typedef struct KvxPwrCtrlState {
     /*< private >*/
