@@ -37,6 +37,7 @@
 #include "hw/kvx/apic-mailbox.h"
 #include "hw/kvx/itgen.h"
 #include "hw/kvx/dsu-clock.h"
+#include "hw/kvx/ftu.h"
 
 #define TYPE_MPPA_CLUSTER_MACHINE MACHINE_TYPE_NAME("mppa-cluster")
 #define MPPA_CLUSTER(obj) \
@@ -76,6 +77,7 @@ typedef struct MppaClusterMachineState {
     SerialMM uart[6];
     KvxItgenState itgen0;
     KvxItgenState itgen1;
+    KvxFtuState ftu;
 
     MemoryRegion cluster_region;
     MemoryRegion cluster_alias;
@@ -111,6 +113,7 @@ enum {
     MPPA_CLUSTER_DDR,
     MPPA_CLUSTER_DDR_32BITS_ALIAS,
     MPPA_CLUSTER_L2_CTRL,
+    MPPA_CLUSTER_FTU,
 
     MPPA_CLUSTER_CORE_INTC,
     MPPA_CLUSTER_CORE_TIMER,
@@ -531,6 +534,19 @@ static const PeriphEntry mppa_cluster_periphs[] = {
         },
     },
 
+    [MPPA_CLUSTER_FTU] = {
+        .fdt = {
+            .node = "/ftu",
+            .compatible = "kalray,kvx-syscon"
+        },
+
+        .mmio_map = {
+            .valid = true,
+            .base = 0x10181000,
+            .size = 0x418,
+        },
+    },
+
     [MPPA_CLUSTER_DSU_CLOCK] = {
         .fdt = {
             .node = "/dsu_clock",
@@ -787,6 +803,7 @@ static inline void devices_init(MppaClusterMachineState *s)
                                 periph_mmio_base(mppa_cluster_periphs, MPPA_CLUSTER_PWR_CTRL),
                                 sysbus_mmio_get_region(SYS_BUS_DEVICE(&s->pwr_ctrl), 0));
 
+
     /* DSU clock */
     object_initialize_child(OBJECT(s), "dsu-clock", &s->dsu_clock,
                             TYPE_KVX_DSU_CLOCK);
@@ -817,6 +834,11 @@ static inline void devices_init(MppaClusterMachineState *s)
     memory_region_add_subregion(get_system_memory(),
                                 periph_mmio_base(mppa_cluster_periphs, MPPA_CLUSTER_ITGEN1),
                                 sysbus_mmio_get_region(SYS_BUS_DEVICE(&s->itgen1), 0));
+    /* Ftu */
+    object_initialize_child(OBJECT(s), "ftu", &s->ftu, TYPE_KVX_FTU);
+    memory_region_add_subregion(get_system_memory(),
+                                periph_mmio_base(mppa_cluster_periphs, MPPA_CLUSTER_FTU),
+                                sysbus_mmio_get_region(SYS_BUS_DEVICE(&s->ftu), 0));
 
     /* SMEM */
     memory_region_init_ram(&s->smem, NULL, "mppa-cluster.smem",
@@ -870,6 +892,9 @@ static inline void devices_realize(MppaClusterMachineState *s)
 
     /* Power controller */
     sysbus_realize(SYS_BUS_DEVICE(&s->pwr_ctrl), &error_abort);
+
+    /* Ftu */
+    sysbus_realize(SYS_BUS_DEVICE(&s->ftu), &error_abort);
 
     /* DSU clock */
     qdev_prop_set_uint64(DEVICE(&s->dsu_clock), "initial-value", s->initial_dsu_clock);

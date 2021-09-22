@@ -8,6 +8,10 @@ kvx_pwr_ctrl_wakeup_cpu(int cpu, uint64_t pc) "cpu:%d, reset pc:0x%016" PRIx64
 kvx_pwr_ctrl_write(uint64_t offset, uint64_t value) "offset:0x%" PRIx64 ", value:0x%" PRIx64
 kvx_pwr_ctrl_read(uint64_t offset, uint64_t value) "offset:0x%" PRIx64 ", value:0x%" PRIx64
 
+# ftu.c
+kvx_ftu_write(uint64_t offset, uint64_t value) "offset:0x%" PRIx64 ", value:0x%" PRIx64
+kvx_ftu_read(uint64_t offset, uint64_t value) "offset:0x%" PRIx64 ", value:0x%" PRIx64
+
 # apic-gic.c
 kvx_apic_gic_write(size_t group, size_t line, uint64_t offset, uint64_t value, unsigned size) "group: %zu, line: %zu, offset: 0x%" PRIx64 ", value: 0x%" PRIx64 ", size: %u"
 kvx_apic_gic_read(size_t group, size_t line, uint64_t offset, uint64_t value, unsigned size) "group: %zu, line: %zu, offset: 0x%" PRIx64 ", value: 0x%" PRIx64 ", size: %u"
