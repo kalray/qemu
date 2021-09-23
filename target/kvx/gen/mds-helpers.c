@@ -112,10 +112,6 @@ __attribute__((weak)) void gen_apply_insert_64_bigint_bigint_tcg64_u64(DisasCont
 {
     qemu_log("Warning: %s: not implemented\n", __func__);
 }
-__attribute__((weak)) void gen_apply_insert_64_bigint_bigint_bigint_u64(DisasContext *ctx, MDSTypeBinding ret_type, MDSTCGBigInt * ret, MDSTCGBigInt * arg0, MDSTCGBigInt * arg1, uint64_t arg2)
-{
-    qemu_log("Warning: %s: not implemented\n", __func__);
-}
 __attribute__((weak)) void gen_effect_MEM_store(DisasContext *ctx, TCGv_i64 arg0, int64_t arg1, TCGv_i64 arg2, uint64_t arg3)
 {
     qemu_log("Warning: %s: not implemented\n", __func__);
@@ -716,11 +712,11 @@ __attribute__((weak)) void gen_apply_dot8_8_32(DisasContext *ctx, MDSTypeBinding
 {
     qemu_log("Warning: %s: not implemented\n", __func__);
 }
-__attribute__((weak)) void gen_apply_join_32_x8_bigint_tcg64_tcg64_tcg64_tcg64_tcg64_tcg64_tcg64_tcg64(DisasContext *ctx, MDSTypeBinding ret_type, MDSTCGBigInt * ret, TCGv_i64 arg0, TCGv_i64 arg1, TCGv_i64 arg2, TCGv_i64 arg3, TCGv_i64 arg4, TCGv_i64 arg5, TCGv_i64 arg6, TCGv_i64 arg7)
+__attribute__((weak)) void gen_apply_join_32_x8(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret, TCGv_i64 arg0, TCGv_i64 arg1, TCGv_i64 arg2, TCGv_i64 arg3, TCGv_i64 arg4, TCGv_i64 arg5, TCGv_i64 arg6, TCGv_i64 arg7)
 {
     qemu_log("Warning: %s: not implemented\n", __func__);
 }
-__attribute__((weak)) void gen_apply_add_32_32_x8_bigint_bigint_bigint(DisasContext *ctx, MDSTypeBinding ret_type, MDSTCGBigInt * ret, MDSTCGBigInt * arg0, MDSTCGBigInt * arg1)
+__attribute__((weak)) void gen_apply_add_32_32_x8_bigint_bigint_tcg64(DisasContext *ctx, MDSTypeBinding ret_type, MDSTCGBigInt * ret, MDSTCGBigInt * arg0, TCGv_i64 arg1)
 {
     qemu_log("Warning: %s: not implemented\n", __func__);
 }
@@ -744,11 +740,11 @@ __attribute__((weak)) void gen_apply_dot4_16_64(DisasContext *ctx, MDSTypeBindin
 {
     qemu_log("Warning: %s: not implemented\n", __func__);
 }
-__attribute__((weak)) void gen_apply_join_64_x4_bigint_tcg64_tcg64_tcg64_tcg64(DisasContext *ctx, MDSTypeBinding ret_type, MDSTCGBigInt * ret, TCGv_i64 arg0, TCGv_i64 arg1, TCGv_i64 arg2, TCGv_i64 arg3)
+__attribute__((weak)) void gen_apply_join_64_x4(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret, TCGv_i64 arg0, TCGv_i64 arg1, TCGv_i64 arg2, TCGv_i64 arg3)
 {
     qemu_log("Warning: %s: not implemented\n", __func__);
 }
-__attribute__((weak)) void gen_apply_add_64_64_x4_bigint_bigint_bigint(DisasContext *ctx, MDSTypeBinding ret_type, MDSTCGBigInt * ret, MDSTCGBigInt * arg0, MDSTCGBigInt * arg1)
+__attribute__((weak)) void gen_apply_add_64_64_x4_bigint_bigint_tcg64(DisasContext *ctx, MDSTypeBinding ret_type, MDSTCGBigInt * ret, MDSTCGBigInt * arg0, TCGv_i64 arg1)
 {
     qemu_log("Warning: %s: not implemented\n", __func__);
 }
@@ -780,43 +776,51 @@ __attribute__((weak)) void gen_apply_join_32_x4_bigint_tcg64_tcg64_tcg64_tcg64(D
 {
     qemu_log("Warning: %s: not implemented\n", __func__);
 }
-__attribute__((weak)) void gen_apply_round_64_x4_bigint_u64_tcg64_bigint(DisasContext *ctx, MDSTypeBinding ret_type, MDSTCGBigInt * ret, uint64_t arg0, TCGv_i64 arg1, MDSTCGBigInt * arg2)
+__attribute__((weak)) void gen_apply_round_64_x4(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret, uint64_t arg0, TCGv_i64 arg1, TCGv_i64 arg2)
 {
     qemu_log("Warning: %s: not implemented\n", __func__);
 }
-__attribute__((weak)) void gen_apply_satu_64_16_x4_tcg64_bigint(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret, MDSTCGBigInt * arg0)
+__attribute__((weak)) void gen_apply_satu_64_16_x4(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret, TCGv_i64 arg0)
 {
     qemu_log("Warning: %s: not implemented\n", __func__);
 }
-__attribute__((weak)) void gen_apply_sat_64_16_x4_tcg64_bigint(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret, MDSTCGBigInt * arg0)
+__attribute__((weak)) void gen_apply_sat_64_16_x4(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret, TCGv_i64 arg0)
 {
     qemu_log("Warning: %s: not implemented\n", __func__);
 }
-__attribute__((weak)) void gen_apply_round_32_x8_bigint_u64_tcg64_bigint(DisasContext *ctx, MDSTypeBinding ret_type, MDSTCGBigInt * ret, uint64_t arg0, TCGv_i64 arg1, MDSTCGBigInt * arg2)
+__attribute__((weak)) void gen_apply_satu_64_16_x4_bigint_tcg64(DisasContext *ctx, MDSTypeBinding ret_type, MDSTCGBigInt * ret, TCGv_i64 arg0)
 {
     qemu_log("Warning: %s: not implemented\n", __func__);
 }
-__attribute__((weak)) void gen_apply_satu_32_8_x8_tcg64_bigint(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret, MDSTCGBigInt * arg0)
+__attribute__((weak)) void gen_apply_sat_64_16_x4_bigint_tcg64(DisasContext *ctx, MDSTypeBinding ret_type, MDSTCGBigInt * ret, TCGv_i64 arg0)
 {
     qemu_log("Warning: %s: not implemented\n", __func__);
 }
-__attribute__((weak)) void gen_apply_sat_32_8_x8_tcg64_bigint(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret, MDSTCGBigInt * arg0)
+__attribute__((weak)) void gen_apply_round_32_x8(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret, uint64_t arg0, TCGv_i64 arg1, TCGv_i64 arg2)
 {
     qemu_log("Warning: %s: not implemented\n", __func__);
 }
-__attribute__((weak)) void gen_apply_fpow2scale_32_32_x8_bigint_tcg64_tcg64_bigint(DisasContext *ctx, MDSTypeBinding ret_type, MDSTCGBigInt * ret, TCGv_i64 arg0, TCGv_i64 arg1, MDSTCGBigInt * arg2)
+__attribute__((weak)) void gen_apply_satu_32_8_x8(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret, TCGv_i64 arg0)
 {
     qemu_log("Warning: %s: not implemented\n", __func__);
 }
-__attribute__((weak)) void gen_apply_frelu_32_32_x8_noreset_bigint_bigint(DisasContext *ctx, MDSTypeBinding ret_type, MDSTCGBigInt * ret, MDSTCGBigInt * arg0)
+__attribute__((weak)) void gen_apply_sat_32_8_x8(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret, TCGv_i64 arg0)
 {
     qemu_log("Warning: %s: not implemented\n", __func__);
 }
-__attribute__((weak)) void gen_apply_fnarrow_32_16_x8_reset_bigint_tcg64_bigint(DisasContext *ctx, MDSTypeBinding ret_type, MDSTCGBigInt * ret, TCGv_i64 arg0, MDSTCGBigInt * arg1)
+__attribute__((weak)) void gen_apply_fpow2scale_32_32_x8_tcg64_tcg64_tcg64_bigint(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret, TCGv_i64 arg0, TCGv_i64 arg1, MDSTCGBigInt * arg2)
 {
     qemu_log("Warning: %s: not implemented\n", __func__);
 }
-__attribute__((weak)) void gen_apply_fnarrow_32_16_x8_noreset_bigint_tcg64_bigint(DisasContext *ctx, MDSTypeBinding ret_type, MDSTCGBigInt * ret, TCGv_i64 arg0, MDSTCGBigInt * arg1)
+__attribute__((weak)) void gen_apply_frelu_32_32_x8_noreset_bigint_tcg64(DisasContext *ctx, MDSTypeBinding ret_type, MDSTCGBigInt * ret, TCGv_i64 arg0)
+{
+    qemu_log("Warning: %s: not implemented\n", __func__);
+}
+__attribute__((weak)) void gen_apply_fnarrow_32_16_x8_reset(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret, TCGv_i64 arg0, TCGv_i64 arg1)
+{
+    qemu_log("Warning: %s: not implemented\n", __func__);
+}
+__attribute__((weak)) void gen_apply_fnarrow_32_16_x8_noreset_bigint_tcg64_tcg64(DisasContext *ctx, MDSTypeBinding ret_type, MDSTCGBigInt * ret, TCGv_i64 arg0, TCGv_i64 arg1)
 {
     qemu_log("Warning: %s: not implemented\n", __func__);
 }
@@ -852,11 +856,11 @@ __attribute__((weak)) void gen_apply_fconj_32_32(DisasContext *ctx, MDSTypeBindi
 {
     qemu_log("Warning: %s: not implemented\n", __func__);
 }
-__attribute__((weak)) void gen_apply_fconj_32_32_x2_bigint_bigint(DisasContext *ctx, MDSTypeBinding ret_type, MDSTCGBigInt * ret, MDSTCGBigInt * arg0)
+__attribute__((weak)) void gen_apply_fconj_32_32_x2_tcg64_bigint(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret, MDSTCGBigInt * arg0)
 {
     qemu_log("Warning: %s: not implemented\n", __func__);
 }
-__attribute__((weak)) void gen_apply_fmulc_32_32_x2_tcg64_tcg64_bigint_bigint(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret, TCGv_i64 arg0, MDSTCGBigInt * arg1, MDSTCGBigInt * arg2)
+__attribute__((weak)) void gen_apply_fmulc_32_32_x2_bigint_tcg64_bigint_bigint(DisasContext *ctx, MDSTypeBinding ret_type, MDSTCGBigInt * ret, TCGv_i64 arg0, MDSTCGBigInt * arg1, MDSTCGBigInt * arg2)
 {
     qemu_log("Warning: %s: not implemented\n", __func__);
 }
@@ -960,7 +964,7 @@ __attribute__((weak)) void gen_apply_ffmac_32_32(DisasContext *ctx, MDSTypeBindi
 {
     qemu_log("Warning: %s: not implemented\n", __func__);
 }
-__attribute__((weak)) void gen_apply_ffmac_32_32_x2_tcg64_tcg64_bigint_bigint_bigint(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret, TCGv_i64 arg0, MDSTCGBigInt * arg1, MDSTCGBigInt * arg2, MDSTCGBigInt * arg3)
+__attribute__((weak)) void gen_apply_ffmac_32_32_x2_bigint_tcg64_bigint_bigint_bigint(DisasContext *ctx, MDSTypeBinding ret_type, MDSTCGBigInt * ret, TCGv_i64 arg0, MDSTCGBigInt * arg1, MDSTCGBigInt * arg2, MDSTCGBigInt * arg3)
 {
     qemu_log("Warning: %s: not implemented\n", __func__);
 }
@@ -968,7 +972,7 @@ __attribute__((weak)) void gen_apply_ffmsc_32_32(DisasContext *ctx, MDSTypeBindi
 {
     qemu_log("Warning: %s: not implemented\n", __func__);
 }
-__attribute__((weak)) void gen_apply_ffmsc_32_32_x2_tcg64_tcg64_bigint_bigint_bigint(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret, TCGv_i64 arg0, MDSTCGBigInt * arg1, MDSTCGBigInt * arg2, MDSTCGBigInt * arg3)
+__attribute__((weak)) void gen_apply_ffmsc_32_32_x2_bigint_tcg64_bigint_bigint_bigint(DisasContext *ctx, MDSTypeBinding ret_type, MDSTCGBigInt * ret, TCGv_i64 arg0, MDSTCGBigInt * arg1, MDSTCGBigInt * arg2, MDSTCGBigInt * arg3)
 {
     qemu_log("Warning: %s: not implemented\n", __func__);
 }
@@ -988,31 +992,35 @@ __attribute__((weak)) void gen_apply_recvv_bigint_u64(DisasContext *ctx, MDSType
 {
     qemu_log("Warning: %s: not implemented\n", __func__);
 }
-__attribute__((weak)) void gen_apply_join_64_x2_bigint_tcg64_tcg64(DisasContext *ctx, MDSTypeBinding ret_type, MDSTCGBigInt * ret, TCGv_i64 arg0, TCGv_i64 arg1)
+__attribute__((weak)) void gen_apply_join_64_x2(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret, TCGv_i64 arg0, TCGv_i64 arg1)
 {
     qemu_log("Warning: %s: not implemented\n", __func__);
 }
-__attribute__((weak)) void gen_apply_dot16add_8_32_tcg64_bigint_bigint_tcg64(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret, MDSTCGBigInt * arg0, MDSTCGBigInt * arg1, TCGv_i64 arg2)
+__attribute__((weak)) void gen_apply_dot16add_8_32(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret, TCGv_i64 arg0, TCGv_i64 arg1, TCGv_i64 arg2)
 {
     qemu_log("Warning: %s: not implemented\n", __func__);
 }
-__attribute__((weak)) void gen_apply_dot16addu_8_32_tcg64_bigint_bigint_tcg64(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret, MDSTCGBigInt * arg0, MDSTCGBigInt * arg1, TCGv_i64 arg2)
+__attribute__((weak)) void gen_apply_join_32_x8_bigint_tcg64_tcg64_tcg64_tcg64_tcg64_tcg64_tcg64_tcg64(DisasContext *ctx, MDSTypeBinding ret_type, MDSTCGBigInt * ret, TCGv_i64 arg0, TCGv_i64 arg1, TCGv_i64 arg2, TCGv_i64 arg3, TCGv_i64 arg4, TCGv_i64 arg5, TCGv_i64 arg6, TCGv_i64 arg7)
 {
     qemu_log("Warning: %s: not implemented\n", __func__);
 }
-__attribute__((weak)) void gen_apply_dot16addsu_8_32_tcg64_bigint_bigint_tcg64(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret, MDSTCGBigInt * arg0, MDSTCGBigInt * arg1, TCGv_i64 arg2)
+__attribute__((weak)) void gen_apply_dot16addu_8_32(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret, TCGv_i64 arg0, TCGv_i64 arg1, TCGv_i64 arg2)
 {
     qemu_log("Warning: %s: not implemented\n", __func__);
 }
-__attribute__((weak)) void gen_apply_dot16addus_8_32_tcg64_bigint_bigint_tcg64(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret, MDSTCGBigInt * arg0, MDSTCGBigInt * arg1, TCGv_i64 arg2)
+__attribute__((weak)) void gen_apply_dot16addsu_8_32(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret, TCGv_i64 arg0, TCGv_i64 arg1, TCGv_i64 arg2)
 {
     qemu_log("Warning: %s: not implemented\n", __func__);
 }
-__attribute__((weak)) void gen_apply_fdot8add_16_32_reset_tcg64_tcg64_bigint_bigint_tcg64(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret, TCGv_i64 arg0, MDSTCGBigInt * arg1, MDSTCGBigInt * arg2, TCGv_i64 arg3)
+__attribute__((weak)) void gen_apply_dot16addus_8_32(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret, TCGv_i64 arg0, TCGv_i64 arg1, TCGv_i64 arg2)
 {
     qemu_log("Warning: %s: not implemented\n", __func__);
 }
-__attribute__((weak)) void gen_apply_fdot8add_16_32_noreset_tcg64_tcg64_bigint_bigint_tcg64(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret, TCGv_i64 arg0, MDSTCGBigInt * arg1, MDSTCGBigInt * arg2, TCGv_i64 arg3)
+__attribute__((weak)) void gen_apply_fdot8add_16_32_reset(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret, TCGv_i64 arg0, TCGv_i64 arg1, TCGv_i64 arg2, TCGv_i64 arg3)
+{
+    qemu_log("Warning: %s: not implemented\n", __func__);
+}
+__attribute__((weak)) void gen_apply_fdot8add_16_32_noreset(DisasContext *ctx, MDSTypeBinding ret_type, TCGv_i64 ret, TCGv_i64 arg0, TCGv_i64 arg1, TCGv_i64 arg2, TCGv_i64 arg3)
 {
     qemu_log("Warning: %s: not implemented\n", __func__);
 }
