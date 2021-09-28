@@ -773,7 +773,7 @@ enum Register {
     REG_kv3_SR_PL0, REG_kv3_SR_PL1, REG_kv3_SR_PL2, REG_kv3_SR_PL3,
     REG_kv3_ES_PL0, REG_kv3_ES_PL1, REG_kv3_ES_PL2, REG_kv3_ES_PL3,
     REG_kv3_SID_PL0, REG_kv3_SID_PL1, REG_kv3_SID_PL2, REG_kv3_SID_PL3,
-    REG_kv3_RES92, REG_kv3_RES93, REG_kv3_RES94, REG_kv3_RES95,
+    REG_kv3_SR1_PL0, REG_kv3_SR1_PL1, REG_kv3_SR1_PL2, REG_kv3_SR1_PL3,
     REG_kv3_SYOW, REG_kv3_HTOW, REG_kv3_ITOW, REG_kv3_DOW,
     REG_kv3_MOW, REG_kv3_PSOW, REG_kv3_RES102, REG_kv3_RES103,
     REG_kv3_RES104, REG_kv3_RES105, REG_kv3_RES106, REG_kv3_RES107,
@@ -789,7 +789,7 @@ enum Register {
     REG_kv3_SR, REG_kv3_RES145, REG_kv3_RES146, REG_kv3_RES147,
     REG_kv3_ES, REG_kv3_RES149, REG_kv3_RES150, REG_kv3_RES151,
     REG_kv3_SID, REG_kv3_RES153, REG_kv3_RES154, REG_kv3_RES155,
-    REG_kv3_RES156, REG_kv3_RES157, REG_kv3_RES158, REG_kv3_RES159,
+    REG_kv3_SR1, REG_kv3_RES157, REG_kv3_RES158, REG_kv3_RES159,
     REG_kv3_RES160, REG_kv3_RES161, REG_kv3_RES162, REG_kv3_RES163,
     REG_kv3_RES164, REG_kv3_RES165, REG_kv3_RES166, REG_kv3_RES167,
     REG_kv3_RES168, REG_kv3_RES169, REG_kv3_RES170, REG_kv3_RES171,
@@ -1035,8 +1035,9 @@ enum Register {
     REG_v2_DC2, REG_v2_DC3, REG_v2_DBA2, REG_v2_DBA3,
     REG_v2_DWA2, REG_v2_DWA3, REG_v2_ES_PL0, REG_v2_ES_PL1,
     REG_v2_ES_PL2, REG_v2_ES_PL3, REG_v2_SID_PL0, REG_v2_SID_PL1,
-    REG_v2_SID_PL2, REG_v2_SID_PL3, REG_v2_DOW, REG_v2_MOW,
-    REG_v2_ES, REG_v2_SID, };
+    REG_v2_SID_PL2, REG_v2_SID_PL3, REG_v2_SR1_PL0, REG_v2_SR1_PL1,
+    REG_v2_SR1_PL2, REG_v2_SR1_PL3, REG_v2_DOW, REG_v2_MOW,
+    REG_v2_ES, REG_v2_SID, REG_v2_SR1, };
 
 typedef enum RegFile RegFile;
 enum RegFile {
@@ -11679,8 +11680,8 @@ static const RegisterDescr REGISTERS[] = {
         .waccess = REG_ACCESS_NONE,
         .cpu_models = CPU_MODEL_v1,
     },
-    [REG_kv3_RES92] = {
-        .name = "res92",
+    [REG_kv3_SR1_PL0] = {
+        .name = "sr1_pl0",
         .regfile = REGFILE_kv3_SFR,
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 736,
@@ -11688,10 +11689,10 @@ static const RegisterDescr REGISTERS[] = {
         .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
-        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
+        .cpu_models = CPU_MODEL_v1,
     },
-    [REG_kv3_RES93] = {
-        .name = "res93",
+    [REG_kv3_SR1_PL1] = {
+        .name = "sr1_pl1",
         .regfile = REGFILE_kv3_SFR,
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 744,
@@ -11699,10 +11700,10 @@ static const RegisterDescr REGISTERS[] = {
         .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
-        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
+        .cpu_models = CPU_MODEL_v1,
     },
-    [REG_kv3_RES94] = {
-        .name = "res94",
+    [REG_kv3_SR1_PL2] = {
+        .name = "sr1_pl2",
         .regfile = REGFILE_kv3_SFR,
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 752,
@@ -11710,10 +11711,10 @@ static const RegisterDescr REGISTERS[] = {
         .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
-        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
+        .cpu_models = CPU_MODEL_v1,
     },
-    [REG_kv3_RES95] = {
-        .name = "res95",
+    [REG_kv3_SR1_PL3] = {
+        .name = "sr1_pl3",
         .regfile = REGFILE_kv3_SFR,
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 760,
@@ -11721,7 +11722,7 @@ static const RegisterDescr REGISTERS[] = {
         .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
-        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
+        .cpu_models = CPU_MODEL_v1,
     },
     [REG_kv3_SYOW] = {
         .name = "syow",
@@ -12709,8 +12710,8 @@ static const RegisterDescr REGISTERS[] = {
         .waccess = REG_ACCESS_NONE,
         .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
-    [REG_kv3_RES156] = {
-        .name = "res156",
+    [REG_kv3_SR1] = {
+        .name = "sr1",
         .regfile = REGFILE_kv3_SFR,
         .reg_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1248,
@@ -12718,7 +12719,7 @@ static const RegisterDescr REGISTERS[] = {
         .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
-        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
+        .cpu_models = CPU_MODEL_v1,
     },
     [REG_kv3_RES157] = {
         .name = "res157",
@@ -22825,6 +22826,50 @@ static const RegisterDescr REGISTERS[] = {
         .waccess = REG_ACCESS_SET,
         .cpu_models = CPU_MODEL_v2,
     },
+    [REG_v2_SR1_PL0] = {
+        .name = "sr1_pl0",
+        .regfile = REGFILE_kv3_SFR,
+        .reg_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_SRS) + 736,
+        .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
+        .raccess = REG_ACCESS_GET,
+        .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v2,
+    },
+    [REG_v2_SR1_PL1] = {
+        .name = "sr1_pl1",
+        .regfile = REGFILE_kv3_SFR,
+        .reg_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_SRS) + 744,
+        .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
+        .raccess = REG_ACCESS_GET,
+        .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v2,
+    },
+    [REG_v2_SR1_PL2] = {
+        .name = "sr1_pl2",
+        .regfile = REGFILE_kv3_SFR,
+        .reg_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_SRS) + 752,
+        .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
+        .raccess = REG_ACCESS_GET,
+        .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v2,
+    },
+    [REG_v2_SR1_PL3] = {
+        .name = "sr1_pl3",
+        .regfile = REGFILE_kv3_SFR,
+        .reg_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_SRS) + 760,
+        .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
+        .raccess = REG_ACCESS_GET,
+        .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v2,
+    },
     [REG_v2_DOW] = {
         .name = "dow",
         .regfile = REGFILE_kv3_SFR,
@@ -23007,6 +23052,17 @@ static const RegisterDescr REGISTERS[] = {
         .waccess = REG_ACCESS_SET,
         .cpu_models = CPU_MODEL_v2,
     },
+    [REG_v2_SR1] = {
+        .name = "sr1",
+        .regfile = REGFILE_kv3_SFR,
+        .reg_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_SRS) + 1248,
+        .reset = 0x0000000000000000,
+        .mask = 0xffffffffffffffffull,
+        .raccess = REG_ACCESS_GET,
+        .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v2,
+    },
 };
 
 typedef struct RegisterFile RegisterFile;
@@ -23042,7 +23098,7 @@ static const RegisterFile REGFILE_MAPPING[] = {
             REG_kv3_SR_PL0, REG_kv3_SR_PL1, REG_kv3_SR_PL2, REG_kv3_SR_PL3,
             REG_kv3_ES_PL0, REG_kv3_ES_PL1, REG_kv3_ES_PL2, REG_kv3_ES_PL3,
             REG_kv3_SID_PL0, REG_kv3_SID_PL1, REG_kv3_SID_PL2, REG_kv3_SID_PL3,
-            REG_kv3_RES92, REG_kv3_RES93, REG_kv3_RES94, REG_kv3_RES95,
+            REG_kv3_SR1_PL0, REG_kv3_SR1_PL1, REG_kv3_SR1_PL2, REG_kv3_SR1_PL3,
             REG_kv3_SYOW, REG_kv3_HTOW, REG_kv3_ITOW, REG_kv3_DOW,
             REG_kv3_MOW, REG_kv3_PSOW, REG_kv3_RES102, REG_kv3_RES103,
             REG_kv3_RES104, REG_kv3_RES105, REG_kv3_RES106, REG_kv3_RES107,
@@ -23058,7 +23114,7 @@ static const RegisterFile REGFILE_MAPPING[] = {
             REG_kv3_SR, REG_kv3_RES145, REG_kv3_RES146, REG_kv3_RES147,
             REG_kv3_ES, REG_kv3_RES149, REG_kv3_RES150, REG_kv3_RES151,
             REG_kv3_SID, REG_kv3_RES153, REG_kv3_RES154, REG_kv3_RES155,
-            REG_kv3_RES156, REG_kv3_RES157, REG_kv3_RES158, REG_kv3_RES159,
+            REG_kv3_SR1, REG_kv3_RES157, REG_kv3_RES158, REG_kv3_RES159,
             REG_kv3_RES160, REG_kv3_RES161, REG_kv3_RES162, REG_kv3_RES163,
             REG_kv3_RES164, REG_kv3_RES165, REG_kv3_RES166, REG_kv3_RES167,
             REG_kv3_RES168, REG_kv3_RES169, REG_kv3_RES170, REG_kv3_RES171,
