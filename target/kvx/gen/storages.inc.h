@@ -42,6 +42,9 @@ struct Storages {
     uint64_t kv3_IXC[1]; /* Coolidge V2, Inter-Extension Communications */
     uint64_t kv3_TEL[1]; /* TLB Entry Low */
     uint64_t kv3_TEH[1]; /* TLB Entry High */
+    uint64_t kv3_TPC0[1]; /* Trace PC configuration 0 */
+    uint64_t kv3_TPC1[1]; /* Trace PC configuration 1 */
+    uint64_t kv3_TPC2[1]; /* Trace PC configuration 2 */
     uint64_t kv3_DC[1]; /* Debug Control */
     uint64_t kv3_DCV2_0[1]; /* Debug Control watchpoint/breakpoint 0 */
     uint64_t kv3_DCV2_1[1]; /* Debug Control watchpoint/breakpoint 1 */

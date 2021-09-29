@@ -10,15 +10,16 @@ enum Storage {
     STORAGE_kv3_DWA3, STORAGE_kv3_CSIT, STORAGE_kv3_ES, STORAGE_kv3_ES_PL0,
     STORAGE_kv3_ES_PL1, STORAGE_kv3_ES_PL2, STORAGE_kv3_ES_PL3, STORAGE_kv3_SID,
     STORAGE_kv3_SID_PL0, STORAGE_kv3_SID_PL1, STORAGE_kv3_SID_PL2, STORAGE_kv3_SID_PL3,
-    STORAGE_kv3_IXC, STORAGE_kv3_TEL, STORAGE_kv3_TEH, STORAGE_kv3_DC,
-    STORAGE_kv3_DCV2_0, STORAGE_kv3_DCV2_1, STORAGE_kv3_DCV2_2, STORAGE_kv3_DCV2_3,
-    STORAGE_kv3_SRS, STORAGE_kv3_GRS, STORAGE_kv3_XRS, STORAGE_kv3_NPC,
-    STORAGE_kv3_TCR, STORAGE_kv3_PMC, STORAGE_kv3_PCR, STORAGE_kv3_SYO,
-    STORAGE_kv3_HTO, STORAGE_kv3_ITO, STORAGE_kv3_ILE, STORAGE_kv3_ILL,
-    STORAGE_kv3_ILR, STORAGE_kv3_IPE, STORAGE_kv3_DO, STORAGE_kv3_MO,
-    STORAGE_kv3_PSO, STORAGE_kv3_MMC, STORAGE_kv3_MES, STORAGE_kv3_WS,
-    STORAGE_v2_SID, STORAGE_v2_SID_PL0, STORAGE_v2_SID_PL1, STORAGE_v2_SID_PL2,
-    STORAGE_v2_SID_PL3, STORAGE_v2_IXC, STORAGE_v2_DC, };
+    STORAGE_kv3_IXC, STORAGE_kv3_TEL, STORAGE_kv3_TEH, STORAGE_kv3_TPC0,
+    STORAGE_kv3_TPC1, STORAGE_kv3_TPC2, STORAGE_kv3_DC, STORAGE_kv3_DCV2_0,
+    STORAGE_kv3_DCV2_1, STORAGE_kv3_DCV2_2, STORAGE_kv3_DCV2_3, STORAGE_kv3_SRS,
+    STORAGE_kv3_GRS, STORAGE_kv3_XRS, STORAGE_kv3_NPC, STORAGE_kv3_TCR,
+    STORAGE_kv3_PMC, STORAGE_kv3_PCR, STORAGE_kv3_SYO, STORAGE_kv3_HTO,
+    STORAGE_kv3_ITO, STORAGE_kv3_ILE, STORAGE_kv3_ILL, STORAGE_kv3_ILR,
+    STORAGE_kv3_IPE, STORAGE_kv3_DO, STORAGE_kv3_MO, STORAGE_kv3_PSO,
+    STORAGE_kv3_MMC, STORAGE_kv3_MES, STORAGE_kv3_WS, STORAGE_v2_SID,
+    STORAGE_v2_SID_PL0, STORAGE_v2_SID_PL1, STORAGE_v2_SID_PL2, STORAGE_v2_SID_PL3,
+    STORAGE_v2_IXC, STORAGE_v2_DC, };
 
 typedef enum RegisterField RegisterField;
 enum RegisterField {
@@ -700,7 +701,9 @@ enum RegisterField {
     REGFIELD_kv3_DOW_BI2,
     REGFIELD_kv3_DOW_BI3,
     REGFIELD_kv3_MO_COMM,
+    REGFIELD_kv3_MO_TPC,
     REGFIELD_kv3_MOW_COMM,
+    REGFIELD_kv3_MOW_TPC,
     REGFIELD_kv3_ES_DRX,
     REGFIELD_kv3_ES_DAF,
     REGFIELD_kv3_ES_DCV2,
@@ -728,6 +731,10 @@ enum RegisterField {
     REGFIELD_kv3_SID_PL3_SID,
     REGFIELD_kv3_PMC_SAF,
     REGFIELD_v2_PCR_CAR,
+    REGFIELD_kv3_TPC_0,
+    REGFIELD_kv3_TPC_1,
+    REGFIELD_kv3_TPC_2,
+    REGFIELD_kv3_TPC_valid,
     REGFIELD_kv3_DC0_BE,
     REGFIELD_kv3_DC0_WE,
     REGFIELD_kv3_DC0_WTYP,
@@ -759,11 +766,11 @@ enum Register {
     REG_kv3_WDR, REG_kv3_ILE, REG_kv3_ILL, REG_kv3_ILR,
     REG_kv3_MMC, REG_kv3_TEL, REG_kv3_TEH, REG_kv3_IXC,
     REG_kv3_SYO, REG_kv3_HTO, REG_kv3_ITO, REG_kv3_DO,
-    REG_kv3_MO, REG_kv3_PSO, REG_kv3_RES38, REG_kv3_RES39,
+    REG_kv3_MO, REG_kv3_PSO, REG_kv3_TPC0, REG_kv3_TPC1,
     REG_kv3_DC, REG_kv3_DBA0, REG_kv3_DBA1, REG_kv3_DWA0,
     REG_kv3_DWA1, REG_kv3_MES, REG_kv3_WS, REG_kv3_DC0,
     REG_kv3_DC1, REG_kv3_DC2, REG_kv3_DC3, REG_kv3_DBA2,
-    REG_kv3_DBA3, REG_kv3_DWA2, REG_kv3_DWA3, REG_kv3_RES55,
+    REG_kv3_DBA3, REG_kv3_DWA2, REG_kv3_DWA3, REG_kv3_TPC2,
     REG_kv3_RES56, REG_kv3_RES57, REG_kv3_RES58, REG_kv3_RES59,
     REG_kv3_RES60, REG_kv3_RES61, REG_kv3_RES62, REG_kv3_RES63,
     REG_kv3_SPC_PL0, REG_kv3_SPC_PL1, REG_kv3_SPC_PL2, REG_kv3_SPC_PL3,
@@ -1031,13 +1038,14 @@ enum Register {
     REG_kv3_X8, REG_kv3_X9, REG_kv3_X10, REG_kv3_X11,
     REG_kv3_X12, REG_kv3_X13, REG_kv3_X14, REG_kv3_X15,
     REG_v2_PCR, REG_v2_PMC, REG_v2_IXC, REG_v2_DO,
-    REG_v2_MO, REG_v2_DC, REG_v2_DC0, REG_v2_DC1,
-    REG_v2_DC2, REG_v2_DC3, REG_v2_DBA2, REG_v2_DBA3,
-    REG_v2_DWA2, REG_v2_DWA3, REG_v2_ES_PL0, REG_v2_ES_PL1,
-    REG_v2_ES_PL2, REG_v2_ES_PL3, REG_v2_SID_PL0, REG_v2_SID_PL1,
-    REG_v2_SID_PL2, REG_v2_SID_PL3, REG_v2_SR1_PL0, REG_v2_SR1_PL1,
-    REG_v2_SR1_PL2, REG_v2_SR1_PL3, REG_v2_DOW, REG_v2_MOW,
-    REG_v2_ES, REG_v2_SID, REG_v2_SR1, };
+    REG_v2_MO, REG_v2_TPC0, REG_v2_TPC1, REG_v2_DC,
+    REG_v2_DC0, REG_v2_DC1, REG_v2_DC2, REG_v2_DC3,
+    REG_v2_DBA2, REG_v2_DBA3, REG_v2_DWA2, REG_v2_DWA3,
+    REG_v2_TPC2, REG_v2_ES_PL0, REG_v2_ES_PL1, REG_v2_ES_PL2,
+    REG_v2_ES_PL3, REG_v2_SID_PL0, REG_v2_SID_PL1, REG_v2_SID_PL2,
+    REG_v2_SID_PL3, REG_v2_SR1_PL0, REG_v2_SR1_PL1, REG_v2_SR1_PL2,
+    REG_v2_SR1_PL3, REG_v2_DOW, REG_v2_MOW, REG_v2_ES,
+    REG_v2_SID, REG_v2_SR1, };
 
 typedef enum RegFile RegFile;
 enum RegFile {
@@ -1373,6 +1381,24 @@ static const StorageDescr STORAGES[] = {
         .count = 64,
         .data_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_TEH)
+    },
+    [STORAGE_kv3_TPC0] = {
+        .width = 64,
+        .count = 1,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_TPC0)
+    },
+    [STORAGE_kv3_TPC1] = {
+        .width = 64,
+        .count = 1,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_TPC1)
+    },
+    [STORAGE_kv3_TPC2] = {
+        .width = 1,
+        .count = 64,
+        .data_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_TPC2)
     },
     [STORAGE_kv3_DC] = {
         .width = 1,
@@ -8899,6 +8925,13 @@ static const RegisterFieldDescr REGISTERFIELDS[] = {
         .width = 2,
         .mask = 0x0000000c00000000,
     },
+    [REGFIELD_kv3_MO_TPC] = {
+        .name = "MO_TPC",
+        .reg = REG_kv3_MO,
+        .offset = 36,
+        .width = 2,
+        .mask = 0x0000003000000000,
+    },
     [REGFIELD_kv3_MOW_COMM] = {
         .name = "MOW_COMM",
         .reg = REG_kv3_MOW,
@@ -8908,6 +8941,19 @@ static const RegisterFieldDescr REGISTERFIELDS[] = {
         .n_owners = 1,
         .owners = (const RegisterField []) {
             REGFIELD_kv3_MO_COMM,
+        },
+        .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_MOW_TPC] = {
+        .name = "MOW_TPC",
+        .reg = REG_kv3_MOW,
+        .offset = 36,
+        .width = 2,
+        .mask = 0x0000003000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_TPC,
         },
         .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
@@ -9121,6 +9167,58 @@ static const RegisterFieldDescr REGISTERFIELDS[] = {
             REGFIELD_kv3_MO_PCR,
         },
         .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_TPC_0] = {
+        .name = "TPC_0",
+        .reg = REG_kv3_TPC0,
+        .offset = 0,
+        .width = 64,
+        .mask = 0xffffffffffffffff,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_TPC,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_TPC_1] = {
+        .name = "TPC_1",
+        .reg = REG_kv3_TPC1,
+        .offset = 0,
+        .width = 64,
+        .mask = 0xffffffffffffffff,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_TPC,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_TPC_2] = {
+        .name = "TPC_2",
+        .reg = REG_kv3_TPC2,
+        .offset = 0,
+        .width = 63,
+        .mask = 0x7fffffffffffffff,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_TPC,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_TPC_valid] = {
+        .name = "TPC_valid",
+        .reg = REG_kv3_TPC2,
+        .offset = 63,
+        .width = 1,
+        .mask = 0x8000000000000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_TPC,
+        },
+        .rerror = REG_READ_ERROR_READ0,
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
     },
     [REGFIELD_kv3_DC0_BE] = {
@@ -10596,27 +10694,27 @@ static const RegisterDescr REGISTERS[] = {
         .waccess = REG_ACCESS_NONE,
         .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
     },
-    [REG_kv3_RES38] = {
-        .name = "res38",
+    [REG_kv3_TPC0] = {
+        .name = "tpc0",
         .regfile = REGFILE_kv3_SFR,
         .reg_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_SRS) + 304,
+        .offset = offsetof(CPUArchState, storages.kv3_TPC0) + 0,
         .reset = 0x0000000000000000,
         .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
-        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
+        .cpu_models = CPU_MODEL_v1,
     },
-    [REG_kv3_RES39] = {
-        .name = "res39",
+    [REG_kv3_TPC1] = {
+        .name = "tpc1",
         .regfile = REGFILE_kv3_SFR,
         .reg_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_SRS) + 312,
+        .offset = offsetof(CPUArchState, storages.kv3_TPC1) + 0,
         .reset = 0x0000000000000000,
         .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
-        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
+        .cpu_models = CPU_MODEL_v1,
     },
     [REG_kv3_DC] = {
         .name = "dc",
@@ -10873,16 +10971,16 @@ static const RegisterDescr REGISTERS[] = {
         .waccess = REG_ACCESS_NONE,
         .cpu_models = CPU_MODEL_v1,
     },
-    [REG_kv3_RES55] = {
-        .name = "res55",
+    [REG_kv3_TPC2] = {
+        .name = "tpc2",
         .regfile = REGFILE_kv3_SFR,
         .reg_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_SRS) + 440,
+        .offset = offsetof(CPUArchState, storages.kv3_TPC2) + 0,
         .reset = 0x0000000000000000,
         .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
         .waccess = REG_ACCESS_NONE,
-        .cpu_models = CPU_MODEL_v1 | CPU_MODEL_v2,
+        .cpu_models = CPU_MODEL_v1,
     },
     [REG_kv3_RES56] = {
         .name = "res56",
@@ -22261,8 +22359,9 @@ static const RegisterDescr REGISTERS[] = {
             | 0x00000000c0000000
             | 0x0000000300000000
             | 0x0000000c00000000
+            | 0x0000003000000000
         ),
-        .n_fields = 18,
+        .n_fields = 19,
         .fields = (const RegisterField []) {
             REGFIELD_kv3_MO_MMI,
             REGFIELD_kv3_MO_RFE,
@@ -22282,9 +22381,48 @@ static const RegisterDescr REGISTERS[] = {
             REGFIELD_kv3_MO_PM3,
             REGFIELD_kv3_MO_PMIT,
             REGFIELD_kv3_MO_COMM,
+            REGFIELD_kv3_MO_TPC,
         },
         .raccess = REG_ACCESS_GET,
         .waccess = REG_ACCESS_NONE,
+        .cpu_models = CPU_MODEL_v2,
+    },
+    [REG_v2_TPC0] = {
+        .name = "tpc0",
+        .regfile = REGFILE_kv3_SFR,
+        .reg_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_TPC0) + 0,
+        .reset = 0x0000000000000000,
+        .mask = (
+              0xffffffffffffffff
+        ),
+        .n_fields = 1,
+        .fields = (const RegisterField []) {
+            REGFIELD_kv3_TPC_0,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+        .raccess = REG_ACCESS_GET,
+        .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v2,
+    },
+    [REG_v2_TPC1] = {
+        .name = "tpc1",
+        .regfile = REGFILE_kv3_SFR,
+        .reg_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_TPC1) + 0,
+        .reset = 0x0000000000000000,
+        .mask = (
+              0xffffffffffffffff
+        ),
+        .n_fields = 1,
+        .fields = (const RegisterField []) {
+            REGFIELD_kv3_TPC_1,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+        .raccess = REG_ACCESS_GET,
+        .waccess = REG_ACCESS_SET,
         .cpu_models = CPU_MODEL_v2,
     },
     [REG_v2_DC] = {
@@ -22467,6 +22605,27 @@ static const RegisterDescr REGISTERS[] = {
         .n_fields = 1,
         .fields = (const RegisterField []) {
             REGFIELD_kv3_DWA3_DWA3,
+        },
+        .rerror = REG_READ_ERROR_READ0,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+        .raccess = REG_ACCESS_GET,
+        .waccess = REG_ACCESS_SET,
+        .cpu_models = CPU_MODEL_v2,
+    },
+    [REG_v2_TPC2] = {
+        .name = "tpc2",
+        .regfile = REGFILE_kv3_SFR,
+        .reg_width = 64,
+        .offset = offsetof(CPUArchState, storages.kv3_TPC2) + 0,
+        .reset = 0x0000000000000000,
+        .mask = (
+              0x7fffffffffffffff
+            | 0x8000000000000000
+        ),
+        .n_fields = 2,
+        .fields = (const RegisterField []) {
+            REGFIELD_kv3_TPC_2,
+            REGFIELD_kv3_TPC_valid,
         },
         .rerror = REG_READ_ERROR_READ0,
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
@@ -22936,8 +23095,9 @@ static const RegisterDescr REGISTERS[] = {
             | 0x00000000c0000000
             | 0x0000000300000000
             | 0x0000000c00000000
+            | 0x0000003000000000
         ),
-        .n_fields = 18,
+        .n_fields = 19,
         .fields = (const RegisterField []) {
             REGFIELD_kv3_MOW_MMI,
             REGFIELD_kv3_MOW_RFE,
@@ -22957,6 +23117,7 @@ static const RegisterDescr REGISTERS[] = {
             REGFIELD_kv3_MOW_PM3,
             REGFIELD_kv3_MOW_PMIT,
             REGFIELD_kv3_MOW_COMM,
+            REGFIELD_kv3_MOW_TPC,
         },
         .rerror = REG_READ_ERROR_TRAP_PRIVILEGE,
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
@@ -23084,11 +23245,11 @@ static const RegisterFile REGFILE_MAPPING[] = {
             REG_kv3_WDR, REG_kv3_ILE, REG_kv3_ILL, REG_kv3_ILR,
             REG_kv3_MMC, REG_kv3_TEL, REG_kv3_TEH, REG_kv3_IXC,
             REG_kv3_SYO, REG_kv3_HTO, REG_kv3_ITO, REG_kv3_DO,
-            REG_kv3_MO, REG_kv3_PSO, REG_kv3_RES38, REG_kv3_RES39,
+            REG_kv3_MO, REG_kv3_PSO, REG_kv3_TPC0, REG_kv3_TPC1,
             REG_kv3_DC, REG_kv3_DBA0, REG_kv3_DBA1, REG_kv3_DWA0,
             REG_kv3_DWA1, REG_kv3_MES, REG_kv3_WS, REG_kv3_DC0,
             REG_kv3_DC1, REG_kv3_DC2, REG_kv3_DC3, REG_kv3_DBA2,
-            REG_kv3_DBA3, REG_kv3_DWA2, REG_kv3_DWA3, REG_kv3_RES55,
+            REG_kv3_DBA3, REG_kv3_DWA2, REG_kv3_DWA3, REG_kv3_TPC2,
             REG_kv3_RES56, REG_kv3_RES57, REG_kv3_RES58, REG_kv3_RES59,
             REG_kv3_RES60, REG_kv3_RES61, REG_kv3_RES62, REG_kv3_RES63,
             REG_kv3_SPC_PL0, REG_kv3_SPC_PL1, REG_kv3_SPC_PL2, REG_kv3_SPC_PL3,
