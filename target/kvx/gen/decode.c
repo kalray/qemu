@@ -13798,13 +13798,13 @@ bool decode_v1_simple(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000e:
           decode_kv3_registerW_kv3_registerZ_kv3_registerY(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_registerY);
           ctx->cur_opcode->format = kv3_ALU_DCWRRC;
-          ctx->cur_opcode->insn = kv3_ADDD_C;
-          return trans_v1_ADDD_C_registerW_registerZ_registerY_simple(ctx, &u.kv3_registerW_kv3_registerZ_kv3_registerY);
+          ctx->cur_opcode->insn = kv3_ADDCD;
+          return trans_v1_ADDCD_registerW_registerZ_registerY_simple(ctx, &u.kv3_registerW_kv3_registerZ_kv3_registerY);
         case 0x0000000f:
           decode_kv3_registerW_kv3_registerZ_kv3_registerY(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_registerY);
           ctx->cur_opcode->format = kv3_ALU_DCWRRC;
-          ctx->cur_opcode->insn = kv3_SBFD_C;
-          return trans_v1_SBFD_C_registerW_registerZ_registerY_simple(ctx, &u.kv3_registerW_kv3_registerZ_kv3_registerY);
+          ctx->cur_opcode->insn = kv3_SBFCD;
+          return trans_v1_SBFCD_registerW_registerZ_registerY_simple(ctx, &u.kv3_registerW_kv3_registerZ_kv3_registerY);
         default:
           decode_kv3_comparison_kv3_registerW_kv3_registerZ_kv3_registerY(ctx, codeWords, &u.kv3_comparison_kv3_registerW_kv3_registerZ_kv3_registerY);
           ctx->cur_opcode->format = kv3_ALU_DCWRR;
@@ -13818,13 +13818,13 @@ bool decode_v1_simple(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000e:
           decode_kv3_registerW_kv3_registerZ_kv3_registerY(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_registerY);
           ctx->cur_opcode->format = kv3_ALU_DCWRRCI;
-          ctx->cur_opcode->insn = kv3_ADDD_CI;
-          return trans_v1_ADDD_CI_registerW_registerZ_registerY_simple(ctx, &u.kv3_registerW_kv3_registerZ_kv3_registerY);
+          ctx->cur_opcode->insn = kv3_ADDCD_I;
+          return trans_v1_ADDCD_I_registerW_registerZ_registerY_simple(ctx, &u.kv3_registerW_kv3_registerZ_kv3_registerY);
         case 0x0000000f:
           decode_kv3_registerW_kv3_registerZ_kv3_registerY(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_registerY);
           ctx->cur_opcode->format = kv3_ALU_DCWRRCI;
-          ctx->cur_opcode->insn = kv3_SBFD_CI;
-          return trans_v1_SBFD_CI_registerW_registerZ_registerY_simple(ctx, &u.kv3_registerW_kv3_registerZ_kv3_registerY);
+          ctx->cur_opcode->insn = kv3_SBFCD_I;
+          return trans_v1_SBFCD_I_registerW_registerZ_registerY_simple(ctx, &u.kv3_registerW_kv3_registerZ_kv3_registerY);
         default:
           decode_kv3_comparison_kv3_registerW_kv3_registerZ_kv3_registerY(ctx, codeWords, &u.kv3_comparison_kv3_registerW_kv3_registerZ_kv3_registerY);
           ctx->cur_opcode->format = kv3_ALU_DCWRR;
@@ -23288,13 +23288,13 @@ bool decode_v2_simple(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000e:
           decode_kv3_registerW_kv3_registerZ_kv3_registerY(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_registerY);
           ctx->cur_opcode->format = kv3_ALU_DCWRRC;
-          ctx->cur_opcode->insn = kv3_ADDD_C;
-          return trans_v2_ADDD_C_registerW_registerZ_registerY_simple(ctx, &u.kv3_registerW_kv3_registerZ_kv3_registerY);
+          ctx->cur_opcode->insn = kv3_ADDCD;
+          return trans_v2_ADDCD_registerW_registerZ_registerY_simple(ctx, &u.kv3_registerW_kv3_registerZ_kv3_registerY);
         case 0x0000000f:
           decode_kv3_registerW_kv3_registerZ_kv3_registerY(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_registerY);
           ctx->cur_opcode->format = kv3_ALU_DCWRRC;
-          ctx->cur_opcode->insn = kv3_SBFD_C;
-          return trans_v2_SBFD_C_registerW_registerZ_registerY_simple(ctx, &u.kv3_registerW_kv3_registerZ_kv3_registerY);
+          ctx->cur_opcode->insn = kv3_SBFCD;
+          return trans_v2_SBFCD_registerW_registerZ_registerY_simple(ctx, &u.kv3_registerW_kv3_registerZ_kv3_registerY);
         default:
           decode_kv3_comparison_kv3_registerW_kv3_registerZ_kv3_registerY(ctx, codeWords, &u.kv3_comparison_kv3_registerW_kv3_registerZ_kv3_registerY);
           ctx->cur_opcode->format = kv3_ALU_DCWRR;
@@ -23308,13 +23308,13 @@ bool decode_v2_simple(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000e:
           decode_kv3_registerW_kv3_registerZ_kv3_registerY(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_registerY);
           ctx->cur_opcode->format = kv3_ALU_DCWRRCI;
-          ctx->cur_opcode->insn = kv3_ADDD_CI;
-          return trans_v2_ADDD_CI_registerW_registerZ_registerY_simple(ctx, &u.kv3_registerW_kv3_registerZ_kv3_registerY);
+          ctx->cur_opcode->insn = kv3_ADDCD_I;
+          return trans_v2_ADDCD_I_registerW_registerZ_registerY_simple(ctx, &u.kv3_registerW_kv3_registerZ_kv3_registerY);
         case 0x0000000f:
           decode_kv3_registerW_kv3_registerZ_kv3_registerY(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_registerY);
           ctx->cur_opcode->format = kv3_ALU_DCWRRCI;
-          ctx->cur_opcode->insn = kv3_SBFD_CI;
-          return trans_v2_SBFD_CI_registerW_registerZ_registerY_simple(ctx, &u.kv3_registerW_kv3_registerZ_kv3_registerY);
+          ctx->cur_opcode->insn = kv3_SBFCD_I;
+          return trans_v2_SBFCD_I_registerW_registerZ_registerY_simple(ctx, &u.kv3_registerW_kv3_registerZ_kv3_registerY);
         default:
           decode_kv3_comparison_kv3_registerW_kv3_registerZ_kv3_registerY(ctx, codeWords, &u.kv3_comparison_kv3_registerW_kv3_registerZ_kv3_registerY);
           ctx->cur_opcode->format = kv3_ALU_DCWRR;
