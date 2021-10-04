@@ -64,7 +64,7 @@ static void trans_add_with_carry(DisasContext *ctx,
  * the carry. This is not supported by the generator that works on 64 bits
  * values in this case.
  */
-bool trans_v1_ADDD_C_registerW_registerZ_registerY_simple(DisasContext *ctx,
+bool trans_v1_ADDCD_registerW_registerZ_registerY_simple(DisasContext *ctx,
                                                          struct ops_kv3_registerW_kv3_registerZ_kv3_registerY *fmt)
 {
     trans_add_with_carry(ctx, fmt, false, false);
@@ -74,7 +74,7 @@ bool trans_v1_ADDD_C_registerW_registerZ_registerY_simple(DisasContext *ctx,
 /*
  * Overridden for the same reason as ADDCD
  */
-bool trans_v1_ADDD_CI_registerW_registerZ_registerY_simple(DisasContext *ctx,
+bool trans_v1_ADDCD_I_registerW_registerZ_registerY_simple(DisasContext *ctx,
                                                           struct ops_kv3_registerW_kv3_registerZ_kv3_registerY *fmt)
 {
     trans_add_with_carry(ctx, fmt, true, false);
@@ -84,7 +84,7 @@ bool trans_v1_ADDD_CI_registerW_registerZ_registerY_simple(DisasContext *ctx,
 /*
  * Overridden for the same reason as ADDCD
  */
-bool trans_v1_SBFD_C_registerW_registerZ_registerY_simple(DisasContext *ctx,
+bool trans_v1_SBFCD_registerW_registerZ_registerY_simple(DisasContext *ctx,
                                                          struct ops_kv3_registerW_kv3_registerZ_kv3_registerY *fmt)
 {
     trans_add_with_carry(ctx, fmt, false, true);
@@ -94,7 +94,7 @@ bool trans_v1_SBFD_C_registerW_registerZ_registerY_simple(DisasContext *ctx,
 /*
  * Overridden for the same reason as ADDCD
  */
-bool trans_v1_SBFD_CI_registerW_registerZ_registerY_simple(DisasContext *ctx,
+bool trans_v1_SBFCD_I_registerW_registerZ_registerY_simple(DisasContext *ctx,
                                                           struct ops_kv3_registerW_kv3_registerZ_kv3_registerY *fmt)
 {
     trans_add_with_carry(ctx, fmt, true, true);
