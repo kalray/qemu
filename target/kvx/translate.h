@@ -271,45 +271,6 @@ static inline void gen_fill_syndrome_pic(DisasContext *ctx, uint32_t pic)
     }
 }
 
-static inline uint64_t fix_syndrome_dri_field(Opcode *opcode, int64_t size,
-                                              uint64_t op)
-{
-    /*
-     * The op value given by the MDS behaviour needs to be fixed in the case of
-     * memory accesses that read or write a general purpose register tuple
-     * greater than 8 bytes. In this case we have the index of the _tuple_, but
-     * we need the index of the _first register in the tuple_.
-     */
-
-    if (opcode->insn == kv3_LQ || opcode->insn == kv3_SQ
-        || opcode->insn == kv3_LO || opcode->insn == kv3_SO
-        || opcode->insn == kv3_SV) {
-        return op * size / 8;
-    }
-
-    /* The same applies for the LV but not the column (lv.cx) version */
-    if ((opcode->insn == kv3_LV)
-        && ((opcode->format == kv3_LSU_LVBO)
-         || (opcode->format == kv3_LSU_LVBO_X)
-         || (opcode->format == kv3_LSU_LVBO_Y)
-         || (opcode->format == kv3_LSU_LVPB)
-         || (opcode->format == kv3_LSU_LVPB_O)
-         || (opcode->format == kv3_LSU_LVPB_Y)
-         || (opcode->format == kv3_LSU_LVBI))) {
-        return op * size / 8;
-    }
-
-    /*
-     * For ACSWAP[WD], the access size is 4 or 8 bytes but we are indeed writing
-     * a 128 bits register pair.
-     */
-    if (opcode->insn == kv3_ACSWAPW || opcode->insn == kv3_ACSWAPD) {
-        return op * 2;
-    }
-
-    return op;
-}
-
 static inline void gen_fill_syndrome_mem_access(DisasContext *ctx,
                                                 TCGv_i64 address,
                                                 int64_t size,
@@ -318,7 +279,6 @@ static inline void gen_fill_syndrome_mem_access(DisasContext *ctx,
                                                 ExceptionSyndromeRWXValue rwx)
 {
     uint64_t mask = 0;
-    dri = fix_syndrome_dri_field(ctx->cur_opcode, size, dri);
     FILL_SYNDROME(ctx, mask, AS, (size == 64) ? 0x3f : size);
     FILL_SYNDROME(ctx, mask, UCA, (!ctx->data_cache_enabled || variant == VARIANT_U || variant == VARIANT_US));
     FILL_SYNDROME(ctx, mask, NTA, (variant == VARIANT_S || variant == VARIANT_US));
