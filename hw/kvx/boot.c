@@ -313,25 +313,24 @@ static void load_kernel(KvxBootInfo *info)
 {
     if (info->kernel_filename) {
         uint64_t kernel_entry, kernel_high;
-        Error *err = NULL;
+        ssize_t ret;
 
         mppa_argarea_start_found = false;
         dtb_start_found = false;
         dtb_size_found = false;
 
         load_elf_hdr(info->kernel_filename, NULL,
-                     &info->kernel_is_64bits, &err);
+                     &info->kernel_is_64bits, &error_fatal);
 
-        if (err) {
-            error_free(err);
-            return;
-        }
+        ret = load_elf_ram_sym(info->kernel_filename, NULL, NULL, NULL,
+                               &kernel_entry, NULL, &kernel_high, NULL,
+                               0, EM_KVX, 1, 0, NULL, true,
+                               find_cos_syms);
 
-        if (load_elf_ram_sym(info->kernel_filename, NULL, NULL, NULL,
-                             &kernel_entry, NULL, &kernel_high, NULL,
-                             0, EM_KVX, 1, 0, NULL, true,
-                             find_cos_syms) <= 0) {
-            return;
+        if (ret <= 0) {
+            error_report("Error while loading ELF: %s: %s", info->kernel_filename,
+                         load_elf_strerror(ret));
+            exit(1);
         }
 
         info->kernel_loaded = true;
