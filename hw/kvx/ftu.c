@@ -46,12 +46,13 @@ REG32(CLUSTERS_STATUS, 0x20)
 
 static inline int kvx_ftu_offset_decode(hwaddr *offset)
 {
+    hwaddr true_offset = *offset;
     if (*offset >= A_OTHER_CLUSTERS_CTRL && *offset < 0x14) {
         *offset = A_OTHER_CLUSTERS_CTRL;
-        return *offset / 0x4;
+        return (true_offset - A_OTHER_CLUSTERS_CTRL) / 0x4;
     } else if (*offset >= A_CLUSTERS_STATUS && *offset < 0x34) {
         *offset = A_CLUSTERS_STATUS;
-        return *offset / 0x4;
+        return (true_offset - A_CLUSTERS_STATUS) / 0x4;
     }
 
     return 0;
@@ -66,7 +67,6 @@ static uint64_t kvx_ftu_read(void *opaque, hwaddr offset, unsigned size)
     int cluster_id = 0;
 
     cluster_id = kvx_ftu_offset_decode(&offset_decoded);
-
 
     switch (offset_decoded) {
     case A_OTHER_CLUSTERS_CTRL:
