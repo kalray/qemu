@@ -7081,7 +7081,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
             switch ((codeWord_0 >> 19) & 0x00000001) {
             case 0x00000000:
               decode_kv3_variant_kv3_lsucond_kv3_registerY_kv3_registerN_kv3_offset27_kv3_registerZ(ctx, codeWords, &u.kv3_variant_kv3_lsucond_kv3_registerY_kv3_registerN_kv3_offset27_kv3_registerZ);
-              ctx->cur_opcode->format = kv3_LSU_LPPB1_O;
+              ctx->cur_opcode->format = kv3_LSU_LQPB_O;
               ctx->cur_opcode->insn = kv3_LO;
               return trans_v1_LO_variant_lsucond_registerY_registerN_offset27_registerZ_double(ctx, &u.kv3_variant_kv3_lsucond_kv3_registerY_kv3_registerN_kv3_offset27_kv3_registerZ);
             case 0x00000001:
@@ -7901,14 +7901,14 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
     }
     return false;
   case 0x0000000d:
-    switch ((codeWord_0 >> 12) & 0x0000003f) {
-    case 0x00000002:
+    switch ((codeWord_0 >> 11) & 0x0000007f) {
+    case 0x00000004:
       switch ((codeWord_0 >> 24) & 0x0000000f) {
       case 0x00000008:
         switch ((codeWord_1 >> 29) & 0x00000003) {
         case 0x00000000:
           decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-          ctx->cur_opcode->format = kv3_MAU_CRC_X;
+          ctx->cur_opcode->format = kv3_MAU_CRC_W;
           ctx->cur_opcode->insn = kv3_CRCBELMW;
           return trans_v1_CRCBELMW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
         default:
@@ -7919,7 +7919,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         switch ((codeWord_1 >> 29) & 0x00000003) {
         case 0x00000000:
           decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-          ctx->cur_opcode->format = kv3_MAU_CRC_X;
+          ctx->cur_opcode->format = kv3_MAU_CRC_W;
           ctx->cur_opcode->insn = kv3_CRCBELLW;
           return trans_v1_CRCBELLW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
         default:
@@ -7930,7 +7930,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         switch ((codeWord_1 >> 29) & 0x00000003) {
         case 0x00000000:
           decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-          ctx->cur_opcode->format = kv3_MAU_CRC_X;
+          ctx->cur_opcode->format = kv3_MAU_CRC_W;
           ctx->cur_opcode->insn = kv3_CRCLELMW;
           return trans_v1_CRCLELMW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
         default:
@@ -7941,7 +7941,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         switch ((codeWord_1 >> 29) & 0x00000003) {
         case 0x00000000:
           decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-          ctx->cur_opcode->format = kv3_MAU_CRC_X;
+          ctx->cur_opcode->format = kv3_MAU_CRC_W;
           ctx->cur_opcode->insn = kv3_CRCLELLW;
           return trans_v1_CRCLELLW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
         default:
@@ -7952,13 +7952,13 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         break;
       }
       return false;
-    case 0x00000003:
+    case 0x00000006:
       switch ((codeWord_0 >> 24) & 0x0000000f) {
       case 0x00000000:
         switch ((codeWord_1 >> 29) & 0x00000003) {
         case 0x00000000:
           decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-          ctx->cur_opcode->format = kv3_MAU_SSSS_X;
+          ctx->cur_opcode->format = kv3_MAU_SSSS_W;
           ctx->cur_opcode->insn = kv3_MADDWD;
           return trans_v1_MADDWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
         default:
@@ -7969,7 +7969,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         switch ((codeWord_1 >> 29) & 0x00000003) {
         case 0x00000000:
           decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-          ctx->cur_opcode->format = kv3_MAU_SSSS_X;
+          ctx->cur_opcode->format = kv3_MAU_SSSS_W;
           ctx->cur_opcode->insn = kv3_MADDUWD;
           return trans_v1_MADDUWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
         default:
@@ -7980,7 +7980,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         switch ((codeWord_1 >> 29) & 0x00000003) {
         case 0x00000000:
           decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-          ctx->cur_opcode->format = kv3_MAU_SSSS_X;
+          ctx->cur_opcode->format = kv3_MAU_SSSS_W;
           ctx->cur_opcode->insn = kv3_MADDSUWD;
           return trans_v1_MADDSUWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
         default:
@@ -7991,7 +7991,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         switch ((codeWord_1 >> 29) & 0x00000003) {
         case 0x00000000:
           decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-          ctx->cur_opcode->format = kv3_MAU_SSSS_X;
+          ctx->cur_opcode->format = kv3_MAU_SSSS_W;
           ctx->cur_opcode->insn = kv3_MADDW;
           return trans_v1_MADDW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
         default:
@@ -8002,7 +8002,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         switch ((codeWord_1 >> 29) & 0x00000003) {
         case 0x00000000:
           decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-          ctx->cur_opcode->format = kv3_MAU_SSSS_X;
+          ctx->cur_opcode->format = kv3_MAU_SSSS_W;
           ctx->cur_opcode->insn = kv3_MSBFWD;
           return trans_v1_MSBFWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
         default:
@@ -8013,7 +8013,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         switch ((codeWord_1 >> 29) & 0x00000003) {
         case 0x00000000:
           decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-          ctx->cur_opcode->format = kv3_MAU_SSSS_X;
+          ctx->cur_opcode->format = kv3_MAU_SSSS_W;
           ctx->cur_opcode->insn = kv3_MSBFUWD;
           return trans_v1_MSBFUWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
         default:
@@ -8024,7 +8024,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         switch ((codeWord_1 >> 29) & 0x00000003) {
         case 0x00000000:
           decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-          ctx->cur_opcode->format = kv3_MAU_SSSS_X;
+          ctx->cur_opcode->format = kv3_MAU_SSSS_W;
           ctx->cur_opcode->insn = kv3_MSBFSUWD;
           return trans_v1_MSBFSUWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
         default:
@@ -8035,7 +8035,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         switch ((codeWord_1 >> 29) & 0x00000003) {
         case 0x00000000:
           decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-          ctx->cur_opcode->format = kv3_MAU_SSSS_X;
+          ctx->cur_opcode->format = kv3_MAU_SSSS_W;
           ctx->cur_opcode->insn = kv3_MSBFW;
           return trans_v1_MSBFW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
         default:
@@ -8046,7 +8046,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         switch ((codeWord_1 >> 29) & 0x00000003) {
         case 0x00000000:
           decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-          ctx->cur_opcode->format = kv3_MAU_SSS_X;
+          ctx->cur_opcode->format = kv3_MAU_SSS_W;
           ctx->cur_opcode->insn = kv3_MULWD;
           return trans_v1_MULWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
         default:
@@ -8057,7 +8057,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         switch ((codeWord_1 >> 29) & 0x00000003) {
         case 0x00000000:
           decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-          ctx->cur_opcode->format = kv3_MAU_SSS_X;
+          ctx->cur_opcode->format = kv3_MAU_SSS_W;
           ctx->cur_opcode->insn = kv3_MULUWD;
           return trans_v1_MULUWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
         default:
@@ -8068,7 +8068,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         switch ((codeWord_1 >> 29) & 0x00000003) {
         case 0x00000000:
           decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-          ctx->cur_opcode->format = kv3_MAU_SSS_X;
+          ctx->cur_opcode->format = kv3_MAU_SSS_W;
           ctx->cur_opcode->insn = kv3_MULSUWD;
           return trans_v1_MULSUWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
         default:
@@ -8079,7 +8079,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         switch ((codeWord_1 >> 29) & 0x00000003) {
         case 0x00000000:
           decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-          ctx->cur_opcode->format = kv3_MAU_SSS_X;
+          ctx->cur_opcode->format = kv3_MAU_SSS_W;
           ctx->cur_opcode->insn = kv3_MULW;
           return trans_v1_MULW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
         default:
@@ -8524,7 +8524,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP0_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP0_W;
             ctx->cur_opcode->insn = kv3_ADDWP;
             return trans_v1_ADDWP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -8535,7 +8535,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP0_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP0_W;
             ctx->cur_opcode->insn = kv3_MINWP;
             return trans_v1_MINWP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -8546,7 +8546,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP0_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP0_W;
             ctx->cur_opcode->insn = kv3_MAXWP;
             return trans_v1_MAXWP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -8561,12 +8561,12 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
               switch ((codeWord_0 >> 6) & 0x0000003f) {
               case 0x00000000:
                 decode_kv3_registerW_kv3_registerZ(ctx, codeWords, &u.kv3_registerW_kv3_registerZ);
-                ctx->cur_opcode->format = kv3_ALU_WRRWP0_X;
+                ctx->cur_opcode->format = kv3_ALU_WRRWP0_W;
                 ctx->cur_opcode->insn = kv3_ABSWP;
                 return trans_v1_ABSWP_registerW_registerZ_double(ctx, &u.kv3_registerW_kv3_registerZ);
               default:
                 decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-                ctx->cur_opcode->format = kv3_ALU_WRRWP0_X;
+                ctx->cur_opcode->format = kv3_ALU_WRRWP0_W;
                 ctx->cur_opcode->insn = kv3_ABDWP;
                 return trans_v1_ABDWP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
                 break;
@@ -8574,7 +8574,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
               return false;
             default:
               decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-              ctx->cur_opcode->format = kv3_ALU_WRRWP0_X;
+              ctx->cur_opcode->format = kv3_ALU_WRRWP0_W;
               ctx->cur_opcode->insn = kv3_ABDWP;
               return trans_v1_ABDWP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
               break;
@@ -8592,12 +8592,12 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
               switch ((codeWord_0 >> 6) & 0x0000003f) {
               case 0x00000000:
                 decode_kv3_registerW_kv3_registerZ(ctx, codeWords, &u.kv3_registerW_kv3_registerZ);
-                ctx->cur_opcode->format = kv3_ALU_WRRWP0_X;
+                ctx->cur_opcode->format = kv3_ALU_WRRWP0_W;
                 ctx->cur_opcode->insn = kv3_NEGWP;
                 return trans_v1_NEGWP_registerW_registerZ_double(ctx, &u.kv3_registerW_kv3_registerZ);
               default:
                 decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-                ctx->cur_opcode->format = kv3_ALU_WRRWP0_X;
+                ctx->cur_opcode->format = kv3_ALU_WRRWP0_W;
                 ctx->cur_opcode->insn = kv3_SBFWP;
                 return trans_v1_SBFWP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
                 break;
@@ -8605,7 +8605,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
               return false;
             default:
               decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-              ctx->cur_opcode->format = kv3_ALU_WRRWP0_X;
+              ctx->cur_opcode->format = kv3_ALU_WRRWP0_W;
               ctx->cur_opcode->insn = kv3_SBFWP;
               return trans_v1_SBFWP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
               break;
@@ -8619,7 +8619,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP0_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP0_W;
             ctx->cur_opcode->insn = kv3_MINUWP;
             return trans_v1_MINUWP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -8630,7 +8630,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP0_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP0_W;
             ctx->cur_opcode->insn = kv3_MAXUWP;
             return trans_v1_MAXUWP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -8641,7 +8641,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP0_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP0_W;
             ctx->cur_opcode->insn = kv3_ADDCWC;
             return trans_v1_ADDCWC_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -8652,7 +8652,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP0_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP0_W;
             ctx->cur_opcode->insn = kv3_SBFCWC;
             return trans_v1_SBFCWC_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -8669,7 +8669,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ0_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ0_W;
             ctx->cur_opcode->insn = kv3_ADDHQ;
             return trans_v1_ADDHQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -8680,7 +8680,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ0_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ0_W;
             ctx->cur_opcode->insn = kv3_MINHQ;
             return trans_v1_MINHQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -8691,7 +8691,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ0_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ0_W;
             ctx->cur_opcode->insn = kv3_MAXHQ;
             return trans_v1_MAXHQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -8706,12 +8706,12 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
               switch ((codeWord_0 >> 6) & 0x0000003f) {
               case 0x00000000:
                 decode_kv3_registerW_kv3_registerZ(ctx, codeWords, &u.kv3_registerW_kv3_registerZ);
-                ctx->cur_opcode->format = kv3_ALU_WRRHQ0_X;
+                ctx->cur_opcode->format = kv3_ALU_WRRHQ0_W;
                 ctx->cur_opcode->insn = kv3_ABSHQ;
                 return trans_v1_ABSHQ_registerW_registerZ_double(ctx, &u.kv3_registerW_kv3_registerZ);
               default:
                 decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-                ctx->cur_opcode->format = kv3_ALU_WRRHQ0_X;
+                ctx->cur_opcode->format = kv3_ALU_WRRHQ0_W;
                 ctx->cur_opcode->insn = kv3_ABDHQ;
                 return trans_v1_ABDHQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
                 break;
@@ -8719,7 +8719,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
               return false;
             default:
               decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-              ctx->cur_opcode->format = kv3_ALU_WRRHQ0_X;
+              ctx->cur_opcode->format = kv3_ALU_WRRHQ0_W;
               ctx->cur_opcode->insn = kv3_ABDHQ;
               return trans_v1_ABDHQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
               break;
@@ -8737,12 +8737,12 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
               switch ((codeWord_0 >> 6) & 0x0000003f) {
               case 0x00000000:
                 decode_kv3_registerW_kv3_registerZ(ctx, codeWords, &u.kv3_registerW_kv3_registerZ);
-                ctx->cur_opcode->format = kv3_ALU_WRRHQ0_X;
+                ctx->cur_opcode->format = kv3_ALU_WRRHQ0_W;
                 ctx->cur_opcode->insn = kv3_NEGHQ;
                 return trans_v1_NEGHQ_registerW_registerZ_double(ctx, &u.kv3_registerW_kv3_registerZ);
               default:
                 decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-                ctx->cur_opcode->format = kv3_ALU_WRRHQ0_X;
+                ctx->cur_opcode->format = kv3_ALU_WRRHQ0_W;
                 ctx->cur_opcode->insn = kv3_SBFHQ;
                 return trans_v1_SBFHQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
                 break;
@@ -8750,7 +8750,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
               return false;
             default:
               decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-              ctx->cur_opcode->format = kv3_ALU_WRRHQ0_X;
+              ctx->cur_opcode->format = kv3_ALU_WRRHQ0_W;
               ctx->cur_opcode->insn = kv3_SBFHQ;
               return trans_v1_SBFHQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
               break;
@@ -8764,7 +8764,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ0_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ0_W;
             ctx->cur_opcode->insn = kv3_MINUHQ;
             return trans_v1_MINUHQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -8775,7 +8775,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ0_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ0_W;
             ctx->cur_opcode->insn = kv3_MAXUHQ;
             return trans_v1_MAXUHQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -8786,7 +8786,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ0_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ0_W;
             ctx->cur_opcode->insn = kv3_ADDCHCP;
             return trans_v1_ADDCHCP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -8797,7 +8797,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ0_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ0_W;
             ctx->cur_opcode->insn = kv3_SBFCHCP;
             return trans_v1_SBFCHCP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -8813,10 +8813,10 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000000:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRR1_X;
+            decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            ctx->cur_opcode->format = kv3_ALU_WRR1_W;
             ctx->cur_opcode->insn = kv3_ADDX2D;
-            return trans_v1_ADDX2D_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            return trans_v1_ADDX2D_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
             break;
           }
@@ -8824,10 +8824,10 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000001:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRR1_X;
+            decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            ctx->cur_opcode->format = kv3_ALU_WRR1_W;
             ctx->cur_opcode->insn = kv3_SBFX2D;
-            return trans_v1_SBFX2D_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            return trans_v1_SBFX2D_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
             break;
           }
@@ -8835,10 +8835,10 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000002:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRR1_X;
+            decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            ctx->cur_opcode->format = kv3_ALU_WRR1_W;
             ctx->cur_opcode->insn = kv3_ADDX4D;
-            return trans_v1_ADDX4D_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            return trans_v1_ADDX4D_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
             break;
           }
@@ -8846,10 +8846,10 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000003:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRR1_X;
+            decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            ctx->cur_opcode->format = kv3_ALU_WRR1_W;
             ctx->cur_opcode->insn = kv3_SBFX4D;
-            return trans_v1_SBFX4D_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            return trans_v1_SBFX4D_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
             break;
           }
@@ -8857,10 +8857,10 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000004:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRR1_X;
+            decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            ctx->cur_opcode->format = kv3_ALU_WRR1_W;
             ctx->cur_opcode->insn = kv3_ADDX8D;
-            return trans_v1_ADDX8D_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            return trans_v1_ADDX8D_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
             break;
           }
@@ -8868,10 +8868,10 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000005:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRR1_X;
+            decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            ctx->cur_opcode->format = kv3_ALU_WRR1_W;
             ctx->cur_opcode->insn = kv3_SBFX8D;
-            return trans_v1_SBFX8D_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            return trans_v1_SBFX8D_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
             break;
           }
@@ -8879,10 +8879,10 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000006:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRR1_X;
+            decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            ctx->cur_opcode->format = kv3_ALU_WRR1_W;
             ctx->cur_opcode->insn = kv3_ADDX16D;
-            return trans_v1_ADDX16D_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            return trans_v1_ADDX16D_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
             break;
           }
@@ -8890,10 +8890,10 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000007:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRR1_X;
+            decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            ctx->cur_opcode->format = kv3_ALU_WRR1_W;
             ctx->cur_opcode->insn = kv3_SBFX16D;
-            return trans_v1_SBFX16D_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            return trans_v1_SBFX16D_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
             break;
           }
@@ -8901,10 +8901,10 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000008:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRR1_X;
+            decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            ctx->cur_opcode->format = kv3_ALU_WRR1_W;
             ctx->cur_opcode->insn = kv3_ADDWD;
-            return trans_v1_ADDWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            return trans_v1_ADDWD_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
             break;
           }
@@ -8912,10 +8912,10 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000009:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRR1_X;
+            decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            ctx->cur_opcode->format = kv3_ALU_WRR1_W;
             ctx->cur_opcode->insn = kv3_SBFWD;
-            return trans_v1_SBFWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            return trans_v1_SBFWD_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
             break;
           }
@@ -8923,10 +8923,10 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000a:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRR1_X;
+            decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            ctx->cur_opcode->format = kv3_ALU_WRR1_W;
             ctx->cur_opcode->insn = kv3_ADDUWD;
-            return trans_v1_ADDUWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            return trans_v1_ADDUWD_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
             break;
           }
@@ -8934,10 +8934,10 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000b:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRR1_X;
+            decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            ctx->cur_opcode->format = kv3_ALU_WRR1_W;
             ctx->cur_opcode->insn = kv3_SBFUWD;
-            return trans_v1_SBFUWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            return trans_v1_SBFUWD_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
             break;
           }
@@ -8945,10 +8945,10 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000c:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRR1_X;
+            decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            ctx->cur_opcode->format = kv3_ALU_WRR1_W;
             ctx->cur_opcode->insn = kv3_LANDD;
-            return trans_v1_LANDD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            return trans_v1_LANDD_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
             break;
           }
@@ -8956,10 +8956,10 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000d:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRR1_X;
+            decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            ctx->cur_opcode->format = kv3_ALU_WRR1_W;
             ctx->cur_opcode->insn = kv3_LNANDD;
-            return trans_v1_LNANDD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            return trans_v1_LNANDD_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
             break;
           }
@@ -8967,10 +8967,10 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000e:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRR1_X;
+            decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            ctx->cur_opcode->format = kv3_ALU_WRR1_W;
             ctx->cur_opcode->insn = kv3_LORD;
-            return trans_v1_LORD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            return trans_v1_LORD_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
             break;
           }
@@ -8978,10 +8978,10 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000f:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRR1_X;
+            decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            ctx->cur_opcode->format = kv3_ALU_WRR1_W;
             ctx->cur_opcode->insn = kv3_LNORD;
-            return trans_v1_LNORD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            return trans_v1_LNORD_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
             break;
           }
@@ -8994,10 +8994,16 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000000:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR1_X;
-            ctx->cur_opcode->insn = kv3_ADDX2W;
-            return trans_v1_ADDX2W_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR1_W;
+              ctx->cur_opcode->insn = kv3_ADDX2W;
+              return trans_v1_ADDX2W_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -9005,10 +9011,16 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000001:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR1_X;
-            ctx->cur_opcode->insn = kv3_SBFX2W;
-            return trans_v1_SBFX2W_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR1_W;
+              ctx->cur_opcode->insn = kv3_SBFX2W;
+              return trans_v1_SBFX2W_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -9016,10 +9028,16 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000002:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR1_X;
-            ctx->cur_opcode->insn = kv3_ADDX4W;
-            return trans_v1_ADDX4W_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR1_W;
+              ctx->cur_opcode->insn = kv3_ADDX4W;
+              return trans_v1_ADDX4W_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -9027,10 +9045,16 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000003:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR1_X;
-            ctx->cur_opcode->insn = kv3_SBFX4W;
-            return trans_v1_SBFX4W_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR1_W;
+              ctx->cur_opcode->insn = kv3_SBFX4W;
+              return trans_v1_SBFX4W_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -9038,10 +9062,16 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000004:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR1_X;
-            ctx->cur_opcode->insn = kv3_ADDX8W;
-            return trans_v1_ADDX8W_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR1_W;
+              ctx->cur_opcode->insn = kv3_ADDX8W;
+              return trans_v1_ADDX8W_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -9049,10 +9079,16 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000005:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR1_X;
-            ctx->cur_opcode->insn = kv3_SBFX8W;
-            return trans_v1_SBFX8W_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR1_W;
+              ctx->cur_opcode->insn = kv3_SBFX8W;
+              return trans_v1_SBFX8W_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -9060,10 +9096,16 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000006:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR1_X;
-            ctx->cur_opcode->insn = kv3_ADDX16W;
-            return trans_v1_ADDX16W_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR1_W;
+              ctx->cur_opcode->insn = kv3_ADDX16W;
+              return trans_v1_ADDX16W_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -9071,10 +9113,16 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000007:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR1_X;
-            ctx->cur_opcode->insn = kv3_SBFX16W;
-            return trans_v1_SBFX16W_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR1_W;
+              ctx->cur_opcode->insn = kv3_SBFX16W;
+              return trans_v1_SBFX16W_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -9082,10 +9130,16 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000008:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR1_X;
-            ctx->cur_opcode->insn = kv3_AVGW;
-            return trans_v1_AVGW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR1_W;
+              ctx->cur_opcode->insn = kv3_AVGW;
+              return trans_v1_AVGW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -9093,10 +9147,16 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000009:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR1_X;
-            ctx->cur_opcode->insn = kv3_AVGUW;
-            return trans_v1_AVGUW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR1_W;
+              ctx->cur_opcode->insn = kv3_AVGUW;
+              return trans_v1_AVGUW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -9104,10 +9164,16 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000a:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR1_X;
-            ctx->cur_opcode->insn = kv3_AVGRW;
-            return trans_v1_AVGRW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR1_W;
+              ctx->cur_opcode->insn = kv3_AVGRW;
+              return trans_v1_AVGRW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -9115,10 +9181,16 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000b:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR1_X;
-            ctx->cur_opcode->insn = kv3_AVGRUW;
-            return trans_v1_AVGRUW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR1_W;
+              ctx->cur_opcode->insn = kv3_AVGRUW;
+              return trans_v1_AVGRUW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -9126,10 +9198,16 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000c:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR1_X;
-            ctx->cur_opcode->insn = kv3_LANDW;
-            return trans_v1_LANDW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR1_W;
+              ctx->cur_opcode->insn = kv3_LANDW;
+              return trans_v1_LANDW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -9137,10 +9215,16 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000d:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR1_X;
-            ctx->cur_opcode->insn = kv3_LNANDW;
-            return trans_v1_LNANDW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR1_W;
+              ctx->cur_opcode->insn = kv3_LNANDW;
+              return trans_v1_LNANDW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -9148,10 +9232,16 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000e:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR1_X;
-            ctx->cur_opcode->insn = kv3_LORW;
-            return trans_v1_LORW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR1_W;
+              ctx->cur_opcode->insn = kv3_LORW;
+              return trans_v1_LORW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -9159,10 +9249,16 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000f:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR1_X;
-            ctx->cur_opcode->insn = kv3_LNORW;
-            return trans_v1_LNORW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR1_W;
+              ctx->cur_opcode->insn = kv3_LNORW;
+              return trans_v1_LNORW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -9176,7 +9272,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP1_W;
             ctx->cur_opcode->insn = kv3_ADDX2WP;
             return trans_v1_ADDX2WP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -9187,7 +9283,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP1_W;
             ctx->cur_opcode->insn = kv3_SBFX2WP;
             return trans_v1_SBFX2WP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -9198,7 +9294,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP1_W;
             ctx->cur_opcode->insn = kv3_ADDX4WP;
             return trans_v1_ADDX4WP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -9209,7 +9305,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP1_W;
             ctx->cur_opcode->insn = kv3_SBFX4WP;
             return trans_v1_SBFX4WP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -9220,7 +9316,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP1_W;
             ctx->cur_opcode->insn = kv3_ADDX8WP;
             return trans_v1_ADDX8WP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -9231,7 +9327,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP1_W;
             ctx->cur_opcode->insn = kv3_SBFX8WP;
             return trans_v1_SBFX8WP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -9242,7 +9338,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP1_W;
             ctx->cur_opcode->insn = kv3_ADDX16WP;
             return trans_v1_ADDX16WP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -9253,7 +9349,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP1_W;
             ctx->cur_opcode->insn = kv3_SBFX16WP;
             return trans_v1_SBFX16WP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -9264,7 +9360,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP1_W;
             ctx->cur_opcode->insn = kv3_AVGWP;
             return trans_v1_AVGWP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -9275,7 +9371,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP1_W;
             ctx->cur_opcode->insn = kv3_AVGUWP;
             return trans_v1_AVGUWP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -9286,7 +9382,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP1_W;
             ctx->cur_opcode->insn = kv3_AVGRWP;
             return trans_v1_AVGRWP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -9297,7 +9393,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP1_W;
             ctx->cur_opcode->insn = kv3_AVGRUWP;
             return trans_v1_AVGRUWP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -9308,7 +9404,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP1_W;
             ctx->cur_opcode->insn = kv3_LANDWP;
             return trans_v1_LANDWP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -9319,7 +9415,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP1_W;
             ctx->cur_opcode->insn = kv3_LNANDWP;
             return trans_v1_LNANDWP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -9330,7 +9426,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP1_W;
             ctx->cur_opcode->insn = kv3_LORWP;
             return trans_v1_LORWP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -9341,7 +9437,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP1_W;
             ctx->cur_opcode->insn = kv3_LNORWP;
             return trans_v1_LNORWP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -9357,7 +9453,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_W;
             ctx->cur_opcode->insn = kv3_ADDX2HQ;
             return trans_v1_ADDX2HQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -9368,7 +9464,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_W;
             ctx->cur_opcode->insn = kv3_SBFX2HQ;
             return trans_v1_SBFX2HQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -9379,7 +9475,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_W;
             ctx->cur_opcode->insn = kv3_ADDX4HQ;
             return trans_v1_ADDX4HQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -9390,7 +9486,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_W;
             ctx->cur_opcode->insn = kv3_SBFX4HQ;
             return trans_v1_SBFX4HQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -9401,7 +9497,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_W;
             ctx->cur_opcode->insn = kv3_ADDX8HQ;
             return trans_v1_ADDX8HQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -9412,7 +9508,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_W;
             ctx->cur_opcode->insn = kv3_SBFX8HQ;
             return trans_v1_SBFX8HQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -9423,7 +9519,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_W;
             ctx->cur_opcode->insn = kv3_ADDX16HQ;
             return trans_v1_ADDX16HQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -9434,7 +9530,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_W;
             ctx->cur_opcode->insn = kv3_SBFX16HQ;
             return trans_v1_SBFX16HQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -9445,7 +9541,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_W;
             ctx->cur_opcode->insn = kv3_AVGHQ;
             return trans_v1_AVGHQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -9456,7 +9552,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_W;
             ctx->cur_opcode->insn = kv3_AVGUHQ;
             return trans_v1_AVGUHQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -9467,7 +9563,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_W;
             ctx->cur_opcode->insn = kv3_AVGRHQ;
             return trans_v1_AVGRHQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -9478,7 +9574,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_W;
             ctx->cur_opcode->insn = kv3_AVGRUHQ;
             return trans_v1_AVGRUHQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -9489,7 +9585,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_W;
             ctx->cur_opcode->insn = kv3_LANDHQ;
             return trans_v1_LANDHQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -9500,7 +9596,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_W;
             ctx->cur_opcode->insn = kv3_LNANDHQ;
             return trans_v1_LNANDHQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -9511,7 +9607,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_W;
             ctx->cur_opcode->insn = kv3_LORHQ;
             return trans_v1_LORHQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -9522,7 +9618,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_W;
             ctx->cur_opcode->insn = kv3_LNORHQ;
             return trans_v1_LNORHQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -9537,10 +9633,16 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000000:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR2_X;
-            ctx->cur_opcode->insn = kv3_ADDX2WD;
-            return trans_v1_ADDX2WD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR2_W;
+              ctx->cur_opcode->insn = kv3_ADDX2WD;
+              return trans_v1_ADDX2WD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -9548,10 +9650,16 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000001:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR2_X;
-            ctx->cur_opcode->insn = kv3_SBFX2WD;
-            return trans_v1_SBFX2WD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR2_W;
+              ctx->cur_opcode->insn = kv3_SBFX2WD;
+              return trans_v1_SBFX2WD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -9559,10 +9667,16 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000002:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR2_X;
-            ctx->cur_opcode->insn = kv3_ADDX4WD;
-            return trans_v1_ADDX4WD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR2_W;
+              ctx->cur_opcode->insn = kv3_ADDX4WD;
+              return trans_v1_ADDX4WD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -9570,10 +9684,16 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000003:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR2_X;
-            ctx->cur_opcode->insn = kv3_SBFX4WD;
-            return trans_v1_SBFX4WD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR2_W;
+              ctx->cur_opcode->insn = kv3_SBFX4WD;
+              return trans_v1_SBFX4WD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -9581,10 +9701,16 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000004:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR2_X;
-            ctx->cur_opcode->insn = kv3_ADDX8WD;
-            return trans_v1_ADDX8WD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR2_W;
+              ctx->cur_opcode->insn = kv3_ADDX8WD;
+              return trans_v1_ADDX8WD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -9592,10 +9718,16 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000005:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR2_X;
-            ctx->cur_opcode->insn = kv3_SBFX8WD;
-            return trans_v1_SBFX8WD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR2_W;
+              ctx->cur_opcode->insn = kv3_SBFX8WD;
+              return trans_v1_SBFX8WD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -9603,10 +9735,16 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000006:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR2_X;
-            ctx->cur_opcode->insn = kv3_ADDX16WD;
-            return trans_v1_ADDX16WD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR2_W;
+              ctx->cur_opcode->insn = kv3_ADDX16WD;
+              return trans_v1_ADDX16WD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -9614,10 +9752,16 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000007:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR2_X;
-            ctx->cur_opcode->insn = kv3_SBFX16WD;
-            return trans_v1_SBFX16WD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR2_W;
+              ctx->cur_opcode->insn = kv3_SBFX16WD;
+              return trans_v1_SBFX16WD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -9625,10 +9769,16 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000008:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR2_X;
-            ctx->cur_opcode->insn = kv3_ADDX2UWD;
-            return trans_v1_ADDX2UWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR2_W;
+              ctx->cur_opcode->insn = kv3_ADDX2UWD;
+              return trans_v1_ADDX2UWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -9636,10 +9786,16 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000009:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR2_X;
-            ctx->cur_opcode->insn = kv3_SBFX2UWD;
-            return trans_v1_SBFX2UWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR2_W;
+              ctx->cur_opcode->insn = kv3_SBFX2UWD;
+              return trans_v1_SBFX2UWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -9647,10 +9803,16 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000a:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR2_X;
-            ctx->cur_opcode->insn = kv3_ADDX4UWD;
-            return trans_v1_ADDX4UWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR2_W;
+              ctx->cur_opcode->insn = kv3_ADDX4UWD;
+              return trans_v1_ADDX4UWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -9658,10 +9820,16 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000b:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR2_X;
-            ctx->cur_opcode->insn = kv3_SBFX4UWD;
-            return trans_v1_SBFX4UWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR2_W;
+              ctx->cur_opcode->insn = kv3_SBFX4UWD;
+              return trans_v1_SBFX4UWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -9669,10 +9837,16 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000c:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR2_X;
-            ctx->cur_opcode->insn = kv3_ADDX8UWD;
-            return trans_v1_ADDX8UWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR2_W;
+              ctx->cur_opcode->insn = kv3_ADDX8UWD;
+              return trans_v1_ADDX8UWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -9680,10 +9854,16 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000d:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR2_X;
-            ctx->cur_opcode->insn = kv3_SBFX8UWD;
-            return trans_v1_SBFX8UWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR2_W;
+              ctx->cur_opcode->insn = kv3_SBFX8UWD;
+              return trans_v1_SBFX8UWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -9691,10 +9871,16 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000e:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR2_X;
-            ctx->cur_opcode->insn = kv3_ADDX16UWD;
-            return trans_v1_ADDX16UWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR2_W;
+              ctx->cur_opcode->insn = kv3_ADDX16UWD;
+              return trans_v1_ADDX16UWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -9702,10 +9888,16 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000f:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR2_X;
-            ctx->cur_opcode->insn = kv3_SBFX16UWD;
-            return trans_v1_SBFX16UWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR2_W;
+              ctx->cur_opcode->insn = kv3_SBFX16UWD;
+              return trans_v1_SBFX16UWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -9716,22 +9908,108 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
       case 0x0000000b:
         switch ((codeWord_1 >> 29) & 0x00000003) {
         case 0x00000000:
-          switch ((codeWord_0 >> 24) & 0x0000000f) {
-          case 0x0000000e:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_AWRRW_X;
-            ctx->cur_opcode->insn = kv3_ADDSW;
-            return trans_v1_ADDSW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-          case 0x0000000f:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_AWRRW_X;
-            ctx->cur_opcode->insn = kv3_SBFSW;
-            return trans_v1_SBFSW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+          switch ((codeWord_0 >> 11) & 0x00000001) {
+          case 0x00000000:
+            switch ((codeWord_0 >> 24) & 0x0000000f) {
+            case 0x0000000e:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_AWRRW_W;
+              ctx->cur_opcode->insn = kv3_ADDSW;
+              return trans_v1_ADDSW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            case 0x0000000f:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_AWRRW_W;
+              ctx->cur_opcode->insn = kv3_SBFSW;
+              return trans_v1_SBFSW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              decode_kv3_comparison_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_comparison_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DCWRR_W;
+              ctx->cur_opcode->insn = kv3_COMPW;
+              return trans_v1_COMPW_comparison_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_comparison_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              break;
+            }
+            return false;
           default:
-            decode_kv3_comparison_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_comparison_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DCWRR_X;
-            ctx->cur_opcode->insn = kv3_COMPW;
-            return trans_v1_COMPW_comparison_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_comparison_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            break;
+          }
+          return false;
+        default:
+          break;
+        }
+        return false;
+      case 0x0000000c:
+        switch ((codeWord_0 >> 24) & 0x0000000f) {
+        case 0x0000000e:
+          switch ((codeWord_1 >> 29) & 0x00000003) {
+          case 0x00000000:
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DCWRRC_W;
+              ctx->cur_opcode->insn = kv3_ADDCD;
+              return trans_v1_ADDCD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
+          default:
+            break;
+          }
+          return false;
+        case 0x0000000f:
+          switch ((codeWord_1 >> 29) & 0x00000003) {
+          case 0x00000000:
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DCWRRC_W;
+              ctx->cur_opcode->insn = kv3_SBFCD;
+              return trans_v1_SBFCD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
+          default:
+            break;
+          }
+          return false;
+        default:
+          break;
+        }
+        return false;
+      case 0x0000000d:
+        switch ((codeWord_0 >> 24) & 0x0000000f) {
+        case 0x0000000e:
+          switch ((codeWord_1 >> 29) & 0x00000003) {
+          case 0x00000000:
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DCWRRCI_W;
+              ctx->cur_opcode->insn = kv3_ADDCD_I;
+              return trans_v1_ADDCD_I_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
+          default:
+            break;
+          }
+          return false;
+        case 0x0000000f:
+          switch ((codeWord_1 >> 29) & 0x00000003) {
+          case 0x00000000:
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DCWRRCI_W;
+              ctx->cur_opcode->insn = kv3_SBFCD_I;
+              return trans_v1_SBFCD_I_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
+          default:
             break;
           }
           return false;
@@ -9745,7 +10023,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_AWRRWP_X;
+            ctx->cur_opcode->format = kv3_ALU_AWRRWP_W;
             ctx->cur_opcode->insn = kv3_ADDSWP;
             return trans_v1_ADDSWP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -9756,7 +10034,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_AWRRWP_X;
+            ctx->cur_opcode->format = kv3_ALU_AWRRWP_W;
             ctx->cur_opcode->insn = kv3_SBFSWP;
             return trans_v1_SBFSWP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -9773,7 +10051,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_AWRRHQ_X;
+            ctx->cur_opcode->format = kv3_ALU_AWRRHQ_W;
             ctx->cur_opcode->insn = kv3_ADDSHQ;
             return trans_v1_ADDSHQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -9784,7 +10062,7 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_AWRRHQ_X;
+            ctx->cur_opcode->format = kv3_ALU_AWRRHQ_W;
             ctx->cur_opcode->insn = kv3_SBFSHQ;
             return trans_v1_SBFSHQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -9799,20 +10077,54 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         break;
       }
       return false;
+    case 0x00000002:
+      switch ((codeWord_0 >> 11) & 0x0000001f) {
+      case 0x00000001:
+        switch ((codeWord_0 >> 24) & 0x0000000f) {
+        case 0x0000000e:
+          switch ((codeWord_1 >> 29) & 0x00000003) {
+          case 0x00000000:
+            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            ctx->cur_opcode->format = kv3_ALU_BWRR_W;
+            ctx->cur_opcode->insn = kv3_SBMM8;
+            return trans_v1_SBMM8_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+          default:
+            break;
+          }
+          return false;
+        case 0x0000000f:
+          switch ((codeWord_1 >> 29) & 0x00000003) {
+          case 0x00000000:
+            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            ctx->cur_opcode->format = kv3_ALU_BWRR_W;
+            ctx->cur_opcode->insn = kv3_SBMMT8;
+            return trans_v1_SBMMT8_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+          default:
+            break;
+          }
+          return false;
+        default:
+          break;
+        }
+        return false;
+      default:
+        break;
+      }
+      return false;
     case 0x00000003:
-      switch ((codeWord_0 >> 12) & 0x0000000f) {
+      switch ((codeWord_0 >> 11) & 0x0000001f) {
       case 0x00000000:
         switch ((codeWord_1 >> 29) & 0x00000003) {
         case 0x00000000:
           switch ((codeWord_0 >> 27) & 0x00000001) {
           case 0x00000000:
             decode_kv3_floatcomp_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_floatcomp_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_FCWRRS_X;
+            ctx->cur_opcode->format = kv3_ALU_FCWRRS_W;
             ctx->cur_opcode->insn = kv3_FCOMPW;
             return trans_v1_FCOMPW_floatcomp_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_floatcomp_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           case 0x00000001:
             decode_kv3_floatcomp_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_floatcomp_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_FCWRRS_X;
+            ctx->cur_opcode->format = kv3_ALU_FCWRRS_W;
             ctx->cur_opcode->insn = kv3_FCOMPD;
             return trans_v1_FCOMPD_floatcomp_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_floatcomp_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
             break;
@@ -9826,7 +10138,6 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
         break;
       }
       return false;
-    default:
       break;
     }
     return false;
@@ -11110,7 +11421,7 @@ bool decode_v1_simple(DisasContext *ctx, const uint32_t *buffer)
               return trans_v1_LO_variant_doscale_registerN_registerY_registerZ_simple(ctx, &u.kv3_variant_kv3_doscale_kv3_registerN_kv3_registerY_kv3_registerZ);
             default:
               decode_kv3_variant_kv3_lsucond_kv3_registerY_kv3_registerN_kv3_registerZ(ctx, codeWords, &u.kv3_variant_kv3_lsucond_kv3_registerY_kv3_registerN_kv3_registerZ);
-              ctx->cur_opcode->format = kv3_LSU_LPPB1;
+              ctx->cur_opcode->format = kv3_LSU_LQPB;
               ctx->cur_opcode->insn = kv3_LO;
               return trans_v1_LO_variant_lsucond_registerY_registerN_registerZ_simple(ctx, &u.kv3_variant_kv3_lsucond_kv3_registerY_kv3_registerN_kv3_registerZ);
               break;
@@ -15235,7 +15546,7 @@ bool decode_v1_triple(DisasContext *ctx, const uint32_t *buffer)
               switch ((codeWord_0 >> 19) & 0x00000001) {
               case 0x00000000:
                 decode_kv3_variant_kv3_lsucond_kv3_registerY_kv3_registerN_kv3_extend27_offset27_kv3_registerZ(ctx, codeWords, &u.kv3_variant_kv3_lsucond_kv3_registerY_kv3_registerN_kv3_extend27_offset27_kv3_registerZ);
-                ctx->cur_opcode->format = kv3_LSU_LPPB1_Y;
+                ctx->cur_opcode->format = kv3_LSU_LQPB_Y;
                 ctx->cur_opcode->insn = kv3_LO;
                 return trans_v1_LO_variant_lsucond_registerY_registerN_extend27_offset27_registerZ_triple(ctx, &u.kv3_variant_kv3_lsucond_kv3_registerY_kv3_registerN_kv3_extend27_offset27_kv3_registerZ);
               case 0x00000001:
@@ -17010,7 +17321,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
             switch ((codeWord_0 >> 19) & 0x00000001) {
             case 0x00000000:
               decode_kv3_variant_kv3_lsucond_kv3_registerY_kv3_registerN_kv3_offset27_kv3_registerZ(ctx, codeWords, &u.kv3_variant_kv3_lsucond_kv3_registerY_kv3_registerN_kv3_offset27_kv3_registerZ);
-              ctx->cur_opcode->format = kv3_LSU_LPPB1_O;
+              ctx->cur_opcode->format = kv3_LSU_LQPB_O;
               ctx->cur_opcode->insn = kv3_LO;
               return trans_v2_LO_variant_lsucond_registerY_registerN_offset27_registerZ_double(ctx, &u.kv3_variant_kv3_lsucond_kv3_registerY_kv3_registerN_kv3_offset27_kv3_registerZ);
             case 0x00000001:
@@ -17389,14 +17700,14 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
     }
     return false;
   case 0x0000000d:
-    switch ((codeWord_0 >> 12) & 0x0000003f) {
-    case 0x00000002:
+    switch ((codeWord_0 >> 11) & 0x0000007f) {
+    case 0x00000004:
       switch ((codeWord_0 >> 24) & 0x0000000f) {
       case 0x00000008:
         switch ((codeWord_1 >> 29) & 0x00000003) {
         case 0x00000000:
           decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-          ctx->cur_opcode->format = kv3_MAU_CRC_X;
+          ctx->cur_opcode->format = kv3_MAU_CRC_W;
           ctx->cur_opcode->insn = kv3_CRCBELMW;
           return trans_v2_CRCBELMW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
         default:
@@ -17407,7 +17718,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         switch ((codeWord_1 >> 29) & 0x00000003) {
         case 0x00000000:
           decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-          ctx->cur_opcode->format = kv3_MAU_CRC_X;
+          ctx->cur_opcode->format = kv3_MAU_CRC_W;
           ctx->cur_opcode->insn = kv3_CRCBELLW;
           return trans_v2_CRCBELLW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
         default:
@@ -17418,7 +17729,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         switch ((codeWord_1 >> 29) & 0x00000003) {
         case 0x00000000:
           decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-          ctx->cur_opcode->format = kv3_MAU_CRC_X;
+          ctx->cur_opcode->format = kv3_MAU_CRC_W;
           ctx->cur_opcode->insn = kv3_CRCLELMW;
           return trans_v2_CRCLELMW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
         default:
@@ -17429,7 +17740,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         switch ((codeWord_1 >> 29) & 0x00000003) {
         case 0x00000000:
           decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-          ctx->cur_opcode->format = kv3_MAU_CRC_X;
+          ctx->cur_opcode->format = kv3_MAU_CRC_W;
           ctx->cur_opcode->insn = kv3_CRCLELLW;
           return trans_v2_CRCLELLW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
         default:
@@ -17440,13 +17751,13 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         break;
       }
       return false;
-    case 0x00000003:
+    case 0x00000006:
       switch ((codeWord_0 >> 24) & 0x0000000f) {
       case 0x00000000:
         switch ((codeWord_1 >> 29) & 0x00000003) {
         case 0x00000000:
           decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-          ctx->cur_opcode->format = kv3_MAU_SSSS_X;
+          ctx->cur_opcode->format = kv3_MAU_SSSS_W;
           ctx->cur_opcode->insn = kv3_MADDWD;
           return trans_v2_MADDWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
         default:
@@ -17457,7 +17768,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         switch ((codeWord_1 >> 29) & 0x00000003) {
         case 0x00000000:
           decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-          ctx->cur_opcode->format = kv3_MAU_SSSS_X;
+          ctx->cur_opcode->format = kv3_MAU_SSSS_W;
           ctx->cur_opcode->insn = kv3_MADDUWD;
           return trans_v2_MADDUWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
         default:
@@ -17468,7 +17779,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         switch ((codeWord_1 >> 29) & 0x00000003) {
         case 0x00000000:
           decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-          ctx->cur_opcode->format = kv3_MAU_SSSS_X;
+          ctx->cur_opcode->format = kv3_MAU_SSSS_W;
           ctx->cur_opcode->insn = kv3_MADDSUWD;
           return trans_v2_MADDSUWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
         default:
@@ -17479,7 +17790,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         switch ((codeWord_1 >> 29) & 0x00000003) {
         case 0x00000000:
           decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-          ctx->cur_opcode->format = kv3_MAU_SSSS_X;
+          ctx->cur_opcode->format = kv3_MAU_SSSS_W;
           ctx->cur_opcode->insn = kv3_MADDW;
           return trans_v2_MADDW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
         default:
@@ -17490,7 +17801,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         switch ((codeWord_1 >> 29) & 0x00000003) {
         case 0x00000000:
           decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-          ctx->cur_opcode->format = kv3_MAU_SSSS_X;
+          ctx->cur_opcode->format = kv3_MAU_SSSS_W;
           ctx->cur_opcode->insn = kv3_MSBFWD;
           return trans_v2_MSBFWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
         default:
@@ -17501,7 +17812,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         switch ((codeWord_1 >> 29) & 0x00000003) {
         case 0x00000000:
           decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-          ctx->cur_opcode->format = kv3_MAU_SSSS_X;
+          ctx->cur_opcode->format = kv3_MAU_SSSS_W;
           ctx->cur_opcode->insn = kv3_MSBFUWD;
           return trans_v2_MSBFUWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
         default:
@@ -17512,7 +17823,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         switch ((codeWord_1 >> 29) & 0x00000003) {
         case 0x00000000:
           decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-          ctx->cur_opcode->format = kv3_MAU_SSSS_X;
+          ctx->cur_opcode->format = kv3_MAU_SSSS_W;
           ctx->cur_opcode->insn = kv3_MSBFSUWD;
           return trans_v2_MSBFSUWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
         default:
@@ -17523,7 +17834,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         switch ((codeWord_1 >> 29) & 0x00000003) {
         case 0x00000000:
           decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-          ctx->cur_opcode->format = kv3_MAU_SSSS_X;
+          ctx->cur_opcode->format = kv3_MAU_SSSS_W;
           ctx->cur_opcode->insn = kv3_MSBFW;
           return trans_v2_MSBFW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
         default:
@@ -17534,7 +17845,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         switch ((codeWord_1 >> 29) & 0x00000003) {
         case 0x00000000:
           decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-          ctx->cur_opcode->format = kv3_MAU_SSS_X;
+          ctx->cur_opcode->format = kv3_MAU_SSS_W;
           ctx->cur_opcode->insn = kv3_MULWD;
           return trans_v2_MULWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
         default:
@@ -17545,7 +17856,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         switch ((codeWord_1 >> 29) & 0x00000003) {
         case 0x00000000:
           decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-          ctx->cur_opcode->format = kv3_MAU_SSS_X;
+          ctx->cur_opcode->format = kv3_MAU_SSS_W;
           ctx->cur_opcode->insn = kv3_MULUWD;
           return trans_v2_MULUWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
         default:
@@ -17556,7 +17867,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         switch ((codeWord_1 >> 29) & 0x00000003) {
         case 0x00000000:
           decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-          ctx->cur_opcode->format = kv3_MAU_SSS_X;
+          ctx->cur_opcode->format = kv3_MAU_SSS_W;
           ctx->cur_opcode->insn = kv3_MULSUWD;
           return trans_v2_MULSUWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
         default:
@@ -17567,7 +17878,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         switch ((codeWord_1 >> 29) & 0x00000003) {
         case 0x00000000:
           decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-          ctx->cur_opcode->format = kv3_MAU_SSS_X;
+          ctx->cur_opcode->format = kv3_MAU_SSS_W;
           ctx->cur_opcode->insn = kv3_MULW;
           return trans_v2_MULW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
         default:
@@ -18012,7 +18323,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP0_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP0_W;
             ctx->cur_opcode->insn = kv3_ADDWP;
             return trans_v2_ADDWP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18023,7 +18334,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP0_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP0_W;
             ctx->cur_opcode->insn = kv3_MINWP;
             return trans_v2_MINWP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18034,7 +18345,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP0_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP0_W;
             ctx->cur_opcode->insn = kv3_MAXWP;
             return trans_v2_MAXWP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18049,12 +18360,12 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
               switch ((codeWord_0 >> 6) & 0x0000003f) {
               case 0x00000000:
                 decode_kv3_registerW_kv3_registerZ(ctx, codeWords, &u.kv3_registerW_kv3_registerZ);
-                ctx->cur_opcode->format = kv3_ALU_WRRWP0_X;
+                ctx->cur_opcode->format = kv3_ALU_WRRWP0_W;
                 ctx->cur_opcode->insn = kv3_ABSWP;
                 return trans_v2_ABSWP_registerW_registerZ_double(ctx, &u.kv3_registerW_kv3_registerZ);
               default:
                 decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-                ctx->cur_opcode->format = kv3_ALU_WRRWP0_X;
+                ctx->cur_opcode->format = kv3_ALU_WRRWP0_W;
                 ctx->cur_opcode->insn = kv3_ABDWP;
                 return trans_v2_ABDWP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
                 break;
@@ -18062,7 +18373,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
               return false;
             default:
               decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-              ctx->cur_opcode->format = kv3_ALU_WRRWP0_X;
+              ctx->cur_opcode->format = kv3_ALU_WRRWP0_W;
               ctx->cur_opcode->insn = kv3_ABDWP;
               return trans_v2_ABDWP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
               break;
@@ -18080,12 +18391,12 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
               switch ((codeWord_0 >> 6) & 0x0000003f) {
               case 0x00000000:
                 decode_kv3_registerW_kv3_registerZ(ctx, codeWords, &u.kv3_registerW_kv3_registerZ);
-                ctx->cur_opcode->format = kv3_ALU_WRRWP0_X;
+                ctx->cur_opcode->format = kv3_ALU_WRRWP0_W;
                 ctx->cur_opcode->insn = kv3_NEGWP;
                 return trans_v2_NEGWP_registerW_registerZ_double(ctx, &u.kv3_registerW_kv3_registerZ);
               default:
                 decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-                ctx->cur_opcode->format = kv3_ALU_WRRWP0_X;
+                ctx->cur_opcode->format = kv3_ALU_WRRWP0_W;
                 ctx->cur_opcode->insn = kv3_SBFWP;
                 return trans_v2_SBFWP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
                 break;
@@ -18093,7 +18404,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
               return false;
             default:
               decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-              ctx->cur_opcode->format = kv3_ALU_WRRWP0_X;
+              ctx->cur_opcode->format = kv3_ALU_WRRWP0_W;
               ctx->cur_opcode->insn = kv3_SBFWP;
               return trans_v2_SBFWP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
               break;
@@ -18107,7 +18418,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP0_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP0_W;
             ctx->cur_opcode->insn = kv3_MINUWP;
             return trans_v2_MINUWP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18118,7 +18429,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP0_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP0_W;
             ctx->cur_opcode->insn = kv3_MAXUWP;
             return trans_v2_MAXUWP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18129,7 +18440,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP0_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP0_W;
             ctx->cur_opcode->insn = kv3_ADDCWC;
             return trans_v2_ADDCWC_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18140,7 +18451,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP0_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP0_W;
             ctx->cur_opcode->insn = kv3_SBFCWC;
             return trans_v2_SBFCWC_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18157,7 +18468,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ0_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ0_W;
             ctx->cur_opcode->insn = kv3_ADDHQ;
             return trans_v2_ADDHQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18168,7 +18479,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ0_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ0_W;
             ctx->cur_opcode->insn = kv3_MINHQ;
             return trans_v2_MINHQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18179,7 +18490,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ0_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ0_W;
             ctx->cur_opcode->insn = kv3_MAXHQ;
             return trans_v2_MAXHQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18194,12 +18505,12 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
               switch ((codeWord_0 >> 6) & 0x0000003f) {
               case 0x00000000:
                 decode_kv3_registerW_kv3_registerZ(ctx, codeWords, &u.kv3_registerW_kv3_registerZ);
-                ctx->cur_opcode->format = kv3_ALU_WRRHQ0_X;
+                ctx->cur_opcode->format = kv3_ALU_WRRHQ0_W;
                 ctx->cur_opcode->insn = kv3_ABSHQ;
                 return trans_v2_ABSHQ_registerW_registerZ_double(ctx, &u.kv3_registerW_kv3_registerZ);
               default:
                 decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-                ctx->cur_opcode->format = kv3_ALU_WRRHQ0_X;
+                ctx->cur_opcode->format = kv3_ALU_WRRHQ0_W;
                 ctx->cur_opcode->insn = kv3_ABDHQ;
                 return trans_v2_ABDHQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
                 break;
@@ -18207,7 +18518,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
               return false;
             default:
               decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-              ctx->cur_opcode->format = kv3_ALU_WRRHQ0_X;
+              ctx->cur_opcode->format = kv3_ALU_WRRHQ0_W;
               ctx->cur_opcode->insn = kv3_ABDHQ;
               return trans_v2_ABDHQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
               break;
@@ -18225,12 +18536,12 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
               switch ((codeWord_0 >> 6) & 0x0000003f) {
               case 0x00000000:
                 decode_kv3_registerW_kv3_registerZ(ctx, codeWords, &u.kv3_registerW_kv3_registerZ);
-                ctx->cur_opcode->format = kv3_ALU_WRRHQ0_X;
+                ctx->cur_opcode->format = kv3_ALU_WRRHQ0_W;
                 ctx->cur_opcode->insn = kv3_NEGHQ;
                 return trans_v2_NEGHQ_registerW_registerZ_double(ctx, &u.kv3_registerW_kv3_registerZ);
               default:
                 decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-                ctx->cur_opcode->format = kv3_ALU_WRRHQ0_X;
+                ctx->cur_opcode->format = kv3_ALU_WRRHQ0_W;
                 ctx->cur_opcode->insn = kv3_SBFHQ;
                 return trans_v2_SBFHQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
                 break;
@@ -18238,7 +18549,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
               return false;
             default:
               decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-              ctx->cur_opcode->format = kv3_ALU_WRRHQ0_X;
+              ctx->cur_opcode->format = kv3_ALU_WRRHQ0_W;
               ctx->cur_opcode->insn = kv3_SBFHQ;
               return trans_v2_SBFHQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
               break;
@@ -18252,7 +18563,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ0_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ0_W;
             ctx->cur_opcode->insn = kv3_MINUHQ;
             return trans_v2_MINUHQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18263,7 +18574,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ0_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ0_W;
             ctx->cur_opcode->insn = kv3_MAXUHQ;
             return trans_v2_MAXUHQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18274,7 +18585,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ0_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ0_W;
             ctx->cur_opcode->insn = kv3_ADDCHCP;
             return trans_v2_ADDCHCP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18285,7 +18596,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ0_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ0_W;
             ctx->cur_opcode->insn = kv3_SBFCHCP;
             return trans_v2_SBFCHCP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18301,10 +18612,10 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000000:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRR1_X;
+            decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            ctx->cur_opcode->format = kv3_ALU_WRR1_W;
             ctx->cur_opcode->insn = kv3_ADDX2D;
-            return trans_v2_ADDX2D_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            return trans_v2_ADDX2D_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
             break;
           }
@@ -18312,10 +18623,10 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000001:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRR1_X;
+            decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            ctx->cur_opcode->format = kv3_ALU_WRR1_W;
             ctx->cur_opcode->insn = kv3_SBFX2D;
-            return trans_v2_SBFX2D_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            return trans_v2_SBFX2D_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
             break;
           }
@@ -18323,10 +18634,10 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000002:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRR1_X;
+            decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            ctx->cur_opcode->format = kv3_ALU_WRR1_W;
             ctx->cur_opcode->insn = kv3_ADDX4D;
-            return trans_v2_ADDX4D_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            return trans_v2_ADDX4D_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
             break;
           }
@@ -18334,10 +18645,10 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000003:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRR1_X;
+            decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            ctx->cur_opcode->format = kv3_ALU_WRR1_W;
             ctx->cur_opcode->insn = kv3_SBFX4D;
-            return trans_v2_SBFX4D_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            return trans_v2_SBFX4D_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
             break;
           }
@@ -18345,10 +18656,10 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000004:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRR1_X;
+            decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            ctx->cur_opcode->format = kv3_ALU_WRR1_W;
             ctx->cur_opcode->insn = kv3_ADDX8D;
-            return trans_v2_ADDX8D_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            return trans_v2_ADDX8D_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
             break;
           }
@@ -18356,10 +18667,10 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000005:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRR1_X;
+            decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            ctx->cur_opcode->format = kv3_ALU_WRR1_W;
             ctx->cur_opcode->insn = kv3_SBFX8D;
-            return trans_v2_SBFX8D_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            return trans_v2_SBFX8D_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
             break;
           }
@@ -18367,10 +18678,10 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000006:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRR1_X;
+            decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            ctx->cur_opcode->format = kv3_ALU_WRR1_W;
             ctx->cur_opcode->insn = kv3_ADDX16D;
-            return trans_v2_ADDX16D_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            return trans_v2_ADDX16D_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
             break;
           }
@@ -18378,10 +18689,10 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000007:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRR1_X;
+            decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            ctx->cur_opcode->format = kv3_ALU_WRR1_W;
             ctx->cur_opcode->insn = kv3_SBFX16D;
-            return trans_v2_SBFX16D_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            return trans_v2_SBFX16D_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
             break;
           }
@@ -18389,10 +18700,10 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000008:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRR1_X;
+            decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            ctx->cur_opcode->format = kv3_ALU_WRR1_W;
             ctx->cur_opcode->insn = kv3_ADDWD;
-            return trans_v2_ADDWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            return trans_v2_ADDWD_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
             break;
           }
@@ -18400,10 +18711,10 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000009:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRR1_X;
+            decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            ctx->cur_opcode->format = kv3_ALU_WRR1_W;
             ctx->cur_opcode->insn = kv3_SBFWD;
-            return trans_v2_SBFWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            return trans_v2_SBFWD_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
             break;
           }
@@ -18411,10 +18722,10 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000a:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRR1_X;
+            decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            ctx->cur_opcode->format = kv3_ALU_WRR1_W;
             ctx->cur_opcode->insn = kv3_ADDUWD;
-            return trans_v2_ADDUWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            return trans_v2_ADDUWD_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
             break;
           }
@@ -18422,10 +18733,10 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000b:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRR1_X;
+            decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            ctx->cur_opcode->format = kv3_ALU_WRR1_W;
             ctx->cur_opcode->insn = kv3_SBFUWD;
-            return trans_v2_SBFUWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            return trans_v2_SBFUWD_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
             break;
           }
@@ -18433,10 +18744,10 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000c:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRR1_X;
+            decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            ctx->cur_opcode->format = kv3_ALU_WRR1_W;
             ctx->cur_opcode->insn = kv3_LANDD;
-            return trans_v2_LANDD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            return trans_v2_LANDD_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
             break;
           }
@@ -18444,10 +18755,10 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000d:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRR1_X;
+            decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            ctx->cur_opcode->format = kv3_ALU_WRR1_W;
             ctx->cur_opcode->insn = kv3_LNANDD;
-            return trans_v2_LNANDD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            return trans_v2_LNANDD_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
             break;
           }
@@ -18455,10 +18766,10 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000e:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRR1_X;
+            decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            ctx->cur_opcode->format = kv3_ALU_WRR1_W;
             ctx->cur_opcode->insn = kv3_LORD;
-            return trans_v2_LORD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            return trans_v2_LORD_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
             break;
           }
@@ -18466,10 +18777,10 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000f:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRR1_X;
+            decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            ctx->cur_opcode->format = kv3_ALU_WRR1_W;
             ctx->cur_opcode->insn = kv3_LNORD;
-            return trans_v2_LNORD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            return trans_v2_LNORD_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
             break;
           }
@@ -18482,10 +18793,16 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000000:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR1_X;
-            ctx->cur_opcode->insn = kv3_ADDX2W;
-            return trans_v2_ADDX2W_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR1_W;
+              ctx->cur_opcode->insn = kv3_ADDX2W;
+              return trans_v2_ADDX2W_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -18493,10 +18810,16 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000001:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR1_X;
-            ctx->cur_opcode->insn = kv3_SBFX2W;
-            return trans_v2_SBFX2W_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR1_W;
+              ctx->cur_opcode->insn = kv3_SBFX2W;
+              return trans_v2_SBFX2W_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -18504,10 +18827,16 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000002:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR1_X;
-            ctx->cur_opcode->insn = kv3_ADDX4W;
-            return trans_v2_ADDX4W_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR1_W;
+              ctx->cur_opcode->insn = kv3_ADDX4W;
+              return trans_v2_ADDX4W_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -18515,10 +18844,16 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000003:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR1_X;
-            ctx->cur_opcode->insn = kv3_SBFX4W;
-            return trans_v2_SBFX4W_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR1_W;
+              ctx->cur_opcode->insn = kv3_SBFX4W;
+              return trans_v2_SBFX4W_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -18526,10 +18861,16 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000004:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR1_X;
-            ctx->cur_opcode->insn = kv3_ADDX8W;
-            return trans_v2_ADDX8W_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR1_W;
+              ctx->cur_opcode->insn = kv3_ADDX8W;
+              return trans_v2_ADDX8W_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -18537,10 +18878,16 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000005:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR1_X;
-            ctx->cur_opcode->insn = kv3_SBFX8W;
-            return trans_v2_SBFX8W_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR1_W;
+              ctx->cur_opcode->insn = kv3_SBFX8W;
+              return trans_v2_SBFX8W_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -18548,10 +18895,16 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000006:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR1_X;
-            ctx->cur_opcode->insn = kv3_ADDX16W;
-            return trans_v2_ADDX16W_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR1_W;
+              ctx->cur_opcode->insn = kv3_ADDX16W;
+              return trans_v2_ADDX16W_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -18559,10 +18912,16 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000007:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR1_X;
-            ctx->cur_opcode->insn = kv3_SBFX16W;
-            return trans_v2_SBFX16W_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR1_W;
+              ctx->cur_opcode->insn = kv3_SBFX16W;
+              return trans_v2_SBFX16W_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -18570,10 +18929,16 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000008:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR1_X;
-            ctx->cur_opcode->insn = kv3_AVGW;
-            return trans_v2_AVGW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR1_W;
+              ctx->cur_opcode->insn = kv3_AVGW;
+              return trans_v2_AVGW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -18581,10 +18946,16 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000009:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR1_X;
-            ctx->cur_opcode->insn = kv3_AVGUW;
-            return trans_v2_AVGUW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR1_W;
+              ctx->cur_opcode->insn = kv3_AVGUW;
+              return trans_v2_AVGUW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -18592,10 +18963,16 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000a:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR1_X;
-            ctx->cur_opcode->insn = kv3_AVGRW;
-            return trans_v2_AVGRW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR1_W;
+              ctx->cur_opcode->insn = kv3_AVGRW;
+              return trans_v2_AVGRW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -18603,10 +18980,16 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000b:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR1_X;
-            ctx->cur_opcode->insn = kv3_AVGRUW;
-            return trans_v2_AVGRUW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR1_W;
+              ctx->cur_opcode->insn = kv3_AVGRUW;
+              return trans_v2_AVGRUW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -18614,10 +18997,16 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000c:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR1_X;
-            ctx->cur_opcode->insn = kv3_LANDW;
-            return trans_v2_LANDW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR1_W;
+              ctx->cur_opcode->insn = kv3_LANDW;
+              return trans_v2_LANDW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -18625,10 +19014,16 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000d:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR1_X;
-            ctx->cur_opcode->insn = kv3_LNANDW;
-            return trans_v2_LNANDW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR1_W;
+              ctx->cur_opcode->insn = kv3_LNANDW;
+              return trans_v2_LNANDW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -18636,10 +19031,16 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000e:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR1_X;
-            ctx->cur_opcode->insn = kv3_LORW;
-            return trans_v2_LORW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR1_W;
+              ctx->cur_opcode->insn = kv3_LORW;
+              return trans_v2_LORW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -18647,10 +19048,16 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000f:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR1_X;
-            ctx->cur_opcode->insn = kv3_LNORW;
-            return trans_v2_LNORW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR1_W;
+              ctx->cur_opcode->insn = kv3_LNORW;
+              return trans_v2_LNORW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -18664,7 +19071,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP1_W;
             ctx->cur_opcode->insn = kv3_ADDX2WP;
             return trans_v2_ADDX2WP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18675,7 +19082,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP1_W;
             ctx->cur_opcode->insn = kv3_SBFX2WP;
             return trans_v2_SBFX2WP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18686,7 +19093,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP1_W;
             ctx->cur_opcode->insn = kv3_ADDX4WP;
             return trans_v2_ADDX4WP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18697,7 +19104,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP1_W;
             ctx->cur_opcode->insn = kv3_SBFX4WP;
             return trans_v2_SBFX4WP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18708,7 +19115,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP1_W;
             ctx->cur_opcode->insn = kv3_ADDX8WP;
             return trans_v2_ADDX8WP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18719,7 +19126,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP1_W;
             ctx->cur_opcode->insn = kv3_SBFX8WP;
             return trans_v2_SBFX8WP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18730,7 +19137,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP1_W;
             ctx->cur_opcode->insn = kv3_ADDX16WP;
             return trans_v2_ADDX16WP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18741,7 +19148,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP1_W;
             ctx->cur_opcode->insn = kv3_SBFX16WP;
             return trans_v2_SBFX16WP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18752,7 +19159,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP1_W;
             ctx->cur_opcode->insn = kv3_AVGWP;
             return trans_v2_AVGWP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18763,7 +19170,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP1_W;
             ctx->cur_opcode->insn = kv3_AVGUWP;
             return trans_v2_AVGUWP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18774,7 +19181,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP1_W;
             ctx->cur_opcode->insn = kv3_AVGRWP;
             return trans_v2_AVGRWP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18785,7 +19192,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP1_W;
             ctx->cur_opcode->insn = kv3_AVGRUWP;
             return trans_v2_AVGRUWP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18796,7 +19203,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP1_W;
             ctx->cur_opcode->insn = kv3_LANDWP;
             return trans_v2_LANDWP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18807,7 +19214,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP1_W;
             ctx->cur_opcode->insn = kv3_LNANDWP;
             return trans_v2_LNANDWP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18818,7 +19225,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP1_W;
             ctx->cur_opcode->insn = kv3_LORWP;
             return trans_v2_LORWP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18829,7 +19236,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRWP1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRWP1_W;
             ctx->cur_opcode->insn = kv3_LNORWP;
             return trans_v2_LNORWP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18845,7 +19252,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_W;
             ctx->cur_opcode->insn = kv3_ADDX2HQ;
             return trans_v2_ADDX2HQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18856,7 +19263,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_W;
             ctx->cur_opcode->insn = kv3_SBFX2HQ;
             return trans_v2_SBFX2HQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18867,7 +19274,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_W;
             ctx->cur_opcode->insn = kv3_ADDX4HQ;
             return trans_v2_ADDX4HQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18878,7 +19285,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_W;
             ctx->cur_opcode->insn = kv3_SBFX4HQ;
             return trans_v2_SBFX4HQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18889,7 +19296,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_W;
             ctx->cur_opcode->insn = kv3_ADDX8HQ;
             return trans_v2_ADDX8HQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18900,7 +19307,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_W;
             ctx->cur_opcode->insn = kv3_SBFX8HQ;
             return trans_v2_SBFX8HQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18911,7 +19318,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_W;
             ctx->cur_opcode->insn = kv3_ADDX16HQ;
             return trans_v2_ADDX16HQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18922,7 +19329,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_W;
             ctx->cur_opcode->insn = kv3_SBFX16HQ;
             return trans_v2_SBFX16HQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18933,7 +19340,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_W;
             ctx->cur_opcode->insn = kv3_AVGHQ;
             return trans_v2_AVGHQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18944,7 +19351,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_W;
             ctx->cur_opcode->insn = kv3_AVGUHQ;
             return trans_v2_AVGUHQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18955,7 +19362,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_W;
             ctx->cur_opcode->insn = kv3_AVGRHQ;
             return trans_v2_AVGRHQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18966,7 +19373,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_W;
             ctx->cur_opcode->insn = kv3_AVGRUHQ;
             return trans_v2_AVGRUHQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18977,7 +19384,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_W;
             ctx->cur_opcode->insn = kv3_LANDHQ;
             return trans_v2_LANDHQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18988,7 +19395,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_W;
             ctx->cur_opcode->insn = kv3_LNANDHQ;
             return trans_v2_LNANDHQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -18999,7 +19406,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_W;
             ctx->cur_opcode->insn = kv3_LORHQ;
             return trans_v2_LORHQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -19010,7 +19417,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_X;
+            ctx->cur_opcode->format = kv3_ALU_WRRHQ1_W;
             ctx->cur_opcode->insn = kv3_LNORHQ;
             return trans_v2_LNORHQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -19025,10 +19432,16 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000000:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR2_X;
-            ctx->cur_opcode->insn = kv3_ADDX2WD;
-            return trans_v2_ADDX2WD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR2_W;
+              ctx->cur_opcode->insn = kv3_ADDX2WD;
+              return trans_v2_ADDX2WD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -19036,10 +19449,16 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000001:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR2_X;
-            ctx->cur_opcode->insn = kv3_SBFX2WD;
-            return trans_v2_SBFX2WD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR2_W;
+              ctx->cur_opcode->insn = kv3_SBFX2WD;
+              return trans_v2_SBFX2WD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -19047,10 +19466,16 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000002:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR2_X;
-            ctx->cur_opcode->insn = kv3_ADDX4WD;
-            return trans_v2_ADDX4WD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR2_W;
+              ctx->cur_opcode->insn = kv3_ADDX4WD;
+              return trans_v2_ADDX4WD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -19058,10 +19483,16 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000003:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR2_X;
-            ctx->cur_opcode->insn = kv3_SBFX4WD;
-            return trans_v2_SBFX4WD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR2_W;
+              ctx->cur_opcode->insn = kv3_SBFX4WD;
+              return trans_v2_SBFX4WD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -19069,10 +19500,16 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000004:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR2_X;
-            ctx->cur_opcode->insn = kv3_ADDX8WD;
-            return trans_v2_ADDX8WD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR2_W;
+              ctx->cur_opcode->insn = kv3_ADDX8WD;
+              return trans_v2_ADDX8WD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -19080,10 +19517,16 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000005:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR2_X;
-            ctx->cur_opcode->insn = kv3_SBFX8WD;
-            return trans_v2_SBFX8WD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR2_W;
+              ctx->cur_opcode->insn = kv3_SBFX8WD;
+              return trans_v2_SBFX8WD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -19091,10 +19534,16 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000006:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR2_X;
-            ctx->cur_opcode->insn = kv3_ADDX16WD;
-            return trans_v2_ADDX16WD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR2_W;
+              ctx->cur_opcode->insn = kv3_ADDX16WD;
+              return trans_v2_ADDX16WD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -19102,10 +19551,16 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000007:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR2_X;
-            ctx->cur_opcode->insn = kv3_SBFX16WD;
-            return trans_v2_SBFX16WD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR2_W;
+              ctx->cur_opcode->insn = kv3_SBFX16WD;
+              return trans_v2_SBFX16WD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -19113,10 +19568,16 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000008:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR2_X;
-            ctx->cur_opcode->insn = kv3_ADDX2UWD;
-            return trans_v2_ADDX2UWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR2_W;
+              ctx->cur_opcode->insn = kv3_ADDX2UWD;
+              return trans_v2_ADDX2UWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -19124,10 +19585,16 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x00000009:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR2_X;
-            ctx->cur_opcode->insn = kv3_SBFX2UWD;
-            return trans_v2_SBFX2UWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR2_W;
+              ctx->cur_opcode->insn = kv3_SBFX2UWD;
+              return trans_v2_SBFX2UWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -19135,10 +19602,16 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000a:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR2_X;
-            ctx->cur_opcode->insn = kv3_ADDX4UWD;
-            return trans_v2_ADDX4UWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR2_W;
+              ctx->cur_opcode->insn = kv3_ADDX4UWD;
+              return trans_v2_ADDX4UWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -19146,10 +19619,16 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000b:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR2_X;
-            ctx->cur_opcode->insn = kv3_SBFX4UWD;
-            return trans_v2_SBFX4UWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR2_W;
+              ctx->cur_opcode->insn = kv3_SBFX4UWD;
+              return trans_v2_SBFX4UWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -19157,10 +19636,16 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000c:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR2_X;
-            ctx->cur_opcode->insn = kv3_ADDX8UWD;
-            return trans_v2_ADDX8UWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR2_W;
+              ctx->cur_opcode->insn = kv3_ADDX8UWD;
+              return trans_v2_ADDX8UWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -19168,10 +19653,16 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000d:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR2_X;
-            ctx->cur_opcode->insn = kv3_SBFX8UWD;
-            return trans_v2_SBFX8UWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR2_W;
+              ctx->cur_opcode->insn = kv3_SBFX8UWD;
+              return trans_v2_SBFX8UWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -19179,10 +19670,16 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000e:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR2_X;
-            ctx->cur_opcode->insn = kv3_ADDX16UWD;
-            return trans_v2_ADDX16UWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR2_W;
+              ctx->cur_opcode->insn = kv3_ADDX16UWD;
+              return trans_v2_ADDX16UWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -19190,10 +19687,16 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         case 0x0000000f:
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DWRR2_X;
-            ctx->cur_opcode->insn = kv3_SBFX16UWD;
-            return trans_v2_SBFX16UWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DWRR2_W;
+              ctx->cur_opcode->insn = kv3_SBFX16UWD;
+              return trans_v2_SBFX16UWD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
           default:
             break;
           }
@@ -19204,22 +19707,108 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
       case 0x0000000b:
         switch ((codeWord_1 >> 29) & 0x00000003) {
         case 0x00000000:
-          switch ((codeWord_0 >> 24) & 0x0000000f) {
-          case 0x0000000e:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_AWRRW_X;
-            ctx->cur_opcode->insn = kv3_ADDSW;
-            return trans_v2_ADDSW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-          case 0x0000000f:
-            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_AWRRW_X;
-            ctx->cur_opcode->insn = kv3_SBFSW;
-            return trans_v2_SBFSW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+          switch ((codeWord_0 >> 11) & 0x00000001) {
+          case 0x00000000:
+            switch ((codeWord_0 >> 24) & 0x0000000f) {
+            case 0x0000000e:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_AWRRW_W;
+              ctx->cur_opcode->insn = kv3_ADDSW;
+              return trans_v2_ADDSW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            case 0x0000000f:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_AWRRW_W;
+              ctx->cur_opcode->insn = kv3_SBFSW;
+              return trans_v2_SBFSW_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              decode_kv3_comparison_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_comparison_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DCWRR_W;
+              ctx->cur_opcode->insn = kv3_COMPW;
+              return trans_v2_COMPW_comparison_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_comparison_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              break;
+            }
+            return false;
           default:
-            decode_kv3_comparison_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_comparison_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_DCWRR_X;
-            ctx->cur_opcode->insn = kv3_COMPW;
-            return trans_v2_COMPW_comparison_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_comparison_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            break;
+          }
+          return false;
+        default:
+          break;
+        }
+        return false;
+      case 0x0000000c:
+        switch ((codeWord_0 >> 24) & 0x0000000f) {
+        case 0x0000000e:
+          switch ((codeWord_1 >> 29) & 0x00000003) {
+          case 0x00000000:
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DCWRRC_W;
+              ctx->cur_opcode->insn = kv3_ADDCD;
+              return trans_v2_ADDCD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
+          default:
+            break;
+          }
+          return false;
+        case 0x0000000f:
+          switch ((codeWord_1 >> 29) & 0x00000003) {
+          case 0x00000000:
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DCWRRC_W;
+              ctx->cur_opcode->insn = kv3_SBFCD;
+              return trans_v2_SBFCD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
+          default:
+            break;
+          }
+          return false;
+        default:
+          break;
+        }
+        return false;
+      case 0x0000000d:
+        switch ((codeWord_0 >> 24) & 0x0000000f) {
+        case 0x0000000e:
+          switch ((codeWord_1 >> 29) & 0x00000003) {
+          case 0x00000000:
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DCWRRCI_W;
+              ctx->cur_opcode->insn = kv3_ADDCD_I;
+              return trans_v2_ADDCD_I_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
+          default:
+            break;
+          }
+          return false;
+        case 0x0000000f:
+          switch ((codeWord_1 >> 29) & 0x00000003) {
+          case 0x00000000:
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000000:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_DCWRRCI_W;
+              ctx->cur_opcode->insn = kv3_SBFCD_I;
+              return trans_v2_SBFCD_I_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
+          default:
             break;
           }
           return false;
@@ -19233,7 +19822,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_AWRRWP_X;
+            ctx->cur_opcode->format = kv3_ALU_AWRRWP_W;
             ctx->cur_opcode->insn = kv3_ADDSWP;
             return trans_v2_ADDSWP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -19244,7 +19833,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_AWRRWP_X;
+            ctx->cur_opcode->format = kv3_ALU_AWRRWP_W;
             ctx->cur_opcode->insn = kv3_SBFSWP;
             return trans_v2_SBFSWP_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -19261,7 +19850,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_AWRRHQ_X;
+            ctx->cur_opcode->format = kv3_ALU_AWRRHQ_W;
             ctx->cur_opcode->insn = kv3_ADDSHQ;
             return trans_v2_ADDSHQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -19272,7 +19861,7 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
           switch ((codeWord_1 >> 29) & 0x00000003) {
           case 0x00000000:
             decode_kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_AWRRHQ_X;
+            ctx->cur_opcode->format = kv3_ALU_AWRRHQ_W;
             ctx->cur_opcode->insn = kv3_SBFSHQ;
             return trans_v2_SBFSHQ_splat32_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_splat32_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           default:
@@ -19287,20 +19876,54 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         break;
       }
       return false;
+    case 0x00000002:
+      switch ((codeWord_0 >> 11) & 0x0000001f) {
+      case 0x00000001:
+        switch ((codeWord_0 >> 24) & 0x0000000f) {
+        case 0x0000000e:
+          switch ((codeWord_1 >> 29) & 0x00000003) {
+          case 0x00000000:
+            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            ctx->cur_opcode->format = kv3_ALU_BWRR_W;
+            ctx->cur_opcode->insn = kv3_SBMM8;
+            return trans_v2_SBMM8_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+          default:
+            break;
+          }
+          return false;
+        case 0x0000000f:
+          switch ((codeWord_1 >> 29) & 0x00000003) {
+          case 0x00000000:
+            decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            ctx->cur_opcode->format = kv3_ALU_BWRR_W;
+            ctx->cur_opcode->insn = kv3_SBMMT8;
+            return trans_v2_SBMMT8_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+          default:
+            break;
+          }
+          return false;
+        default:
+          break;
+        }
+        return false;
+      default:
+        break;
+      }
+      return false;
     case 0x00000003:
-      switch ((codeWord_0 >> 12) & 0x0000000f) {
+      switch ((codeWord_0 >> 11) & 0x0000001f) {
       case 0x00000000:
         switch ((codeWord_1 >> 29) & 0x00000003) {
         case 0x00000000:
           switch ((codeWord_0 >> 27) & 0x00000001) {
           case 0x00000000:
             decode_kv3_floatcomp_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_floatcomp_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_FCWRRS_X;
+            ctx->cur_opcode->format = kv3_ALU_FCWRRS_W;
             ctx->cur_opcode->insn = kv3_FCOMPW;
             return trans_v2_FCOMPW_floatcomp_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_floatcomp_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
           case 0x00000001:
             decode_kv3_floatcomp_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_floatcomp_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
-            ctx->cur_opcode->format = kv3_ALU_FCWRRS_X;
+            ctx->cur_opcode->format = kv3_ALU_FCWRRS_W;
             ctx->cur_opcode->insn = kv3_FCOMPD;
             return trans_v2_FCOMPD_floatcomp_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_floatcomp_kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
             break;
@@ -19314,7 +19937,6 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
         break;
       }
       return false;
-    default:
       break;
     }
     return false;
@@ -20485,7 +21107,7 @@ bool decode_v2_simple(DisasContext *ctx, const uint32_t *buffer)
               return trans_v2_LO_variant_doscale_registerN_registerY_registerZ_simple(ctx, &u.kv3_variant_kv3_doscale_kv3_registerN_kv3_registerY_kv3_registerZ);
             default:
               decode_kv3_variant_kv3_lsucond_kv3_registerY_kv3_registerN_kv3_registerZ(ctx, codeWords, &u.kv3_variant_kv3_lsucond_kv3_registerY_kv3_registerN_kv3_registerZ);
-              ctx->cur_opcode->format = kv3_LSU_LPPB1;
+              ctx->cur_opcode->format = kv3_LSU_LQPB;
               ctx->cur_opcode->insn = kv3_LO;
               return trans_v2_LO_variant_lsucond_registerY_registerN_registerZ_simple(ctx, &u.kv3_variant_kv3_lsucond_kv3_registerY_kv3_registerN_kv3_registerZ);
               break;
@@ -24706,7 +25328,7 @@ bool decode_v2_triple(DisasContext *ctx, const uint32_t *buffer)
               switch ((codeWord_0 >> 19) & 0x00000001) {
               case 0x00000000:
                 decode_kv3_variant_kv3_lsucond_kv3_registerY_kv3_registerN_kv3_extend27_offset27_kv3_registerZ(ctx, codeWords, &u.kv3_variant_kv3_lsucond_kv3_registerY_kv3_registerN_kv3_extend27_offset27_kv3_registerZ);
-                ctx->cur_opcode->format = kv3_LSU_LPPB1_Y;
+                ctx->cur_opcode->format = kv3_LSU_LQPB_Y;
                 ctx->cur_opcode->insn = kv3_LO;
                 return trans_v2_LO_variant_lsucond_registerY_registerN_extend27_offset27_registerZ_triple(ctx, &u.kv3_variant_kv3_lsucond_kv3_registerY_kv3_registerN_kv3_extend27_offset27_kv3_registerZ);
               case 0x00000001:
