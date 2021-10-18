@@ -1193,6 +1193,46 @@ static inline void gen_load_regfile_indirect(DisasContext *ctx, TCGv_i64 dest,
     end_tb(ctx, DISAS_UPDATE);
 }
 
+static inline void gen_load_regfile_indirect_bigint(DisasContext *ctx,
+                                                    MDSTCGBigInt *dest,
+                                                    RegFile regfile,
+                                                    TCGv_i64 addr, size_t len)
+{
+    StorageAccessInfo info;
+    TCGv_ptr base;
+    TCGv_i64 val;
+    size_t i = 0;
+
+    g_assert(len == 1);
+
+    /*
+     * No support for system register access this way. We don't want to
+     * generate an helper call for that so we have to be sure that the regfile
+     * is side-effect free.
+     */
+    g_assert(regfile != REGFILE_kv3_SFR);
+
+    get_regfile_access_info(regfile, 0, len, &info);
+
+    base = tcg_temp_new_ptr();
+
+    /*
+     * Compute base such as:
+     *  base = cpu_env + info.offset + (addr * reg_size)
+     */
+    tcg_gen_muli_i64(addr, addr, info.data_size / 8);
+    tcg_gen_trunc_i64_ptr(base, addr);
+    tcg_gen_add_ptr(base, base, cpu_env);
+    tcg_gen_addi_ptr(base, base, info.offset);
+
+    MDS_BIGINT_FOREACH(dest, val) {
+        tcg_gen_ld_i64(val, base, i);
+        i += 8;
+    }
+
+    tcg_temp_free_ptr(base);
+}
+
 static inline void gen_store_regfile(DisasContext *ctx, TCGv_i64 src,
                                      RegFile regfile, size_t addr, size_t len)
 {
