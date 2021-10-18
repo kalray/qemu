@@ -759,4 +759,27 @@ static inline void mds_tcg_gen_sari_bigint(MDSTCGBigInt *ret,
     tcg_temp_free_i64(tmp);
 }
 
+static inline void mds_tcg_gen_abs_bigint(MDSTCGBigInt *dst, MDSTCGBigInt *src)
+{
+    TCGv_i64 sign, dst_val, src_val, carry, tmp;
+
+    mds_tcg_bigint_assert_same_size_2(dst, src);
+
+    sign = tcg_temp_new_i64();
+    tcg_gen_sari_i64(sign, src->val[src->size - 1], 63);
+
+    carry = tcg_const_i64(0);
+    tmp = tcg_temp_new_i64();
+
+    MDS_BIGINT_FOREACH_2(dst, dst_val, src, src_val) {
+        tcg_gen_xor_i64(tmp, src_val, sign);
+        tcg_gen_sub_i64(dst_val, tmp, sign);
+        tcg_gen_sub_i64(dst_val, dst_val, carry);
+        tcg_gen_setcond_i64(TCG_COND_LTU, carry, tmp, sign);
+    }
+
+    tcg_temp_free_i64(tmp);
+    tcg_temp_free_i64(carry);
+    tcg_temp_free_i64(sign);
+}
 #endif
