@@ -135,6 +135,42 @@ static inline void mds_tcg_bigint_to_i64_sat(TCGv_i64 ret, MDSTCGBigInt *v,
     tcg_temp_free_i64(sign);
 }
 
+static inline void mds_tcg_bigint_to_i64_satu(TCGv_i64 ret, MDSTCGBigInt *v,
+                                              size_t sat_size)
+{
+    size_t i;
+    TCGv_i64 sign, upper;
+
+    g_assert(sat_size <= 64);
+
+
+    /* Check for non-zero bits in upper (>=64th bits) parts */
+    upper = tcg_const_i64(0);
+    for (i = 1; i < v->size; i++) {
+        tcg_gen_or_i64(upper, upper, v->val[i]);
+    }
+
+    /* Set upper to UINT64_MAX if some bits are set, 0 otherwise */
+    tcg_gen_movcond_i64(TCG_COND_NE, upper,
+                        upper, tcg_constant_i64(0),
+                        tcg_constant_i64(UINT64_MAX), tcg_constant_i64(0));
+
+
+    /* ret <- absolute saturated value on 64 bits */
+    tcg_gen_or_i64(ret, v->val[0], upper);
+    tcg_temp_free_i64(upper);
+
+    /* ret <- absolute saturated value on sat_size bits */
+    tcg_gen_umin_i64(ret, ret, tcg_constant_i64((1ull << sat_size) - 1));
+
+    /* invert ret if v is negative */
+    sign = tcg_temp_new_i64();
+    tcg_gen_sari_i64(sign, v->val[v->size - 1], 63);
+    tcg_gen_shri_i64(sign, sign, 64 - sat_size);
+    tcg_gen_xor_i64(ret, ret, sign);
+    tcg_temp_free_i64(sign);
+}
+
 static inline void mds_tcg_i64_to_bigint_u(MDSTCGBigInt *ret, TCGv_i64 v, size_t ret_size)
 {
     size_t i;
