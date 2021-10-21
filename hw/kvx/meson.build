@@ -12,6 +12,7 @@ kvx_ss.add(files(
   'pwr-ctrl.c',
   'ftu.c',
   'machine-descr.c',
+  'coolidge-cluster.c',
 ))
 
 hw_arch += {'kvx': kvx_ss}
