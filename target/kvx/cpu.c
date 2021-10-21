@@ -213,6 +213,7 @@ static void kvx_cpu_reset(DeviceState *dev)
     }
 
     kvx_register_write_field(env, PCR, PID, cpu->cfg.pid);
+    kvx_register_write_field(env, PCR, CID, cpu->cfg.cid);
     env->le_is_dirty = false;
     env->pending_ilr = 0;
 }
@@ -351,6 +352,7 @@ static gchar *kv3_gdb_arch_name(CPUState *cs)
 
 static Property kvx_cpu_properties[] = {
     DEFINE_PROP_UINT8("pid", KVXCPU, cfg.pid, 0),
+    DEFINE_PROP_UINT8("cid", KVXCPU, cfg.cid, 0),
     DEFINE_PROP_LINK("ipe-helper", KVXCPU, ipe_helper,
                      TYPE_KVX_IPE_HELPER, KvxIpeHelper *),
     DEFINE_PROP_END_OF_LIST(),

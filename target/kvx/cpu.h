@@ -325,6 +325,7 @@ struct KVXCPU {
 
     struct {
         uint8_t pid;
+        uint8_t cid;
     } cfg;
 
     /* watchdog & timers */
