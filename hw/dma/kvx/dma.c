@@ -26,6 +26,7 @@
 
 #include "trace.h"
 #include "registers.h"
+#include "internals.h"
 
 typedef uint64_t (*KvxDmaRegGroupReadFn)(KvxDmaState *, size_t id,
                                          hwaddr off, unsigned int size);
@@ -57,13 +58,22 @@ static const KvxDmaRegGroupAccess KVX_DMA_GROUP_ACCESS[] = {
     [GROUP_RX_DIAG] = { .read = unimp_group_read, .write = unimp_group_write },
     [GROUP_RX_MUX] = { .read = unimp_group_read, .write = unimp_group_write },
     [GROUP_RX_MONITORING] = { .read = unimp_group_read, .write = unimp_group_write },
-    [GROUP_DMA_IT] = { .read = unimp_group_read, .write = unimp_group_write },
-    [GROUP_DMA_ERROR] = { .read = unimp_group_read, .write = unimp_group_write },
     [GROUP_TX_THREAD] = { .read = unimp_group_read, .write = unimp_group_write },
     [GROUP_TX_PGRM_MEM] = { .read = unimp_group_read, .write = unimp_group_write },
     [GROUP_TX_PGRM_TABLE] = { .read = unimp_group_read, .write = unimp_group_write },
     [GROUP_NOC_ROUTE_TABLE] = { .read = unimp_group_read, .write = unimp_group_write },
     [GROUP_BW_LIMITER_TABLE] = { .read = unimp_group_read, .write = unimp_group_write },
+
+    [GROUP_DMA_IT] = {
+        .read = kvx_dma_it_read,
+        .write = kvx_dma_it_write,
+    },
+
+    [GROUP_DMA_ERROR] = {
+        .read = kvx_dma_errors_read,
+        .write = kvx_dma_errors_write,
+    },
+
     [GROUP_TX_MONITORING] = { .read = unimp_group_read, .write = unimp_group_write },
     [GROUP_TX_NOC_TEST] = { .read = unimp_group_read, .write = unimp_group_write },
     [GROUP_TX_JOB_QUEUE] = { .read = unimp_group_read, .write = unimp_group_write },
@@ -143,6 +153,9 @@ static const MemoryRegionOps kvx_dma_ops = {
 
 static void kvx_dma_reset(DeviceState *dev)
 {
+    KvxDmaState *s = KVX_DMA(dev);
+
+    kvx_dma_irq_errors_reset(s);
 }
 
 static void kvx_dma_realize(DeviceState *dev, Error **errp)

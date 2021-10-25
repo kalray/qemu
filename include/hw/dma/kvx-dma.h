@@ -39,6 +39,17 @@ typedef struct KvxDmaState {
     SysBusDevice parent;
 
     /*< public >*/
+    /* Errors */
+    uint64_t rx_channel_err;
+    uint64_t rx_job_queue_err;
+    uint64_t tx_job_queue_err;
+    uint64_t tx_thread_err;
+    uint64_t tx_comp_queue_err;
+
+    /* IRQs */
+    uint64_t irq_en;
+    uint64_t irq_vector;
+
     MemoryRegion iomem;
 
     MemoryRegion *root_mr;

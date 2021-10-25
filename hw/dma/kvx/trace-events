@@ -1,3 +1,10 @@
 # dma.c
 kvx_dma_read(uint64_t offset, uint64_t value) "offset:0x%" PRIx64 ", value:0x%" PRIx64
 kvx_dma_write(uint64_t offset, uint64_t value) "offset:0x%" PRIx64 ", value:0x%" PRIx64
+
+# irq-errors.c
+kvx_dma_errors_read(uint64_t offset, uint64_t value) "offset:0x%" PRIx64 ", value:0x%" PRIx64
+kvx_dma_errors_write(uint64_t offset, uint64_t value) "offset:0x%" PRIx64 ", value:0x%" PRIx64
+kvx_dma_it_read(uint64_t offset, uint64_t value) "offset:0x%" PRIx64 ", value:0x%" PRIx64
+kvx_dma_it_write(uint64_t offset, uint64_t value) "offset:0x%" PRIx64 ", value:0x%" PRIx64
+kvx_dma_global_error(const char *err) "%s"
