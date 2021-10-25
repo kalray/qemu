@@ -21,6 +21,84 @@
 
 #include "hw/registerfields.h"
 
+typedef enum {
+    GROUP_RX_CHANNEL,
+    GROUP_RX_JOB_QUEUE,
+    GROUP_RX_JOB_CACHE,
+    GROUP_RX_DIAG,
+    GROUP_RX_MUX,
+    GROUP_RX_MONITORING,
+    GROUP_DMA_IT,
+    GROUP_DMA_ERROR,
+    GROUP_TX_THREAD,
+    GROUP_TX_PGRM_MEM,
+    GROUP_TX_PGRM_TABLE,
+    GROUP_NOC_ROUTE_TABLE,
+    GROUP_BW_LIMITER_TABLE,
+    GROUP_TX_MONITORING,
+    GROUP_TX_NOC_TEST,
+    GROUP_TX_JOB_QUEUE,
+    GROUP_TX_COMP_QUEUE,
+
+    GROUP_END
+} KvxDmaRegGroup;
+
+static const uint64_t KVX_DMA_GROUP_MMIO_START[] = {
+    [GROUP_RX_CHANNEL] = 0x0,
+    [GROUP_RX_JOB_QUEUE] = 0x40000,
+    [GROUP_RX_JOB_CACHE] = 0x48000,
+    [GROUP_RX_DIAG] = 0x4c000,
+    [GROUP_RX_MUX] = 0x4d000,
+    [GROUP_RX_MONITORING] = 0x4e000,
+    [GROUP_DMA_IT] = 0x50000,
+    [GROUP_DMA_ERROR] = 0x51000,
+    [GROUP_TX_THREAD] = 0x60000,
+    [GROUP_TX_PGRM_MEM] = 0x64000,
+    [GROUP_TX_PGRM_TABLE] = 0x65000,
+    [GROUP_NOC_ROUTE_TABLE] = 0x66000,
+    [GROUP_BW_LIMITER_TABLE] = 0x67000,
+    [GROUP_TX_MONITORING] = 0x68000,
+    [GROUP_TX_NOC_TEST] = 0x69000,
+    [GROUP_TX_JOB_QUEUE] =  0x80000,
+    [GROUP_TX_COMP_QUEUE] = 0xc0000,
+
+    [GROUP_END] = 0x100000,
+};
+
+static const size_t KVX_DMA_GROUP_NUM_ELTS[] = {
+    [GROUP_RX_CHANNEL] = KVX_DMA_NUM_RX_CHANNEL,
+    [GROUP_RX_JOB_QUEUE] = KVX_DMA_NUM_RX_JOB_QUEUE,
+    [GROUP_RX_JOB_CACHE] = KVX_DMA_NUM_RX_JOB_CACHE,
+    [GROUP_RX_DIAG] = 1,
+    [GROUP_RX_MUX] = 1,
+    [GROUP_RX_MONITORING] = 1,
+    [GROUP_DMA_IT] = 1,
+    [GROUP_DMA_ERROR] = 1,
+    [GROUP_TX_THREAD] = KVX_DMA_NUM_TX_THREAD,
+    [GROUP_TX_PGRM_MEM] = 1,
+    [GROUP_TX_PGRM_TABLE] = 1,
+    [GROUP_NOC_ROUTE_TABLE] = 1,
+    [GROUP_BW_LIMITER_TABLE] = 1,
+    [GROUP_TX_MONITORING] = 1,
+    [GROUP_TX_NOC_TEST] = 1,
+    [GROUP_TX_JOB_QUEUE] = KVX_DMA_NUM_TX_JOB_QUEUE,
+    [GROUP_TX_COMP_QUEUE] = KVX_DMA_NUM_TX_COMP_QUEUE,
+};
+
+static inline uint64_t kvx_dma_group_mmio_size(KvxDmaRegGroup group)
+{
+    size_t num_elts;
+    uint64_t addr, next_addr;
+
+    g_assert(group < GROUP_END);
+
+    num_elts = KVX_DMA_GROUP_NUM_ELTS[group];
+    addr = KVX_DMA_GROUP_MMIO_START[group];
+    next_addr = KVX_DMA_GROUP_MMIO_START[group + 1];
+
+    return (next_addr - addr) / num_elts;
+}
+
 REG64(RX_CHANNEL_BUFFER_START_ADDRESS, 0x0)
 REG64(RX_CHANNEL_BUFFER_SIZE, 0x8)
 REG64(RX_CHANNEL_BUFFER_ENABLE, 0x10)

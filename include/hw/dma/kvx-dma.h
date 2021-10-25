@@ -21,6 +21,13 @@
 
 #include "hw/sysbus.h"
 
+#define KVX_DMA_NUM_RX_CHANNEL     64
+#define KVX_DMA_NUM_RX_JOB_QUEUE   8
+#define KVX_DMA_NUM_RX_JOB_CACHE   4
+#define KVX_DMA_NUM_TX_THREAD      4
+#define KVX_DMA_NUM_TX_JOB_QUEUE   64
+#define KVX_DMA_NUM_TX_COMP_QUEUE  64
+
 #define TYPE_KVX_DMA "kvx-dma"
 #define KVX_DMA(obj) \
     OBJECT_CHECK(KvxDmaState, (obj), TYPE_KVX_DMA)

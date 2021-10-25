@@ -27,9 +27,86 @@
 #include "trace.h"
 #include "registers.h"
 
+typedef uint64_t (*KvxDmaRegGroupReadFn)(KvxDmaState *, size_t id,
+                                         hwaddr off, unsigned int size);
+
+typedef void (*KvxDmaRegGroupWriteFn)(KvxDmaState *, size_t id,
+                                      hwaddr off, uint64_t value,
+                                      unsigned int size);
+
+typedef struct KvxDmaRegGroupAccess {
+    KvxDmaRegGroupReadFn read;
+    KvxDmaRegGroupWriteFn write;
+} KvxDmaRegGroupAccess;
+
+static uint64_t unimp_group_read(KvxDmaState *s, size_t id, hwaddr offset,
+                                 unsigned int size)
+{
+    return 0;
+}
+
+static void unimp_group_write(KvxDmaState *s, size_t id, hwaddr offset,
+                              uint64_t value, unsigned int size)
+{
+}
+
+static const KvxDmaRegGroupAccess KVX_DMA_GROUP_ACCESS[] = {
+    [GROUP_RX_CHANNEL] = { .read = unimp_group_read, .write = unimp_group_write },
+    [GROUP_RX_JOB_QUEUE] = { .read = unimp_group_read, .write = unimp_group_write },
+    [GROUP_RX_JOB_CACHE] = { .read = unimp_group_read, .write = unimp_group_write },
+    [GROUP_RX_DIAG] = { .read = unimp_group_read, .write = unimp_group_write },
+    [GROUP_RX_MUX] = { .read = unimp_group_read, .write = unimp_group_write },
+    [GROUP_RX_MONITORING] = { .read = unimp_group_read, .write = unimp_group_write },
+    [GROUP_DMA_IT] = { .read = unimp_group_read, .write = unimp_group_write },
+    [GROUP_DMA_ERROR] = { .read = unimp_group_read, .write = unimp_group_write },
+    [GROUP_TX_THREAD] = { .read = unimp_group_read, .write = unimp_group_write },
+    [GROUP_TX_PGRM_MEM] = { .read = unimp_group_read, .write = unimp_group_write },
+    [GROUP_TX_PGRM_TABLE] = { .read = unimp_group_read, .write = unimp_group_write },
+    [GROUP_NOC_ROUTE_TABLE] = { .read = unimp_group_read, .write = unimp_group_write },
+    [GROUP_BW_LIMITER_TABLE] = { .read = unimp_group_read, .write = unimp_group_write },
+    [GROUP_TX_MONITORING] = { .read = unimp_group_read, .write = unimp_group_write },
+    [GROUP_TX_NOC_TEST] = { .read = unimp_group_read, .write = unimp_group_write },
+    [GROUP_TX_JOB_QUEUE] = { .read = unimp_group_read, .write = unimp_group_write },
+    [GROUP_TX_COMP_QUEUE] = { .read = unimp_group_read, .write = unimp_group_write },
+};
+
+static inline KvxDmaRegGroup decode_mmio_offset(hwaddr *offset, size_t *id)
+{
+    KvxDmaRegGroup group;
+    uint64_t group_start;
+    uint64_t group_sz;
+
+    for (group = 0; group < GROUP_END; group++) {
+        group_start = KVX_DMA_GROUP_MMIO_START[group + 1];
+
+        if (*offset < group_start) {
+            break;
+        }
+    }
+
+    g_assert(group < GROUP_END);
+
+    group_start = KVX_DMA_GROUP_MMIO_START[group];
+    group_sz = kvx_dma_group_mmio_size(group);
+
+    *offset -= group_start;
+    *id = *offset / group_sz;
+    *offset = *offset % group_sz;
+
+    return group;
+}
+
 static uint64_t kvx_dma_read(void *opaque, hwaddr offset, unsigned size)
 {
-    uint64_t ret = 0;
+    KvxDmaState *s = KVX_DMA(opaque);
+    KvxDmaRegGroup group;
+    size_t id;
+    uint64_t ret;
+    hwaddr sub_offset = offset;
+
+    group = decode_mmio_offset(&sub_offset, &id);
+
+    ret = KVX_DMA_GROUP_ACCESS[group].read(s, id, sub_offset, size);
 
     trace_kvx_dma_read(offset, ret);
     return ret;
@@ -38,7 +115,16 @@ static uint64_t kvx_dma_read(void *opaque, hwaddr offset, unsigned size)
 static void kvx_dma_write(void *opaque, hwaddr offset,
                           uint64_t value, unsigned int size)
 {
+    KvxDmaState *s = KVX_DMA(opaque);
+    KvxDmaRegGroup group;
+    size_t id;
+    hwaddr sub_offset = offset;
+
+    group = decode_mmio_offset(&sub_offset, &id);
+
     trace_kvx_dma_write(offset, value);
+
+    KVX_DMA_GROUP_ACCESS[group].write(s, id, sub_offset, value, size);
 }
 
 static const MemoryRegionOps kvx_dma_ops = {
