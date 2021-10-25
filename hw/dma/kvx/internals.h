@@ -19,6 +19,8 @@
 #ifndef HW_DMA_KVX_INTERNALS_H
 #define HW_DMA_KVX_INTERNALS_H
 
+#define ADDRESS_MASK ((1ull << 41) - 1)
+
 /*
  * All possible errors in the DMA. Each DMA component can generate a subset of
  * those errors. The errors are reported into a common error register
@@ -80,6 +82,11 @@ uint64_t kvx_dma_bw_limiter_table_read(KvxDmaState *s, size_t id,
 void kvx_dma_bw_limiter_table_write(KvxDmaState *s, size_t id, hwaddr offset,
                                     uint64_t value, unsigned int size);
 
+uint64_t kvx_dma_tx_comp_queue_read(KvxDmaState *s, size_t id,
+                                    hwaddr offset, unsigned int size);
+void kvx_dma_tx_comp_queue_write(KvxDmaState *s, size_t id, hwaddr offset,
+                                 uint64_t value, unsigned int size);
+
 uint64_t kvx_dma_it_read(KvxDmaState *s, size_t id, hwaddr offset,
                          unsigned int size);
 void kvx_dma_it_write(KvxDmaState *s, size_t id, hwaddr offset,
@@ -96,6 +103,7 @@ void kvx_dma_errors_write(KvxDmaState *s, size_t id, hwaddr offset,
  */
 void kvx_dma_irq_errors_reset(KvxDmaState *s);
 void kvx_dma_mem_reset(KvxDmaState *s);
+void kvx_dma_tx_comp_queue_reset(KvxDmaTxCompQueue *queue);
 
 
 /*

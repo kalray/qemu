@@ -39,11 +39,29 @@
 
 #define KVX_DMA_MMIO_LEN 0x100000
 
+typedef struct KvxDmaTxCompQueue {
+    uint64_t errors;
+    uint64_t start_addr;
+    uint64_t write_ptr;
+    uint64_t read_ptr;
+    uint64_t valid_read_ptr;
+    uint64_t notify_addr;
+    uint64_t notify_arg;
+    uint16_t asn;
+    uint8_t num_slots;
+    uint8_t field_enabled;
+    bool running;
+    bool static_mode;
+    bool global;
+} KvxDmaTxCompQueue;
+
 typedef struct KvxDmaState {
     /*< private >*/
     SysBusDevice parent;
 
     /*< public >*/
+    KvxDmaTxCompQueue tx_comp_queue[KVX_DMA_NUM_TX_COMP_QUEUE];
+
     uint64_t tx_pgrm_mem[KVX_DMA_TX_PGRM_MEM_SIZE];
     uint64_t tx_pgrm_table[KVX_DMA_TX_PGRM_TABLE_SIZE];
     uint64_t noc_route_table[KVX_DMA_NOC_ROUTE_TABLE_SIZE];

@@ -3,5 +3,6 @@ softmmu_ss.add(
   if_true: files(
     'dma.c',
     'mem.c',
+    'tx-comp-queue.c',
     'irq-errors.c',
     ))

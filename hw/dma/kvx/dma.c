@@ -93,7 +93,11 @@ static const KvxDmaRegGroupAccess KVX_DMA_GROUP_ACCESS[] = {
     [GROUP_TX_MONITORING] = { .read = unimp_group_read, .write = unimp_group_write },
     [GROUP_TX_NOC_TEST] = { .read = unimp_group_read, .write = unimp_group_write },
     [GROUP_TX_JOB_QUEUE] = { .read = unimp_group_read, .write = unimp_group_write },
-    [GROUP_TX_COMP_QUEUE] = { .read = unimp_group_read, .write = unimp_group_write },
+
+    [GROUP_TX_COMP_QUEUE] = {
+        .read = kvx_dma_tx_comp_queue_read,
+        .write = kvx_dma_tx_comp_queue_write,
+    },
 };
 
 static inline KvxDmaRegGroup decode_mmio_offset(hwaddr *offset, size_t *id)
@@ -170,6 +174,11 @@ static const MemoryRegionOps kvx_dma_ops = {
 static void kvx_dma_reset(DeviceState *dev)
 {
     KvxDmaState *s = KVX_DMA(dev);
+    size_t i;
+
+    for (i = 0; i < KVX_DMA_NUM_TX_COMP_QUEUE; i++) {
+        kvx_dma_tx_comp_queue_reset(&s->tx_comp_queue[i]);
+    }
 
     kvx_dma_irq_errors_reset(s);
     kvx_dma_mem_reset(s);
