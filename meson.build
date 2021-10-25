@@ -2114,6 +2114,7 @@ if have_system
     'hw/char',
     'hw/display',
     'hw/dma',
+    'hw/dma/kvx',
     'hw/hppa',
     'hw/hyperv',
     'hw/i2c',
