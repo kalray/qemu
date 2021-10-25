@@ -28,6 +28,11 @@
 #define KVX_DMA_NUM_TX_JOB_QUEUE   64
 #define KVX_DMA_NUM_TX_COMP_QUEUE  64
 
+#define KVX_DMA_TX_PGRM_MEM_SIZE      128
+#define KVX_DMA_TX_PGRM_TABLE_SIZE    16
+#define KVX_DMA_NOC_ROUTE_TABLE_SIZE  512
+#define KVX_DMA_BW_LIMITER_TABLE_SIZE 16
+
 #define TYPE_KVX_DMA "kvx-dma"
 #define KVX_DMA(obj) \
     OBJECT_CHECK(KvxDmaState, (obj), TYPE_KVX_DMA)
@@ -39,6 +44,11 @@ typedef struct KvxDmaState {
     SysBusDevice parent;
 
     /*< public >*/
+    uint64_t tx_pgrm_mem[KVX_DMA_TX_PGRM_MEM_SIZE];
+    uint64_t tx_pgrm_table[KVX_DMA_TX_PGRM_TABLE_SIZE];
+    uint64_t noc_route_table[KVX_DMA_NOC_ROUTE_TABLE_SIZE];
+    uint64_t bw_limiter_table[KVX_DMA_BW_LIMITER_TABLE_SIZE];
+
     /* Errors */
     uint64_t rx_channel_err;
     uint64_t rx_job_queue_err;

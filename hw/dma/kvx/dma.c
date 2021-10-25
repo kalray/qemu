@@ -59,10 +59,6 @@ static const KvxDmaRegGroupAccess KVX_DMA_GROUP_ACCESS[] = {
     [GROUP_RX_MUX] = { .read = unimp_group_read, .write = unimp_group_write },
     [GROUP_RX_MONITORING] = { .read = unimp_group_read, .write = unimp_group_write },
     [GROUP_TX_THREAD] = { .read = unimp_group_read, .write = unimp_group_write },
-    [GROUP_TX_PGRM_MEM] = { .read = unimp_group_read, .write = unimp_group_write },
-    [GROUP_TX_PGRM_TABLE] = { .read = unimp_group_read, .write = unimp_group_write },
-    [GROUP_NOC_ROUTE_TABLE] = { .read = unimp_group_read, .write = unimp_group_write },
-    [GROUP_BW_LIMITER_TABLE] = { .read = unimp_group_read, .write = unimp_group_write },
 
     [GROUP_DMA_IT] = {
         .read = kvx_dma_it_read,
@@ -72,6 +68,26 @@ static const KvxDmaRegGroupAccess KVX_DMA_GROUP_ACCESS[] = {
     [GROUP_DMA_ERROR] = {
         .read = kvx_dma_errors_read,
         .write = kvx_dma_errors_write,
+    },
+
+    [GROUP_TX_PGRM_MEM] = {
+        .read = kvx_dma_tx_pgrm_mem_read,
+        .write = kvx_dma_tx_pgrm_mem_write,
+    },
+
+    [GROUP_TX_PGRM_TABLE] = {
+        .read = kvx_dma_tx_pgrm_table_read,
+        .write = kvx_dma_tx_pgrm_table_write,
+    },
+
+    [GROUP_NOC_ROUTE_TABLE] = {
+        .read = kvx_dma_noc_route_table_read,
+        .write = kvx_dma_noc_route_table_write,
+    },
+
+    [GROUP_BW_LIMITER_TABLE] = {
+        .read = kvx_dma_bw_limiter_table_read,
+        .write = kvx_dma_bw_limiter_table_write,
     },
 
     [GROUP_TX_MONITORING] = { .read = unimp_group_read, .write = unimp_group_write },
@@ -156,6 +172,7 @@ static void kvx_dma_reset(DeviceState *dev)
     KvxDmaState *s = KVX_DMA(dev);
 
     kvx_dma_irq_errors_reset(s);
+    kvx_dma_mem_reset(s);
 }
 
 static void kvx_dma_realize(DeviceState *dev, Error **errp)

@@ -2,6 +2,19 @@
 kvx_dma_read(uint64_t offset, uint64_t value) "offset:0x%" PRIx64 ", value:0x%" PRIx64
 kvx_dma_write(uint64_t offset, uint64_t value) "offset:0x%" PRIx64 ", value:0x%" PRIx64
 
+# mem.c
+kvx_dma_tx_pgrm_mem_read(uint64_t offset, uint64_t value) "offset:0x%" PRIx64 ", value:0x%" PRIx64
+kvx_dma_tx_pgrm_mem_write(uint64_t offset, uint64_t value) "offset:0x%" PRIx64 ", value:0x%" PRIx64
+
+kvx_dma_tx_pgrm_table_read(uint64_t offset, uint64_t value) "offset:0x%" PRIx64 ", value:0x%" PRIx64
+kvx_dma_tx_pgrm_table_write(uint64_t offset, uint64_t value) "offset:0x%" PRIx64 ", value:0x%" PRIx64
+
+kvx_dma_noc_route_table_read(uint64_t offset, uint64_t value) "offset:0x%" PRIx64 ", value:0x%" PRIx64
+kvx_dma_noc_route_table_write(uint64_t offset, uint64_t value) "offset:0x%" PRIx64 ", value:0x%" PRIx64
+
+kvx_dma_bw_limiter_table_read(uint64_t offset, uint64_t value) "offset:0x%" PRIx64 ", value:0x%" PRIx64
+kvx_dma_bw_limiter_table_write(uint64_t offset, uint64_t value) "offset:0x%" PRIx64 ", value:0x%" PRIx64
+
 # irq-errors.c
 kvx_dma_errors_read(uint64_t offset, uint64_t value) "offset:0x%" PRIx64 ", value:0x%" PRIx64
 kvx_dma_errors_write(uint64_t offset, uint64_t value) "offset:0x%" PRIx64 ", value:0x%" PRIx64

@@ -60,6 +60,26 @@ typedef enum KvxDmaError {
 /*
  * MMIO read/write functions
  */
+uint64_t kvx_dma_tx_pgrm_mem_read(KvxDmaState *s, size_t id,
+                                  hwaddr offset, unsigned int size);
+void kvx_dma_tx_pgrm_mem_write(KvxDmaState *s, size_t id, hwaddr offset,
+                               uint64_t value, unsigned int size);
+
+uint64_t kvx_dma_tx_pgrm_table_read(KvxDmaState *s, size_t id,
+                                    hwaddr offset, unsigned int size);
+void kvx_dma_tx_pgrm_table_write(KvxDmaState *s, size_t id, hwaddr offset,
+                                 uint64_t value, unsigned int size);
+
+uint64_t kvx_dma_noc_route_table_read(KvxDmaState *s, size_t id,
+                                      hwaddr offset, unsigned int size);
+void kvx_dma_noc_route_table_write(KvxDmaState *s, size_t id, hwaddr offset,
+                                   uint64_t value, unsigned int size);
+
+uint64_t kvx_dma_bw_limiter_table_read(KvxDmaState *s, size_t id,
+                                       hwaddr offset, unsigned int size);
+void kvx_dma_bw_limiter_table_write(KvxDmaState *s, size_t id, hwaddr offset,
+                                    uint64_t value, unsigned int size);
+
 uint64_t kvx_dma_it_read(KvxDmaState *s, size_t id, hwaddr offset,
                          unsigned int size);
 void kvx_dma_it_write(KvxDmaState *s, size_t id, hwaddr offset,
@@ -75,6 +95,7 @@ void kvx_dma_errors_write(KvxDmaState *s, size_t id, hwaddr offset,
  * Reset functions
  */
 void kvx_dma_irq_errors_reset(KvxDmaState *s);
+void kvx_dma_mem_reset(KvxDmaState *s);
 
 
 /*
