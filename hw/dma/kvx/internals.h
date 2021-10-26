@@ -62,6 +62,11 @@ typedef enum KvxDmaError {
 /*
  * MMIO read/write functions
  */
+uint64_t kvx_dma_tx_thread_read(KvxDmaState *s, size_t id,
+                                 hwaddr offset, unsigned int size);
+void kvx_dma_tx_thread_write(KvxDmaState *s, size_t id, hwaddr offset,
+                              uint64_t value, unsigned int size);
+
 uint64_t kvx_dma_tx_pgrm_mem_read(KvxDmaState *s, size_t id,
                                   hwaddr offset, unsigned int size);
 void kvx_dma_tx_pgrm_mem_write(KvxDmaState *s, size_t id, hwaddr offset,
@@ -103,6 +108,7 @@ void kvx_dma_errors_write(KvxDmaState *s, size_t id, hwaddr offset,
  */
 void kvx_dma_irq_errors_reset(KvxDmaState *s);
 void kvx_dma_mem_reset(KvxDmaState *s);
+void kvx_dma_tx_thread_reset(KvxDmaTxThread *thread);
 void kvx_dma_tx_comp_queue_reset(KvxDmaTxCompQueue *queue);
 
 
@@ -112,4 +118,28 @@ void kvx_dma_tx_comp_queue_reset(KvxDmaTxCompQueue *queue);
 void kvx_dma_report_error(KvxDmaState *s, KvxDmaError err);
 const char *kvx_dma_error_str(KvxDmaError err);
 
+/*
+ * TX thread functions
+ */
+static inline size_t kvx_dma_tx_thread_get_id(KvxDmaState *s,
+                                              KvxDmaTxThread *thread)
+{
+    return (size_t)((thread - &s->tx_thread[0]) / sizeof(KvxDmaTxThread));
+}
+
+static inline KvxDmaTxJobContext *kvx_dma_tx_thread_get_running_job(KvxDmaTxThread *thread)
+{
+    return &thread->job_pool[thread->running_job];
+}
+
+static inline KvxDmaTxJobContext *kvx_dma_tx_thread_get_cached_job(KvxDmaTxThread *thread)
+{
+    return &thread->job_pool[!thread->running_job];
+}
+
+static inline bool kvx_dma_tx_thread_has_cached_job(KvxDmaTxThread *thread)
+{
+    KvxDmaTxJobContext *job = kvx_dma_tx_thread_get_cached_job(thread);
+    return job->valid;
+}
 #endif

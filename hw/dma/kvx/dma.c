@@ -58,7 +58,6 @@ static const KvxDmaRegGroupAccess KVX_DMA_GROUP_ACCESS[] = {
     [GROUP_RX_DIAG] = { .read = unimp_group_read, .write = unimp_group_write },
     [GROUP_RX_MUX] = { .read = unimp_group_read, .write = unimp_group_write },
     [GROUP_RX_MONITORING] = { .read = unimp_group_read, .write = unimp_group_write },
-    [GROUP_TX_THREAD] = { .read = unimp_group_read, .write = unimp_group_write },
 
     [GROUP_DMA_IT] = {
         .read = kvx_dma_it_read,
@@ -68,6 +67,11 @@ static const KvxDmaRegGroupAccess KVX_DMA_GROUP_ACCESS[] = {
     [GROUP_DMA_ERROR] = {
         .read = kvx_dma_errors_read,
         .write = kvx_dma_errors_write,
+    },
+
+    [GROUP_TX_THREAD] = {
+        .read = kvx_dma_tx_thread_read,
+        .write = kvx_dma_tx_thread_write,
     },
 
     [GROUP_TX_PGRM_MEM] = {
@@ -175,6 +179,10 @@ static void kvx_dma_reset(DeviceState *dev)
 {
     KvxDmaState *s = KVX_DMA(dev);
     size_t i;
+
+    for (i = 0; i < KVX_DMA_NUM_TX_THREAD; i++) {
+        kvx_dma_tx_thread_reset(&s->tx_thread[i]);
+    }
 
     for (i = 0; i < KVX_DMA_NUM_TX_COMP_QUEUE; i++) {
         kvx_dma_tx_comp_queue_reset(&s->tx_comp_queue[i]);

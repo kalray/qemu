@@ -4,5 +4,6 @@ softmmu_ss.add(
     'dma.c',
     'mem.c',
     'tx-comp-queue.c',
+    'tx-thread.c',
     'irq-errors.c',
     ))

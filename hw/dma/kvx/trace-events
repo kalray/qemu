@@ -15,6 +15,10 @@ kvx_dma_noc_route_table_write(uint64_t offset, uint64_t value) "offset:0x%" PRIx
 kvx_dma_bw_limiter_table_read(uint64_t offset, uint64_t value) "offset:0x%" PRIx64 ", value:0x%" PRIx64
 kvx_dma_bw_limiter_table_write(uint64_t offset, uint64_t value) "offset:0x%" PRIx64 ", value:0x%" PRIx64
 
+# tx-thread.c
+kvx_dma_tx_thread_read(size_t id, uint64_t offset, uint64_t value) "id: %zu, offset:0x%" PRIx64 ", value:0x%" PRIx64
+kvx_dma_tx_thread_write(size_t id, uint64_t offset, uint64_t value) "id: %zu, offset:0x%" PRIx64 ", value:0x%" PRIx64
+
 # tx-comp-queue.c
 kvx_dma_tx_comp_queue_read(size_t id, uint64_t offset, uint64_t value) "id: %zu, offset:0x%" PRIx64 ", value:0x%" PRIx64
 kvx_dma_tx_comp_queue_write(size_t id, uint64_t offset, uint64_t value) "id: %zu, offset:0x%" PRIx64 ", value:0x%" PRIx64

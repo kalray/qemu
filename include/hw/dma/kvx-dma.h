@@ -55,12 +55,51 @@ typedef struct KvxDmaTxCompQueue {
     bool global;
 } KvxDmaTxCompQueue;
 
+typedef struct KvxDmaTxJobContext {
+    /* Job parameters */
+    uint16_t noc_route_id;
+    uint16_t asn;
+
+    uint8_t pgrm_id;
+    uint8_t comp_queue_id;
+
+    bool rx_job_push_enabled;
+    uint8_t rx_job_queue_id;
+
+    bool fence_before;
+    bool fence_after;
+
+    uint64_t parameters[8];
+
+    /* True when the cached job is valid */
+    bool valid;
+} KvxDmaTxJobContext;
+
+typedef struct KvxDmaTxThread {
+    /* Two jobs in the pool: a running job and a job in cache */
+    KvxDmaTxJobContext job_pool[2];
+
+    /* Index of the running job, the other one is the cached job */
+    size_t running_job;
+
+    /* micro-engine state */
+    uint16_t pc;
+    uint16_t strobe;
+    uint32_t dcnt[4];
+    uint64_t read_ptr;
+    uint64_t write_ptr;
+
+    uint64_t errors;
+    bool running;
+} KvxDmaTxThread;
+
 typedef struct KvxDmaState {
     /*< private >*/
     SysBusDevice parent;
 
     /*< public >*/
     KvxDmaTxCompQueue tx_comp_queue[KVX_DMA_NUM_TX_COMP_QUEUE];
+    KvxDmaTxThread tx_thread[KVX_DMA_NUM_TX_THREAD];
 
     uint64_t tx_pgrm_mem[KVX_DMA_TX_PGRM_MEM_SIZE];
     uint64_t tx_pgrm_table[KVX_DMA_TX_PGRM_TABLE_SIZE];
