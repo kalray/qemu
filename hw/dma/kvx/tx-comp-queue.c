@@ -214,9 +214,12 @@ uint64_t kvx_dma_tx_comp_queue_read(KvxDmaState *s, size_t id, hwaddr offset,
 {
     uint64_t ret;
     KvxDmaTxCompQueue *queue;
+    bool was_full;
 
     g_assert(id < KVX_DMA_NUM_TX_COMP_QUEUE);
     queue = &s->tx_comp_queue[id];
+
+    was_full = kvx_dma_tx_comp_queue_is_full(queue);
 
     switch (offset) {
     case A_TX_COMP_QUEUE_MODE:
@@ -285,6 +288,11 @@ uint64_t kvx_dma_tx_comp_queue_read(KvxDmaState *s, size_t id, hwaddr offset,
     }
 
     trace_kvx_dma_tx_comp_queue_read(id, offset, ret);
+
+    if (was_full && !kvx_dma_tx_comp_queue_is_full(queue)) {
+        kvx_dma_run_tx_threads(s);
+    }
+
     return ret;
 }
 
@@ -292,11 +300,14 @@ void kvx_dma_tx_comp_queue_write(KvxDmaState *s, size_t id, hwaddr offset,
                                  uint64_t value, unsigned int size)
 {
     KvxDmaTxCompQueue *queue;
+    bool was_full;
 
     g_assert(id < KVX_DMA_NUM_TX_COMP_QUEUE);
     queue = &s->tx_comp_queue[id];
 
     trace_kvx_dma_tx_comp_queue_write(id, offset, value);
+
+    was_full = kvx_dma_tx_comp_queue_is_full(queue);
 
     switch (offset) {
     case A_TX_COMP_QUEUE_ACTIVATE:
@@ -362,6 +373,10 @@ void kvx_dma_tx_comp_queue_write(KvxDmaState *s, size_t id, hwaddr offset,
     default:
         /* n/i */
         break;
+    }
+
+    if (was_full && !kvx_dma_tx_comp_queue_is_full(queue)) {
+        kvx_dma_run_tx_threads(s);
     }
 }
 
