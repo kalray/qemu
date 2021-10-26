@@ -20,6 +20,12 @@ kvx_dma_tx_thread_read(size_t id, uint64_t offset, uint64_t value) "id: %zu, off
 kvx_dma_tx_thread_write(size_t id, uint64_t offset, uint64_t value) "id: %zu, offset:0x%" PRIx64 ", value:0x%" PRIx64
 kvx_dma_tx_thread_state(size_t id, uint16_t pc, uint16_t strobe, uint32_t dcnt0, uint32_t dcnt1, uint32_t dcnt2, uint32_t dcnt3, uint64_t rptr, uint64_t wptr) "id: %zu, pc: 0x02%" PRIx16 ", strobe: 0x%" PRIx16 ", dnct={%" PRIu32 ",%" PRIu32 ",%" PRIu32 ",%" PRIu32"}, rptr:%" PRIx64 ", wptr:%" PRIx64
 
+kvx_dma_tx_thread_load_mem(size_t id, uint64_t addr, uint64_t data, size_t sz) "id: %zu, addr: 0x%" PRIx64 ", data: 0x%" PRIx64 ", size: %zu"
+kvx_dma_tx_thread_store_mem(size_t id, uint64_t addr, uint64_t data, size_t sz, uint16_t strobe) "id: %zu, addr: 0x%" PRIx64 ", data: 0x%" PRIx64 ", size: %zu, strobe: 0x%" PRIx16
+
+kvx_dma_tx_thread_load_mem128(size_t id, uint64_t addr, uint64_t dhi, uint64_t dlo) "id: %zu, addr: 0x%" PRIx64 ", data: 0x%" PRIx64 "%016" PRIx64 ", size: 16"
+kvx_dma_tx_thread_store_mem128(size_t id, uint64_t addr, uint64_t dhi, uint64_t dlo, uint16_t strobe) "id: %zu, addr: 0x%" PRIx64 ", data: 0x%" PRIx64 "%016" PRIx64 ", size: 16, strobe: 0x%" PRIx16
+
 kvx_dma_tx_thread_exec_bundle(size_t id, size_t pgrm_id, unsigned int pc) "id: %zu, pgrm_id: %zu, pc: 0x%02x"
 kvx_dma_tx_thread_invalid_bundle(size_t id, size_t pgrm_id, unsigned int pc, uint64_t bundle) "id: %zu, pgrm_id: %zu, pc: 0x%02x, faulty bundle: %" PRIx64
 kvx_dma_tx_thread_disas_bundle(size_t id, size_t pgrm_id, unsigned int pc, const char *disas) "id: %zu, pgrm_id: %zu, pc: 0x%02x%s"

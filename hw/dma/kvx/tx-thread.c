@@ -97,6 +97,147 @@ static inline uint64_t read_parameter(const KvxDmaTxJobContext *job,
         : extract64(job->parameters[idx], offset, decoded->reg_size * 8);
 }
 
+static inline void do_trace_mem_access(KvxDmaState *s, KvxDmaTxThread *thread,
+                                       const DecodedBundle *decoded,
+                                       uint64_t *data, bool is_load)
+{
+    size_t thread_id = kvx_dma_tx_thread_get_id(s, thread);
+
+    if (decoded->move_size == 16) {
+        if (is_load) {
+            trace_kvx_dma_tx_thread_load_mem128(thread_id, thread->read_ptr,
+                                                data[1], data[0]);
+        } else {
+            trace_kvx_dma_tx_thread_store_mem128(thread_id, thread->write_ptr,
+                                                 data[1], data[0],
+                                                 thread->strobe);
+        }
+    } else {
+        uint64_t data_mask = (1 << (decoded->move_size * 8)) - 1;
+
+        if (is_load) {
+            trace_kvx_dma_tx_thread_load_mem(thread_id, thread->read_ptr,
+                                             data[0] & data_mask,
+                                             decoded->move_size);
+        } else {
+            trace_kvx_dma_tx_thread_store_mem(thread_id, thread->write_ptr,
+                                              data[0] & data_mask,
+                                              decoded->move_size,
+                                              thread->strobe);
+        }
+    }
+}
+
+static inline bool mem_send_data(KvxDmaState *s, KvxDmaTxThread *thread,
+                                 const DecodedBundle *decoded,
+                                 uint64_t *data)
+{
+    uint16_t strobe, size_mask;
+    MemTxResult res = MEMTX_OK;
+
+    size_mask = (1 << decoded->move_size) - 1;
+    strobe = thread->strobe & size_mask;
+
+    do_trace_mem_access(s, thread, decoded, data, false);
+
+    if (strobe == size_mask) {
+        res = address_space_write(&s->as, thread->write_ptr,
+                                  MEMTXATTRS_UNSPECIFIED,
+                                  data, decoded->move_size);
+    } else {
+        /* strobe is not full of ones */
+        size_t addr = thread->write_ptr;
+        uint8_t *pdata = (uint8_t *) data;
+
+        while (strobe && (res == MEMTX_OK)) {
+            size_t b = ctz32(strobe);
+
+            strobe >>= b;
+            addr += b;
+            pdata += b;
+
+            b = cto32(strobe);
+
+            if (b) {
+                res = address_space_write(&s->as, addr,
+                                          MEMTXATTRS_UNSPECIFIED,
+                                          pdata, b);
+                strobe >>= b;
+                addr += b;
+                pdata += b;
+            }
+        }
+    }
+
+    if (res != MEMTX_OK) {
+        kvx_dma_tx_thread_report_error(s, thread, KVX_DMA_ERR_TX_WRITE_ADDR);
+        return false;
+    }
+
+    return true;
+}
+
+static inline bool send_data(KvxDmaState *s, KvxDmaTxThread *thread,
+                             const DecodedBundle *decoded,
+                             uint64_t *data)
+{
+    if (decoded->wptr_type != BUNDLE_WPTR_TYPE_STORE_ADDR) {
+        qemu_log_mask(LOG_UNIMP, "kvx-dma: unimplemented write pointer type\n");
+        return false;
+    }
+
+    return mem_send_data(s, thread, decoded, data);
+}
+
+static bool mem_recv_data(KvxDmaState *s, KvxDmaTxThread *thread,
+                          const DecodedBundle *decoded,
+                          uint64_t *data)
+{
+    MemTxResult res;
+
+    res = address_space_read(&s->as, thread->read_ptr, MEMTXATTRS_UNSPECIFIED,
+                             data, decoded->move_size);
+
+    if (res != MEMTX_OK) {
+        kvx_dma_tx_thread_report_error(s, thread, KVX_DMA_ERR_TX_READ_ADDR);
+        return false;
+    }
+
+    do_trace_mem_access(s, thread, decoded, data, true);
+
+    return true;
+}
+
+static void recv_and_send_data(KvxDmaState *s,
+                               KvxDmaTxThread *thread,
+                               const DecodedBundle *decoded)
+{
+    uint64_t data[2];
+
+    g_assert(decoded->move_size <= sizeof(data));
+
+    if (!mem_recv_data(s, thread, decoded, data)) {
+        return;
+    }
+
+    mem_send_data(s, thread, decoded, data);
+}
+
+static void send_parameter(KvxDmaState *s,
+                           KvxDmaTxThread *thread,
+                           KvxDmaTxJobContext *job,
+                           const DecodedBundle *decoded)
+{
+    uint64_t data[2];
+
+    g_assert(decoded->move_size <= sizeof(data));
+
+    data[0] = read_parameter(job, decoded);
+    data[1] = 0;
+
+    mem_send_data(s, thread, decoded, data);
+}
+
 /*
  * Simulate the bundle given as parameter. Return the next PC.
  */
@@ -139,7 +280,7 @@ static uint16_t exec_bundle(KvxDmaState *s, KvxDmaTxThread *thread,
 
     switch (decoded->cmd_op) {
     case BUNDLE_CMD_SEND_RPTR:
-        /* TODO */
+        recv_and_send_data(s, thread, decoded);
         break;
 
     case BUNDLE_CMD_NOTIFY:
@@ -150,7 +291,7 @@ static uint16_t exec_bundle(KvxDmaState *s, KvxDmaTxThread *thread,
         break;
 
     case BUNDLE_CMD_SEND_REG:
-        /* TODO */
+        send_parameter(s, thread, job, decoded);
         break;
 
     case BUNDLE_CMD_RESET_STROBE:
