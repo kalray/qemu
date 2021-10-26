@@ -29,6 +29,7 @@ kvx_dma_tx_job_queue_error(size_t id, const char *err) "id: %zu, %s"
 kvx_dma_tx_comp_queue_read(size_t id, uint64_t offset, uint64_t value) "id: %zu, offset:0x%" PRIx64 ", value:0x%" PRIx64
 kvx_dma_tx_comp_queue_write(size_t id, uint64_t offset, uint64_t value) "id: %zu, offset:0x%" PRIx64 ", value:0x%" PRIx64
 kvx_dma_tx_comp_queue_notify(size_t id, uint64_t addr, uint64_t arg) "id: %zu, notify addr:0x%" PRIx64 ", notify arg: 0x%" PRIx64
+kvx_dma_tx_comp_queue_error(size_t id, const char *err) "id: %zu, %s"
 
 # irq-errors.c
 kvx_dma_errors_read(uint64_t offset, uint64_t value) "offset:0x%" PRIx64 ", value:0x%" PRIx64

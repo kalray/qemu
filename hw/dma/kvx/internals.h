@@ -165,4 +165,26 @@ static inline bool kvx_dma_tx_thread_has_cached_job(KvxDmaTxThread *thread)
     KvxDmaTxJobContext *job = kvx_dma_tx_thread_get_cached_job(thread);
     return job->valid;
 }
+
+
+/*
+ * TX Completion queue functions
+ */
+bool kvx_dma_tx_comp_queue_notify(KvxDmaState *s, KvxDmaTxCompQueue *queue,
+                                  KvxDmaTxThread *initiator);
+
+static inline bool kvx_dma_tx_comp_queue_is_full(KvxDmaTxCompQueue *queue)
+{
+    if (queue->field_enabled == 0) {
+        return false;
+    }
+
+    return queue->write_ptr > (queue->valid_read_ptr + (1 << queue->num_slots));
+}
+
+static inline size_t kvx_dma_tx_comp_queue_get_id(KvxDmaState *s,
+                                                  KvxDmaTxCompQueue *queue)
+{
+    return (size_t)((queue - &s->tx_comp_queue[0]) / sizeof(KvxDmaTxCompQueue));
+}
 #endif

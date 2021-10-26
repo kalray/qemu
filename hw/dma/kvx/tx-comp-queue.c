@@ -23,6 +23,192 @@
 #include "registers.h"
 #include "internals.h"
 
+static inline void report_error(KvxDmaState *s, KvxDmaTxCompQueue *queue,
+                                KvxDmaTxThread *initiator, KvxDmaError err)
+{
+    /* Global DMA error to local TX completion queue error mapping */
+    static const uint64_t ERROR_MAPPING[KVX_DMA_NUM_ERR] = {
+        [KVX_DMA_ERR_TX_COMP_QUEUE_ADDR] = R_TX_COMP_QUEUE_STATUS_MEM_ADDR_ERROR_SHIFT,
+        [KVX_DMA_ERR_TX_COMP_QUEUE_DECC] = R_TX_COMP_QUEUE_STATUS_MEM_DECC_ERROR_SHIFT,
+    };
+
+    size_t id = kvx_dma_tx_comp_queue_get_id(s, queue);
+
+    queue->running = false;
+    queue->errors |= (1 << ERROR_MAPPING[err]);
+    s->tx_comp_queue_err |= (1 << id);
+
+    trace_kvx_dma_tx_comp_queue_error(id, kvx_dma_error_str(err));
+    kvx_dma_report_error(s, err);
+
+    /* propagate the error to the initiator thread */
+    kvx_dma_tx_thread_report_error(s, initiator, err);
+}
+
+/*
+ * Return the size of the job completion descriptor given the current
+ * configuration of the queue.
+ */
+static inline uint64_t get_desc_write_size(KvxDmaTxCompQueue *queue)
+{
+    static const uint64_t WRITE_SIZE[] = {
+        [0] = 0,
+        [1] = 2 * sizeof(uint64_t),
+        [2] = 10 * sizeof(uint64_t),
+        [3] = 0, /* reserved */
+    };
+
+    g_assert(queue->field_enabled < ARRAY_SIZE(WRITE_SIZE));
+    return WRITE_SIZE[queue->field_enabled];
+}
+
+/*
+ * Return the address the next descriptor should be written at.
+ */
+static inline hwaddr get_next_desc_addr(KvxDmaTxCompQueue *queue)
+{
+    uint64_t write_size, offset;
+
+    if (queue->static_mode) {
+        return queue->start_addr;
+    }
+
+    write_size = get_desc_write_size(queue);
+    offset = (queue->write_ptr * write_size) & ((1 << queue->num_slots) - 1);
+    return queue->start_addr + offset;
+}
+
+static bool write_completion_desc(KvxDmaState *s, KvxDmaTxCompQueue *queue,
+                                  KvxDmaTxThread *initiator)
+{
+    uint64_t desc[TX_JOB_DESC_NUM_ELTS];
+    size_t param_copy_sz;
+    hwaddr addr;
+    MemTxResult res;
+    KvxDmaTxJobContext *job;
+
+    job = kvx_dma_tx_thread_get_running_job(initiator);
+
+    /*
+     * When field_enabled is 1, only copy the first 2 parameters. When it is 2,
+     * copy the whole descriptor (the 8 params + the control part)
+     */
+    param_copy_sz = (queue->field_enabled == 2) ? 8 : 2;
+    param_copy_sz *= sizeof(uint64_t);
+
+    memcpy(desc, job->parameters, param_copy_sz);
+
+    if (queue->field_enabled == 2) {
+        uint64_t *ctrl = &desc[R_TX_JOB_DESC_CTRL];
+
+        *ctrl = FIELD_DP64(0, TX_JOB_DESC_CTRL, COMP_QUEUE_ID,
+                             job->comp_queue_id);
+        *ctrl = FIELD_DP64(*ctrl, TX_JOB_DESC_CTRL, RX_JOB_PUSH_EN,
+                             job->rx_job_push_enabled);
+        *ctrl = FIELD_DP64(*ctrl, TX_JOB_DESC_CTRL, RX_JOB_QUEUE_ID,
+                             job->rx_job_queue_id);
+        *ctrl = FIELD_DP64(*ctrl, TX_JOB_DESC_CTRL, NOC_ROUTE_ID,
+                             job->noc_route_id);
+        *ctrl = FIELD_DP64(*ctrl, TX_JOB_DESC_CTRL, PGRM_ID,
+                             job->pgrm_id);
+        *ctrl = FIELD_DP64(*ctrl, TX_JOB_DESC_CTRL, FENCE_BEFORE,
+                             job->fence_before);
+        *ctrl = FIELD_DP64(*ctrl, TX_JOB_DESC_CTRL, FENCE_AFTER,
+                             job->fence_after);
+    }
+
+    addr = get_next_desc_addr(queue);
+
+    res = address_space_write(&s->as, addr, MEMTXATTRS_UNSPECIFIED,
+                              desc, get_desc_write_size(queue));
+
+    if (res != MEMTX_OK) {
+        report_error(s, queue, initiator, KVX_DMA_ERR_TX_COMP_QUEUE_ADDR);
+        return false;
+    }
+
+    return true;
+}
+
+static void notify_completion(KvxDmaState *s, KvxDmaTxCompQueue *queue,
+                              KvxDmaTxThread *initiator)
+{
+    size_t id = kvx_dma_tx_comp_queue_get_id(s, queue);
+    MemTxResult res;
+
+    trace_kvx_dma_tx_comp_queue_notify(id, queue->notify_addr,
+                                       queue->notify_arg);
+
+    res = address_space_write(&s->as, queue->notify_addr,
+                              MEMTXATTRS_UNSPECIFIED, &queue->notify_arg,
+                              sizeof(queue->notify_arg));
+
+    if (res != MEMTX_OK) {
+        report_error(s, queue, initiator, KVX_DMA_ERR_TX_COMP_QUEUE_ADDR);
+    }
+}
+
+static inline bool check_perm(KvxDmaTxCompQueue *queue,
+                              KvxDmaTxThread *initiator)
+{
+    KvxDmaTxJobContext *job;
+
+    if (!queue->running) {
+        return false;
+    }
+
+    if (queue->global) {
+        return true;
+    }
+
+    job = kvx_dma_tx_thread_get_running_job(initiator);
+
+    if (queue->asn != job->asn) {
+        return false;
+    }
+
+    return true;
+}
+
+/*
+ * Write a job completion descriptor into the queue according to the
+ * initiator's running job, and send a notify event. Return false in case of
+ * invalid notify, when:
+ *   - The queue is disabled
+ *   - The running job is not allowed to use this queue (ASN mismatch)
+ */
+bool kvx_dma_tx_comp_queue_notify(KvxDmaState *s, KvxDmaTxCompQueue *queue,
+                                  KvxDmaTxThread *initiator)
+{
+    bool success = true;
+
+    if (!check_perm(queue, initiator)) {
+        return false;
+    }
+
+    if (queue->field_enabled == 1 || queue->field_enabled == 2) {
+        success = write_completion_desc(s, queue, initiator);
+    }
+
+    /*
+     * The write pointer is incremented in all cases (even when no descriptor
+     * are written to memory).
+     */
+    queue->write_ptr++;
+
+    if (!success) {
+        /*
+         * Even though we have a failure, we return true here because the error
+         * is already handled within the queue logic and forwarded to the thread.
+         */
+        return true;
+    }
+
+    notify_completion(s, queue, initiator);
+
+    return true;
+}
+
 uint64_t kvx_dma_tx_comp_queue_read(KvxDmaState *s, size_t id, hwaddr offset,
                                     unsigned int size)
 {
