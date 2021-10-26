@@ -7,4 +7,5 @@ softmmu_ss.add(
     'tx-job-queue.c',
     'tx-thread.c',
     'irq-errors.c',
+    'bundle.c',
     ))

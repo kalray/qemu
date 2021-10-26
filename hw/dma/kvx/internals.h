@@ -59,6 +59,78 @@ typedef enum KvxDmaError {
     KVX_DMA_NUM_ERR
 } KvxDmaError;
 
+
+/*
+ * Bundle decoding structures
+ */
+typedef enum BundleBranchOp {
+    BUNDLE_BR_NOP = 0,
+    BUNDLE_BR = 1,
+    BUNDLE_BR_BEZ = 2,
+    BUNDLE_BR_BNEZ = 3,
+} BundleBranchOp;
+
+typedef enum BundleDecounterOp {
+    BUNDLE_DCNT_NOP = 0,
+    BUNDLE_DCNT_DEC = 1,
+    BUNDLE_DCNT_LOAD_REG = 2,
+    BUNDLE_DCNT_LOAD_DCNT = 3,
+} BundleDecounterOp;
+
+typedef enum BundleWptrType {
+    BUNDLE_WPTR_TYPE_NOC_ABS = 0,
+    BUNDLE_WPTR_TYPE_NOC_REL = 1,
+    BUNDLE_WPTR_TYPE_STORE_ADDR = 2,
+    BUNDLE_WPTR_TYPE_ATOMIC_ADD_ADDR = 3,
+} BundleWptrType;
+
+typedef enum BundleWptrOp {
+    BUNDLE_WPTR_NOP = 0,
+    BUNDLE_WPTR_LOAD = 1,
+    BUNDLE_WPTR_INC = 2,
+    BUNDLE_WPTR_ADD = 3,
+} BundleWptrOp;
+
+typedef enum BundleCmdOp {
+    BUNDLE_CMD_NOP = 0,
+    BUNDLE_CMD_FENCE = 1,
+    BUNDLE_CMD_SEND_RPTR = 2,
+    BUNDLE_CMD_NOTIFY = 3,
+    BUNDLE_CMD_SEND_REG = 4,
+    BUNDLE_CMD_RESET_STROBE = 5,
+    BUNDLE_CMD_RESERVED6 = 6,
+    BUNDLE_CMD_RESERVED7 = 7,
+} BundleCmdOp;
+
+typedef enum BundleRptrOp {
+    BUNDLE_RPTR_NOP = 0,
+    BUNDLE_RPTR_LOAD = 1,
+    BUNDLE_RPTR_INC = 2,
+    BUNDLE_RPTR_ADD = 3,
+} BundleRptrOp;
+
+typedef struct DecodedBundle {
+    unsigned int reg;
+    unsigned int reg_size;
+    unsigned int move_size;
+    unsigned int dcnt;
+    BundleWptrType wptr_type;
+    uint8_t branch_addr;
+
+    BundleBranchOp branch_op;
+    BundleDecounterOp dcnt_op;
+    BundleWptrOp wptr_op;
+    BundleRptrOp rptr_op;
+    BundleCmdOp cmd_op;
+
+    bool load_strobe;
+    bool reg_sign_ext;
+    bool stop;
+    bool send_eot;
+    bool flush;
+} DecodedBundle;
+
+
 /*
  * MMIO read/write functions
  */
@@ -123,6 +195,14 @@ void kvx_dma_tx_job_queue_reset(KvxDmaTxJobQueue *queue);
  */
 void kvx_dma_report_error(KvxDmaState *s, KvxDmaError err);
 const char *kvx_dma_error_str(KvxDmaError err);
+
+/*
+ * Bundle related functions
+ */
+bool kvx_dma_bundle_decode(uint64_t bundle, DecodedBundle *decoded);
+void kvx_dma_bundle_disas(const DecodedBundle *decoded, const char *sep,
+                          GString *out);
+
 
 /*
  * Tx job queue functions
