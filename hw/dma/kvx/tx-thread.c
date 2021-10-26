@@ -84,14 +84,142 @@ void kvx_dma_tx_thread_report_error(KvxDmaState *s, KvxDmaTxThread *thread,
     }
 }
 
+static inline uint64_t read_parameter(const KvxDmaTxJobContext *job,
+                                      const DecodedBundle *decoded)
+{
+    size_t idx = decoded->reg * decoded->reg_size / 8;
+    size_t offset = (decoded->reg * decoded->reg_size * 8) % 64;
+
+    g_assert(idx < ARRAY_SIZE(job->parameters));
+
+    return decoded->reg_sign_ext
+        ? sextract64(job->parameters[idx], offset, decoded->reg_size * 8)
+        : extract64(job->parameters[idx], offset, decoded->reg_size * 8);
+}
+
 /*
  * Simulate the bundle given as parameter. Return the next PC.
  */
 static uint16_t exec_bundle(KvxDmaState *s, KvxDmaTxThread *thread,
                             DecodedBundle *decoded)
 {
-    /* TODO */
-    return 0;
+    KvxDmaTxJobContext *job;
+    KvxDmaTxCompQueue *queue;
+    uint16_t next_pc;
+
+    job = kvx_dma_tx_thread_get_running_job(thread);
+    next_pc = thread->pc + 1;
+
+    /*
+     * Note: the switches order matters as we don't want to clobber parts of
+     * the thread state that can be read by other instructions in the same
+     * bundle.
+     */
+
+    switch (decoded->branch_op) {
+    case BUNDLE_BR_NOP:
+        break;
+
+    case BUNDLE_BR:
+        next_pc = decoded->branch_addr;
+        break;
+
+    case BUNDLE_BR_BEZ:
+        if (thread->dcnt[decoded->dcnt] == 0) {
+            next_pc = decoded->branch_addr;
+        }
+        break;
+
+    case BUNDLE_BR_BNEZ:
+        if (thread->dcnt[decoded->dcnt] != 0) {
+            next_pc = decoded->branch_addr;
+        }
+        break;
+    }
+
+    switch (decoded->cmd_op) {
+    case BUNDLE_CMD_SEND_RPTR:
+        /* TODO */
+        break;
+
+    case BUNDLE_CMD_NOTIFY:
+        queue = &s->tx_comp_queue[job->comp_queue_id];
+        if (!kvx_dma_tx_comp_queue_notify(s, queue, thread)) {
+            kvx_dma_tx_thread_report_error(s, thread, KVX_DMA_ERR_TX_COM_PERM);
+        }
+        break;
+
+    case BUNDLE_CMD_SEND_REG:
+        /* TODO */
+        break;
+
+    case BUNDLE_CMD_RESET_STROBE:
+        thread->strobe = 0xffff;
+        break;
+
+    case BUNDLE_CMD_NOP:
+    case BUNDLE_CMD_FENCE:
+    case BUNDLE_CMD_RESERVED6:
+    case BUNDLE_CMD_RESERVED7:
+        break;
+    }
+
+    switch (decoded->dcnt_op) {
+    case BUNDLE_DCNT_NOP:
+        break;
+
+    case BUNDLE_DCNT_DEC:
+        thread->dcnt[decoded->dcnt]--;
+        break;
+
+    case BUNDLE_DCNT_LOAD_REG:
+        thread->dcnt[decoded->dcnt] = read_parameter(job, decoded);
+        break;
+
+    case BUNDLE_DCNT_LOAD_DCNT:
+        thread->dcnt[decoded->dcnt] = thread->dcnt[decoded->reg & 0x3];
+        break;
+    }
+
+    switch (decoded->wptr_op) {
+    case BUNDLE_WPTR_NOP:
+        break;
+
+    case BUNDLE_WPTR_LOAD:
+        thread->write_ptr = read_parameter(job, decoded);
+        break;
+
+    case BUNDLE_WPTR_INC:
+        thread->write_ptr += decoded->move_size;
+        break;
+
+    case BUNDLE_WPTR_ADD:
+        thread->write_ptr += read_parameter(job, decoded);
+        break;
+    }
+
+    switch (decoded->rptr_op) {
+    case BUNDLE_RPTR_NOP:
+        break;
+
+    case BUNDLE_RPTR_LOAD:
+        thread->read_ptr = read_parameter(job, decoded);
+        break;
+
+    case BUNDLE_RPTR_INC:
+        thread->read_ptr += decoded->move_size;
+        break;
+
+    case BUNDLE_RPTR_ADD:
+        thread->read_ptr += read_parameter(job, decoded);
+        break;
+    }
+
+    if (decoded->stop) {
+        thread->running = false;
+    }
+
+    return next_pc;
 }
 
 static inline void run_thread(KvxDmaState *s, size_t id,
