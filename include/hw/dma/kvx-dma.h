@@ -140,6 +140,7 @@ typedef struct KvxDmaState {
     uint64_t irq_en;
     uint64_t irq_vector;
 
+    QEMUBH *tx_threads_bh;
     MemoryRegion iomem;
 
     MemoryRegion *root_mr;

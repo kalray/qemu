@@ -25,6 +25,17 @@
 #include "registers.h"
 #include "internals.h"
 
+static void do_trace_bundle(size_t id,
+                            const KvxDmaTxThread *thread,
+                            const KvxDmaTxJobContext *job,
+                            const DecodedBundle *decoded)
+{
+    g_autoptr(GString) disas = g_string_new(NULL);
+
+    kvx_dma_bundle_disas(decoded, " | ", disas);
+    trace_kvx_dma_tx_thread_disas_bundle(id, job->pgrm_id, thread->pc, disas->str);
+}
+
 void kvx_dma_tx_thread_report_error(KvxDmaState *s, KvxDmaTxThread *thread,
                                     KvxDmaError err)
 {
@@ -74,6 +85,91 @@ void kvx_dma_tx_thread_report_error(KvxDmaState *s, KvxDmaTxThread *thread,
 }
 
 /*
+ * Simulate the bundle given as parameter. Return the next PC.
+ */
+static uint16_t exec_bundle(KvxDmaState *s, KvxDmaTxThread *thread,
+                            DecodedBundle *decoded)
+{
+    /* TODO */
+    return 0;
+}
+
+static inline void run_thread(KvxDmaState *s, size_t id,
+                              KvxDmaTxThread *thread)
+{
+    uint16_t base_pc;
+    uint64_t pgrm_desc;
+    KvxDmaTxJobContext *job;
+    KvxDmaTxCompQueue *queue;
+    int run_budget = TX_THREAD_MAX_RUN_BUDGET;
+
+    if (!thread->running) {
+        return;
+    }
+
+    job = kvx_dma_tx_thread_get_running_job(thread);
+
+    g_assert(job->comp_queue_id < KVX_DMA_NUM_TX_COMP_QUEUE);
+    queue = &s->tx_comp_queue[job->comp_queue_id];
+    if (kvx_dma_tx_comp_queue_is_full(queue)) {
+        /*
+         * The destination completion queue of the job in cache is currently
+         * full. We must wait for some room before executing the job to ensure
+         * it can write its notification at the end.
+         */
+        return;
+    }
+
+    g_assert(job->pgrm_id < KVX_DMA_TX_PGRM_TABLE_SIZE);
+    pgrm_desc = s->tx_pgrm_table[job->pgrm_id];
+
+    /* Job PC is relative to this address */
+    base_pc = FIELD_EX64(pgrm_desc, TX_PGRM_TABLE, PM_START_ADDR);
+
+    if (!FIELD_EX64(pgrm_desc, TX_PGRM_TABLE, TRANSFER_MODE)) {
+        qemu_log_mask(LOG_UNIMP, "kvx-dma: NoC transfers not implemented\n");
+        return;
+    }
+
+    while (thread->running && run_budget) {
+        DecodedBundle decoded;
+        uint64_t bundle;
+
+        trace_kvx_dma_tx_thread_state(id, thread->pc, thread->strobe,
+                                      thread->dcnt[0], thread->dcnt[1],
+                                      thread->dcnt[2], thread->dcnt[3],
+                                      thread->read_ptr, thread->write_ptr);
+
+        g_assert(base_pc + thread->pc < KVX_DMA_TX_PGRM_MEM_SIZE);
+        bundle = s->tx_pgrm_mem[base_pc + thread->pc];
+
+        if (!kvx_dma_bundle_decode(bundle, &decoded)) {
+            trace_kvx_dma_tx_thread_invalid_bundle(id, job->pgrm_id,
+                                                   thread->pc, bundle);
+            kvx_dma_tx_thread_report_error(s, thread, KVX_DMA_ERR_TX_BUNDLE);
+            return;
+        }
+
+        if (trace_event_get_state_backends(TRACE_KVX_DMA_TX_THREAD_DISAS_BUNDLE)) {
+            do_trace_bundle(id, thread, job, &decoded);
+        }
+
+        trace_kvx_dma_tx_thread_exec_bundle(id, job->pgrm_id, thread->pc);
+        thread->pc = exec_bundle(s, thread, &decoded);
+
+        run_budget--;
+    }
+
+    if (thread->running && !run_budget) {
+        /*
+         * The thread exhausted its budget. Schedule another run on the
+         * iothread so the CPU thread can continue execution.
+         */
+        kvx_dma_schedule_run_tx_threads(s);
+    }
+}
+
+/*
  * Reset the internal micro-engine state so that it is ready to run a new job
  */
 static inline void reset_micro_engine(KvxDmaTxThread *thread)
@@ -96,6 +192,53 @@ static void enable_thread(KvxDmaState *s, KvxDmaTxThread *thread)
 
     reset_micro_engine(thread);
     thread->running = true;
+
+    kvx_dma_run_tx_threads(s);
+}
+
+/*
+ * Check if the given thread has a pending job in cache.
+ * If it has one the thread can be started, swap the cached
+ * and running job and mark the thread as running
+ */
+static inline void check_job_in_cache(KvxDmaState *s, KvxDmaTxThread *thread)
+{
+    KvxDmaTxJobContext *running_job;
+
+    if (thread->running) {
+        /* The thread is already running. Nothing to do */
+        return;
+    }
+
+    if (!kvx_dma_tx_thread_has_cached_job(thread)) {
+        /* No job in cache */
+        return;
+    }
+
+    running_job = kvx_dma_tx_thread_get_running_job(thread);
+
+    /*
+     * Reset the running job (which is on the verge of becoming the cached job)
+     * so that it becomes invalid and can be filled with a new job queue item.
+     */
+    running_job->valid = false;
+
+    /* Swap jobs and run the thread */
+    thread->running_job = !thread->running_job;
+    enable_thread(s, thread);
+}
+
+void kvx_dma_run_tx_threads(KvxDmaState *s)
+{
+    size_t i;
+
+    /* TODO: proper scheduling with QoS budget */
+    for (i = 0; i < KVX_DMA_NUM_TX_THREAD; i++) {
+        KvxDmaTxThread *thread = &s->tx_thread[i];
+
+        check_job_in_cache(s, thread);
+        run_thread(s, i, thread);
+    }
 }
 
 uint64_t kvx_dma_tx_thread_read(KvxDmaState *s, size_t id,

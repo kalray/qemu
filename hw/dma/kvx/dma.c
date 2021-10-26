@@ -179,6 +179,18 @@ static const MemoryRegionOps kvx_dma_ops = {
     }
 };
 
+static void kvx_dma_run_tx_threads_async(void *opaque)
+{
+    KvxDmaState *s = (KvxDmaState *) opaque;
+
+    kvx_dma_run_tx_threads(s);
+}
+
+void kvx_dma_schedule_run_tx_threads(KvxDmaState *s)
+{
+    qemu_bh_schedule_idle(s->tx_threads_bh);
+}
+
 static void kvx_dma_reset(DeviceState *dev)
 {
     KvxDmaState *s = KVX_DMA(dev);
@@ -217,6 +229,8 @@ static void kvx_dma_init(Object *obj)
 
     sysbus_init_mmio(sbd, &s->iomem);
     sysbus_init_irq(sbd, &s->irq);
+
+    s->tx_threads_bh = qemu_bh_new(kvx_dma_run_tx_threads_async, s);
 }
 
 static Property kvx_dma_properties[] = {

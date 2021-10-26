@@ -22,6 +22,12 @@
 #define ADDRESS_MASK ((1ull << 41) - 1)
 
 /*
+ * Limit the number of executed bundles in one go to avoid e.g. infinite loops
+ * in the micro-code.
+ */
+#define TX_THREAD_MAX_RUN_BUDGET 1024
+
+/*
  * All possible errors in the DMA. Each DMA component can generate a subset of
  * those errors. The errors are reported into a common error register
  * (IT_VECTOR) and the component raising the error is flaged in the
@@ -220,6 +226,8 @@ static inline size_t kvx_dma_tx_job_queue_get_id(KvxDmaState *s,
 /*
  * TX thread functions
  */
+void kvx_dma_schedule_run_tx_threads(KvxDmaState *s);
+void kvx_dma_run_tx_threads(KvxDmaState *s);
 void kvx_dma_tx_thread_report_error(KvxDmaState *s, KvxDmaTxThread *thread,
                                     KvxDmaError err);
 

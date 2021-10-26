@@ -18,6 +18,12 @@ kvx_dma_bw_limiter_table_write(uint64_t offset, uint64_t value) "offset:0x%" PRI
 # tx-thread.c
 kvx_dma_tx_thread_read(size_t id, uint64_t offset, uint64_t value) "id: %zu, offset:0x%" PRIx64 ", value:0x%" PRIx64
 kvx_dma_tx_thread_write(size_t id, uint64_t offset, uint64_t value) "id: %zu, offset:0x%" PRIx64 ", value:0x%" PRIx64
+kvx_dma_tx_thread_state(size_t id, uint16_t pc, uint16_t strobe, uint32_t dcnt0, uint32_t dcnt1, uint32_t dcnt2, uint32_t dcnt3, uint64_t rptr, uint64_t wptr) "id: %zu, pc: 0x02%" PRIx16 ", strobe: 0x%" PRIx16 ", dnct={%" PRIu32 ",%" PRIu32 ",%" PRIu32 ",%" PRIu32"}, rptr:%" PRIx64 ", wptr:%" PRIx64
+
+kvx_dma_tx_thread_exec_bundle(size_t id, size_t pgrm_id, unsigned int pc) "id: %zu, pgrm_id: %zu, pc: 0x%02x"
+kvx_dma_tx_thread_invalid_bundle(size_t id, size_t pgrm_id, unsigned int pc, uint64_t bundle) "id: %zu, pgrm_id: %zu, pc: 0x%02x, faulty bundle: %" PRIx64
+kvx_dma_tx_thread_disas_bundle(size_t id, size_t pgrm_id, unsigned int pc, const char *disas) "id: %zu, pgrm_id: %zu, pc: 0x%02x%s"
+
 kvx_dma_tx_thread_error(size_t id, const char *err) "id: %zu, %s"
 
 # tx-job-queue.c
