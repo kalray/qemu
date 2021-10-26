@@ -377,7 +377,7 @@ const PeriphEntry mppa_cluster_periphs[] = {
         .mmio_map = {
             .valid = true,
             .base = 0xa00000,
-            .size = 0xf200,
+            .size = 0x10000,
         },
 
         .msi_ctrl = {
