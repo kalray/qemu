@@ -92,6 +92,11 @@ uint64_t kvx_dma_tx_comp_queue_read(KvxDmaState *s, size_t id,
 void kvx_dma_tx_comp_queue_write(KvxDmaState *s, size_t id, hwaddr offset,
                                  uint64_t value, unsigned int size);
 
+uint64_t kvx_dma_tx_job_queue_read(KvxDmaState *s, size_t id, hwaddr offset,
+                                   unsigned int size);
+void kvx_dma_tx_job_queue_write(KvxDmaState *s, size_t id, hwaddr offset,
+                                uint64_t value, unsigned int size);
+
 uint64_t kvx_dma_it_read(KvxDmaState *s, size_t id, hwaddr offset,
                          unsigned int size);
 void kvx_dma_it_write(KvxDmaState *s, size_t id, hwaddr offset,
@@ -110,6 +115,7 @@ void kvx_dma_irq_errors_reset(KvxDmaState *s);
 void kvx_dma_mem_reset(KvxDmaState *s);
 void kvx_dma_tx_thread_reset(KvxDmaTxThread *thread);
 void kvx_dma_tx_comp_queue_reset(KvxDmaTxCompQueue *queue);
+void kvx_dma_tx_job_queue_reset(KvxDmaTxJobQueue *queue);
 
 
 /*
@@ -117,6 +123,16 @@ void kvx_dma_tx_comp_queue_reset(KvxDmaTxCompQueue *queue);
  */
 void kvx_dma_report_error(KvxDmaState *s, KvxDmaError err);
 const char *kvx_dma_error_str(KvxDmaError err);
+
+/*
+ * Tx job queue functions
+ */
+static inline size_t kvx_dma_tx_job_queue_get_id(KvxDmaState *s,
+                                                 KvxDmaTxJobQueue *queue)
+{
+    return (size_t)((queue - &s->tx_job_queue[0]) / sizeof(KvxDmaTxJobQueue));
+}
+
 
 /*
  * TX thread functions

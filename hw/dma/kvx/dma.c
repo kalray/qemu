@@ -96,7 +96,11 @@ static const KvxDmaRegGroupAccess KVX_DMA_GROUP_ACCESS[] = {
 
     [GROUP_TX_MONITORING] = { .read = unimp_group_read, .write = unimp_group_write },
     [GROUP_TX_NOC_TEST] = { .read = unimp_group_read, .write = unimp_group_write },
-    [GROUP_TX_JOB_QUEUE] = { .read = unimp_group_read, .write = unimp_group_write },
+
+    [GROUP_TX_JOB_QUEUE] = {
+        .read = kvx_dma_tx_job_queue_read,
+        .write = kvx_dma_tx_job_queue_write,
+    },
 
     [GROUP_TX_COMP_QUEUE] = {
         .read = kvx_dma_tx_comp_queue_read,
@@ -186,6 +190,10 @@ static void kvx_dma_reset(DeviceState *dev)
 
     for (i = 0; i < KVX_DMA_NUM_TX_COMP_QUEUE; i++) {
         kvx_dma_tx_comp_queue_reset(&s->tx_comp_queue[i]);
+    }
+
+    for (i = 0; i < KVX_DMA_NUM_TX_JOB_QUEUE; i++) {
+        kvx_dma_tx_job_queue_reset(&s->tx_job_queue[i]);
     }
 
     kvx_dma_irq_errors_reset(s);

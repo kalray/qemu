@@ -39,6 +39,19 @@
 
 #define KVX_DMA_MMIO_LEN 0x100000
 
+typedef struct KvxDmaTxJobQueue {
+    uint64_t errors;
+    uint64_t start_addr;
+    uint64_t write_ptr;
+    uint64_t valid_write_ptr;
+    uint64_t read_ptr;
+    uint64_t notify_addr;
+    uint64_t notify_arg;
+    uint8_t num_slots;
+    uint8_t thread_id;
+    bool running;
+} KvxDmaTxJobQueue;
+
 typedef struct KvxDmaTxCompQueue {
     uint64_t errors;
     uint64_t start_addr;
@@ -71,6 +84,12 @@ typedef struct KvxDmaTxJobContext {
 
     uint64_t parameters[8];
 
+    /*
+     * TX job queue id from which this job originated, -1 if this is a manual
+     * job.
+     */
+    ssize_t origin;
+
     /* True when the cached job is valid */
     bool valid;
 } KvxDmaTxJobContext;
@@ -81,6 +100,9 @@ typedef struct KvxDmaTxThread {
 
     /* Index of the running job, the other one is the cached job */
     size_t running_job;
+
+    /* Round robin between job queues: keep track of the next queue to serve */
+    size_t next_queue;
 
     /* micro-engine state */
     uint16_t pc;
@@ -98,6 +120,7 @@ typedef struct KvxDmaState {
     SysBusDevice parent;
 
     /*< public >*/
+    KvxDmaTxJobQueue tx_job_queue[KVX_DMA_NUM_TX_JOB_QUEUE];
     KvxDmaTxCompQueue tx_comp_queue[KVX_DMA_NUM_TX_COMP_QUEUE];
     KvxDmaTxThread tx_thread[KVX_DMA_NUM_TX_THREAD];
 
