@@ -140,6 +140,10 @@ static inline size_t kvx_dma_tx_job_queue_get_id(KvxDmaState *s,
 /*
  * TX thread functions
  */
+void kvx_dma_tx_thread_report_error(KvxDmaState *s, KvxDmaTxThread *thread,
+                                    KvxDmaError err);
+
+
 static inline size_t kvx_dma_tx_thread_get_id(KvxDmaState *s,
                                               KvxDmaTxThread *thread)
 {
