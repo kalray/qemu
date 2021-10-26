@@ -140,6 +140,11 @@ typedef struct DecodedBundle {
 /*
  * MMIO read/write functions
  */
+uint64_t kvx_dma_rx_channel_read(KvxDmaState *s, size_t id,
+                                 hwaddr offset, unsigned int size);
+void kvx_dma_rx_channel_write(KvxDmaState *s, size_t id, hwaddr offset,
+                              uint64_t value, unsigned int size);
+
 uint64_t kvx_dma_tx_thread_read(KvxDmaState *s, size_t id,
                                  hwaddr offset, unsigned int size);
 void kvx_dma_tx_thread_write(KvxDmaState *s, size_t id, hwaddr offset,
@@ -194,6 +199,7 @@ void kvx_dma_mem_reset(KvxDmaState *s);
 void kvx_dma_tx_thread_reset(KvxDmaTxThread *thread);
 void kvx_dma_tx_comp_queue_reset(KvxDmaTxCompQueue *queue);
 void kvx_dma_tx_job_queue_reset(KvxDmaTxJobQueue *queue);
+void kvx_dma_rx_channel_reset(KvxDmaRxChannel *chan);
 
 
 /*

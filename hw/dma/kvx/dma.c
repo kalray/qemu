@@ -52,7 +52,11 @@ static void unimp_group_write(KvxDmaState *s, size_t id, hwaddr offset,
 }
 
 static const KvxDmaRegGroupAccess KVX_DMA_GROUP_ACCESS[] = {
-    [GROUP_RX_CHANNEL] = { .read = unimp_group_read, .write = unimp_group_write },
+    [GROUP_RX_CHANNEL] = {
+        .read = kvx_dma_rx_channel_read,
+        .write = kvx_dma_rx_channel_write,
+    },
+
     [GROUP_RX_JOB_QUEUE] = { .read = unimp_group_read, .write = unimp_group_write },
     [GROUP_RX_JOB_CACHE] = { .read = unimp_group_read, .write = unimp_group_write },
     [GROUP_RX_DIAG] = { .read = unimp_group_read, .write = unimp_group_write },
@@ -206,6 +210,10 @@ static void kvx_dma_reset(DeviceState *dev)
 
     for (i = 0; i < KVX_DMA_NUM_TX_JOB_QUEUE; i++) {
         kvx_dma_tx_job_queue_reset(&s->tx_job_queue[i]);
+    }
+
+    for (i = 0; i < KVX_DMA_NUM_RX_CHANNEL; i++) {
+        kvx_dma_rx_channel_reset(&s->rx_channel[i]);
     }
 
     kvx_dma_irq_errors_reset(s);

@@ -39,6 +39,13 @@
 
 #define KVX_DMA_MMIO_LEN 0x100000
 
+typedef struct KvxDmaRxChannel {
+    uint64_t start_addr;
+    uint64_t size;
+    bool buf_enabled;
+    bool activated;
+} KvxDmaRxChannel;
+
 typedef struct KvxDmaTxJobQueue {
     uint64_t errors;
     uint64_t start_addr;
@@ -120,6 +127,7 @@ typedef struct KvxDmaState {
     SysBusDevice parent;
 
     /*< public >*/
+    KvxDmaRxChannel rx_channel[KVX_DMA_NUM_RX_CHANNEL];
     KvxDmaTxJobQueue tx_job_queue[KVX_DMA_NUM_TX_JOB_QUEUE];
     KvxDmaTxCompQueue tx_comp_queue[KVX_DMA_NUM_TX_COMP_QUEUE];
     KvxDmaTxThread tx_thread[KVX_DMA_NUM_TX_THREAD];
