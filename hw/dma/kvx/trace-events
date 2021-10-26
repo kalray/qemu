@@ -22,6 +22,7 @@ kvx_dma_tx_thread_write(size_t id, uint64_t offset, uint64_t value) "id: %zu, of
 # tx-job-queue.c
 kvx_dma_tx_job_queue_read(size_t id, uint64_t offset, uint64_t value) "id: %zu, offset:0x%" PRIx64 ", value:0x%" PRIx64
 kvx_dma_tx_job_queue_write(size_t id, uint64_t offset, uint64_t value) "id: %zu, offset:0x%" PRIx64 ", value:0x%" PRIx64
+kvx_dma_tx_job_queue_error(size_t id, const char *err) "id: %zu, %s"
 
 # tx-comp-queue.c
 kvx_dma_tx_comp_queue_read(size_t id, uint64_t offset, uint64_t value) "id: %zu, offset:0x%" PRIx64 ", value:0x%" PRIx64

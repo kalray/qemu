@@ -127,6 +127,9 @@ const char *kvx_dma_error_str(KvxDmaError err);
 /*
  * Tx job queue functions
  */
+void kvx_dma_tx_job_queue_report_error(KvxDmaState *s, KvxDmaTxJobQueue *queue,
+                                       KvxDmaError err);
+
 static inline size_t kvx_dma_tx_job_queue_get_id(KvxDmaState *s,
                                                  KvxDmaTxJobQueue *queue)
 {

@@ -34,6 +34,39 @@ static inline void enable_queue(KvxDmaState *s, KvxDmaTxJobQueue *queue)
     queue->running = true;
 }
 
+void kvx_dma_tx_job_queue_report_error(KvxDmaState *s, KvxDmaTxJobQueue *queue,
+                                       KvxDmaError err)
+{
+    /* Global DMA error to local TX job queue error mapping */
+    static const uint64_t ERROR_MAPPING[KVX_DMA_NUM_ERR] = {
+        [KVX_DMA_ERR_TX_PGRM_PERM] = R_TX_JOB_QUEUE_STATUS_PGRM_PERM_SHIFT,
+        [KVX_DMA_ERR_TX_READ_ADDR] = R_TX_JOB_QUEUE_STATUS_PGRM_READ_ADDR_SHIFT,
+        [KVX_DMA_ERR_TX_READ_DECC] = R_TX_JOB_QUEUE_STATUS_PGRM_READ_DECC_SHIFT,
+        [KVX_DMA_ERR_TX_WRITE_ADDR] = R_TX_JOB_QUEUE_STATUS_PGRM_WRITE_ADDR_SHIFT,
+        [KVX_DMA_ERR_TX_WRITE_DECC] = R_TX_JOB_QUEUE_STATUS_PGRM_WRITE_DECC_SHIFT,
+        [KVX_DMA_ERR_TX_NOC_PERM] = R_TX_JOB_QUEUE_STATUS_NOC_TABLE_PERM_SHIFT,
+        [KVX_DMA_ERR_TX_COM_PERM] = R_TX_JOB_QUEUE_STATUS_COMPLETION_QUEUE_PERM_SHIFT,
+        [KVX_DMA_ERR_TX_COMP_QUEUE_ADDR] = R_TX_JOB_QUEUE_STATUS_COMPLETION_QUEUE_ADDR_SHIFT,
+        [KVX_DMA_ERR_TX_COMP_QUEUE_DECC] = R_TX_JOB_QUEUE_STATUS_COMPLETION_QUEUE_DECC_SHIFT,
+        [KVX_DMA_ERR_TX_BUNDLE] = R_TX_JOB_QUEUE_STATUS_BUNDLE_SHIFT,
+        [KVX_DMA_ERR_TX_JOB_QUEUE_ADDR] = R_TX_JOB_QUEUE_STATUS_JOB_QUEUE_ADDR_SHIFT,
+        [KVX_DMA_ERR_TX_JOB_QUEUE_DECC] = R_TX_JOB_QUEUE_STATUS_JOB_QUEUE_DECC_SHIFT,
+        [KVX_DMA_ERR_TX_JOB_TO_RX_JOB_PUSH] = R_TX_JOB_QUEUE_STATUS_RX_JOB_QUEUE_SHIFT,
+        [KVX_DMA_ERR_TX_AT_ADD] = R_TX_JOB_QUEUE_STATUS_ATOMIC_ADD_SHIFT,
+        [KVX_DMA_ERR_TX_VCHAN] = R_TX_JOB_QUEUE_STATUS_VCHAN_SHIFT,
+    };
+
+    size_t id = kvx_dma_tx_job_queue_get_id(s, queue);
+
+    queue->running = false;
+    queue->errors |= (1 << ERROR_MAPPING[err]);
+    s->tx_job_queue_err |= (1 << id);
+
+    trace_kvx_dma_tx_job_queue_error(id, kvx_dma_error_str(err));
+
+    kvx_dma_report_error(s, err);
+}
+
 uint64_t kvx_dma_tx_job_queue_read(KvxDmaState *s, size_t id, hwaddr offset,
                                    unsigned int size)
 {
