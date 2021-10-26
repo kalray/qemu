@@ -27,6 +27,7 @@
 #include "hw/kvx/apic-mailbox.h"
 #include "hw/kvx/apic-gic.h"
 #include "hw/kvx/dsu-clock.h"
+#include "hw/dma/kvx-dma.h"
 #include "hw/kvx/boot.h"
 
 #include "hw/kvx/machine-descr.h"
@@ -68,6 +69,7 @@ typedef struct KvxCoolidgeClusterState {
     KvxPwrCtrlState pwr_ctrl;
     KvxDsuClockState dsu_clock;
     KvxIpiCtrlState ipi_ctrl;
+    KvxDmaState dma;
 
     MemoryRegion smem;
 
@@ -100,6 +102,7 @@ enum {
     MPPA_CLUSTER_UART5,
     MPPA_CLUSTER_ITGEN0,
     MPPA_CLUSTER_ITGEN1,
+    MPPA_CLUSTER_DMA,
     MPPA_CLUSTER_DDR,
     MPPA_CLUSTER_DDR_32BITS_ALIAS,
     MPPA_CLUSTER_L2_CTRL,

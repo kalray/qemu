@@ -354,6 +354,20 @@ const PeriphEntry mppa_cluster_periphs[] = {
         },
     },
 
+    [MPPA_CLUSTER_DMA] = {
+        .mmio_map = {
+            .valid = true,
+            .base = 0x800000,
+            .size = 0x100000,
+        },
+
+        .irq_map = {
+            .valid = true,
+            .parent = MPPA_CLUSTER_APIC_GIC,
+            .mapping = IRQS( IRQ(129) ),
+        },
+    },
+
     [MPPA_CLUSTER_APIC_MAILBOX] = {
         .fdt = {
             .node = "/apic_mailbox",
@@ -764,6 +778,16 @@ static void coolidge_cluster_realize(DeviceState *dev, Error **errp)
                          s->initial_dsu_clock);
     sysbus_realize(SYS_BUS_DEVICE(&s->dsu_clock), &error_abort);
 
+    /* DMA */
+    object_property_set_link(OBJECT(&s->dma), "root-mr",
+                             OBJECT(&s->local_root_region), &error_abort);
+    sysbus_realize(SYS_BUS_DEVICE(&s->dma), &error_abort);
+    sysbus_connect_irq(SYS_BUS_DEVICE(&s->dma), 0,
+                       qdev_get_gpio_in(DEVICE(&s->apic_gic),
+                                        periph_irq_mapping_idx(mppa_cluster_periphs,
+                                                               MPPA_CLUSTER_DMA, 0)));
+
+
     /* IPI controller */
     sysbus_realize(SYS_BUS_DEVICE(&s->ipi_ctrl), &error_abort);
 
@@ -852,6 +876,13 @@ static void coolidge_cluster_instance_init(Object *obj)
         &s->cluster_region,
         periph_mmio_base(mppa_cluster_periphs, MPPA_CLUSTER_IPI_CTRL),
         sysbus_mmio_get_region(SYS_BUS_DEVICE(&s->ipi_ctrl), 0));
+
+    /* DMA */
+    object_initialize_child(OBJECT(s), "dma", &s->dma, TYPE_KVX_DMA);
+    memory_region_add_subregion(
+        &s->cluster_region,
+        periph_mmio_base(mppa_cluster_periphs, MPPA_CLUSTER_DMA),
+        sysbus_mmio_get_region(SYS_BUS_DEVICE(&s->dma), 0));
 
     /* SMEM */
     memory_region_init_ram(
