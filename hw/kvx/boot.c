@@ -118,8 +118,8 @@ static void setup_and_load_dtb(KvxBootInfo *info)
          * Here we're loading the DTB outside of the ELF load area. We can use
          * rom_add_blob_fixed.
          */
-        rom_add_blob_fixed("dtb", info->fdt, info->fdt_size,
-                           info->dtb_load_addr);
+        rom_add_blob_fixed_as("dtb", info->fdt, info->fdt_size,
+                           info->dtb_load_addr, info->as);
     } else {
         if (info->fdt_size > info->dtb_max_size) {
             error_report("The DTB is too big to fit into the .dtb section\n");
@@ -142,7 +142,7 @@ static void setup_and_load_dtb(KvxBootInfo *info)
 static void do_bootloader_reset(void *opaque)
 {
     KvxBootInfo *info = (KvxBootInfo *) opaque;
-    AddressSpace *as = &address_space_memory;
+    AddressSpace *as = info->as;
 
     address_space_write_rom(as, info->mppa_argarea_start_addr,
                             MEMTXATTRS_UNSPECIFIED,
@@ -324,7 +324,7 @@ static void load_kernel(KvxBootInfo *info)
 
         ret = load_elf_ram_sym(info->kernel_filename, NULL, NULL, NULL,
                                &kernel_entry, NULL, &kernel_high, NULL,
-                               0, EM_KVX, 1, 0, NULL, true,
+                               0, EM_KVX, 1, 0, info->as, true,
                                find_cos_syms);
 
         if (ret <= 0) {

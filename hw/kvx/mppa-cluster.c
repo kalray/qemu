@@ -980,6 +980,7 @@ static void boot_cluster(MppaClusterMachineState *s)
     s->boot_info.ddr_size = MACHINE(s)->ram_size;
     s->boot_info.gen_mppa_argarea = s->gen_mppa_argarea;
     s->boot_info.frequency = s->frequency;
+    s->boot_info.as = cpu_get_address_space(CPU(&s->rm_core), 0);
 
     kvx_boot(&s->boot_info);
 }
