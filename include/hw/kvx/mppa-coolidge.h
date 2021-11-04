@@ -16,8 +16,8 @@
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef HW_KVX_MPPA_CLUSTER_H
-#define HW_KVX_MPPA_CLUSTER_H
+#ifndef HW_KVX_MPPA_COOLIDGE_H
+#define HW_KVX_MPPA_COOLIDGE_H
 
 #include "hw/char/serial.h"
 #include "hw/kvx/itgen.h"
@@ -25,13 +25,13 @@
 #include "hw/kvx/coolidge-cluster.h"
 
 
-#define TYPE_MPPA_CLUSTER_MACHINE MACHINE_TYPE_NAME("mppa-cluster")
-#define MPPA_CLUSTER(obj) \
-    OBJECT_CHECK(MppaClusterMachineState, (obj), TYPE_MPPA_CLUSTER_MACHINE)
+#define TYPE_MPPA_COOLIDGE_MACHINE MACHINE_TYPE_NAME("mppa-coolidge")
+#define MPPA_COOLIDGE(obj) \
+    OBJECT_CHECK(MppaCoolidgeMachineState, (obj), TYPE_MPPA_COOLIDGE_MACHINE)
 
 extern const PeriphEntry mppa_cluster_periphs[];
 
-typedef struct MppaClusterMachineState {
+typedef struct MppaCoolidgeMachineState {
     /*< private >*/
     MachineState parent;
 
@@ -51,6 +51,6 @@ typedef struct MppaClusterMachineState {
     MemoryRegion ddr;
     MemoryRegion ddr_32bits_alias;
 
-} MppaClusterMachineState;
+} MppaCoolidgeMachineState;
 
 #endif

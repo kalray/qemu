@@ -27,9 +27,9 @@
 #include "sysemu/reset.h"
 
 #include "hw/kvx/coolidge-cluster.h"
-#include "hw/kvx/mppa-cluster.h"
+#include "hw/kvx/mppa-coolidge.h"
 
-static inline void devices_init(MppaClusterMachineState *s)
+static inline void devices_init(MppaCoolidgeMachineState *s)
 {
     int i;
     uint64_t ram_size = MACHINE(s)->ram_size;
@@ -86,7 +86,7 @@ static inline void devices_init(MppaClusterMachineState *s)
                                 &s->ddr_32bits_alias);
 }
 
-static inline void devices_realize(MppaClusterMachineState *s)
+static inline void devices_realize(MppaCoolidgeMachineState *s)
 {
     int i;
 
@@ -120,7 +120,7 @@ static inline void devices_realize(MppaClusterMachineState *s)
 
 static void mppa_cluster_init(MachineState *machine)
 {
-    MppaClusterMachineState *s = MPPA_CLUSTER(machine);
+    MppaCoolidgeMachineState *s = MPPA_COOLIDGE(machine);
 
     devices_init(s);
     devices_realize(s);
@@ -130,7 +130,7 @@ static void mppa_cluster_machine_class_init(ObjectClass *klass, void *data)
 {
     MachineClass *mc = MACHINE_CLASS(klass);
 
-    mc->desc = "Kalray MPPA cluster";
+    mc->desc = "Kalray MPPA";
     mc->init = mppa_cluster_init;
     mc->max_cpus = MPPA_CLUSTER_NUM_CPUS;
     mc->default_cpus = MPPA_CLUSTER_NUM_CPUS;
@@ -142,35 +142,35 @@ static void mppa_cluster_machine_class_init(ObjectClass *klass, void *data)
 
 static bool mppa_cluster_get_gen_argarea(Object *obj, Error **errp)
 {
-    MppaClusterMachineState *s = MPPA_CLUSTER(obj);
+    MppaCoolidgeMachineState *s = MPPA_COOLIDGE(obj);
 
     return s->gen_mppa_argarea;
 }
 
 static void mppa_cluster_set_gen_argarea(Object *obj, bool value, Error **errp)
 {
-    MppaClusterMachineState *s = MPPA_CLUSTER(obj);
+    MppaCoolidgeMachineState *s = MPPA_COOLIDGE(obj);
 
     s->gen_mppa_argarea = value;
 }
 
 static bool mppa_cluster_get_gen_dtb(Object *obj, Error **errp)
 {
-    MppaClusterMachineState *s = MPPA_CLUSTER(obj);
+    MppaCoolidgeMachineState *s = MPPA_COOLIDGE(obj);
 
     return s->gen_dtb;
 }
 
 static void mppa_cluster_set_gen_dtb(Object *obj, bool value, Error **errp)
 {
-    MppaClusterMachineState *s = MPPA_CLUSTER(obj);
+    MppaCoolidgeMachineState *s = MPPA_COOLIDGE(obj);
 
     s->gen_dtb = value;
 }
 
 static void mppa_cluster_instance_init(Object *obj)
 {
-    MppaClusterMachineState *s = MPPA_CLUSTER(obj);
+    MppaCoolidgeMachineState *s = MPPA_COOLIDGE(obj);
 
     s->gen_mppa_argarea = true;
     object_property_add_bool(obj, "generate-mppa-argarea",
@@ -205,14 +205,14 @@ static void mppa_cluster_instance_init(Object *obj)
                                     "Initial value of the DSU clock  (default is 0)");
 }
 
-static const TypeInfo mppa_cluster_machine_type_info[] = {
+static const TypeInfo mppa_coolidge_machine_type_info[] = {
     {
-        .name = TYPE_MPPA_CLUSTER_MACHINE,
+        .name = TYPE_MPPA_COOLIDGE_MACHINE,
         .parent = TYPE_MACHINE,
-        .instance_size = sizeof(MppaClusterMachineState),
+        .instance_size = sizeof(MppaCoolidgeMachineState),
         .class_init = mppa_cluster_machine_class_init,
         .instance_init = mppa_cluster_instance_init,
     },
 };
 
-DEFINE_TYPES(mppa_cluster_machine_type_info)
+DEFINE_TYPES(mppa_coolidge_machine_type_info)

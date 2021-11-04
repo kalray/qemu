@@ -25,11 +25,11 @@
 #include "hw/boards.h"
 
 #include "hw/kvx/coolidge-cluster.h"
-#include "hw/kvx/mppa-cluster.h"
+#include "hw/kvx/mppa-coolidge.h"
 
 static uint64_t get_core_clk_freq(MachineState *m)
 {
-    return MPPA_CLUSTER(m)->frequency;
+    return MPPA_COOLIDGE(m)->frequency;
 }
 
 static uint64_t get_ddr_size(MachineState *m)

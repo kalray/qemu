@@ -8,7 +8,7 @@ kvx_ss.add(files(
   'dsu-clock.c',
   'ipi-ctrl.c',
   'itgen.c',
-  'mppa-cluster.c',
+  'mppa-coolidge.c',
   'pwr-ctrl.c',
   'ftu.c',
   'machine-descr.c',
