@@ -71,12 +71,5 @@ struct Storages {
     uint64_t kv3_MMC[1]; /* Memory Management Control */
     uint64_t kv3_MES[1]; /* Memory Error Status */
     uint64_t kv3_WS[1]; /* Wake-up Status */
-    uint64_t v2_SID[1]; /* Coolidge 1, Stream ID */
-    uint64_t v2_SID_PL0[1]; /* Coolidge 1, Stream ID for Privilege Level 0 */
-    uint64_t v2_SID_PL1[1]; /* Coolidge 1, Stream ID for Privilege Level 1 */
-    uint64_t v2_SID_PL2[1]; /* Coolidge 1, Stream ID for Privilege Level 2 */
-    uint64_t v2_SID_PL3[1]; /* Coolidge 1, Stream ID for Privilege Level 3 */
-    uint64_t v2_IXC[1]; /* Coolidge 1, Inter-Extension Communications */
-    uint64_t v2_DC[1]; /* Debug Control */
 } storages;
 

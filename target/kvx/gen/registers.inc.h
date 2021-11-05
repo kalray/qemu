@@ -18,8 +18,7 @@ enum Storage {
     STORAGE_kv3_HTO, STORAGE_kv3_ITO, STORAGE_kv3_ILE, STORAGE_kv3_ILL,
     STORAGE_kv3_ILR, STORAGE_kv3_IPE, STORAGE_kv3_DO, STORAGE_kv3_MO,
     STORAGE_kv3_PSO, STORAGE_kv3_MMC, STORAGE_kv3_MES, STORAGE_kv3_WS,
-    STORAGE_v2_SID, STORAGE_v2_SID_PL0, STORAGE_v2_SID_PL1, STORAGE_v2_SID_PL2,
-    STORAGE_v2_SID_PL3, STORAGE_v2_IXC, STORAGE_v2_DC, };
+};
 
 typedef enum RegisterField RegisterField;
 enum RegisterField {
@@ -1211,37 +1210,37 @@ static const StorageDescr STORAGES[] = {
     },
     [STORAGE_kv3_PS] = {
         .width = 1,
-        .count = 32,
+        .count = 64,
         .data_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_PS)
     },
     [STORAGE_kv3_SPS] = {
         .width = 1,
-        .count = 32,
+        .count = 64,
         .data_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SPS)
     },
     [STORAGE_kv3_SPS_PL0] = {
         .width = 1,
-        .count = 32,
+        .count = 64,
         .data_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SPS_PL0)
     },
     [STORAGE_kv3_SPS_PL1] = {
         .width = 1,
-        .count = 32,
+        .count = 64,
         .data_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SPS_PL1)
     },
     [STORAGE_kv3_SPS_PL2] = {
         .width = 1,
-        .count = 32,
+        .count = 64,
         .data_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SPS_PL2)
     },
     [STORAGE_kv3_SPS_PL3] = {
         .width = 1,
-        .count = 32,
+        .count = 64,
         .data_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_SPS_PL3)
     },
@@ -1397,7 +1396,7 @@ static const StorageDescr STORAGES[] = {
     },
     [STORAGE_kv3_TPCM2] = {
         .width = 1,
-        .count = 1,
+        .count = 64,
         .data_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_TPCM2)
     },
@@ -1409,7 +1408,7 @@ static const StorageDescr STORAGES[] = {
     },
     [STORAGE_kv3_DC] = {
         .width = 1,
-        .count = 32,
+        .count = 64,
         .data_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_DC)
     },
@@ -1463,7 +1462,7 @@ static const StorageDescr STORAGES[] = {
     },
     [STORAGE_kv3_TCR] = {
         .width = 1,
-        .count = 32,
+        .count = 64,
         .data_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_TCR)
     },
@@ -1541,63 +1540,21 @@ static const StorageDescr STORAGES[] = {
     },
     [STORAGE_kv3_MMC] = {
         .width = 1,
-        .count = 32,
+        .count = 64,
         .data_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_MMC)
     },
     [STORAGE_kv3_MES] = {
         .width = 1,
-        .count = 32,
+        .count = 64,
         .data_width = 64,
         .offset = offsetof(CPUArchState, storages.kv3_MES)
     },
     [STORAGE_kv3_WS] = {
         .width = 1,
-        .count = 32,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.kv3_WS)
-    },
-    [STORAGE_v2_SID] = {
-        .width = 1,
-        .count = 32,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.v2_SID)
-    },
-    [STORAGE_v2_SID_PL0] = {
-        .width = 1,
-        .count = 32,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.v2_SID_PL0)
-    },
-    [STORAGE_v2_SID_PL1] = {
-        .width = 1,
-        .count = 32,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.v2_SID_PL1)
-    },
-    [STORAGE_v2_SID_PL2] = {
-        .width = 1,
-        .count = 32,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.v2_SID_PL2)
-    },
-    [STORAGE_v2_SID_PL3] = {
-        .width = 1,
-        .count = 32,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.v2_SID_PL3)
-    },
-    [STORAGE_v2_IXC] = {
-        .width = 1,
-        .count = 32,
-        .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.v2_IXC)
-    },
-    [STORAGE_v2_DC] = {
-        .width = 1,
         .count = 64,
         .data_width = 64,
-        .offset = offsetof(CPUArchState, storages.v2_DC)
+        .offset = offsetof(CPUArchState, storages.kv3_WS)
     },
 };
 
@@ -22298,7 +22255,7 @@ static const RegisterDescr REGISTERS[] = {
         .name = "ixc",
         .regfile = REGFILE_kv3_SFR,
         .reg_width = 32,
-        .offset = offsetof(CPUArchState, storages.v2_IXC) + 0,
+        .offset = offsetof(CPUArchState, storages.kv3_IXC) + 0,
         .reset = 0x00010001,
         .mask = (
               0x0000000000000001
@@ -22449,7 +22406,7 @@ static const RegisterDescr REGISTERS[] = {
         .name = "dc",
         .regfile = REGFILE_kv3_SFR,
         .reg_width = 64,
-        .offset = offsetof(CPUArchState, storages.v2_DC) + 0,
+        .offset = offsetof(CPUArchState, storages.kv3_DC) + 0,
         .reset = 0x0000000000000000,
         .mask = 0xffffffffffffffffull,
         .raccess = REG_ACCESS_NONE,
@@ -22952,7 +22909,7 @@ static const RegisterDescr REGISTERS[] = {
         .name = "sid_pl0",
         .regfile = REGFILE_kv3_SFR,
         .reg_width = 32,
-        .offset = offsetof(CPUArchState, storages.v2_SID_PL0) + 0,
+        .offset = offsetof(CPUArchState, storages.kv3_SID_PL0) + 0,
         .reset = 0x00000000,
         .mask = (
               0x00000000000001ff
@@ -22971,7 +22928,7 @@ static const RegisterDescr REGISTERS[] = {
         .name = "sid_pl1",
         .regfile = REGFILE_kv3_SFR,
         .reg_width = 32,
-        .offset = offsetof(CPUArchState, storages.v2_SID_PL1) + 0,
+        .offset = offsetof(CPUArchState, storages.kv3_SID_PL1) + 0,
         .reset = 0x00000000,
         .mask = (
               0x00000000000001ff
@@ -22990,7 +22947,7 @@ static const RegisterDescr REGISTERS[] = {
         .name = "sid_pl2",
         .regfile = REGFILE_kv3_SFR,
         .reg_width = 32,
-        .offset = offsetof(CPUArchState, storages.v2_SID_PL2) + 0,
+        .offset = offsetof(CPUArchState, storages.kv3_SID_PL2) + 0,
         .reset = 0x00000000,
         .mask = (
               0x00000000000001ff
@@ -23009,7 +22966,7 @@ static const RegisterDescr REGISTERS[] = {
         .name = "sid_pl3",
         .regfile = REGFILE_kv3_SFR,
         .reg_width = 32,
-        .offset = offsetof(CPUArchState, storages.v2_SID_PL3) + 0,
+        .offset = offsetof(CPUArchState, storages.kv3_SID_PL3) + 0,
         .reset = 0x00000000,
         .mask = (
               0x00000000000001ff
@@ -23237,7 +23194,7 @@ static const RegisterDescr REGISTERS[] = {
         .name = "sid",
         .regfile = REGFILE_kv3_SFR,
         .reg_width = 32,
-        .offset = offsetof(CPUArchState, storages.v2_SID) + 0,
+        .offset = offsetof(CPUArchState, storages.kv3_SID) + 0,
         .reset = 0x00000000,
         .mask = (
               0x00000000000001ff
