@@ -573,6 +573,7 @@ static inline void core_realize(KvxCoolidgeClusterState *s,
                              OBJECT(&s->local_root_region), &error_abort);
 
     object_property_set_uint(obj, "pid", pid, &error_abort);
+    object_property_set_uint(obj, "cid", s->cluster_id, &error_abort);
     object_property_set_bool(obj, "realized", true, &error_abort);
 }
 
@@ -729,6 +730,11 @@ static void create_fdt(KvxCoolidgeClusterState *s)
 static void boot_cluster(KvxCoolidgeClusterState *cluster)
 {
     MachineState *s = MACHINE(qdev_get_machine());
+
+    if (!cluster->boot_cluster) {
+        return;
+    }
+
     cluster->boot_info.kernel_filename = MACHINE(s)->kernel_filename;
     cluster->boot_info.kernel_cmdline = MACHINE(s)->kernel_cmdline;
     cluster->boot_info.fdt = MACHINE(s)->fdt;
@@ -887,8 +893,10 @@ static void coolidge_cluster_instance_init(Object *obj)
         sysbus_mmio_get_region(SYS_BUS_DEVICE(&s->dma), 0));
 
     /* SMEM */
-    memory_region_init_ram(
-        &s->smem, NULL, "mppa-cluster.smem",
+    /* Cannot use memory_region_init_ram() here because of a
+       name clash between all the cluster SMEMs. */
+    memory_region_init_ram_nomigrate(
+        &s->smem, obj, "mppa-cluster.smem",
         periph_mmio_size(mppa_cluster_periphs, MPPA_CLUSTER_SMEM),
         &error_fatal);
     memory_region_add_subregion(

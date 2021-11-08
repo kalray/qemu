@@ -44,6 +44,8 @@ static inline void devices_init(MppaCoolidgeMachineState *s)
     s->cluster.gen_dtb = s->gen_dtb;
     s->cluster.frequency = s->frequency;
     s->cluster.initial_dsu_clock = s->initial_dsu_clock;
+    s->cluster.boot_cluster = true;
+    s->cluster.cluster_id = 0;
 
     /* UARTs */
     for (i = 0; i < ARRAY_SIZE(s->uart); i++) {

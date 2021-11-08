@@ -59,6 +59,9 @@ typedef struct KvxCoolidgeClusterState {
     bool gen_mppa_argarea;
     bool gen_dtb;
 
+    uint8_t cluster_id;
+    bool boot_cluster;
+
     /*< public >*/
     KVXCPU rm_core;
     KVXCPU pe_cores[MPPA_CLUSTER_NUM_PE_CORES];
