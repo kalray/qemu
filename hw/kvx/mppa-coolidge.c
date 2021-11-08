@@ -35,17 +35,20 @@ static inline void devices_init(MppaCoolidgeMachineState *s)
     uint64_t ram_size = MACHINE(s)->ram_size;
     MemoryRegion *system_memory = get_system_memory();
 
-    /* Cluster memory region */
-    object_initialize_child(OBJECT(s), "cluster[*]", &s->cluster, TYPE_KVX_CLUSTER);
-    memory_region_add_subregion(get_system_memory(),
-                                MPPA_CLUSTER_MMIO_LEN,
-                                sysbus_mmio_get_region(SYS_BUS_DEVICE(&s->cluster), 0));
-    s->cluster.gen_mppa_argarea = s->gen_mppa_argarea;
-    s->cluster.gen_dtb = s->gen_dtb;
-    s->cluster.frequency = s->frequency;
-    s->cluster.initial_dsu_clock = s->initial_dsu_clock;
-    s->cluster.boot_cluster = true;
-    s->cluster.cluster_id = 0;
+    for (i = 0; i <  MPPA_COOLIDGE_NUM_CLUSTER; i++) {
+        /* Cluster memory region */
+        object_initialize_child(OBJECT(s), "cluster[*]", &s->cluster[i], TYPE_KVX_CLUSTER);
+        memory_region_add_subregion(get_system_memory(),
+                                    MPPA_CLUSTER_MMIO_LEN * (i+1),
+                                    sysbus_mmio_get_region(SYS_BUS_DEVICE(&s->cluster[i]), 0));
+
+        s->cluster[i].gen_mppa_argarea = s->gen_mppa_argarea;
+        s->cluster[i].gen_dtb = s->gen_dtb;
+        s->cluster[i].frequency = s->frequency;
+        s->cluster[i].initial_dsu_clock = s->initial_dsu_clock;
+        s->cluster[i].boot_cluster = !i; /* Cluster 0 is the boot cluster */
+        s->cluster[i].cluster_id = i;
+    }
 
     /* UARTs */
     for (i = 0; i < ARRAY_SIZE(s->uart); i++) {
@@ -92,7 +95,9 @@ static inline void devices_realize(MppaCoolidgeMachineState *s)
 {
     int i;
 
-    sysbus_realize(SYS_BUS_DEVICE(&s->cluster), &error_abort);
+    for(i = 0; i < MPPA_COOLIDGE_NUM_CLUSTER; i++) {
+        sysbus_realize(SYS_BUS_DEVICE(&s->cluster[i]), &error_abort);
+    }
 
     /* UARTs */
     for (i = 0; i < ARRAY_SIZE(s->uart); i++) {
@@ -134,10 +139,9 @@ static void mppa_cluster_machine_class_init(ObjectClass *klass, void *data)
 
     mc->desc = "Kalray MPPA";
     mc->init = mppa_cluster_init;
-    mc->max_cpus = MPPA_CLUSTER_NUM_CPUS;
-    mc->default_cpus = MPPA_CLUSTER_NUM_CPUS;
-    mc->max_cpus = MPPA_CLUSTER_NUM_CPUS;
-    mc->min_cpus = MPPA_CLUSTER_NUM_CPUS;
+    mc->default_cpus = MPPA_COOLIDGE_NUM_CPU;
+    mc->max_cpus = MPPA_COOLIDGE_NUM_CPU;
+    mc->min_cpus = MPPA_COOLIDGE_NUM_CPU;
     mc->default_cpu_type = TYPE_KVX_CPU_KV3_V1;
     mc->is_default = true;
 }

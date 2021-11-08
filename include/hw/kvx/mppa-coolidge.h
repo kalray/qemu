@@ -29,6 +29,10 @@
 #define MPPA_COOLIDGE(obj) \
     OBJECT_CHECK(MppaCoolidgeMachineState, (obj), TYPE_MPPA_COOLIDGE_MACHINE)
 
+#define MPPA_COOLIDGE_NUM_CLUSTER 5
+
+#define MPPA_COOLIDGE_NUM_CPU (MPPA_CLUSTER_NUM_CPUS * MPPA_COOLIDGE_NUM_CLUSTER)
+
 extern const PeriphEntry mppa_cluster_periphs[];
 
 typedef struct MppaCoolidgeMachineState {
@@ -41,7 +45,7 @@ typedef struct MppaCoolidgeMachineState {
     uint64_t frequency;
     uint64_t initial_dsu_clock;
 
-    KvxCoolidgeClusterState cluster;
+    KvxCoolidgeClusterState cluster[MPPA_COOLIDGE_NUM_CLUSTER];
 
     SerialMM uart[6];
     KvxItgenState itgen0;
