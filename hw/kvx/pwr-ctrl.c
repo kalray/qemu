@@ -16,16 +16,12 @@
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
- * Note: this model has been written without any documentation. It was
- *       developped by retro-engineering the corresponding Linux kernel driver.
- *       It is incomplete and probably wrong in some places.
- */
-
 #include "qemu/osdep.h"
 #include "qemu/units.h"
+#include "hw/qdev-properties.h"
 #include "hw/registerfields.h"
 #include "hw/kvx/pwr-ctrl.h"
+#include "hw/kvx/coolidge-cluster.h"
 #include "cpu.h"
 #include "trace.h"
 
@@ -80,34 +76,41 @@ REG64(RM_CONTROL, 0x40C0)
 REG64(RM_CONTROL_SET, 0x40D0)
 REG64(RM_CONTROL_CLEAR, 0x40E0)
 
+static inline void start_cpu(CPUState *cpu, KvxPwrCtrlState *s)
+{
+    KVXCPU *kvx_cpu = KVX_CPU(cpu);
+    CPUKVXState *env = &kvx_cpu->env;
+
+    if (env->sleep_state != KVX_RESETTING) {
+        return;
+    }
+
+    trace_kvx_pwr_ctrl_wakeup_cpu(kvx_cpu->cfg.cid, kvx_cpu->cfg.pid, s->reg_reset_pc);
+    cpu_set_pc(cpu, s->reg_reset_pc);
+    env->sleep_state = KVX_RUNNING;
+    qemu_cpu_kick(cpu);
+}
+
 static inline void kvx_pwr_ctrl_update_cpus(KvxPwrCtrlState *s)
 {
     uint16_t wup = s->reg_vector_proc_control_wup;
-
-    CPUState *cpu;
 
     /* XXX maybe? */
     if (!FIELD_EX64(s->reg_global_config, GLOBAL_CONF, PE_EN)) {
         return;
     }
 
-    CPU_FOREACH(cpu) {
-        KVXCPU *kvx_cpu = KVX_CPU(cpu);
-        CPUKVXState *env = &kvx_cpu->env;
-        int pid;
+    size_t i;
 
-        if (env->sleep_state != KVX_RESETTING) {
+    for (i = 0; wup; i++, wup >>= 1) {
+        CPUState *cpu;
+
+        if (!wup & 0x1) {
             continue;
         }
 
-        pid = kvx_cpu->cfg.pid;
-
-        if ((1 << pid) & wup) {
-            trace_kvx_pwr_ctrl_wakeup_cpu(kvx_cpu->cfg.pid, s->reg_reset_pc);
-            cpu_set_pc(cpu, s->reg_reset_pc);
-            env->sleep_state = KVX_RUNNING;
-            qemu_cpu_kick(cpu);
-        }
+        cpu = kvx_coolidge_cluster_get_cpu(s->parent_cluster, i);
+        start_cpu(cpu, s);
     }
 }
 
@@ -231,7 +234,6 @@ static void kvx_pwr_ctrl_write(void *opaque, hwaddr offset,
         s->reg_rm_control &= ~(value & 0x0403);
         break;
     }
-    
 }
 
 static const MemoryRegionOps kvx_pwr_ctrl_ops = {
@@ -268,11 +270,20 @@ static void kvx_pwr_ctrl_init(Object *obj)
     sysbus_init_mmio(SYS_BUS_DEVICE(s), &s->iomem);
 }
 
+static Property kvx_pwr_ctrl_properties[] = {
+    DEFINE_PROP_LINK("cluster", KvxPwrCtrlState, parent_cluster,
+                      TYPE_KVX_CLUSTER, KvxCoolidgeClusterState *),
+    DEFINE_PROP_END_OF_LIST(),
+};
+
+
 static void kvx_pwr_ctrl_class_init(ObjectClass *klass, void *data)
 {
     DeviceClass *dc = DEVICE_CLASS(klass);
 
     dc->reset = kvx_pwr_ctrl_reset;
+
+    device_class_set_props(dc, kvx_pwr_ctrl_properties);
 }
 
 static TypeInfo kvx_pwr_ctrl_info = {

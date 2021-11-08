@@ -28,9 +28,12 @@
 /* according to the device tree */
 #define KVX_PWR_CTRL_MMIO_LEN 0x4188
 
+struct KvxCoolidgeClusterState;
+
 typedef struct KvxPwrCtrlState {
     /*< private >*/
     SysBusDevice parent;
+    struct KvxCoolidgeClusterState * parent_cluster;
 
     /*< public >*/
     uint64_t reg_pe_control[16];

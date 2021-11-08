@@ -116,4 +116,10 @@ enum {
     FIXED_CLOCK_REF,
 };
 
+static inline CPUState *kvx_coolidge_cluster_get_cpu(KvxCoolidgeClusterState *cluster, int pid)
+{
+    g_assert(pid <= 16);
+    return (pid == 16) ? CPU(&cluster->rm_core) : CPU(&cluster->pe_cores[pid]);
+}
+
 #endif

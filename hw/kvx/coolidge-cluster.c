@@ -771,6 +771,8 @@ static void coolidge_cluster_realize(DeviceState *dev, Error **errp)
     connect_apic_gic_irqs(s);
 
     /* Power controller */
+    object_property_set_link(OBJECT(&s->pwr_ctrl), "cluster",
+                             OBJECT(s), &error_abort);
     sysbus_realize(SYS_BUS_DEVICE(&s->pwr_ctrl), &error_abort);
 
     /* DSU clock */

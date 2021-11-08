@@ -4,7 +4,7 @@ kvx_ipi_ctrl_write(uint64_t offset, uint64_t value) "offset:0x%" PRIx64 ", value
 kvx_ipi_ctrl_read(uint64_t offset, uint64_t value) "offset:0x%" PRIx64 ", value:0x%" PRIx64
 
 # pwr-ctrl.c
-kvx_pwr_ctrl_wakeup_cpu(int cpu, uint64_t pc) "cpu:%d, reset pc:0x%016" PRIx64
+kvx_pwr_ctrl_wakeup_cpu(int cluster, int cpu, uint64_t pc) "cluster:%d, cpu:%d, reset pc:0x%016" PRIx64
 kvx_pwr_ctrl_write(uint64_t offset, uint64_t value) "offset:0x%" PRIx64 ", value:0x%" PRIx64
 kvx_pwr_ctrl_read(uint64_t offset, uint64_t value) "offset:0x%" PRIx64 ", value:0x%" PRIx64
 
