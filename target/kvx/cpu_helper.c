@@ -730,7 +730,8 @@ static void tb_invalidate_bundle(CPUKVXState *env, target_ulong vaddr)
     ret = get_physical_addr(env, vaddr, MMU_INST_FETCH, mmu_idx, &info);
 
     if (ret == TLB_LOOKUP_SUCCESS) {
-        tb_invalidate_phys_addr(&address_space_memory, info.paddr,
+        AddressSpace *as = cpu_get_address_space(env_cpu(env), 0);
+        tb_invalidate_phys_addr(as, info.paddr,
                                 MEMTXATTRS_UNSPECIFIED);
     }
 }
