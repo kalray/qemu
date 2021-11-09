@@ -657,6 +657,11 @@ static void mppa_cluster_rm_reset(void *opaque)
         kvx_register_write_u64(env, REG_kv3_R0, MPPA_CLUSTER_LINUX_BOOT_MAGIC);
         kvx_register_write_u64(env, REG_kv3_R1, s->boot_info.dtb_load_addr);
     }
+
+    if (!s->boot_cluster) {
+        cpu->halted = true;
+        KVX_CPU(cpu)->env.sleep_state = KVX_RESETTING;
+    }
 }
 
 static void mppa_cluster_pe_reset(void *opaque)
