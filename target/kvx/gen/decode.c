@@ -8518,6 +8518,148 @@ bool decode_v1_double(DisasContext *ctx, const uint32_t *buffer)
       return false;
     case 0x00000001:
       switch ((codeWord_0 >> 12) & 0x0000000f) {
+      case 0x00000000:
+        switch ((codeWord_0 >> 24) & 0x0000000f) {
+        case 0x00000008:
+          switch ((codeWord_1 >> 29) & 0x00000003) {
+          case 0x00000000:
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000001:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_WRR0_W;
+              ctx->cur_opcode->insn = kv3_ANDD;
+              return trans_v1_ANDD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
+          default:
+            break;
+          }
+          return false;
+        case 0x00000009:
+          switch ((codeWord_1 >> 29) & 0x00000003) {
+          case 0x00000000:
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000001:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_WRR0_W;
+              ctx->cur_opcode->insn = kv3_NANDD;
+              return trans_v1_NANDD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
+          default:
+            break;
+          }
+          return false;
+        case 0x0000000a:
+          switch ((codeWord_1 >> 29) & 0x00000003) {
+          case 0x00000000:
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000001:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_WRR0_W;
+              ctx->cur_opcode->insn = kv3_ORD;
+              return trans_v1_ORD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
+          default:
+            break;
+          }
+          return false;
+        case 0x0000000b:
+          switch ((codeWord_1 >> 29) & 0x00000003) {
+          case 0x00000000:
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000001:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_WRR0_W;
+              ctx->cur_opcode->insn = kv3_NORD;
+              return trans_v1_NORD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
+          default:
+            break;
+          }
+          return false;
+        case 0x0000000c:
+          switch ((codeWord_1 >> 29) & 0x00000003) {
+          case 0x00000000:
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000001:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_WRR0_W;
+              ctx->cur_opcode->insn = kv3_XORD;
+              return trans_v1_XORD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
+          default:
+            break;
+          }
+          return false;
+        case 0x0000000d:
+          switch ((codeWord_1 >> 29) & 0x00000003) {
+          case 0x00000000:
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000001:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_WRR0_W;
+              ctx->cur_opcode->insn = kv3_NXORD;
+              return trans_v1_NXORD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
+          default:
+            break;
+          }
+          return false;
+        case 0x0000000e:
+          switch ((codeWord_1 >> 29) & 0x00000003) {
+          case 0x00000000:
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000001:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_WRR0_W;
+              ctx->cur_opcode->insn = kv3_ANDND;
+              return trans_v1_ANDND_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
+          default:
+            break;
+          }
+          return false;
+        case 0x0000000f:
+          switch ((codeWord_1 >> 29) & 0x00000003) {
+          case 0x00000000:
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000001:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_WRR0_W;
+              ctx->cur_opcode->insn = kv3_ORND;
+              return trans_v1_ORND_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
+          default:
+            break;
+          }
+          return false;
+        default:
+          break;
+        }
+        return false;
       case 0x00000002:
         switch ((codeWord_0 >> 24) & 0x0000000f) {
         case 0x00000001:
@@ -18317,6 +18459,148 @@ bool decode_v2_double(DisasContext *ctx, const uint32_t *buffer)
       return false;
     case 0x00000001:
       switch ((codeWord_0 >> 12) & 0x0000000f) {
+      case 0x00000000:
+        switch ((codeWord_0 >> 24) & 0x0000000f) {
+        case 0x00000008:
+          switch ((codeWord_1 >> 29) & 0x00000003) {
+          case 0x00000000:
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000001:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_WRR0_W;
+              ctx->cur_opcode->insn = kv3_ANDD;
+              return trans_v2_ANDD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
+          default:
+            break;
+          }
+          return false;
+        case 0x00000009:
+          switch ((codeWord_1 >> 29) & 0x00000003) {
+          case 0x00000000:
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000001:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_WRR0_W;
+              ctx->cur_opcode->insn = kv3_NANDD;
+              return trans_v2_NANDD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
+          default:
+            break;
+          }
+          return false;
+        case 0x0000000a:
+          switch ((codeWord_1 >> 29) & 0x00000003) {
+          case 0x00000000:
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000001:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_WRR0_W;
+              ctx->cur_opcode->insn = kv3_ORD;
+              return trans_v2_ORD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
+          default:
+            break;
+          }
+          return false;
+        case 0x0000000b:
+          switch ((codeWord_1 >> 29) & 0x00000003) {
+          case 0x00000000:
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000001:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_WRR0_W;
+              ctx->cur_opcode->insn = kv3_NORD;
+              return trans_v2_NORD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
+          default:
+            break;
+          }
+          return false;
+        case 0x0000000c:
+          switch ((codeWord_1 >> 29) & 0x00000003) {
+          case 0x00000000:
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000001:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_WRR0_W;
+              ctx->cur_opcode->insn = kv3_XORD;
+              return trans_v2_XORD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
+          default:
+            break;
+          }
+          return false;
+        case 0x0000000d:
+          switch ((codeWord_1 >> 29) & 0x00000003) {
+          case 0x00000000:
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000001:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_WRR0_W;
+              ctx->cur_opcode->insn = kv3_NXORD;
+              return trans_v2_NXORD_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
+          default:
+            break;
+          }
+          return false;
+        case 0x0000000e:
+          switch ((codeWord_1 >> 29) & 0x00000003) {
+          case 0x00000000:
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000001:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_WRR0_W;
+              ctx->cur_opcode->insn = kv3_ANDND;
+              return trans_v2_ANDND_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
+          default:
+            break;
+          }
+          return false;
+        case 0x0000000f:
+          switch ((codeWord_1 >> 29) & 0x00000003) {
+          case 0x00000000:
+            switch ((codeWord_0 >> 11) & 0x00000001) {
+            case 0x00000001:
+              decode_kv3_registerW_kv3_registerZ_kv3_upper27_lower5(ctx, codeWords, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+              ctx->cur_opcode->format = kv3_ALU_WRR0_W;
+              ctx->cur_opcode->insn = kv3_ORND;
+              return trans_v2_ORND_registerW_registerZ_upper27_lower5_double(ctx, &u.kv3_registerW_kv3_registerZ_kv3_upper27_lower5);
+            default:
+              break;
+            }
+            return false;
+          default:
+            break;
+          }
+          return false;
+        default:
+          break;
+        }
+        return false;
       case 0x00000002:
         switch ((codeWord_0 >> 24) & 0x0000000f) {
         case 0x00000001:
