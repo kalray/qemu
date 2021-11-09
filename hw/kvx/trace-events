@@ -9,6 +9,7 @@ kvx_pwr_ctrl_write(uint64_t offset, uint64_t value) "offset:0x%" PRIx64 ", value
 kvx_pwr_ctrl_read(uint64_t offset, uint64_t value) "offset:0x%" PRIx64 ", value:0x%" PRIx64
 
 # ftu.c
+kvx_ftu_wakeup_cluster(int cluster) "start cluster:%d"
 kvx_ftu_write(uint64_t offset, uint64_t value) "offset:0x%" PRIx64 ", value:0x%" PRIx64
 kvx_ftu_read(uint64_t offset, uint64_t value) "offset:0x%" PRIx64 ", value:0x%" PRIx64
 

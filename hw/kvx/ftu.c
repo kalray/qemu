@@ -18,6 +18,8 @@
 
 #include "qemu/osdep.h"
 #include "hw/registerfields.h"
+#include "hw/qdev-properties.h"
+#include "hw/kvx/coolidge-cluster.h"
 #include "hw/kvx/ftu.h"
 #include "trace.h"
 
@@ -43,6 +45,35 @@ REG32(CLUSTERS_STATUS, 0x20)
                            | R_CLUSTERS_STATUS_CLKEN_MASK \
                            | R_CLUSTERS_STATUS_SCRAM_DIS_MASK)
 
+REG32(RM_RESET_PC, 0x60)
+    FIELD(RM_RESET_PC, VALUE, 12, 20)
+
+#define RM_RESET_PC_MASK (R_RM_RESET_PC_VALUE_MASK)
+
+
+
+static inline void kvx_ftu_update_cluster(KvxFtuState *s, int cluster_id)
+{
+    KvxCoolidgeClusterState *cluster = &s->clusters[cluster_id+1]; /* cluster id + 1 because OTHER_CLUSTERS_CTRL can't control cluster 0 */
+    CPUState *cpu = kvx_coolidge_cluster_get_rm(cluster);
+    KVXCPU *kvx_cpu = KVX_CPU(cpu);
+    CPUKVXState *env = &kvx_cpu->env;
+
+    if (FIELD_EX64(s->other_clusters_ctrl[cluster_id], OTHER_CLUSTERS_CTRL, RM_WUP)) {
+        if (env->sleep_state != KVX_RESETTING) {
+            return;
+        }
+        env->sleep_state = KVX_RUNNING;
+        trace_kvx_ftu_wakeup_cluster(cluster_id+1);
+        qemu_cpu_kick(cpu);
+
+    }
+
+    if (FIELD_EX64(s->other_clusters_ctrl[cluster_id], OTHER_CLUSTERS_CTRL, RST)) {
+        cpu_set_pc(cpu, s->rm_reset_pc[cluster_id]);
+        env->sleep_state = KVX_RESETTING;
+    }
+}
 
 static inline int kvx_ftu_offset_decode(hwaddr *offset)
 {
@@ -53,6 +84,10 @@ static inline int kvx_ftu_offset_decode(hwaddr *offset)
     } else if (*offset >= A_CLUSTERS_STATUS && *offset < 0x34) {
         *offset = A_CLUSTERS_STATUS;
         return (true_offset - A_CLUSTERS_STATUS) / 0x4;
+    }
+    else if (*offset >= A_RM_RESET_PC && *offset < 0x74) {
+        *offset = A_RM_RESET_PC;
+        return (true_offset - A_RM_RESET_PC) / 0x4;
     }
 
     return 0;
@@ -75,6 +110,11 @@ static uint64_t kvx_ftu_read(void *opaque, hwaddr offset, unsigned size)
     case A_CLUSTERS_STATUS:
         ret = s->cluster_status[cluster_id];
         break;
+
+    case A_RM_RESET_PC:
+        ret = s->rm_reset_pc[cluster_id];
+        break;
+
     default:
         ret = 0;
     }
@@ -97,9 +137,17 @@ static void kvx_ftu_write(void *opaque, hwaddr offset,
     switch (offset_decoded) {
     case A_OTHER_CLUSTERS_CTRL:
         s->other_clusters_ctrl[cluster_id] = value & OTHER_CLUSTERS_CTRL_MASK;
+        kvx_ftu_update_cluster(s, cluster_id);
         break;
     case A_CLUSTERS_STATUS:
        s->cluster_status[cluster_id] = value & CLUSTERS_STATUS_MASK;
+        break;
+
+    case A_RM_RESET_PC:
+        s->rm_reset_pc[cluster_id] = value & RM_RESET_PC_MASK;
+        break;
+
+    default:
         break;
     }
 }
@@ -120,6 +168,8 @@ static void kvx_ftu_reset(DeviceState *dev)
 
     memset(s->other_clusters_ctrl, 0, sizeof(s->other_clusters_ctrl));
     memset(s->cluster_status, 0, sizeof(s->cluster_status));
+
+    memset(s->rm_reset_pc, 0, sizeof(s->rm_reset_pc));
 }
 
 static void kvx_ftu_init(Object *obj)
@@ -131,11 +181,19 @@ static void kvx_ftu_init(Object *obj)
     sysbus_init_mmio(SYS_BUS_DEVICE(s), &s->iomem);
 }
 
+static Property kvx_ftu_properties[] = {
+    DEFINE_PROP_LINK("clusters", KvxFtuState, clusters,
+                      TYPE_KVX_CLUSTER, KvxCoolidgeClusterState *),
+    DEFINE_PROP_END_OF_LIST(),
+};
+
 static void kvx_ftu_class_init(ObjectClass *klass, void *data)
 {
     DeviceClass *dc = DEVICE_CLASS(klass);
 
     dc->reset = kvx_ftu_reset;
+
+    device_class_set_props(dc, kvx_ftu_properties);
 }
 
 static TypeInfo kvx_ftu_info = {

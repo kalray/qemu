@@ -27,15 +27,20 @@
 
 #define KVX_FTU_MMIO_LEN 0x418
 
+struct KvxCoolidgeClusterState;
+
 typedef struct KvxFtuState {
     /*< private >*/
     SysBusDevice parent;
+    struct KvxCoolidgeClusterState *clusters; /* array with the 5 clusters */
 
     /*< public >*/
     /* for cluster 1 to 4 */
     uint32_t other_clusters_ctrl[4];
     /* for cluster 0 to 4 */
     uint32_t cluster_status[5];
+
+    uint32_t rm_reset_pc[5];
 
     MemoryRegion iomem;
 

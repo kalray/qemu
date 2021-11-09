@@ -125,4 +125,9 @@ static inline CPUState *kvx_coolidge_cluster_get_cpu(KvxCoolidgeClusterState *cl
     return (pid == 16) ? CPU(&cluster->rm_core) : CPU(&cluster->pe_cores[pid]);
 }
 
+static inline CPUState *kvx_coolidge_cluster_get_rm(KvxCoolidgeClusterState *cluster)
+{
+    return kvx_coolidge_cluster_get_cpu(cluster, 16);
+}
+
 #endif

@@ -122,6 +122,9 @@ static inline void devices_realize(MppaCoolidgeMachineState *s)
     sysbus_realize(SYS_BUS_DEVICE(&s->itgen1), &error_abort);
 
     /* FTU */
+
+    object_property_set_link(OBJECT(&s->ftu), "clusters",
+                             OBJECT(&s->cluster[0]), &error_abort);
     sysbus_realize(SYS_BUS_DEVICE(&s->ftu), &error_abort);
 }
 
