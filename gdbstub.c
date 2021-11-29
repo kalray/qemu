@@ -2284,22 +2284,31 @@ static void handle_query_xfer_auxv(GArray *params, void *user_ctx)
 }
 #endif
 
-static GString *get_threads_xml(GDBProcess *process)
+static GString *get_threads_xml(void)
 {
     CPUState *cpu;
     GString *ret = g_string_new(NULL);
+    uint32_t pid;
 
     g_string_append(ret, "<?xml version=\"1.0\"?><threads>");
 
-    cpu = get_first_cpu_in_process(process);
-    while (cpu) {
-        g_string_append(ret, "<thread id=\"");
-        gdb_append_thread_id(cpu, ret);
-        g_string_append(ret, "\" name=\"");
-        gdb_append_thread_id(cpu, ret);
-        g_string_append(ret, "\"></thread>");
+    for (pid = 0; pid < gdbserver_state.process_num; pid++) {
+        GDBProcess *process = &gdbserver_state.processes[pid];
 
-        cpu = gdb_next_cpu_in_process(cpu);
+        if (!process->attached) {
+            continue;
+        }
+
+        cpu = get_first_cpu_in_process(process);
+        while (cpu) {
+            g_string_append(ret, "<thread id=\"");
+            gdb_append_thread_id(cpu, ret);
+            g_string_append(ret, "\" name=\"");
+            gdb_append_thread_id(cpu, ret);
+            g_string_append(ret, "\"></thread>");
+
+            cpu = gdb_next_cpu_in_process(cpu);
+        }
     }
 
     g_string_append(ret, "</threads>");
@@ -2308,7 +2317,6 @@ static GString *get_threads_xml(GDBProcess *process)
 
 static void handle_query_xfer_threads(GArray *params, void *user_ctx)
 {
-    GDBProcess *process;
     unsigned long len, total_len, addr;
     GString *xml;
 
@@ -2317,10 +2325,9 @@ static void handle_query_xfer_threads(GArray *params, void *user_ctx)
         return;
     }
 
-    process = gdb_get_cpu_process(gdbserver_state.g_cpu);
     addr = get_param(params, 0)->val_ul;
     len = get_param(params, 1)->val_ul;
-    xml = get_threads_xml(process);
+    xml = get_threads_xml();
     total_len = xml->len;
     if (addr > total_len) {
         put_packet("E00");
