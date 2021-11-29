@@ -681,7 +681,7 @@ static inline void core_init(KvxCoolidgeClusterState *s, KVXCPU *core,
     QEMUResetHandler *core_reset_handler =
         is_rm ? mppa_cluster_rm_reset : mppa_cluster_pe_reset;
 
-    object_initialize_child(OBJECT(s), name, core, TYPE_KVX_CPU_KV3_V1);
+    object_initialize_child(OBJECT(&s->cpu_cluster), name, core, TYPE_KVX_CPU_KV3_V1);
 
     if (is_rm) {
         qemu_register_reset(core_reset_handler, s);
@@ -759,6 +759,10 @@ static void coolidge_cluster_realize(DeviceState *dev, Error **errp)
     int i;
 
     KvxCoolidgeClusterState *s = KVX_CLUSTER(dev);
+
+    qdev_prop_set_uint32(DEVICE(&s->cpu_cluster), "cluster-id", s->cluster_id);
+
+    qdev_realize(DEVICE(&s->cpu_cluster), NULL, &error_fatal);
 
     /* KVX cores */
     core_realize(s, &s->rm_core, 16);
@@ -838,6 +842,11 @@ static void coolidge_cluster_instance_init(Object *obj)
     memory_region_add_subregion(&s->local_root_region, 0, &s->local_alias);
 
     sysbus_init_mmio(SYS_BUS_DEVICE(obj), &s->cluster_region);
+
+
+    /* cpu-cluster */
+    object_initialize_child(OBJECT(s), "cpu-cluster", &s->cpu_cluster,
+                            TYPE_CPU_CLUSTER);
 
     /* IPE helper */
     object_initialize_child(OBJECT(s), "ipe-helper", &s->ipe_helper,

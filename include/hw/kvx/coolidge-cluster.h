@@ -20,6 +20,7 @@
 #define HW_KVX_COOLIDGE_CLUSTER_H
 
 #include "hw/sysbus.h"
+#include "hw/cpu/cluster.h"
 
 #include "target/kvx/cpu.h"
 #include "hw/kvx/pwr-ctrl.h"
@@ -63,6 +64,7 @@ typedef struct KvxCoolidgeClusterState {
     bool boot_cluster;
 
     /*< public >*/
+    CPUClusterState cpu_cluster;
     KVXCPU rm_core;
     KVXCPU pe_cores[MPPA_CLUSTER_NUM_PE_CORES];
     KvxIpeHelper ipe_helper;
