@@ -2284,36 +2284,33 @@ static void handle_query_xfer_auxv(GArray *params, void *user_ctx)
 }
 #endif
 
-static const char *get_threads_xml(GDBProcess *process)
+static GString *get_threads_xml(GDBProcess *process)
 {
     CPUState *cpu;
-    char *buf = process->target_xml;
-    const size_t buf_sz = sizeof(process->target_xml);
-    g_autoptr(GString) tid = g_string_new(NULL);
+    GString *ret = g_string_new(NULL);
 
-    snprintf(buf, buf_sz, "<?xml version=\"1.0\"?><threads>");
+    g_string_append(ret, "<?xml version=\"1.0\"?><threads>");
 
     cpu = get_first_cpu_in_process(process);
     while (cpu) {
-        g_string_set_size(tid, 0);
-        gdb_append_thread_id(cpu, tid);
-        pstrcat(buf, buf_sz, "<thread id=\"");
-        pstrcat(buf, buf_sz, tid->str);
-        pstrcat(buf, buf_sz, "\" name=\"");
-        pstrcat(buf, buf_sz, tid->str);
-        pstrcat(buf, buf_sz, "\"></thread>");
+        g_string_append(ret, "<thread id=\"");
+        gdb_append_thread_id(cpu, ret);
+        g_string_append(ret, "\" name=\"");
+        gdb_append_thread_id(cpu, ret);
+        g_string_append(ret, "\"></thread>");
+
         cpu = gdb_next_cpu_in_process(cpu);
     }
 
-    pstrcat(buf, buf_sz, "</threads>");
-    return buf;
+    g_string_append(ret, "</threads>");
+    return ret;
 }
 
 static void handle_query_xfer_threads(GArray *params, void *user_ctx)
 {
     GDBProcess *process;
     unsigned long len, total_len, addr;
-    const char *xml;
+    GString *xml;
 
     if (params->len < 2) {
         put_packet("E22");
@@ -2324,7 +2321,7 @@ static void handle_query_xfer_threads(GArray *params, void *user_ctx)
     addr = get_param(params, 0)->val_ul;
     len = get_param(params, 1)->val_ul;
     xml = get_threads_xml(process);
-    total_len = strlen(xml);
+    total_len = xml->len;
     if (addr > total_len) {
         put_packet("E00");
         return;
@@ -2336,13 +2333,15 @@ static void handle_query_xfer_threads(GArray *params, void *user_ctx)
 
     if (len < total_len - addr) {
         g_string_assign(gdbserver_state.str_buf, "m");
-        memtox(gdbserver_state.str_buf, xml + addr, len);
+        memtox(gdbserver_state.str_buf, xml->str + addr, len);
     } else {
         g_string_assign(gdbserver_state.str_buf, "l");
-        memtox(gdbserver_state.str_buf, xml + addr, total_len - addr);
+        memtox(gdbserver_state.str_buf, xml->str + addr, total_len - addr);
     }
 
     put_strbuf();
+
+    g_string_free(xml, true);
 }
 
 static void handle_query_xfer_osdata(GArray *params, void *user_ctx)
