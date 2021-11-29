@@ -29,16 +29,22 @@
 
 struct KvxCoolidgeClusterState;
 
+typedef struct clusterCtrl {
+    bool rm_runing;
+
+    bool rm_wup;
+    bool reset;
+    bool clock_enable;
+    bool scrambling;
+} clusterCtrl;
+
 typedef struct KvxFtuState {
     /*< private >*/
     SysBusDevice parent;
     struct KvxCoolidgeClusterState *clusters; /* array with the 5 clusters */
 
     /*< public >*/
-    /* for cluster 1 to 4 */
-    uint32_t other_clusters_ctrl[4];
-    /* for cluster 0 to 4 */
-    uint32_t cluster_status[5];
+    clusterCtrl cluster_control[5];
 
     uint32_t rm_reset_pc[5];
 
