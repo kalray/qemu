@@ -16,12 +16,6 @@
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
- * Note: this model has been written without any documentation. It was
- *       developped by retro-engineering the corresponding Linux kernel driver.
- *       It is incomplete and probably wrong in some places.
- */
-
 #include "qemu/osdep.h"
 #include "qemu/units.h"
 #include "qemu/log.h"
@@ -40,7 +34,7 @@ REG32(ENABLE, 0x8)
 
 REG32(PARAM, 0x1100)
 
-/* This address seems to be hardcoded into this controller */
+/* This address is hardcoded into the controller */
 const uint64_t MAILBOX_ADDR = 0x00a00000;
 #define MB_ADDR_CLUSTER_SHIFT	24
 #define MB_ADDR_MAILBOX_SHIFT	9
@@ -50,7 +44,7 @@ static inline uint64_t decode_mailbox_addr(const KvxItgenIrq *irq)
     uint64_t ret = MAILBOX_ADDR;
 
     ret |= FIELD_EX64(irq->cfg, CFG, MAILBOX) << MB_ADDR_MAILBOX_SHIFT;
-    ret |= FIELD_EX64(irq->cfg, CFG, CLUSTER) << MB_ADDR_CLUSTER_SHIFT;
+    ret |= (FIELD_EX64(irq->cfg, CFG, CLUSTER) + 1) << MB_ADDR_CLUSTER_SHIFT;
 
     return ret;
 }
