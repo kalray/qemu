@@ -19,6 +19,7 @@
 #include "qemu/osdep.h"
 #include "qemu/units.h"
 #include "qemu/log.h"
+#include "exec/address-spaces.h"
 #include "hw/registerfields.h"
 #include "hw/kvx/itgen.h"
 #include "cpu.h"
@@ -66,7 +67,8 @@ static void kvx_itgen_irq_update(void *opaque, int irq_idx, int level)
         uint64_t val = 1ull << FIELD_EX64(irq->cfg, CFG, BIT_SELECT);
 
         trace_kvx_itgen_send_msi(addr, val);
-        cpu_physical_memory_write(addr, &val, sizeof(val));
+        address_space_write(&address_space_memory, addr,
+                            MEMTXATTRS_UNSPECIFIED, &val, sizeof(val));
     }
 }
 
