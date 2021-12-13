@@ -730,6 +730,7 @@ enum RegisterField {
     REGFIELD_kv3_SID_PL3_SID,
     REGFIELD_kv3_PMC_SAF,
     REGFIELD_v2_PCR_CAR,
+    REGFIELD_kv3_PCR_TPCE,
     REGFIELD_kv3_TPCM_0,
     REGFIELD_kv3_TPCM_1,
     REGFIELD_kv3_TPCM_2,
@@ -9126,6 +9127,19 @@ static const RegisterFieldDescr REGISTERFIELDS[] = {
         .offset = 24,
         .width = 4,
         .mask = 0x000000000f000000,
+        .n_owners = 1,
+        .owners = (const RegisterField []) {
+            REGFIELD_kv3_MO_PCR,
+        },
+        .rerror = REG_READ_ERROR_READ,
+        .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
+    },
+    [REGFIELD_kv3_PCR_TPCE] = {
+        .name = "PCR_TPCE",
+        .reg = REG_kv3_PCR,
+        .offset = 55,
+        .width = 1,
+        .mask = 0x0080000000000000,
         .n_owners = 1,
         .owners = (const RegisterField []) {
             REGFIELD_kv3_MO_PCR,
@@ -22191,8 +22205,9 @@ static const RegisterDescr REGISTERS[] = {
             | 0x0010000000000000
             | 0x0020000000000000
             | 0x0040000000000000
+            | 0x0080000000000000
         ),
-        .n_fields = 11,
+        .n_fields = 12,
         .fields = (const RegisterField []) {
             REGFIELD_kv3_PCR_PID,
             REGFIELD_kv3_PCR_CID,
@@ -22205,6 +22220,7 @@ static const RegisterDescr REGISTERS[] = {
             REGFIELD_kv3_PCR_COE,
             REGFIELD_kv3_PCR_L1CE,
             REGFIELD_kv3_PCR_DSEM,
+            REGFIELD_kv3_PCR_TPCE,
         },
         .rerror = REG_READ_ERROR_READ,
         .werror = REG_WRITE_ERROR_TRAP_PRIVILEGE,
