@@ -10742,8 +10742,8 @@ bool decode_v1_simple(DisasContext *ctx, const uint32_t *buffer)
           case 0x00000000:
             decode_kv3_xrounding_kv3_silent2_kv3_registerA_kv3_registerBp(ctx, codeWords, &u.kv3_xrounding_kv3_silent2_kv3_registerA_kv3_registerBp);
             ctx->cur_opcode->format = kv3_TCA_FNWHV;
-            ctx->cur_opcode->insn = kv3_FNARROWWHV;
-            return trans_v1_FNARROWWHV_xrounding_silent2_registerA_registerBp_simple(ctx, &u.kv3_xrounding_kv3_silent2_kv3_registerA_kv3_registerBp);
+            ctx->cur_opcode->insn = kv3_FNARROW44WH;
+            return trans_v1_FNARROW44WH_xrounding_silent2_registerA_registerBp_simple(ctx, &u.kv3_xrounding_kv3_silent2_kv3_registerA_kv3_registerBp);
           default:
             break;
           }
@@ -20553,8 +20553,8 @@ bool decode_v2_simple(DisasContext *ctx, const uint32_t *buffer)
           case 0x00000000:
             decode_kv3_xrounding_kv3_silent2_kv3_registerA_kv3_registerBp(ctx, codeWords, &u.kv3_xrounding_kv3_silent2_kv3_registerA_kv3_registerBp);
             ctx->cur_opcode->format = kv3_TCA_FNWHV;
-            ctx->cur_opcode->insn = kv3_FNARROWWHV;
-            return trans_v2_FNARROWWHV_xrounding_silent2_registerA_registerBp_simple(ctx, &u.kv3_xrounding_kv3_silent2_kv3_registerA_kv3_registerBp);
+            ctx->cur_opcode->insn = kv3_FNARROW44WH;
+            return trans_v2_FNARROW44WH_xrounding_silent2_registerA_registerBp_simple(ctx, &u.kv3_xrounding_kv3_silent2_kv3_registerA_kv3_registerBp);
           case 0x00000001:
             switch ((codeWord_0 >> 11) & 0x00000001) {
             case 0x00000000:
